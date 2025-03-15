@@ -10,6 +10,7 @@ params:
 
 ```{r param-check, echo=FALSE}
 list_of_plates <- params$list_of_plates
+additional_notes <- params$additional_notes
 
 if (is.null(list_of_plates)) {
   stop("The `list_of_plates` must be provided when rendering the document.")
@@ -44,7 +45,10 @@ if (!all(grepl("(^1\\s*)\\/(\\s*\\d+$)", params$dilutions))) {
 for (dilution in params$dilutions) {
   if (!all(sapply(list_of_plates, function(plate) dilution %in% plate$get_dilution("STANDARD CURVE")))) {
     plate_where_dilution_is_missing <- which(sapply(list_of_plates, function(plate) !(dilution %in% plate$get_dilution("STANDARD CURVE"))))
-    stop("The dilution", dilution, "is not present in plates ", paste(plate_where_dilution_is_missing, collapse = ", "))
+    stop("The dilution",
+         dilution,
+         "is not present in plates ",
+         paste(plate_where_dilution_is_missing, collapse = ", "))
   }
 }
 all_analyte_names <- c()
@@ -57,13 +61,16 @@ for (plate in list_of_plates) {
 }
 
 if (length(intersection_analytes) == length(all_analyte_names)) {
-  warning("Not all plates contain the same analytes. The report will contain only the analytes that are present in all plates. Number of all analytes: ", length(all_analyte_names), ". Number of common analytes: ", length(intersection_analytes))
+  warning("Not all plates contain the same analytes. The report will contain only the analytes that are present in all plates. Number of all analytes: ",
+          length(all_analyte_names),
+          ". Number of common analytes: ",
+          length(intersection_analytes))
 }
 
 analyte_names <- intersection_analytes
 
 
-if (!is.null(params$additional_notes) && !is(params$additional_notes, "character")) {
+if (!is.null(additional_notes) && !is(additional_notes, "character")) {
   stop("The `additional_notes` must be a character value.")
 }
 
@@ -94,11 +101,11 @@ Standard curve sample dilutions: `r format_dilutions(list_of_plates[[1]]$dilutio
 
 ------------------
 
-`r if(!is.null(params$additional_notes)) "### Additional notes \n" `  
+`r if(!is.null(additional_notes)) "### Additional notes \n" `  
 
-`r if(!is.null(params$additional_notes)) params$additional_notes `  
+`r if(!is.null(additional_notes)) additional_notes `  
 
-`r if(!is.null(params$additional_notes)) "\n -------------------" ` 
+`r if(!is.null(additional_notes)) "\n -------------------" ` 
 
 ### Plates used in this report
 

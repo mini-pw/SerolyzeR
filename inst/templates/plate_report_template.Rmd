@@ -11,6 +11,7 @@ params:
 
 ```{r param-check, echo=FALSE}
 plate <- params$plate
+additional_notes <- params$additional_notes
 
 if (is.null(plate)) {
   stop("The `plate` must be provided when rendering the document.")
@@ -36,7 +37,7 @@ if (!is(params$counts_lower_threshold, "numeric")) {
 if (!is(params$counts_higher_threshold, "numeric")) {
   stop("The `counts_higher_threshold` must be a numeric value.")
 }
-if (!is.null(params$additional_notes) && !is(params$additional_notes, "character")) {
+if (!is.null(additional_notes) && !is(additional_notes, "character")) {
   stop("The `additional_notes` must be a character value.")
 }
 ```
@@ -49,11 +50,11 @@ Standard curve sample dilutions: `r format_dilutions(plate$dilutions, plate$dilu
 
 ------------------
 
-`r if(!is.null(params$additional_notes)) "### Additional notes \n" `  
+`r if(!is.null(additional_notes)) "### Additional notes \n" `  
 
-`r if(!is.null(params$additional_notes)) params$additional_notes `  
+`r if(!is.null(additional_notes)) additional_notes `  
 
-`r if(!is.null(params$additional_notes)) "\n -------------------" ` 
+`r if(!is.null(additional_notes)) "\n -------------------" ` 
 
 
 ### Plate layout
