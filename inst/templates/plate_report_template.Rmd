@@ -10,7 +10,10 @@ params:
 ---
 
 ```{r param-check, echo=FALSE}
-if (is.null(params$plate)) {
+plate <- params$plate
+additional_notes <- params$additional_notes
+
+if (is.null(plate)) {
   stop("The `plate` must be provided when rendering the document.")
 }
 if (is.null(params$use_model)) {
@@ -22,7 +25,7 @@ if (is.null(params$counts_lower_threshold)) {
 if (is.null(params$counts_higher_threshold)) {
   stop("The `counts_higher_threshold` must be provided when rendering the document.")
 }
-if (!is(params$plate, "Plate")) {
+if (!is(plate, "Plate")) {
   stop("The `plate` must be an instance of `Plate` class.")
 }
 if (!is(params$use_model, "logical")) {
@@ -34,24 +37,24 @@ if (!is(params$counts_lower_threshold, "numeric")) {
 if (!is(params$counts_higher_threshold, "numeric")) {
   stop("The `counts_higher_threshold` must be a numeric value.")
 }
-if (!is.null(params$additional_notes) && !is(params$additional_notes, "character")) {
+if (!is.null(additional_notes) && !is(additional_notes, "character")) {
   stop("The `additional_notes` must be a character value.")
 }
 ```
 
 Report generated on:  `r format(Sys.time(), "%d-%m-%Y %H:%M:%S")`.  
-Plate was run on: `r if(!is.null(params$plate$plate_datetime)) format(params$plate$plate_datetime, "%d-%m-%Y %H:%M:%S") else "Date of running plate was not found in Luminex file"`.  
-Plate batch name: `r if(!is.null(params$plate$batch_name)) params$plate$batch_name else "Batch name was not found in Luminex file"`.  
-This is plate with `r paste0(length(params$plate$sample_names), " samples and ", length(params$plate$analyte_names), " analytes")`.  
-Standard curve sample dilutions: `r format_dilutions(params$plate$dilutions, params$plate$dilution_values, params$plate$sample_types)`.
+Plate was run on: `r if(!is.null(plate$plate_datetime)) format(plate$plate_datetime, "%d-%m-%Y %H:%M:%S") else "Date of running plate was not found in Luminex file"`.  
+Plate batch name: `r if(!is.null(plate$batch_name)) plate$batch_name else "Batch name was not found in Luminex file"`.  
+This is plate with `r paste0(length(plate$sample_names), " samples and ", length(plate$analyte_names), " analytes")`.  
+Standard curve sample dilutions: `r format_dilutions(plate$dilutions, plate$dilution_values, plate$sample_types)`.
 
 ------------------
 
-`r if(!is.null(params$additional_notes)) "### Additional notes \n" `  
+`r if(!is.null(additional_notes)) "### Additional notes \n" `  
 
-`r if(!is.null(params$additional_notes)) params$additional_notes `  
+`r if(!is.null(additional_notes)) additional_notes `  
 
-`r if(!is.null(params$additional_notes)) "\n -------------------" ` 
+`r if(!is.null(additional_notes)) "\n -------------------" ` 
 
 
 ### Plate layout
@@ -59,7 +62,7 @@ Standard curve sample dilutions: `r format_dilutions(params$plate$dilutions, par
 <details open>
   <summary>Click to show/hide layout</summary>
 ```{r plate-layout, fig.width=7, fig.height=4, fig.align='center', dev='jpeg', echo=FALSE, dpi=72}
-plot_layout(params$plate)
+plot_layout(plate)
 ```
 </details>
 
@@ -171,19 +174,22 @@ cat('<div class="plot-grid">')
 
 models_list <- list()
 # Generate the clickable plots within the grid
-for (i in seq_along(params$plate$analyte_names)) {
+for (i in seq_along(plate$analyte_names)) {
   # HTML structure for each plot with a clickable link
   cat(paste0('<div class="plot-container">',
-             '<a href="#', tolower(params$plate$analyte_names[i]), '" role="tab" data-toggle="tab" aria-controls="', tolower(params$plate$analyte_names[i]), '" aria-expanded="false">'))
+             '<a href="#',
+             tolower(plate$analyte_names[i]),
+             '" role="tab" data-toggle="tab" aria-controls="',
+             tolower(plate$analyte_names[i]),
+             '" aria-expanded="false">'))
   # Generate the plot
-  model <- create_standard_curve_model_analyte(params$plate, params$plate$analyte_names[i])
-  models_list[[params$plate$analyte_names[i]]] <- model
-  print(plot_standard_curve_thumbnail(params$plate, params$plate$analyte_names[i])) 
-#  print(plot_standard_curve_analyte_with_model(params$plate, model, plot_legend = FALSE, #plot_asymptote = FALSE, plot_rau_bounds = FALSE))
-  cat('</a></div>')
+  model <- create_standard_curve_model_analyte(plate, plate$analyte_names[i])
+  models_list[[plate$analyte_names[i]]] <- model
+  print(plot_standard_curve_thumbnail(plate, plate$analyte_names[i]))
+  cat("</a></div>")
 }
 # Close the grid
-cat('</div>')
+cat("</div>")
 ```
 </details>
 
@@ -193,12 +199,12 @@ cat('</div>')
 
 ```{r quality-control, results='asis', echo=FALSE, message=FALSE, out.width="50%", out.height="325", dev='svglite', dpi=72, warning=FALSE}
 # Code used to create dynamic tabs based on the number of analytes
-for (i in seq_along(params$plate$analyte_names)) {
-  cat(paste0("#### ", params$plate$analyte_names[i], "\n"))
+for (i in seq_along(plate$analyte_names)) {
+  cat(paste0("#### ", plate$analyte_names[i], "\n"))
 
   # Warning for high dose hook
-  mfi <- params$plate$get_data(params$plate$analyte_names[i], "STANDARD CURVE")
-  dilutions_numeric <- params$plate$get_dilution_values("STANDARD CURVE")
+  mfi <- plate$get_data(plate$analyte_names[i], "STANDARD CURVE")
+  dilutions_numeric <- plate$get_dilution_values("STANDARD CURVE")
   warning <- tryCatch(handle_high_dose_hook(mfi, dilutions_numeric),
                       error = function(e) e,
                       warning = function(w) w)
@@ -211,7 +217,7 @@ for (i in seq_along(params$plate$analyte_names)) {
 
   # Warning for bad coverage of the standard curve
   max_mfi_for_standard_curve <- max(mfi)
-  test_samples <- params$plate$get_data(params$plate$analyte_names[i], "TEST")
+  test_samples <- plate$get_data(plate$analyte_names[i], "TEST")
   number_of_test_samples <- length(test_samples)
   number_of_high_test_sample <- sum(test_samples > max_mfi_for_standard_curve)
   fraction <- round(number_of_high_test_sample / number_of_test_samples * 100)
@@ -229,16 +235,21 @@ for (i in seq_along(params$plate$analyte_names)) {
   }
 
   # Plot counts
-  print(plot_counts(params$plate, params$plate$analyte_names[i], lower_threshold = params$counts_lower_threshold, higher_threshold = params$counts_higher_threshold))
+  print(plot_counts(plate,
+                    plate$analyte_names[i],
+                    lower_threshold = params$counts_lower_threshold,
+                    higher_threshold = params$counts_higher_threshold))
 
   # Plot MFI
-  print(plot_mfi_for_analyte(params$plate, params$plate$analyte_names[i], plot_type = "violin"))
+  print(plot_mfi_for_analyte(plate,
+                             plate$analyte_names[i], 
+                             plot_type = "violin"))
 
   # Plot Standard Curve
-  print(plot_standard_curve_analyte(params$plate, params$plate$analyte_names[i]))
+  print(plot_standard_curve_analyte(plate, plate$analyte_names[i]))
   if (params$use_model) {
-    model <- models_list[[params$plate$analyte_names[i]]]
-    print(plot_standard_curve_analyte_with_model(params$plate, model))
+    model <- models_list[[plate$analyte_names[i]]]
+    print(plot_standard_curve_analyte_with_model(plate, model))
   }
 
   cat("\n\n")
