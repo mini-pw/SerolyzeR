@@ -232,29 +232,34 @@ read_luminex_data <- function(plate_filepath,
   }
 
   verbose_cat("Reading Luminex data from: ", plate_filepath, "\nusing format ", format, "\n", verbose = verbose)
-  tryCatch({
-    parser_output <- switch(format,
-      "xPONENT" = {
-        output <- read_xponent_format(
-          plate_filepath,
-          verbose = verbose,
-          separator = plate_file_separator,
-          encoding = plate_file_encoding
-        )
-        postprocess_xponent(output, verbose = verbose)
-      },
-      "INTELLIFLEX" = {
-        output <- read_intelliflex_format(plate_filepath, verbose = verbose)
-        postprocess_intelliflex(output, verbose = verbose)
-      }
-    )
-  }, error = function(e) {
-    error_messsage <- paste("Error reading Luminex plate file from: ", plate_filepath, " using the ", format, " format.\n")
+  tryCatch(
+    {
+      parser_output <- switch(format,
+        "xPONENT" = {
+          output <- read_xponent_format(
+            plate_filepath,
+            verbose = verbose,
+            separator = plate_file_separator,
+            encoding = plate_file_encoding
+          )
+          postprocess_xponent(output, verbose = verbose)
+        },
+        "INTELLIFLEX" = {
+          output <- read_intelliflex_format(plate_filepath, verbose = verbose)
+          postprocess_intelliflex(output, verbose = verbose)
+        }
+      )
+    },
+    error = function(e) {
+      error_messsage <- paste("Error reading Luminex plate file from: ", plate_filepath, " using the ", format, " format.\n")
 
-    stop("Error reading Luminex plate file from: ", plate_filepath, " using the ", format, " format.\n",
-         ifelse(format == "xPONENT", paste0("Check if the separator and encoding are correct. Currently using separator: '", plate_file_separator, "' and the '", plate_file_encoding, "' encoding.\n"), ""),
-         "\n", e$message)
-  })
+      stop(
+        "Error reading Luminex plate file from: ", plate_filepath, " using the ", format, " format.\n",
+        ifelse(format == "xPONENT", paste0("Check if the separator and encoding are correct. Currently using separator: '", plate_file_separator, "' and the '", plate_file_encoding, "' encoding.\n"), ""),
+        "\n", e$message
+      )
+    }
+  )
 
 
   plate_builder <- PlateBuilder$new(

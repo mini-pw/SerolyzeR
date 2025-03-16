@@ -246,7 +246,7 @@ process_dir <- function(
     dry_run = FALSE,
     verbose = TRUE,
     ...) {
-  if (!fs::dir_exists(input_dir)){
+  if (!fs::dir_exists(input_dir)) {
     stop("Input directory does not exist.")
   }
   if (!is.null(output_dir) && !fs::dir_exists(output_dir)) {

@@ -142,5 +142,4 @@ test_that("Test validation checks", {
 
   # Test with a non-existing layout file
   expect_error(process_dir(dir, format = "xPONENT", layout_file = "non_existing_layout.xlsx"))
-
 })

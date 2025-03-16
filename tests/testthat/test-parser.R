@@ -26,4 +26,3 @@ test_that("Test parser validation", {
 
   expect_error(read_luminex_data("non-existent-data.csv", "INTELLIFLEX"))
 })
-
