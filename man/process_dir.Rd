@@ -13,6 +13,7 @@ process_dir(
   format = NULL,
   normalisation_types = c("MFI", "RAU", "nMFI"),
   generate_reports = FALSE,
+  generate_multiplate_reports = FALSE,
   merge_outputs = FALSE,
   column_collision_strategy = "intersection",
   return_plates = FALSE,
@@ -47,7 +48,12 @@ process_dir(
 
 \item{generate_reports}{(\code{logical(1)}, default = \code{FALSE})
 \itemize{
-\item If \code{TRUE}, generates quality control reports for each processed plate file.
+\item If \code{TRUE}, generates single plate quality control reports for each processed plate file.
+}}
+
+\item{generate_multiplate_reports}{(\code{logical(1)}, default = \code{FALSE})
+\itemize{
+\item If \code{TRUE}, generates a multiplate quality control report for all processed plates.
 }}
 
 \item{merge_outputs}{(\code{logical(1)}, default = \code{FALSE})
@@ -125,14 +131,15 @@ Optionally, quality control reports can be generated, and results from multiple 
 \item \verb{\{plate_name\}_RAU.csv} for RAU normalisation.
 \item \verb{\{plate_name\}_nMFI.csv} for nMFI normalisation.
 \item \verb{\{plate_name\}_MFI.csv} for MFI normalisation.
-\item If \code{generate_reports = TRUE}, a quality control report is saved as \verb{\{plate_name\}_report.pdf}.
 }
+\item If \code{generate_reports = TRUE}, a quality control report for every plate is saved as \verb{\{plate_name\}_report.pdf}.
 \item If \code{merge_outputs = TRUE}, merged normalised files are named as:
 \itemize{
 \item \verb{merged_RAU_\{timestamp\}.csv}
 \item \verb{merged_nMFI_\{timestamp\}.csv}
 \item \verb{merged_MFI_\{timestamp\}.csv}
 }
+\item If \code{generate_multiplate_reports = TRUE}, a multiplate quality control report is saved as \verb{multiplate_report_\{timestamp\}.pdf}.
 }
 }
 }
