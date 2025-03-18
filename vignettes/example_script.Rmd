@@ -84,8 +84,6 @@ To automate the processing the plates, we can also use [`process_file`] and [`pr
 
 
 ```{r}
-
-
 process_file(plate_filepath, layout_filepath, output_dir = example_dir, generate_report = FALSE)
 ```
 
