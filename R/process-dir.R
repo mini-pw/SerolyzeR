@@ -188,11 +188,12 @@ get_output_dir <- function(
 #'     - `{plate_name}_RAU.csv` for RAU normalisation.
 #'     - `{plate_name}_nMFI.csv` for nMFI normalisation.
 #'     - `{plate_name}_MFI.csv` for MFI normalisation.
-#'     - If `generate_reports = TRUE`, a quality control report is saved as `{plate_name}_report.pdf`.
+#'   - If `generate_reports = TRUE`, a quality control report for every plate is saved as `{plate_name}_report.pdf`.
 #'   - If `merge_outputs = TRUE`, merged normalised files are named as:
 #'     - `merged_RAU_{timestamp}.csv`
 #'     - `merged_nMFI_{timestamp}.csv`
 #'     - `merged_MFI_{timestamp}.csv`
+#'   - If `generate_multiplate_reports = TRUE`, a multiplate quality control report is saved as `multiplate_report_{timestamp}.pdf`.
 #'
 #' @param input_dir (`character(1)`) Path to the directory containing plate files. Can contain subdirectories if `recurse = TRUE`.
 #' @param output_dir (`character(1)`, optional) Path to the directory where output files will be saved. Defaults to `NULL` (same as input directory).
@@ -205,7 +206,9 @@ get_output_dir <- function(
 #' @param normalisation_types (`character()`, default = `c("MFI", "RAU", "nMFI")`)
 #'   - The normalisation types to apply. Supported values: `"MFI"`, `"RAU"`, `"nMFI"`.
 #' @param generate_reports (`logical(1)`, default = `FALSE`)
-#'   - If `TRUE`, generates quality control reports for each processed plate file.
+#'   - If `TRUE`, generates single plate quality control reports for each processed plate file.
+#' @param generate_multiplate_reports (`logical(1)`, default = `FALSE`)
+#'  - If `TRUE`, generates a multiplate quality control report for all processed plates.
 #' @param merge_outputs (`logical(1)`, default = `FALSE`)
 #'   - If `TRUE`, merges all normalised data into a single CSV file per normalisation type.
 #'   - The merged file is named `merged_{normalisation_type}_{timestamp}.csv`.
@@ -240,6 +243,7 @@ process_dir <- function(
     format = NULL,
     normalisation_types = c("MFI", "RAU", "nMFI"),
     generate_reports = FALSE,
+    generate_multiplate_reports = FALSE,
     merge_outputs = FALSE,
     column_collision_strategy = "intersection",
     return_plates = FALSE,
@@ -378,6 +382,14 @@ process_dir <- function(
       verbose_cat("Merged output saved to: ", output_path, "\n", verbose = verbose)
     }
   }
+
+  if (generate_multiplate_reports) {
+    file_name <- paste0("multiplate_report_", file_ending, ".html")
+    report_title <- paste0("Multiplate Report of directory ", basename(input_dir))
+    generate_levey_jennings_report(plates, report_title = report_title, output_dir = output_dir, filename = file_name, ...)
+    verbose_cat("Multiplate report saved to: ", file.path(output_dir, file_name), "\n", verbose = verbose)
+  }
+
 
   if (return_plates) {
     return(plates)

@@ -88,6 +88,12 @@ test_that("Test processing a mock directory", {
   expect_no_error(capture.output(
     process_dir(dir, dry_run = TRUE, recurse = TRUE, flatten_output_dir = FALSE, output_dir = tempdir(check = TRUE))
   ))
+
+  expect_no_error(capture.output(
+    process_dir(dir, dry_run = TRUE, recurse = TRUE, flatten_output_dir = FALSE, output_dir = tempdir(check = TRUE),
+                generate_reports = TRUE, generate_multiplate_reports = TRUE)
+  ))
+
   # Test with relative path
   rel_path <- fs::path_rel(dir, getwd())
   expect_no_error(capture.output(
@@ -115,6 +121,12 @@ test_that("Test processing a directory with a single plate", {
 
   expect_no_error(capture.output(
     process_dir(dir, output_dir = output_dir, dry_run = TRUE, format = "xPONENT", layout_filepath = layout_filepath)
+  ))
+
+
+  expect_no_error(capture.output(
+    process_dir(dir, output_dir = output_dir, format = "xPONENT",
+                generate_reports = TRUE, generate_multiplate_reports = TRUE)
   ))
 })
 
