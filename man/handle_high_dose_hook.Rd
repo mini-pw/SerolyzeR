@@ -32,6 +32,10 @@ is at least 4. If the high dose hook effect is detected but the number
 of samples below the \code{high_dose_threshold} is lower than 4,
 additional warning is printed and the samples are not removed.
 
+Warning: High dose hook effect affects which dilution and MFI values
+are used to fit the logistic model and by extension affects
+the maximum value to which the predicted RAU MFI values are extrapolated / truncated.
+
 The function returns a logical vector that can be used to subset the MFI values.
 }
 \examples{

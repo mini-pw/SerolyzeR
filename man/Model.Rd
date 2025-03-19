@@ -170,7 +170,13 @@ If the value of the predicted RAU is above \eqn{RAU_{max} + \text{over\_max\_ext
 the value is censored to the value of that sum.}
 
 \item{\code{eps}}{(\code{numeric(1)})\cr
-A small value used to avoid numerical issues close to the asymptotes}
+A small value used to avoid numerical issues close to the asymptotes
+
+Warning: High dose hook effect affects which dilution and MFI values
+are used to fit the logistic model and by extension affects the over_max_extrapolation value.
+When a high dose hook effect is detected we remove the samples with dilutions above the high dose threshold
+(which by default is 1/200). Making the highest RAU value lower than the one calculated without
+handling of the high dose hook effect.}
 }
 \if{html}{\out{</div>}}
 }
