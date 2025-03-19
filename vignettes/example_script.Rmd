@@ -212,6 +212,10 @@ The RAU value is then the predicted dilution of the sample multiplied by $1,000,
 To limit the extrapolation error from above (values above maximum RAU value \eqn{\text{RAU}_{max}} for the standard curve samples), we clip all predictions above \eqn{M = RAU_{max} + \text{over\_max\_extrapolation}} to $M$ where `over_max_extrapolation` is user controlled parameter to the `predict` function.
 By default `over_max_extrapolation` is set to $0$.
 
+> Warning: High dose hook effect affects the prediction truncation (clipping).
+
+When a high dose hook effect is detected we exclude from standard curve calculations the samples that have dilutions higher or equal to 1/200. This will cause a truncation of values to the next greatest dilution multiplied by $1,000,000$.
+
 #### Usage
 
 By default, the `nplr` model transforms the x values using the log10 function. To create a model for a specific analyte, we use the `create_standard_curve_model_analyte` function, which fits and returns the model for the analyte.
@@ -232,6 +236,15 @@ The predicted values may be used to plot the standard curve, which can be compar
 plot_standard_curve_analyte_with_model(plate, model, log_scale = c("all"))
 plot_standard_curve_analyte_with_model(plate, model, log_scale = c("all"), plot_asymptote = FALSE)
 ```
+
+
+As we can see below, when predicting RAU for analytes for which we observed the high dose hook effect, the truncation level changes to a RAU value corresponding to a first sample with dilution below 1/200 (1/400 in this case, RAU = 2500).
+
+```{r}
+model_hdh <- create_standard_curve_model_analyte(plate, analyte_name = "RBD_omicron")
+plot_standard_curve_analyte_with_model(plate, model_hdh, log_scale = c("all"))
+```
+
 
 Apart from the plotting, the package can predict the values of all the samples on the plate.
 

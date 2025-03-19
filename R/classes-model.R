@@ -223,8 +223,15 @@ Model <- R6::R6Class(
     #' seen in standard curve samples \eqn{\text{RAU}_{max}}. Defaults to 0.
     #' If the value of the predicted RAU is above \eqn{RAU_{max} + \text{over\_max\_extrapolation}},
     #' the value is censored to the value of that sum.
+    #'
     #' @param eps (`numeric(1)`)\cr
     #' A small value used to avoid numerical issues close to the asymptotes
+    #'
+    #' Warning: High dose hook effect affects which dilution and MFI values
+    #' are used to fit the logistic model and by extension affects the over_max_extrapolation value.
+    #' When a high dose hook effect is detected we remove the samples with dilutions above the high dose threshold
+    #' (which by default is 1/200). Making the highest RAU value lower than the one calculated without
+    #' handling of the high dose hook effect.
     #'
     #' @return (`data.frame()`)\cr
     #' Dataframe with the predicted RAU values for given MFI values
@@ -403,6 +410,7 @@ Model <- R6::R6Class(
 )
 
 #' Predict the RAU values from the MFI values
+#'
 #' @description
 #' More details can be found here: \link[SerolyzeR]{Model}
 #'
@@ -496,6 +504,10 @@ create_standard_curve_model_analyte <- function(plate,
 #' is at least 4. If the high dose hook effect is detected but the number
 #' of samples below the `high_dose_threshold` is lower than 4,
 #' additional warning is printed and the samples are not removed.
+#'
+#' Warning: High dose hook effect affects which dilution and MFI values
+#' are used to fit the logistic model and by extension affects
+#' the maximum value to which the predicted RAU MFI values are extrapolated / truncated.
 #'
 #' The function returns a logical vector that can be used to subset the MFI values.
 #'
