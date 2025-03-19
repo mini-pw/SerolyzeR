@@ -386,7 +386,7 @@ process_dir <- function(
   if (generate_multiplate_reports) {
     file_name <- paste0("multiplate_report_", file_ending, ".html")
     report_title <- paste0("Multiplate Report of directory ", basename(input_dir))
-    generate_levey_jennings_report(plates, report_tile = report_title, output_dir = output_dir, filename = file_name, ...)
+    generate_levey_jennings_report(plates, report_title = report_title, output_dir = output_dir, filename = file_name, ...)
     verbose_cat("Multiplate report saved to: ", file.path(output_dir, file_name), "\n", verbose = verbose)
   }
 
