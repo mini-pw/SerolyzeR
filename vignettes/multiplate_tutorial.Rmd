@@ -75,7 +75,7 @@ output_dir <- file.path(tempdir(), "multiplate-tutorial") # create a temporary d
 R.utils::mkdirs(output_dir)
 
 
-plates <- process_dir(base_dir, format = "xPONENT", output_types = c("RAU", "nMFI", "MFI"), output_dir = output_dir, merge_outputs = TRUE, return_plates = TRUE, generate_reports = FALSE, generate_multiplate_reports = FALSE)
+plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU", "nMFI", "MFI"), output_dir = output_dir, merge_outputs = TRUE, return_plates = TRUE, generate_reports = TRUE, generate_multiplate_reports = FALSE)
 ```
 Remember, if you want to read all your files properly, you need to follow the naming convention of the files. The layout file should have the same name as the plate file, with the added suffix `_layout`. The detailed description of the convention, along with the list of all the possible arguments can be found in the documentation of the function, which can be accessed with `?process_dir` command.
 
