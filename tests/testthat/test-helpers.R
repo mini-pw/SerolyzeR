@@ -235,3 +235,19 @@ test_that("Test merging dataframes via handles union", {
   expected3 <- data.frame(A = c(1:3, 3:5, 7:9), B = c(4:6, 7:9, rep(NA, 3)), C = c(rep(NA, 3), rep(NA, 3), 10:12))
   expect_equal(result3, expected3)
 })
+
+test_that("format_ylab returns correct labels", {
+  expect_equal(format_ylab("Median", "log10"), "Median Fluorescence Intensity")
+  expect_equal(format_ylab("Median", "linear"), "MFI (linear scale)")
+  expect_equal(format_ylab("Mean", "log10"), "MFI (Mean)")
+  expect_equal(format_ylab("Mean", "linear"), "MFI (Mean) (linear scale)")
+  expect_equal(format_ylab("Median", "identity"), "MFI (linear scale)")
+})
+
+test_that("format_xlab returns correct labels", {
+  expect_equal(format_xlab("Time", "T", "log10"), "Time")
+  expect_equal(format_xlab("Time", "T", "linear"), "T (linear scale)")
+  expect_equal(format_xlab("Concentration", "Conc", "log10"), "Concentration")
+  expect_equal(format_xlab("Concentration", "Conc", "linear"), "Conc (linear scale)")
+  expect_equal(format_xlab("Dose", "D", "identity"), "D (linear scale)")
+})

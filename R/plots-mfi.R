@@ -58,6 +58,7 @@ plot_mfi_for_analyte <- function(plate, analyte_name,
       outlier = ifelse(is_outlier(.data$MFI), .data$SampleId, as.character(NA))
     )
 
+  ylab <- format_ylab(data_type, scale_y)
   p <- test_df %>%
     ggplot2::ggplot(aes(x = .data$SampleType, y = .data$MFI)) +
     main_geom(color = "blue") +
@@ -77,7 +78,7 @@ plot_mfi_for_analyte <- function(plate, analyte_name,
       )
     ) +
     ggplot2::xlab("Sample Type") +
-    ggplot2::ylab(paste0("MFI (", data_type, ") ", scale_y, " scale")) +
+    ggplot2::ylab(ylab) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       plot.title = element_text(hjust = 0.5), # Center title

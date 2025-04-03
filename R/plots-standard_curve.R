@@ -73,7 +73,9 @@ plot_standard_curve_analyte <- function(plate,
   xlab <- ifelse(x_log_scale, "RAU (log scale)", "RAU")
   x_ticks <- c(plot_data$RAU, max(plot_data$RAU) + 1)
   x_labels <- c(sprintf("%0.2f", plot_data$RAU), "")
-  ylab <- ifelse(y_log_scale, paste("MFI ", data_type, "(log scale)"), paste("MFI ", data_type))
+
+  xlab <- format_xlab("Relative Antibody Unit", "RAU", x_trans)
+  ylab <- format_ylab(data_type, y_trans)
 
   # Automatically position the legend
   legend_position <- c(0.8, 0.2)
@@ -403,14 +405,15 @@ plot_standard_curve_stacked <- function(list_of_plates,
   x_cords_trans <- ifelse(decreasing_dilution_order, "reverse", "identity")
   y_trans <- ifelse(y_log_scale, "log10", "identity")
 
-  xlab <- ifelse(x_log_scale, "Dilutions (log scale)", "Dilutions")
   x_ticks <- list_of_plates[[1]]$get_dilution_values("STANDARD CURVE")
   x_labels <- list_of_plates[[1]]$get_dilution("STANDARD CURVE")
 
   # Add the BLANK to the plot
   x_ticks <- c(x_ticks, min(x_ticks) / 2)
   x_labels <- c(x_labels, "B")
-  ylab <- ifelse(y_log_scale, paste("MFI ", data_type, "(log scale)"), paste("MFI ", data_type))
+
+  xlab <- format_xlab("Dilutions", "Dilutions", x_trans)
+  ylab <- format_ylab(data_type, y_trans)
 
   if (is.null(legend_type)) {
     legend_type <- ifelse(monochromatic, "date", "plate_name")
