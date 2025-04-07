@@ -419,3 +419,64 @@ merge_dataframes <- function(dataframes, column_collision_strategy = "intersecti
   output_df <- do.call(rbind, dataframes)
   return(output_df)
 }
+
+#' @title
+#' Format Y-axis label
+#'
+#' @description
+#' Returns a generic y-axis label for the plot based on the data type and scale.
+#'
+#' @param data_type A string indicating the type of data (e.g., "Median", "Mean").
+#' @param scale_y A string indicating the scale of the y-axis (e.g., "log10", "linear").
+#'
+#' @return A formatted y-axis label.
+#'
+#' @keywords internal
+#'
+format_ylab <- function(data_type, scale_y) {
+  if (scale_y == "identity") {
+    scale_y <- "linear"
+  }
+
+  if (data_type == "Median") {
+    if (scale_y == "log10") {
+      ylab <- "Median Fluorescence Intensity"
+    } else {
+      ylab <- paste0("MFI", " (", scale_y, " scale)")
+    }
+  } else {
+    if (scale_y == "log10") {
+      ylab <- paste0("MFI (", data_type, ")")
+    } else {
+      ylab <- paste0("MFI (", data_type, ") (", scale_y, " scale)")
+    }
+  }
+  return(ylab)
+}
+
+#' @title
+#' Format X-axis label
+#'
+#' @description
+#' Returns a generic x-axis label for the plot based on the prefix and scale.
+#'
+#' @param prefix A string indicating the prefix for the x-axis label.
+#' @param prefix_short A shorter version of the prefix for the x-axis label.
+#' @param scale_y A string indicating the scale of the x-axis (e.g., "log10", "linear").
+#'
+#' @return A formatted x-axis label.
+#'
+#' @keywords internal
+#'
+format_xlab <- function(prefix, prefix_short, scale_y) {
+  if (scale_y == "identity") {
+    scale_y <- "linear"
+  }
+
+  if (scale_y == "log10") {
+    xlab <- paste0(prefix)
+  } else {
+    xlab <- paste0(prefix_short, " (", scale_y, " scale)")
+  }
+  return(xlab)
+}
