@@ -93,6 +93,8 @@ plot_levey_jennings <- function(list_of_plates,
   sd <- sd(mfi_values)
 
   plot_data <- data.frame(date = date_of_experiment, mfi = mfi_values, counter = counter)
+
+  ylab <- format_ylab(data_type, "linear")
   p <- ggplot2::ggplot(data = plot_data, aes(x = counter, y = .data$mfi)) +
     ggplot2::geom_point(size = 3, colour = "blue") +
     ggplot2::geom_line(size = 1.3, colour = "blue") +
@@ -100,7 +102,7 @@ plot_levey_jennings <- function(list_of_plates,
     ggplot2::labs(
       title = paste("Levey-Jennings chart for", analyte_name, "at", dilution, "dilution"),
       x = "Control measurement number",
-      y = "MFI"
+      y = ylab
     ) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
