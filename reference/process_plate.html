@@ -122,7 +122,7 @@ nMFI: get_nmfi.
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Process a Plate and Save Normalised Output to CSV</h1>
-      <small class="dont-index">Source: <a href="https://github.com/mini-pw/SerolyzeR/blob/main/R/process-plate.R" class="external-link"><code>R/process-plate.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mini-pw/SerolyzeR/blob/v1.1.0/R/process-plate.R" class="external-link"><code>R/process-plate.R</code></a></small>
       <div class="d-none name"><code>process_plate.Rd</code></div>
     </div>
 
@@ -237,9 +237,9 @@ The function supports three types of normalisation:</p><ul><li><p><strong>RAU</s
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Process plate with default settings (RAU normalisation)</span></span></span>
 <span class="r-in"><span><span class="fu">process_plate</span><span class="op">(</span><span class="va">plate</span>, output_dir <span class="op">=</span> <span class="va">example_dir</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/Rtmpl5e8H2/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/Rtmpn5LAtP/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/Rtmpl5e8H2/CovidOISExPONTENT_CO_reduced_RAU.csv'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/Rtmpn5LAtP/CovidOISExPONTENT_CO_reduced_RAU.csv'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Spike_6P_IPP      ME_NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> K086-LM   3292.26101  2128.6098</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> M254-VM     85.38753  5496.4318</span>
@@ -285,7 +285,7 @@ The function supports three types of normalisation:</p><ul><li><p><strong>RAU</s
 <span class="r-in"><span>  output_dir <span class="op">=</span> <span class="va">example_dir</span>, blank_adjustment <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/Rtmpl5e8H2/plate_no_blank_adjustment.csv'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/Rtmpn5LAtP/plate_no_blank_adjustment.csv'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Spike_6P_IPP      ME_NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> K086-LM   3292.26101  2128.6098</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> M254-VM     85.38753  5496.4318</span>
@@ -330,9 +330,9 @@ The function supports three types of normalisation:</p><ul><li><p><strong>RAU</s
 <span class="r-in"><span>  output_dir <span class="op">=</span> <span class="va">example_dir</span>, normalisation_type <span class="op">=</span> <span class="st">"nMFI"</span>,</span></span>
 <span class="r-in"><span>  reference_dilution <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">400</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/Rtmpl5e8H2/CovidOISExPONTENT_CO_reduced_nMFI.csv already exists. Overwriting it.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/Rtmpn5LAtP/CovidOISExPONTENT_CO_reduced_nMFI.csv already exists. Overwriting it.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed nMFI values to a CSV file located in: '/tmp/Rtmpl5e8H2/CovidOISExPONTENT_CO_reduced_nMFI.csv'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed nMFI values to a CSV file located in: '/tmp/Rtmpn5LAtP/CovidOISExPONTENT_CO_reduced_nMFI.csv'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Spike_6P_IPP     ME_NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> K086-LM   1.32720798 0.9407979</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> M254-VM   0.05968661 2.0952381</span>
