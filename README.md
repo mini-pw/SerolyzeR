@@ -21,7 +21,8 @@ The graphical overview of the package can be seen in the image below:
 
 <img src="https://github.com/mini-pw/SerolyzeR/blob/main/inst/img/overview.png?raw=true" alt="overview" />
 
-`SerolyzeR` package is developed within the project [PvSTATEM](https://www.pvstatem.eu/), an international project aiming at malaria elimination and is financially supported by the HORIZON grant HORIZON-WIDERA-2022-ACCESS-07-01.
+`SerolyzeR` package is developed within the [PvSTATEM](https://www.pvstatem.eu/) initiative. The project has received funding from the European Union’s Horizon Europe research and innovation program under grant agreement No 101057665.
+
 
 
 Previously, this package was named `PvSTATEM`, but it has been rebranded to `SerolyzeR` to better reflect its purpose and scope.
@@ -56,3 +57,27 @@ For more detailed documentation, check [the package website](https://mini-pw.git
 ## Contributing and issues
 
 As a project in the development phase, we are open to any suggestions, bug reports, and contributions. If you have any ideas or issues, please report them in the [Issues](https://github.com/mini-pw/SerolyzeR/issues) section. Our team of developers will address them as soon as possible.
+
+
+## Acknowledgements
+
+
+Funded by the European Union. Views and opinions expressed are, however, those of the author(s) only and do not necessarily reflect those of the European Union or HaDEA. Neither the European Union nor the granting authority can be held responsible for them. 
+
+
+The package was developed as a Bachelor's thesis by Jakub Grzywaczewski, Tymoteusz Kwieciński and Mateusz Nizwantowski on Warsaw University of Technology, Faculty of Mathematics and Information Science, supervised by prof. dr hab. inż. Przemysław Biecek.
+
+
+<div style="width: 100%; margin-top: 2em;">
+  <div style="display: flex; justify-content: space-evenly; align-items: center; max-width: 1000px; margin: 0 auto;">
+  <a href="https://www.pvstatem.eu/" target="_blank">
+  <img src="https://github.com/mini-pw/SerolyzeR/blob/main/inst/img/PvSTATEM.png?raw=true" alt="PvSTATEM logo" style="height: 100px;"/>
+  </a>
+  <img src="https://github.com/mini-pw/SerolyzeR/blob/main/inst/img/EU.jpg?raw=true" alt="EU logo" style="height: 100px;"/>
+  <a href="https://www.pw.edu.pl/" target="_blank">
+  <img src="https://github.com/mini-pw/SerolyzeR/blob/main/inst/img/WUT.png?raw=true" alt="WUT logo" style="height: 100px; "/>
+  </a>
+  </div>
+</div>
+
+</br> </br>
