@@ -1,3 +1,11 @@
+
+Version 1.2.0
+---------------------------------------------------------------
+* added dissemination about the PvSTATEM project
+* added consistent axis naming
+* updated the multiplate tutorial with real data
+
+
 Version 1.1.0
 ---------------------------------------------------------------
 * added vignette on multiplate functionalities
