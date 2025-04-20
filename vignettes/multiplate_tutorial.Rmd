@@ -61,7 +61,7 @@ These output types can be selected with the `normalisation_types` parameter, whi
 
 Now, we will discuss how this method works and describe its most important parameters. 
 By default, it saves all the outputs into the input directory, this can be changed with the `output_dir` parameter. In this tutorial, we will set the output directory to a temporary directory, which can be created with the `tempdir()` function.
-We also specify the format of the input files, which is `xPONENT` in this case. The `format` parameter can be either set to `xPONENT`, `INTELLIFLEX` or `NULL`. In case the format is `NULL`, the function will try to infer the format based on the filename. For more details, we refer the reader to the documentation of the ` function.
+We also specify the format of the input files, which is `xPONENT` in this case. The `format` parameter can be either set to `xPONENT`, `INTELLIFLEX` or `NULL`. In case the format is `NULL`, the function will try to infer the format based on the filename. For more details, we refer the reader to the documentation of the `process_dir` function.
 
 One of the most useful features of the `process_dir` function is that it enables us to do all the preprocessing steps in one go. By setting `merge_outputs` parameter to `TRUE`, the method will output a single file with all the data from all the plates. This is very useful when we want to analyse the data from multiple plates at once.
 
