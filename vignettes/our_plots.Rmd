@@ -155,8 +155,12 @@ In order to run this function, we need to provide the `list_of_plates` which is 
 dir_with_luminex_files <- system.file("extdata", "multiplate_tutorial",
   package = "SerolyzeR", mustWork = TRUE
 )
+
+output_dir <- file.path(tempdir(), "multiplate-tutorial") # create a temporary directory to store the output data
+R.utils::mkdirs(output_dir)
+
 list_of_plates <- process_dir(dir_with_luminex_files,
-  return_plates = TRUE, format = "xPONENT"
+  return_plates = TRUE, format = "xPONENT", output_dir = output_dir
 )
 plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3")
 ```
@@ -172,9 +176,17 @@ Each plate is more distinct from the others, which can be helpful when looking f
 plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE)
 ```
 
-There is one more useful parameter in this function mainly `legend_type'. By default it is set to `NULL` which means that the legend type
-is determined based on the `monochromatic` value. If `monochromatic` is equal to `TRUE` then legend type is set to `date`, if it is `FALSE` then legend
-type is set to `plate_name`. User can override this behavior by setting explicitly `legend_type` to `date` or `plate_name`.
+There is few more useful parameters in this function. Mainly `legend_type` By default it is set to `NULL` which means that the legend type
+is determined based on the `monochromatic` value. If `monochromatic` is equal to `TRUE` then legend type is set to `date`, if it is `FALSE` then legend type is set to `plate_name`. User can override this behavior by setting explicitly `legend_type` to `date` or `plate_name`.
+
+Additionally, if an user wants to play around with the legend position, a parameter `legend_position` is here to help. It simply specifies where the legend should be positioned - at the bottom, top, left or right of the plot. By default it is set to `bottom`. 
+
+There might occur a situation, where the plate names are really long, and simply do not fit in the legend box. For such situations, we have prepared the `max_legend_items_per_row` parameter, which automatically decides how many legend elements should be placed in one row of the legend. By default it is set to `3`.
+
+
+```{r}
+plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position="top", max_legend_items_per_row = 2)
+```
 
 # Levey-Jennings plot
 

@@ -12,6 +12,7 @@
 #' @param plot_blank_mean If `TRUE` the mean of the blank samples is plotted, `TRUE` by default
 #' @param plot_rau_bounds If `TRUE` the RAU values bounds are plotted, `TRUE` by default
 #' @param plot_legend If `TRUE` the legend is plotted, `TRUE` by default
+#' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
 #' @param verbose If `TRUE` prints messages, `TRUE` by default
 #'
 #' @return ggplot object with the plot
@@ -38,6 +39,7 @@ plot_standard_curve_analyte <- function(plate,
                                         plot_blank_mean = TRUE,
                                         plot_rau_bounds = TRUE,
                                         plot_legend = TRUE,
+                                        legend_position = "bottom",
                                         verbose = TRUE) {
   AVAILABLE_LOG_SCALE_VALUES <- c("all", "RAU", "MFI")
 
@@ -50,6 +52,13 @@ plot_standard_curve_analyte <- function(plate,
   if (!(analyte_name %in% plate$analyte_names)) {
     stop(analyte_name, " not found in the plate object")
   }
+  if (!legend_position %in% SerolyzeR.env$legend_positions) {
+    stop("legend_position must be one of: ", SerolyzeR.env$legend_positions)
+  }
+  if (!plot_legend && legend_position != "none") {
+    message("legend_position parameter is specified, but the plot_legend is disabled. Won't show the legend.")
+  }
+
   # preserve the old options
   old <- options()
   on.exit(options(old))
@@ -76,22 +85,6 @@ plot_standard_curve_analyte <- function(plate,
 
   xlab <- format_xlab("Relative Antibody Unit", "RAU", x_trans)
   ylab <- format_ylab(data_type, y_trans)
-
-  # Automatically position the legend
-  legend_position <- c(0.8, 0.2)
-  if (decreasing_rau_order) {
-    if (x_log_scale && !y_log_scale) {
-      legend_position <- c(0.8, 0.8)
-    } else {
-      legend_position <- c(0.2, 0.2)
-    }
-  } else {
-    if (x_log_scale && !y_log_scale) {
-      legend_position <- c(0.2, 0.8)
-    } else {
-      legend_position <- c(0.8, 0.2)
-    }
-  }
 
   options(scipen = 30)
   p <- ggplot2::ggplot(plot_data, aes(x = .data$RAU, y = .data$MFI)) +
@@ -126,7 +119,7 @@ plot_standard_curve_analyte <- function(plate,
       axis.line = element_line(colour = "black"),
       axis.text.x = element_text(size = 9, angle = 45, hjust = 1),
       axis.text.y = element_text(size = 9),
-      legend.position.inside = legend_position,
+      legend.position = legend_position,
       legend.background = element_rect(fill = "white", color = "black"),
       legend.title = element_blank()
     ) +
@@ -137,6 +130,7 @@ plot_standard_curve_analyte <- function(plate,
   if (!plot_legend) {
     p <- p + ggplot2::theme(legend.position = "none")
   }
+
 
   p
 }
@@ -163,6 +157,7 @@ plot_standard_curve_analyte <- function(plate,
 #' @param plot_rau_bounds If `TRUE` the RAU bounds are plotted, `TRUE` by default
 #' @param plot_legend If `TRUE` the legend is plotted, `TRUE` by default
 #' @param verbose If `TRUE` prints messages, `TRUE` by default
+#' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
 #' @param ... Additional arguments passed to the `predict` function
 #'
 #' @return a ggplot object with the plot
@@ -191,6 +186,7 @@ plot_standard_curve_analyte_with_model <- function(plate,
                                                    plot_blank_mean = TRUE,
                                                    plot_rau_bounds = TRUE,
                                                    plot_legend = TRUE,
+                                                   legend_position = "bottom",
                                                    verbose = TRUE,
                                                    ...) {
   analyte_name <- model$analyte
@@ -207,7 +203,8 @@ plot_standard_curve_analyte_with_model <- function(plate,
     decreasing_rau_order = decreasing_rau_order,
     log_scale = log_scale, verbose = verbose, plot_line = FALSE,
     plot_blank_mean = plot_blank_mean, plot_rau_bounds = plot_rau_bounds,
-    plot_legend = plot_legend
+    plot_legend = plot_legend,
+    legend_position = legend_position
   )
 
   plot_name <- paste0("Fitted standard curve for analyte: ", analyte_name)
@@ -334,6 +331,8 @@ plot_standard_curve_thumbnail <- function(plate,
 #' type is set to `date`, if it is `FALSE` then legend
 #' type is set to `plate_name`. User can override this behavior by
 #' setting explicitly `legend_type` to `date` or `plate_name`.
+#' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
+#' @param max_legend_items_per_row Maximum number of legend items per row when legend is at top or bottom. Default is 3.
 #' @param decreasing_dilution_order If `TRUE` the dilution values are
 #' plotted in decreasing order, `TRUE` by default
 #' @param log_scale Which elements on the plot should be displayed in log scale.
@@ -363,6 +362,8 @@ plot_standard_curve_stacked <- function(list_of_plates,
                                         decreasing_dilution_order = TRUE,
                                         monochromatic = TRUE,
                                         legend_type = NULL,
+                                        legend_position = "bottom",
+                                        max_legend_items_per_row = 3,
                                         log_scale = c("all"),
                                         verbose = TRUE) {
   AVAILABLE_LOG_SCALE_VALUES <- c("all", "dilutions", "MFI")
@@ -387,6 +388,14 @@ plot_standard_curve_stacked <- function(list_of_plates,
   if (!is.null(legend_type) && !legend_type %in% c("date", "plate_name")) {
     stop("legend_type should be either 'date' or 'plate_name' or NULL")
   }
+  if (!legend_position %in% SerolyzeR.env$legend_positions) {
+    stop("legend_position must be one of: ", SerolyzeR.env$legend_positions)
+  }
+  if (!is.null(max_legend_items_per_row) &&
+      (!is.numeric(max_legend_items_per_row) || max_legend_items_per_row <= 1)) {
+    stop("`max_legend_items_per_row` must be a numeric value greater than 1.")
+  }
+
 
   # preserve the old options
   old <- options()
@@ -434,13 +443,18 @@ plot_standard_curve_stacked <- function(list_of_plates,
       axis.line = element_line(colour = "black"),
       axis.text.x = element_text(size = 9, angle = 45, hjust = 1, vjust = 1),
       axis.text.y = element_text(size = 9),
-      legend.position = "right",
+      legend.position = legend_position,
       legend.background = element_rect(fill = "white", color = "black"),
       legend.title = element_blank(),
       panel.grid.minor = element_line(color = scales::alpha("grey", .5), size = 0.1) # Make the minor grid lines less visible
     )
 
   number_of_colors <- length(list_of_plates)
+
+  # number of rows in a legend
+  legend_nrow <- ceiling(number_of_colors / max_legend_items_per_row)
+
+
   counter <- 1
   if (monochromatic) {
     # I don't want white and next one to be colors since on white background it's not visible
@@ -486,6 +500,10 @@ plot_standard_curve_stacked <- function(list_of_plates,
   p <- p + ggplot2::scale_color_manual(
     values = custom_colors,
   )
+
+  if (legend_position == "top" || legend_position == "bottom") {
+    p <- p + ggplot2::guides(color = ggplot2::guide_legend(nrow = legend_nrow))
+  }
 
   p
 }

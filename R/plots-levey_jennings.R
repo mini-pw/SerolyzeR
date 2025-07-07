@@ -20,6 +20,7 @@
 #' will plot four horizontal lines: mean +/- 1.96*sd, mean +/- 2.58*sd
 #' default is c(1.96) which will plot two lines mean +/- 1.96*sd
 #' @param data_type (`character(1)`) the type of data used plot. The default is "Median"
+#' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
 #'
 #' @importFrom stats setNames
 #'
@@ -44,7 +45,8 @@ plot_levey_jennings <- function(list_of_plates,
                                 analyte_name,
                                 dilution = "1/400",
                                 sd_lines = c(1.96),
-                                data_type = "Median") {
+                                data_type = "Median",
+                                legend_position = "bottom") {
   if (!is.list(list_of_plates)) {
     stop("The list_of_plates is not a list.")
   }
@@ -76,6 +78,9 @@ plot_levey_jennings <- function(list_of_plates,
   }
   if (length(sd_lines) > 6) {
     stop("It is impossible to have more than 6 pairs of standard deviation lines.")
+  }
+  if (!legend_position %in% SerolyzeR.env$legend_positions) {
+    stop("legend_position must be one of: ", SerolyzeR.env$legend_positions)
   }
 
   date_of_experiment <- c()
@@ -109,7 +114,7 @@ plot_levey_jennings <- function(list_of_plates,
       axis.line = element_line(colour = "black"),
       axis.text.x = element_text(size = 9, vjust = 1),
       axis.text.y = element_text(size = 9),
-      legend.position = "right",
+      legend.position = legend_position,
       legend.background = element_rect(fill = "white", color = "black"),
       legend.title = element_blank(),
       panel.grid.minor = element_line(color = scales::alpha("grey", .5), size = 0.1) # Make the minor grid lines less visible
