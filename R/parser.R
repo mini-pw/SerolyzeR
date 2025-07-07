@@ -139,15 +139,15 @@ extract_xponent_experiment_date <- function(xponent_output, verbose = TRUE) {
 handle_datetime <- function(datetime_str, file_format = "xPONENT") {
   if (file_format == "xPONENT") {
     possible_orders <- c(
-      "Ymd HM", "mdY IM p", "mdY HM", "mdY IMS p",
-      "mdY HMS", "Ymd IM p", "Ymd IMS p", "Ymd HMS",
-      "dmY IM p", "dmY HM", "dmY IMS p", "dmY HMS"
+      "Ymd HM", "dmY IM p", "mdY HM", "dmY IMS p",
+      "dmY HMS", "Ymd IM p", "Ymd IMS p", "Ymd HMS",
+      "mdY IM p", "dmY HM", "mdY IMS p", "mdY HMS"
     )
   } else if (file_format == "INTELLIFLEX") {
     possible_orders <- c(
       "Ymd IMS p", "Ymd HMS", "Ymd IM p", "Ymd HM",
-      "mdY IMS p", "mdY HMS", "mdY IM p", "mdY HM",
-      "dmY IMS p", "dmY HMS", "dmY IM p", "dmY HM"
+      "dmY IMS p", "dmY HMS", "dmY IM p", "dmY HM",
+      "mdY IMS p", "dmY HMS", "mdY IM p", "mdY HM"
     )
   } else {
     stop("Invalid file format: ", file_format)
