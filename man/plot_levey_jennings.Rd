@@ -9,7 +9,8 @@ plot_levey_jennings(
   analyte_name,
   dilution = "1/400",
   sd_lines = c(1.96),
-  data_type = "Median"
+  data_type = "Median",
+  legend_position = "bottom"
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ will plot four horizontal lines: mean +/- 1.96\emph{sd, mean +/- 2.58}sd
 default is c(1.96) which will plot two lines mean +/- 1.96*sd}
 
 \item{data_type}{(\code{character(1)}) the type of data used plot. The default is "Median"}
+
+\item{legend_position}{the position of the legend, a possible values are \code{c(right, bottom, left, top, none)}. Is not used if \code{plot_legend} equals to \code{FALSE}.}
 }
 \value{
 A ggplot object with the Levey-Jennings chart

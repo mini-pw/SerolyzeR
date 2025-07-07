@@ -14,6 +14,7 @@ plot_standard_curve_analyte(
   plot_blank_mean = TRUE,
   plot_rau_bounds = TRUE,
   plot_legend = TRUE,
+  legend_position = "bottom",
   verbose = TRUE
 )
 }
@@ -35,6 +36,8 @@ plot_standard_curve_analyte(
 \item{plot_rau_bounds}{If \code{TRUE} the RAU values bounds are plotted, \code{TRUE} by default}
 
 \item{plot_legend}{If \code{TRUE} the legend is plotted, \code{TRUE} by default}
+
+\item{legend_position}{the position of the legend, a possible values are \code{c(right, bottom, left, top, none)}. Is not used if \code{plot_legend} equals to \code{FALSE}.}
 
 \item{verbose}{If \code{TRUE} prints messages, \code{TRUE} by default}
 }

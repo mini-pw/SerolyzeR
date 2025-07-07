@@ -181,12 +181,30 @@ is determined based on the `monochromatic` value. If `monochromatic` is equal to
 
 Additionally, if an user wants to play around with the legend position, a parameter `legend_position` is here to help. It simply specifies where the legend should be positioned - at the bottom, top, left or right of the plot. By default it is set to `bottom`. 
 
-There might occur a situation, where the plate names are really long, and simply do not fit in the legend box. For such situations, we have prepared the `max_legend_items_per_row` parameter, which automatically decides how many legend elements should be placed in one row of the legend. By default it is set to `3`.
+There might occur a situation, where the plate names are really long, and simply do not fit in the legend box. For such situations, we have prepared `max_legend_items_per_row` and `legend_text_size` parameters. The first one automatically decides how many legend elements should be placed in one row of the legend. By default it is set to `3`. The second parameter sets the font size in the legend.
+
 
 
 ```{r}
-plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position="top", max_legend_items_per_row = 2)
+plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position="top", max_legend_items_per_row = 3, legend_text_size = 4)
 ```
+
+
+To play around the additional theme settings of the plots produced by any of the methods, you can also use the base `ggplot2` methods. To do so, all you need to do is modify the `ggplot2` object. Here, we will add a horizontal line, which could highlight some threshold and also modify the title a bit.
+
+
+```{r}
+library(ggplot2)
+
+p <- plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position="bottom", max_legend_items_per_row = 3, legend_text_size = 7)
+
+p + 
+  geom_hline(yintercept = 1000, linetype = "dashed", colour = "red") + 
+  ggplot2::labs(title = "A custom title for this amazing plot") +
+  annotate("text", x = 1/25000, y = 1000, label = "Threshold = 1000", color = "red", vjust = -0.5)
+
+```
+
 
 # Levey-Jennings plot
 
@@ -203,6 +221,6 @@ plot_levey_jennings(list_of_plates, "Adenovirus.T3", dilution = "1/100", sd_line
 The plot above shows the Levey-Jennings plot for the analyte "ME" with the samples with `dilution` "1/100". 
 The default value of `dilution` is "1/400".
 The `sd_lines` parameter allows us to set the distance of horizontal lines from the mean.
-For example, `sd_lines = c(1, 2)` will plot four lines at +/- 1*SD and +/- 2*SD, where SD is the standard deviation of the data.
-The default value of the `sd_lines` parameter is `c(1.96)`, which 
+For example, `sd_lines = c(1, 2)` will plot four lines at ±1*SD and ± 2*SD, where SD is the standard deviation of the data.
+The default value of the `sd_lines` parameter is `c(1.96)`, which corresponds to approximately the 95% confidence interval under a normal distribution. This means two horizontal lines are drawn at ±1.96 times the standard deviation from the mean, highlighting the typical range of expected variation. Values falling outside these lines may indicate outliers or points requiring further investigation.
 

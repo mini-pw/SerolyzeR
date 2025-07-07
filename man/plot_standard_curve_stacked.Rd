@@ -11,6 +11,9 @@ plot_standard_curve_stacked(
   decreasing_dilution_order = TRUE,
   monochromatic = TRUE,
   legend_type = NULL,
+  legend_position = "bottom",
+  max_legend_items_per_row = 3,
+  legend_text_size = 8,
   log_scale = c("all"),
   verbose = TRUE
 )
@@ -35,6 +38,12 @@ based on monochromatic value. If monochromatic is equal to \code{TRUE} then lege
 type is set to \code{date}, if it is \code{FALSE} then legend
 type is set to \code{plate_name}. User can override this behavior by
 setting explicitly \code{legend_type} to \code{date} or \code{plate_name}.}
+
+\item{legend_position}{the position of the legend, a possible values are \code{c(right, bottom, left, top, none)}. Is not used if \code{plot_legend} equals to \code{FALSE}.}
+
+\item{max_legend_items_per_row}{Maximum number of legend items per row when legend is at top or bottom. Default is 3.}
+
+\item{legend_text_size}{Font size of the legend. Can be useful if plotting long plate names. Default is 8}
 
 \item{log_scale}{Which elements on the plot should be displayed in log scale.
 By default \code{"all"}. If \code{NULL} or \code{c()} no log scale is used,
