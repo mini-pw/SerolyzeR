@@ -19,6 +19,8 @@
 #' standard deviation lines to plot, for example, c(1.96, 2.58)
 #' will plot four horizontal lines: mean +/- 1.96*sd, mean +/- 2.58*sd
 #' default is c(1.96) which will plot two lines mean +/- 1.96*sd
+#' @param mfi_log_scale (`logical(1)`) specifies if the MFI should be in the `log10` scale.
+#' By default it equals to `TRUE`, which corresponds to plotting the chart in `log10` scale.
 #' @param data_type (`character(1)`) the type of data used plot. The default is "Median"
 #'
 #' @importFrom stats setNames
@@ -44,6 +46,7 @@ plot_levey_jennings <- function(list_of_plates,
                                 analyte_name,
                                 dilution = "1/400",
                                 sd_lines = c(1.96),
+                                mfi_log_scale = TRUE,
                                 data_type = "Median") {
   if (!is.list(list_of_plates)) {
     stop("The list_of_plates is not a list.")
@@ -77,6 +80,9 @@ plot_levey_jennings <- function(list_of_plates,
   if (length(sd_lines) > 6) {
     stop("It is impossible to have more than 6 pairs of standard deviation lines.")
   }
+  if (!is.logical(mfi_log_scale) && length(mfi_log_scale) != 1) {
+    stop("mfi_log_scale parameter should be a single boolean value")
+  }
 
   date_of_experiment <- c()
   mfi_values <- c()
@@ -89,12 +95,15 @@ plot_levey_jennings <- function(list_of_plates,
   }
   counter <- seq(1, length(mfi_values))
 
+  # convert the mfi into a depicted scale
+  y_trans <- ifelse(mfi_log_scale, "log10", "identity")
+  ylab <- format_ylab(data_type, y_trans)
+
   mean <- mean(mfi_values)
   sd <- sd(mfi_values)
 
   plot_data <- data.frame(date = date_of_experiment, mfi = mfi_values, counter = counter)
 
-  ylab <- format_ylab(data_type, "linear")
   p <- ggplot2::ggplot(data = plot_data, aes(x = counter, y = .data$mfi)) +
     ggplot2::geom_point(size = 3, colour = "blue") +
     ggplot2::geom_line(size = 1.3, colour = "blue") +
@@ -114,6 +123,7 @@ plot_levey_jennings <- function(list_of_plates,
       legend.title = element_blank(),
       panel.grid.minor = element_line(color = scales::alpha("grey", .5), size = 0.1) # Make the minor grid lines less visible
     ) +
+    ggplot2::scale_y_continuous(trans = y_trans)
     ggplot2::scale_x_continuous(breaks = plot_data$counter, labels = plot_data$counter) # Add custom x-axis labels
 
   line_types <- c("dashed", "dotted", "dotdash", "longdash", "twodash", "1F")
