@@ -9,6 +9,8 @@ plot_levey_jennings(
   analyte_name,
   dilution = "1/400",
   sd_lines = c(1.96),
+  mfi_log_scale = TRUE,
+  sort_plates = TRUE,
   data_type = "Median"
 )
 }
@@ -26,6 +28,12 @@ Levey-Jennings chart. The default is "1/400"}
 standard deviation lines to plot, for example, c(1.96, 2.58)
 will plot four horizontal lines: mean +/- 1.96\emph{sd, mean +/- 2.58}sd
 default is c(1.96) which will plot two lines mean +/- 1.96*sd}
+
+\item{mfi_log_scale}{(\code{logical(1)}) specifies if the MFI should be in the \code{log10} scale.
+By default it equals to \code{TRUE}, which corresponds to plotting the chart in \code{log10} scale.}
+
+\item{sort_plates}{(\code{logical(1)}) if \code{TRUE} sorts plates by the date of examiation.
+If \code{FALSE} plots using the plate order as in input. \code{TRUE} by default.}
 
 \item{data_type}{(\code{character(1)}) the type of data used plot. The default is "Median"}
 }

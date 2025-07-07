@@ -21,6 +21,8 @@
 #' default is c(1.96) which will plot two lines mean +/- 1.96*sd
 #' @param mfi_log_scale (`logical(1)`) specifies if the MFI should be in the `log10` scale.
 #' By default it equals to `TRUE`, which corresponds to plotting the chart in `log10` scale.
+#' @param sort_plates (`logical(1)`) if `TRUE` sorts plates by the date of examiation.
+#' If `FALSE` plots using the plate order as in input. `TRUE` by default.
 #' @param data_type (`character(1)`) the type of data used plot. The default is "Median"
 #'
 #' @importFrom stats setNames
@@ -47,6 +49,7 @@ plot_levey_jennings <- function(list_of_plates,
                                 dilution = "1/400",
                                 sd_lines = c(1.96),
                                 mfi_log_scale = TRUE,
+                                sort_plates = TRUE,
                                 data_type = "Median") {
   if (!is.list(list_of_plates)) {
     stop("The list_of_plates is not a list.")
@@ -84,16 +87,22 @@ plot_levey_jennings <- function(list_of_plates,
     stop("mfi_log_scale parameter should be a single boolean value")
   }
 
+  if (!is.logical(sort_plates) && length(sort_plates) != 1) {
+    stop("sort_plates parameter should be a single boolean value")
+  }
+
+
   date_of_experiment <- c()
   mfi_values <- c()
+  plate_names <- c()
   for (plate in list_of_plates) {
     dilutions <- plate$get_dilution("STANDARD CURVE")
     plate_data <- plate$get_data(analyte_name, "STANDARD CURVE", data_type)
 
     date_of_experiment <- c(date_of_experiment, plate$plate_datetime)
     mfi_values <- c(mfi_values, plate_data[dilutions == dilution])
+    plate_names <- c(plate_names, plate$plate_name)
   }
-  counter <- seq(1, length(mfi_values))
 
   # convert the mfi into a depicted scale
   y_trans <- ifelse(mfi_log_scale, "log10", "identity")
@@ -102,15 +111,22 @@ plot_levey_jennings <- function(list_of_plates,
   mean <- mean(mfi_values)
   sd <- sd(mfi_values)
 
-  plot_data <- data.frame(date = date_of_experiment, mfi = mfi_values, counter = counter)
+  plot_data <- data.frame(date = as.POSIXct(date_of_experiment),
+                          mfi = mfi_values, plates = plate_names)
 
-  p <- ggplot2::ggplot(data = plot_data, aes(x = counter, y = .data$mfi)) +
+  if (sort_plates) {
+    plot_data <- plot_data[order(plot_data$date), ]
+  }
+
+  plot_data$counter <- seq(1, length(mfi_values))
+
+  p <- ggplot2::ggplot(data = plot_data, aes(x = .data$plates, y = .data$mfi, group = 1)) +
     ggplot2::geom_point(size = 3, colour = "blue") +
-    ggplot2::geom_line(size = 1.3, colour = "blue") +
-    ggplot2::geom_hline(yintercept = mean, color = "black", size = 1) +
+    ggplot2::geom_line(linewidth = 1.3, colour = "blue") +
+    ggplot2::geom_hline(yintercept = mean, color = "black", linewidth = 1) +
     ggplot2::labs(
       title = paste("Levey-Jennings chart for", analyte_name, "at", dilution, "dilution"),
-      x = "Control measurement number",
+      x = "Plate",
       y = ylab
     ) +
     ggplot2::theme_minimal() +
@@ -121,10 +137,9 @@ plot_levey_jennings <- function(list_of_plates,
       legend.position = "right",
       legend.background = element_rect(fill = "white", color = "black"),
       legend.title = element_blank(),
-      panel.grid.minor = element_line(color = scales::alpha("grey", .5), size = 0.1) # Make the minor grid lines less visible
+      panel.grid.minor = element_line(color = scales::alpha("grey", .5), linewidth = 0.1) # Make the minor grid lines less visible
     ) +
     ggplot2::scale_y_continuous(trans = y_trans)
-    ggplot2::scale_x_continuous(breaks = plot_data$counter, labels = plot_data$counter) # Add custom x-axis labels
 
   line_types <- c("dashed", "dotted", "dotdash", "longdash", "twodash", "1F")
   line_labels <- c()
