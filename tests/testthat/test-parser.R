@@ -26,18 +26,18 @@ test_that("Test extract_xponent_experiment_date method", {
     "BatchStartTime successfully extracted from the metadata"
   )
   expect_equal(
-    datetime,
+    handle_datetime(datetime, "xPONENT"),
     as.POSIXct("2022-05-12 18:17:40", tz = "")
   )
 
   # Case 2: Fallback to Header field
   xponent_output <- read_xponent_format(plate_file)
   expect_message(
-    extract_xponent_experiment_date(xponent_output),
+    datetime <- extract_xponent_experiment_date(xponent_output),
     "BatchStartTime successfully extracted from the header"
   )
   expect_equal(
-    datetime,
+    handle_datetime(datetime, "xPONENT"),
     as.POSIXct("2022-05-12 18:17:40", tz = "")
   )
 
@@ -45,11 +45,11 @@ test_that("Test extract_xponent_experiment_date method", {
   plate_file <- system.file("extdata", "random2.csv", package = "SerolyzeR", mustWork = TRUE)
   xponent_output <- read_xponent_format(plate_file)
   expect_message(
-    extract_xponent_experiment_date(xponent_output),
+    datetime <- extract_xponent_experiment_date(xponent_output),
     "Fallback datetime successfully extracted from ProgramMetadata."
   )
   expect_equal(
-    datetime,
+    handle_datetime(datetime, "xPONENT"),
     as.POSIXct("2024-07-02 00:00:00", tz = "")
   )
 })
