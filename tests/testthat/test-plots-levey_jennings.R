@@ -97,3 +97,17 @@ test_that("Plot Levey-Jennings chart with not a string analyte", {
   list_of_plates <- get_test_list_of_plates()
   expect_error(plot_levey_jennings(list_of_plates, 1, "1/400"))
 })
+
+
+test_that("Plot Levey-Jennings chart with in linear scale", {
+  list_of_plates <- get_test_list_of_plates()
+  p <- plot_levey_jennings(list_of_plates, "Spike_6P_IPP", mfi_log_scale = FALSE)
+
+  expect_equal(ggplot2::ggplot_build(p)$layout$panel_params[[1]]$y$trans$name, "identity")
+
+  p <- plot_levey_jennings(list_of_plates, "Spike_6P_IPP", mfi_log_scale = TRUE)
+
+  expect_equal(ggplot2::ggplot_build(p)$layout$panel_params[[1]]$y$trans$name, "log10")
+
+  expect_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", mfi_log_scale = "incorrect scale"))
+})
