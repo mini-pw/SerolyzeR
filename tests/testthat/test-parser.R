@@ -50,7 +50,7 @@ test_that("Test extract_xponent_experiment_date method", {
   )
   expect_equal(
     handle_datetime(datetime, "xPONENT"),
-    as.POSIXct("2024-07-02 00:00:00", tz = "")
+    as.POSIXct("2024-02-07 00:00:00", tz = "")
   )
 })
 
