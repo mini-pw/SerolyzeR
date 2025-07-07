@@ -128,15 +128,23 @@ test_that("Plot Stacked Standard Curve invalid legend type", {
 
 test_that("Plot Stacked Standard Curve legend position and number of rows", {
   list_of_plates <- get_test_list_of_plates()
-  p <- plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "top")
+  p <- plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "top", legend_text_size = 10)
 
-  expect_equal(ggplot2::ggplot_build(p)$plot$theme$legend.position, "top")
+  theme_obj <- ggplot2::ggplot_build(p)$plot$theme
+
+  # Check that legend.text element size is 12
+  expect_equal(theme_obj$legend.position, "top")
+  expect_equal(theme_obj$legend.text$size, 10)
 
 
   p <- plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "bottom", max_legend_items_per_row = 4)
 
   expect_error(plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "bottom", max_legend_items_per_row = 0))
+
+  expect_error(plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "bottom", legend_text_size = 0))
+
 })
+
 
 test_that("Plot Stacked Standard Curve with real data", {
   list_of_plates <- get_list_of_plates()

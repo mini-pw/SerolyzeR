@@ -333,6 +333,7 @@ plot_standard_curve_thumbnail <- function(plate,
 #' setting explicitly `legend_type` to `date` or `plate_name`.
 #' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
 #' @param max_legend_items_per_row Maximum number of legend items per row when legend is at top or bottom. Default is 3.
+#' @param legend_text_size Font size of the legend. Can be useful if plotting long plate names. Default is 8
 #' @param decreasing_dilution_order If `TRUE` the dilution values are
 #' plotted in decreasing order, `TRUE` by default
 #' @param log_scale Which elements on the plot should be displayed in log scale.
@@ -364,6 +365,7 @@ plot_standard_curve_stacked <- function(list_of_plates,
                                         legend_type = NULL,
                                         legend_position = "bottom",
                                         max_legend_items_per_row = 3,
+                                        legend_text_size = 8,
                                         log_scale = c("all"),
                                         verbose = TRUE) {
   AVAILABLE_LOG_SCALE_VALUES <- c("all", "dilutions", "MFI")
@@ -392,10 +394,13 @@ plot_standard_curve_stacked <- function(list_of_plates,
     stop("legend_position must be one of: ", SerolyzeR.env$legend_positions)
   }
   if (!is.null(max_legend_items_per_row) &&
-      (!is.numeric(max_legend_items_per_row) || max_legend_items_per_row <= 1)) {
-    stop("`max_legend_items_per_row` must be a numeric value greater than 1.")
+      (!is.numeric(max_legend_items_per_row) || max_legend_items_per_row <= 0)) {
+    stop("`max_legend_items_per_row` must be an integer value greater than 0.")
   }
-
+  if (!is.null(legend_text_size) &&
+      (!is.numeric(legend_text_size) || legend_text_size <= 0)) {
+    stop("`max_legend_items_per_row` must be an integer value greater than 0.")
+  }
 
   # preserve the old options
   old <- options()
@@ -446,6 +451,7 @@ plot_standard_curve_stacked <- function(list_of_plates,
       legend.position = legend_position,
       legend.background = element_rect(fill = "white", color = "black"),
       legend.title = element_blank(),
+      legend.text = ggplot2::element_text(size = legend_text_size),
       panel.grid.minor = element_line(color = scales::alpha("grey", .5), size = 0.1) # Make the minor grid lines less visible
     )
 
