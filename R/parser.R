@@ -203,10 +203,6 @@ postprocess_xponent <- function(xponent_output, verbose = TRUE) {
   analyte_names <- find_analyte_names(data$Median)
   data <- remove_non_analyte_columns(data)
 
-  datetime_str <- paste(
-    xponent_output$ProgramMetadata[["Date"]],
-    xponent_output$ProgramMetadata[["Time"]]
-  )
   # parse the date of an experiment
   datetime_str <- extract_xponent_experiment_date(xponent_output, verbose = verbose)
   plate_datetime <- handle_datetime(datetime_str, "xPONENT")
