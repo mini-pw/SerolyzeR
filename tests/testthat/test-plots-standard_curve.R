@@ -125,6 +125,19 @@ test_that("Plot Stacked Standard Curve invalid legend type", {
   expect_error(plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_type = "not_existing"))
 })
 
+
+test_that("Plot Stacked Standard Curve legend position and number of rows", {
+  list_of_plates <- get_test_list_of_plates()
+  p <- plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "top")
+
+  expect_equal(ggplot2::ggplot_build(p)$plot$theme$legend.position, "top")
+
+
+  p <- plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "bottom", max_legend_items_per_row = 4)
+
+  expect_error(plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "bottom", max_legend_items_per_row = 0))
+})
+
 test_that("Plot Stacked Standard Curve with real data", {
   list_of_plates <- get_list_of_plates()
   expect_no_error(plot_standard_curve_stacked(list_of_plates, "ME"))
@@ -132,3 +145,28 @@ test_that("Plot Stacked Standard Curve with real data", {
   expect_no_error(plot_standard_curve_stacked(list_of_plates, "ME", log_scale = "MFI"))
   expect_error(plot_standard_curve_stacked(list_of_plates, "not_existing"))
 })
+
+
+test_that("plot_standard_curve_analyte respects legend_position parameter", {
+  plate <- get_test_plate()
+  p <- plot_standard_curve_analyte(plate, "Spike_6P_IPP", plot_legend = TRUE, legend_position = "bottom")
+  expect_s3_class(p, "ggplot")
+  # Check that legend.position is set to "bottom" in the ggplot object theme
+  expect_equal(ggplot2::ggplot_build(p)$plot$theme$legend.position, "bottom")
+
+  expect_error(
+    plot_standard_curve_analyte(plate, "Spike_6P_IPP", plot_legend = TRUE, legend_position = "far away")
+  )
+
+  # a message when there should be no legend
+  expect_message(
+    plot_standard_curve_analyte(plate, "Spike_6P_IPP", plot_legend = FALSE, legend_position = "top")
+  )
+})
+
+
+
+
+
+
+
