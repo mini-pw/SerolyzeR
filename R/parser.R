@@ -63,7 +63,7 @@ parse_xponent_locations <- function(xponent_locations) {
 #'
 #' @return A character string representing the datetime of the experiment
 #' @keywords internal
-extract_experiment_date <- function(xponent_output, verbose = TRUE) {
+extract_xponent_experiment_date <- function(xponent_output, verbose = TRUE) {
   # 1. Try from Header$BatchMetadata
   batch_time_str <- tryCatch({
     time_str <- xponent_output$Header$BatchMetadata$BatchStartTime
@@ -208,7 +208,7 @@ postprocess_xponent <- function(xponent_output, verbose = TRUE) {
     xponent_output$ProgramMetadata[["Time"]]
   )
   # parse the date of an experiment
-  datetime_str <- extract_experiment_date(xponent_output, verbose = verbose)
+  datetime_str <- extract_xponent_experiment_date(xponent_output, verbose = verbose)
   plate_datetime <- handle_datetime(datetime_str, "xPONENT")
 
   list(
