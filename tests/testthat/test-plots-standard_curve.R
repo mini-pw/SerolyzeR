@@ -142,6 +142,12 @@ test_that("Plot Stacked Standard Curve legend position and number of rows", {
   expect_error(plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "bottom", max_legend_items_per_row = 0))
 
   expect_error(plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "bottom", legend_text_size = 0))
+  expect_error(plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "far away", legend_text_size = 0))
+
+  # Check that plot_legend = TRUE overrides the legend_position
+  p <- plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "bottom", plot_legend = FALSE)
+  expect_equal(ggplot2::ggplot_build(p)$plot$theme$legend.position, "none")
+
 
 })
 
@@ -161,6 +167,7 @@ test_that("plot_standard_curve_analyte respects legend_position parameter", {
   expect_s3_class(p, "ggplot")
   # Check that legend.position is set to "bottom" in the ggplot object theme
   expect_equal(ggplot2::ggplot_build(p)$plot$theme$legend.position, "bottom")
+
 
   expect_error(
     plot_standard_curve_analyte(plate, "Spike_6P_IPP", plot_legend = TRUE, legend_position = "far away")
