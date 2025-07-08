@@ -250,6 +250,7 @@ process_dir <- function(
     dry_run = FALSE,
     verbose = TRUE,
     ...) {
+  # --- Validate input paths and parameters ---
   if (!fs::dir_exists(input_dir)) {
     stop("Input directory does not exist.")
   }
@@ -260,8 +261,10 @@ process_dir <- function(
     stop("Layout file is specified, but does not exist.")
   }
   stopifnot(is_mba_format(format, allow_nullable = TRUE))
+
   input_dir <- fs::path_abs(input_dir)
 
+  # --- Discover all input plate files ---
   input_files <- c()
   for (input_file in fs::dir_ls(input_dir, recurse = recurse)) {
     if (is_mba_data_file(input_file, check_format = is.null(format))) {
@@ -269,19 +272,12 @@ process_dir <- function(
     }
   }
 
+  # --- Handle dry run mode: only print info, skip processing ---
   if (dry_run) {
     cat("Dry run mode enabled.\n")
     cat("Input directory: ", input_dir, "\n")
-    if (!is.null(format)) {
-      cat("MBA format: static (", format, ") \n")
-    } else {
-      cat("MBA format: dynamic \n")
-    }
-    if (!is.null(layout_filepath)) {
-      cat("Layout file: static (", layout_filepath, ") \n")
-    } else {
-      cat("Layout file: dynamic \n")
-    }
+    cat("MBA format:", ifelse(!is.null(format), paste0(" static (", format, ")"), " dynamic"), "\n")
+    cat("Layout file:", ifelse(!is.null(layout_filepath), paste0(" static (", layout_filepath, ")"), " dynamic"), "\n")
   }
 
   if (length(input_files) == 0) {
@@ -292,11 +288,13 @@ process_dir <- function(
     return(NULL)
   }
 
+  # --- Detect format and layout file for each input file ---
   formats <- rep(NA, length(input_files))
   for (i in seq_along(input_files)) {
     formats[i] <- detect_mba_format(input_files[i], format = format)
   }
-  stopifnot(all(!is.na(formats)))
+  stopifnot(all(!is.na(formats)))  # Ensure all formats were detected
+
 
   layouts <- rep(NA, length(input_files))
   for (i in seq_along(input_files)) {
@@ -305,13 +303,15 @@ process_dir <- function(
       layout_filepath = layout_filepath
     )
   }
-  stopifnot(all(!is.na(layouts)))
+  stopifnot(all(!is.na(layouts)))  # Ensure all layouts were found
 
+
+  # --- Print input/output mappings in dry run mode ---
   if (dry_run) {
     cat("The following files will be processed:\n")
     for (i in seq_along(input_files)) {
       current_output_dir <- get_output_dir(input_files[i], input_dir,
-        output_dir = output_dir, flatten_output_dir = flatten_output_dir
+                                           output_dir = output_dir, flatten_output_dir = flatten_output_dir
       )
       cat(
         "\n",
@@ -324,41 +324,45 @@ process_dir <- function(
     return(NULL)
   }
 
+  # --- Process each input file individually ---
   plates <- list()
   for (i in seq_along(input_files)) {
     current_output_dir <- get_output_dir(input_files[i], input_dir,
-      output_dir = output_dir, flatten_output_dir = flatten_output_dir
+                                         output_dir = output_dir, flatten_output_dir = flatten_output_dir
     )
     plate <- process_file(
       input_files[i],
       layout_filepath = ifelse(is.na(layouts[i]), NULL, layouts[i]),
       output_dir = current_output_dir,
       format = formats[i],
-      process_plate = !merge_outputs,
+      process_plate = !merge_outputs,  # Skip plate-level output if merging
       normalisation_types = normalisation_types,
       generate_report = generate_reports,
       verbose = verbose,
       ...
     )
-
     plates[[plate$plate_name]] <- plate
   }
 
+  # --- Sort plates by experiment date (for reporting or return) ---
   plates <- sort_list_by(
     plates,
     value_f = function(p) p$plate_datetime,
     decreasing = FALSE
   )
 
-  file_ending <- format(now(), "%Y%m%d_%H%M%S")
+  file_ending <- format(now(), "%Y%m%d_%H%M%S")  # Timestamp for filenames
+
+  # --- Merge outputs across all plates if requested ---
   if (merge_outputs) {
     for (normalisation_type in normalisation_types) {
       dataframes <- list()
       for (plate in plates) {
         output_df <- process_plate(plate,
-          normalisation_type = normalisation_type, write_output = FALSE,
-          blank_adjustment = TRUE, verbose = verbose
+                                   normalisation_type = normalisation_type, write_output = FALSE,
+                                   blank_adjustment = TRUE, verbose = verbose
         )
+        # Add plate and sample name columns for context
         df_header_columns <- data.frame(
           plate_name = plate$plate_name,
           sample_name = rownames(output_df)
@@ -368,29 +372,35 @@ process_dir <- function(
         dataframes[[plate$plate_name]] <- modifed_output_df
       }
 
+      # Merge all plate dataframes based on selected column strategy
       main_output_df <- merge_dataframes(
         dataframes,
         column_collision_strategy = column_collision_strategy,
         fill_value = NA
       )
 
-      file_name <- paste0(
-        "merged_", normalisation_type, "_", file_ending, ".csv"
-      )
+      file_name <- paste0("merged_", normalisation_type, "_", file_ending, ".csv")
       output_path <- fs::path_join(c(output_dir, file_name))
       write.csv(main_output_df, output_path, row.names = FALSE)
       verbose_cat("Merged output saved to: ", output_path, "\n", verbose = verbose)
     }
   }
 
+  # --- Generate multiplate quality control report if requested ---
   if (generate_multiplate_reports) {
     file_name <- paste0("multiplate_report_", file_ending, ".html")
     report_title <- paste0("Multiplate Report of directory ", basename(input_dir))
-    generate_levey_jennings_report(plates, report_title = report_title, output_dir = output_dir, filename = file_name, ...)
+    generate_levey_jennings_report(
+      plates,
+      report_title = report_title,
+      output_dir = output_dir,
+      filename = file_name,
+      ...
+    )
     verbose_cat("Multiplate report saved to: ", file.path(output_dir, file_name), "\n", verbose = verbose)
   }
 
-
+  # --- Return processed plates (optional) ---
   if (return_plates) {
     return(plates)
   }
