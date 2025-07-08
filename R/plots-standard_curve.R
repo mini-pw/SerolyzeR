@@ -331,6 +331,7 @@ plot_standard_curve_thumbnail <- function(plate,
 #' type is set to `date`, if it is `FALSE` then legend
 #' type is set to `plate_name`. User can override this behavior by
 #' setting explicitly `legend_type` to `date` or `plate_name`.
+#' @param plot_legend If `TRUE` the legend is plotted, `TRUE` by default
 #' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
 #' @param max_legend_items_per_row Maximum number of legend items per row when legend is at top or bottom. Default is 3.
 #' @param legend_text_size Font size of the legend. Can be useful if plotting long plate names. Default is 8
@@ -363,6 +364,7 @@ plot_standard_curve_stacked <- function(list_of_plates,
                                         decreasing_dilution_order = TRUE,
                                         monochromatic = TRUE,
                                         legend_type = NULL,
+                                        plot_legend = TRUE,
                                         legend_position = "bottom",
                                         max_legend_items_per_row = 3,
                                         legend_text_size = 8,
@@ -509,6 +511,10 @@ plot_standard_curve_stacked <- function(list_of_plates,
 
   if (legend_position == "top" || legend_position == "bottom") {
     p <- p + ggplot2::guides(color = ggplot2::guide_legend(nrow = legend_nrow))
+  }
+
+  if (!plot_legend) {
+    p <- p + ggplot2::theme(legend.position = "none")
   }
 
   p
