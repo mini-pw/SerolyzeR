@@ -262,6 +262,8 @@ process_dir <- function(
   }
   stopifnot(is_mba_format(format, allow_nullable = TRUE))
 
+  if (!all(is_valid_sample_type(sample_type_filter)))
+
   input_dir <- fs::path_abs(input_dir)
 
   # --- Discover all input plate files ---
@@ -355,36 +357,20 @@ process_dir <- function(
 
   # --- Merge outputs across all plates if requested ---
   if (merge_outputs) {
-    for (normalisation_type in normalisation_types) {
-      dataframes <- list()
-      for (plate in plates) {
-        output_df <- process_plate(plate,
-                                   normalisation_type = normalisation_type, write_output = FALSE,
-                                   blank_adjustment = TRUE, verbose = verbose
-        )
-        # Add plate and sample name columns for context
-        df_header_columns <- data.frame(
-          plate_name = plate$plate_name,
-          sample_name = rownames(output_df)
-        )
-        rownames(output_df) <- NULL
-        modifed_output_df <- cbind(df_header_columns, output_df)
-        dataframes[[plate$plate_name]] <- modifed_output_df
-      }
+    merged_df <- merge_plate_outputs(
+      plates = plates,
+      normalisation_type = normalisation_type,
+      column_collision_strategy = column_collision_strategy,
+      verbose = verbose
+    )
 
-      # Merge all plate dataframes based on selected column strategy
-      main_output_df <- merge_dataframes(
-        dataframes,
-        column_collision_strategy = column_collision_strategy,
-        fill_value = NA
-      )
-
-      file_name <- paste0("merged_", normalisation_type, "_", file_ending, ".csv")
-      output_path <- fs::path_join(c(output_dir, file_name))
-      write.csv(main_output_df, output_path, row.names = FALSE)
-      verbose_cat("Merged output saved to: ", output_path, "\n", verbose = verbose)
-    }
+    file_ending <- format(Sys.time(), datetime_format)
+    file_name <- paste0("merged_", normalisation_type, "_", file_ending, ".csv")
+    output_path <- fs::path_join(c(output_dir, file_name))
+    write.csv(merged_df, output_path, row.names = FALSE)
+    verbose_cat("Merged output saved to: ", output_path, "\n", verbose = verbose)
   }
+
 
   # --- Generate multiplate quality control report if requested ---
   if (generate_multiplate_reports) {
