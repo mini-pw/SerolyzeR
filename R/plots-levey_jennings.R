@@ -104,7 +104,7 @@ plot_levey_jennings <- function(list_of_plates,
 
   if (!is.numeric(label_angle) || length(label_angle) != 1) stop("label_angle must be numeric(1).")
 
-  if( !(plate_labels %in% c("name", "number", "date"))) stop("plate_labels should be one of the following: 'name', 'number', or 'date'")
+  if (!(plate_labels %in% c("name", "number", "date"))) stop("plate_labels should be one of the following: 'name', 'number', or 'date'")
 
 
   # gather the data for the plot
@@ -129,8 +129,10 @@ plot_levey_jennings <- function(list_of_plates,
   sd <- sd(mfi_values)
 
   # set up a dataframe of data to be plotted
-  plot_data <- data.frame(date = as.POSIXct(date_of_experiment),
-                          mfi = mfi_values, plate = plate_names)
+  plot_data <- data.frame(
+    date = as.POSIXct(date_of_experiment),
+    mfi = mfi_values, plate = plate_names
+  )
 
   if (sort_plates) {
     plot_data <- plot_data[order(plot_data$date), ]

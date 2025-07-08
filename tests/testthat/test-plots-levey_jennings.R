@@ -111,8 +111,10 @@ test_that("Plot Levey-Jennings chart with in linear scale", {
 
 test_that("Plot Levey-Jennings chart with more than 6 sd_lines", {
   list_of_plates <- get_test_list_of_plates()
-  expect_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", sd_lines = c(1, 2, 3, 4, 5, 6, 7)),
-               "It is impossible to have more than 6 pairs of standard deviation lines.")
+  expect_error(
+    plot_levey_jennings(list_of_plates, "Spike_6P_IPP", sd_lines = c(1, 2, 3, 4, 5, 6, 7)),
+    "It is impossible to have more than 6 pairs of standard deviation lines."
+  )
 })
 
 test_that("Plot Levey-Jennings chart with incorrect mfi_log_scale parameter", {
@@ -127,16 +129,22 @@ test_that("Plot Levey-Jennings chart with incorrect sort_plates parameter", {
 
 test_that("Plot Levey-Jennings chart with incorrect label_angle parameter", {
   list_of_plates <- get_test_list_of_plates()
-  expect_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", label_angle = c(45, 90)),
-               "label_angle must be numeric\\(1\\).")
-  expect_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", label_angle = "45"),
-               "label_angle must be numeric\\(1\\).")
+  expect_error(
+    plot_levey_jennings(list_of_plates, "Spike_6P_IPP", label_angle = c(45, 90)),
+    "label_angle must be numeric\\(1\\)."
+  )
+  expect_error(
+    plot_levey_jennings(list_of_plates, "Spike_6P_IPP", label_angle = "45"),
+    "label_angle must be numeric\\(1\\)."
+  )
 })
 
 test_that("Plot Levey-Jennings chart with incorrect plate_labels parameter", {
   list_of_plates <- get_test_list_of_plates()
-  expect_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", plate_labels = "invalid"),
-               "plate_labels should be one of the following: 'name', 'number', or 'date'")
+  expect_error(
+    plot_levey_jennings(list_of_plates, "Spike_6P_IPP", plate_labels = "invalid"),
+    "plate_labels should be one of the following: 'name', 'number', or 'date'"
+  )
   expect_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", plate_labels = c("name", "number")))
 })
 
@@ -190,7 +198,7 @@ test_that("Plot Levey-Jennings chart with multiple plates to test sorting", {
   plate3$plate_datetime <- as.POSIXct("2020-01-03 12:00:00", tz = "UTC")
   plate3$plate_name <- "plate3"
 
-  list_of_plates <- list(plate3, plate1, plate2)  # Out of order
+  list_of_plates <- list(plate3, plate1, plate2) # Out of order
 
   expect_no_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", sort_plates = TRUE))
   expect_no_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", sort_plates = FALSE))
