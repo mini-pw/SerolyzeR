@@ -399,7 +399,7 @@ plot_standard_curve_stacked <- function(list_of_plates,
   }
   if (!is.null(legend_text_size) &&
       (!is.numeric(legend_text_size) || legend_text_size <= 0)) {
-    stop("`max_legend_items_per_row` must be an integer value greater than 0.")
+    stop("`legend_text_size` must be an integer value greater than 0.")
   }
 
   # preserve the old options
