@@ -23,6 +23,12 @@
 #' By default it equals to `TRUE`, which corresponds to plotting the chart in `log10` scale.
 #' @param sort_plates (`logical(1)`) if `TRUE` sorts plates by the date of examiation.
 #' If `FALSE` plots using the plate order as in input. `TRUE` by default.
+#' @param plate_labels (`character` or `NULL`) controls x-axis labels. Can improve readibility of the plot. Takes the following values:
+#' * `NULL` or `"all"`: show all labels (default),
+#' * `"auto"`: automatically choose a subset of plate names to be displayed
+#' * `"hide"`: hide labels and replace with 1, 2, 3...
+#' * `character vector`: show only specific plate names.
+#' @param label_angle (`numeric(1)`) angle in degrees to rotate x-axis labels. Can improve readibility of the plot. Default: 0
 #' @param data_type (`character(1)`) the type of data used plot. The default is "Median"
 #'
 #' @importFrom stats setNames
@@ -50,6 +56,8 @@ plot_levey_jennings <- function(list_of_plates,
                                 sd_lines = c(1.96),
                                 mfi_log_scale = TRUE,
                                 sort_plates = TRUE,
+                                plate_labels = "all",
+                                label_angle = 0,
                                 data_type = "Median") {
   if (!is.list(list_of_plates)) {
     stop("The list_of_plates is not a list.")
@@ -87,9 +95,10 @@ plot_levey_jennings <- function(list_of_plates,
     stop("mfi_log_scale parameter should be a single boolean value")
   }
 
-  if (!is.logical(sort_plates) && length(sort_plates) != 1) {
-    stop("sort_plates parameter should be a single boolean value")
-  }
+  if (!is.logical(sort_plates) && length(sort_plates) != 1) stop("sort_plates parameter should be a single boolean value")
+
+  if (!is.numeric(label_angle) || length(label_angle) != 1) stop("label_angle must be numeric(1).")
+
 
 
   date_of_experiment <- c()
@@ -120,6 +129,25 @@ plot_levey_jennings <- function(list_of_plates,
 
   plot_data$counter <- seq(1, length(mfi_values))
 
+  # add labels of the plot
+  if (is.character(plate_labels) && plate_labels == "hide") {
+    breaks_to_show <- as.character(seq_len(nrow(plot_data)))
+    plot_data$label <- breaks_to_show
+  } else {
+    plot_data$label <- plot_data$plates
+    if (is.character(plate_labels) && plate_labels == "auto") {
+      breaks_to_show <- plot_data$plate[seq(1, nrow(plot_data), by = 2)]
+    } else if (is.null(plate_labels) || (is.character(plate_labels) && plate_labels == "all")) {
+      breaks_to_show <- plot_data$plate
+    } else {
+      # Custom vector of plate labels
+      breaks_to_show <- intersect(plot_data$plate, plate_labels)
+    }
+  }
+
+  # add pretty angles - if there is no angle provided the label should appear in the center
+  hjust <- ifelse(label_angle == 0, 0.5, 1)
+
   p <- ggplot2::ggplot(data = plot_data, aes(x = .data$plates, y = .data$mfi, group = 1)) +
     ggplot2::geom_point(size = 3, colour = "blue") +
     ggplot2::geom_line(linewidth = 1.3, colour = "blue") +
@@ -132,7 +160,7 @@ plot_levey_jennings <- function(list_of_plates,
     ggplot2::theme_minimal() +
     ggplot2::theme(
       axis.line = element_line(colour = "black"),
-      axis.text.x = element_text(size = 9, vjust = 1),
+      axis.text.x = element_text(size = 9, angle = label_angle, vjust = 1, hjust = hjust),
       axis.text.y = element_text(size = 9),
       legend.position = "right",
       legend.background = element_rect(fill = "white", color = "black"),
