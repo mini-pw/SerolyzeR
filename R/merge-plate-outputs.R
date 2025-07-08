@@ -11,6 +11,8 @@
 #'   - Determines how to handle mismatched columns across plates.
 #'   - Options: `"intersection"` (only shared columns), `"union"` (include all columns).
 #' @param verbose (`logical(1)`, default = `TRUE`) Whether to print verbose output.
+#' @param ... Additional arguments passed to [process_plate()], such as `sample_type_filter = "TEST"`
+#'   to include only certain sample types in the merged result.
 #'
 #' @return A merged `data.frame` containing normalised data across all plates.
 #'
