@@ -11,6 +11,7 @@ plot_standard_curve_stacked(
   decreasing_dilution_order = TRUE,
   monochromatic = TRUE,
   legend_type = NULL,
+  plot_legend = TRUE,
   legend_position = "bottom",
   max_legend_items_per_row = 3,
   legend_text_size = 8,
@@ -38,6 +39,8 @@ based on monochromatic value. If monochromatic is equal to \code{TRUE} then lege
 type is set to \code{date}, if it is \code{FALSE} then legend
 type is set to \code{plate_name}. User can override this behavior by
 setting explicitly \code{legend_type} to \code{date} or \code{plate_name}.}
+
+\item{plot_legend}{If \code{TRUE} the legend is plotted, \code{TRUE} by default}
 
 \item{legend_position}{the position of the legend, a possible values are \code{c(right, bottom, left, top, none)}. Is not used if \code{plot_legend} equals to \code{FALSE}.}
 
