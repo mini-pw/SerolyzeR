@@ -224,3 +224,11 @@ The `sd_lines` parameter allows us to set the distance of horizontal lines from 
 For example, `sd_lines = c(1, 2)` will plot four lines at ±1*SD and ± 2*SD, where SD is the standard deviation of the data.
 The default value of the `sd_lines` parameter is `c(1.96)`, which corresponds to approximately the 95% confidence interval under a normal distribution. This means two horizontal lines are drawn at ±1.96 times the standard deviation from the mean, highlighting the typical range of expected variation. Values falling outside these lines may indicate outliers or points requiring further investigation.
 
+The Levey-Jennings plot has some additional parameters that can improve the readibility. For instance, we can replace the x-label with actual plate names, or dates of examination - using a `plate_labels` parameter. This can create very congested labels, so to overcome this issue, the xlabels can be rotated with `label_angle` parameter. Legend can be also positioned in different places with `legend_position` parameter.
+
+To make the plot analysis easier, it is zoomed out by a factor 1.5 in y-axis.
+
+```{r}
+plot_levey_jennings(list_of_plates, "Adenovirus.T3", dilution = "1/100", sd_lines = c(1, 2, 3), plate_labels = "name", label_angle = 30)
+```
+
