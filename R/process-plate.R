@@ -54,6 +54,9 @@ is_valid_normalisation_type <- function(normalisation_type) {
 #' @param normalisation_type (`character(1)`, default = `'RAU'`) The normalisation method to apply.
 #'   - Allowed values: \code{c(`r toString(SerolyzeR.env$normalisation_types)`)}.
 #' @param data_type (`character(1)`, default = `'Median'`) The data type to use for calculations.
+#' @param sample_type_filter (`character()`) The types of samples to normalise.
+#'   (e.g., `"TEST"`, `"STANDARD CURVE"`). It can also be a vector of sample types.
+#'   In that case, dataframe with multiple sample types will be returned.
 #' @param blank_adjustment (`logical(1)`, default = `FALSE`) Whether to perform blank adjustment before computing values.
 #' @param verbose (`logical(1)`, default = `TRUE`) Whether to print additional information during execution.
 #' @param reference_dilution (`numeric(1)` or `character(1)`, default = `1/400`)

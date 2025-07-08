@@ -11,6 +11,7 @@ process_plate(
   write_output = TRUE,
   normalisation_type = "RAU",
   data_type = "Median",
+  sample_type_filter = "TEST",
   blank_adjustment = FALSE,
   verbose = TRUE,
   reference_dilution = 1/400,
@@ -42,6 +43,10 @@ process_plate(
 }}
 
 \item{data_type}{(\code{character(1)}, default = \code{'Median'}) The data type to use for calculations.}
+
+\item{sample_type_filter}{(\code{character()}) The types of samples to normalise.
+(e.g., \code{"TEST"}, \code{"STANDARD CURVE"}). It can also be a vector of sample types.
+In that case, dataframe with multiple sample types will be returned.}
 
 \item{blank_adjustment}{(\code{logical(1)}, default = \code{FALSE}) Whether to perform blank adjustment before computing values.}
 

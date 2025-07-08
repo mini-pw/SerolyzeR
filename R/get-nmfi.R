@@ -22,7 +22,9 @@
 #' This parameter could be either a numeric value or a string.
 #' In case it is a character string, it should have format `1/d+`, where `d+` is any positive integer.
 #' @param data_type (`character(1)`) type of data for the computation. Median is the default
-#'
+#' @param sample_type_filter (`character()`) The types of samples to normalise.
+#'   (e.g., `"TEST"`, `"STANDARD CURVE"`). It can also be a vector of sample types.
+#'   In that case, dataframe with multiple sample types will be returned.
 #' @param verbose (`logical(1)`) print additional information. The default is `TRUE`
 #'
 #' @return nmfi (`data.frame`) a data frame with normalised MFI values for each analyte in the plate and all test samples.
@@ -46,6 +48,8 @@
 #' head(nmfi)
 #' # different params
 #' nmfi <- get_nmfi(plate, reference_dilution = "1/50")
+#' nmfi <- get_nmfi(plate, reference_dilution = "1/50", sample_type_filter = c("TEST", "BLANK"))
+#'
 #'
 #' @export
 get_nmfi <-

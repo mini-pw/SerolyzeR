@@ -5,7 +5,7 @@
 #' This function merges normalised data from a list of [`Plate`] objects into a single `data.frame`.
 #' It supports different normalisation types and handles column mismatches based on the specified strategy.
 #'
-#' @param plates A named list of [`Plate`] objects, typically returned by [process_dir(return_plates = TRUE)].
+#' @param plates A named list of [`Plate`] objects, typically returned by [process_dir()] with parameter `return_plates = TRUE`.
 #' @param normalisation_type (`character(1)`) The type of normalisation to merge. Options: `"MFI"`, `"RAU"`, `"nMFI"`.
 #' @param column_collision_strategy (`character(1)`, default = `"intersection"`)
 #'   - Determines how to handle mismatched columns across plates.
@@ -15,6 +15,25 @@
 #'   to include only certain sample types in the merged result.
 #'
 #' @return A merged `data.frame` containing normalised data across all plates.
+#'
+#' @examples
+#' # creating temporary directory for the example
+#' output_dir <- tempdir(check = TRUE)
+#'
+#' dir_with_luminex_files <- system.file("extdata", "multiplate_reallife_reduced",
+#'   package = "SerolyzeR", mustWork = TRUE
+#' )
+#' list_of_plates <- process_dir(dir_with_luminex_files,
+#'   return_plates = TRUE, format = "xPONENT", output_dir = output_dir
+#' )
+#'
+#' df <- merge_plate_outputs(list_of_plates, "RAU")
+#'
+#'
+#' df <- merge_plate_outputs(list_of_plates, "RAU", sample_type_filter = c("TEST", "STANDARD CURVE"))
+#'
+#'
+#'
 #'
 #' @export
 merge_plate_outputs <- function(
