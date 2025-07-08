@@ -262,8 +262,6 @@ process_dir <- function(
   }
   stopifnot(is_mba_format(format, allow_nullable = TRUE))
 
-  if (!all(is_valid_sample_type(sample_type_filter)))
-
   input_dir <- fs::path_abs(input_dir)
 
   # --- Discover all input plate files ---
