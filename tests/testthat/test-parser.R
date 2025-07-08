@@ -17,6 +17,44 @@ test_that("Test handle_datetime with seen date formats", {
     as.POSIXct("2024-10-07 12:00:00", tz = "")
   )
 })
+test_that("Test extract_xponent_experiment_date method", {
+  # Case 1: Extract from BatchMetadata
+  plate_file <- system.file("extdata", "random.csv", package = "SerolyzeR", mustWork = TRUE)
+  xponent_output <- read_xponent_format(plate_file, exact_parse = TRUE)
+  expect_message(
+    datetime <- extract_xponent_experiment_date(xponent_output),
+    "BatchStartTime successfully extracted from the metadata"
+  )
+  expect_equal(
+    handle_datetime(datetime, "xPONENT"),
+    as.POSIXct("2022-05-12 18:17:40", tz = "")
+  )
+
+  # Case 2: Fallback to Header field
+  xponent_output <- read_xponent_format(plate_file)
+  expect_message(
+    datetime <- extract_xponent_experiment_date(xponent_output),
+    "BatchStartTime successfully extracted from the header"
+  )
+  expect_equal(
+    handle_datetime(datetime, "xPONENT"),
+    as.POSIXct("2022-05-12 18:17:40", tz = "")
+  )
+
+  # Case 3: Fallback to ProgramMetadata (export datetime)
+  plate_file <- system.file("extdata", "random2.csv", package = "SerolyzeR", mustWork = TRUE)
+  xponent_output <- read_xponent_format(plate_file)
+  expect_message(
+    datetime <- extract_xponent_experiment_date(xponent_output),
+    "Fallback datetime successfully extracted from ProgramMetadata."
+  )
+  expect_equal(
+    handle_datetime(datetime, "xPONENT"),
+    as.POSIXct("2024-02-07 00:00:00", tz = "")
+  )
+})
+
+
 
 test_that("Test parser validation", {
   # Default xPONENT datetime format MM/DD/YYYY HH:MM AM/PM
