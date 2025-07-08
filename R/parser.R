@@ -65,60 +65,77 @@ parse_xponent_locations <- function(xponent_locations) {
 #' @keywords internal
 extract_xponent_experiment_date <- function(xponent_output, verbose = TRUE) {
   # 1. Try from Header$BatchMetadata
-  batch_time_str <- tryCatch({
-    time_str <- xponent_output$Header$BatchMetadata$BatchStartTime
-    if (is.null(time_str))
-      stop("BatchStartTime not found in BatchMetadata.")
-    if (verbose)
-      message("BatchStartTime successfully extracted from the metadata")
-    time_str
-  }, error = function(e) {
-    if (verbose)
-      message("Failed to extract from BatchMetadata: ", e$message)
-    NULL
-  })
+  batch_time_str <- tryCatch(
+    {
+      time_str <- xponent_output$Header$BatchMetadata$BatchStartTime
+      if (is.null(time_str)) {
+        stop("BatchStartTime not found in BatchMetadata.")
+      }
+      if (verbose) {
+        message("BatchStartTime successfully extracted from the metadata")
+      }
+      time_str
+    },
+    error = function(e) {
+      if (verbose) {
+        message("Failed to extract from BatchMetadata: ", e$message)
+      }
+      NULL
+    }
+  )
 
   # 2. Try from raw Header string
   if (is.null(batch_time_str)) {
-    batch_time_str <- tryCatch({
-      header_raw <- xponent_output$Header[[1]]
-      match <- regmatches(
-        header_raw,
-        regexpr("(?<=BatchStartTime\",\\\")[^\"]+", header_raw, perl = TRUE)
-      )
-      if (length(match) == 0)
-        stop("BatchStartTime not found in raw header.")
-      if (verbose)
-        message("BatchStartTime successfully extracted from the header.")
-      match
-    }, error = function(e) {
-      if (verbose)
-        message("Failed to extract from raw header: ", e$message)
-      NULL
-    })
+    batch_time_str <- tryCatch(
+      {
+        header_raw <- xponent_output$Header[[1]]
+        match <- regmatches(
+          header_raw,
+          regexpr("(?<=BatchStartTime\",\\\")[^\"]+", header_raw, perl = TRUE)
+        )
+        if (length(match) == 0) {
+          stop("BatchStartTime not found in raw header.")
+        }
+        if (verbose) {
+          message("BatchStartTime successfully extracted from the header.")
+        }
+        match
+      },
+      error = function(e) {
+        if (verbose) {
+          message("Failed to extract from raw header: ", e$message)
+        }
+        NULL
+      }
+    )
   }
 
   # 3. Fallback to ProgramMetadata Date + Time
   if (is.null(batch_time_str)) {
-    batch_time_str <- tryCatch({
-      date_str <- xponent_output$ProgramMetadata[["Date"]]
-      time_str <- xponent_output$ProgramMetadata[["Time"]]
-      if (is.null(date_str) ||
-          is.null(time_str))
-        stop("Date/Time not found in ProgramMetadata.")
-      fallback <- paste(date_str, time_str)
-      if (verbose)
-        message("Fallback datetime successfully extracted from ProgramMetadata.")
-      fallback
-    }, error = function(e) {
-      if (verbose)
-        message("Failed to extract fallback datetime: ", e$message)
-      NA_character_
-    })
+    batch_time_str <- tryCatch(
+      {
+        date_str <- xponent_output$ProgramMetadata[["Date"]]
+        time_str <- xponent_output$ProgramMetadata[["Time"]]
+        if (is.null(date_str) ||
+          is.null(time_str)) {
+          stop("Date/Time not found in ProgramMetadata.")
+        }
+        fallback <- paste(date_str, time_str)
+        if (verbose) {
+          message("Fallback datetime successfully extracted from ProgramMetadata.")
+        }
+        fallback
+      },
+      error = function(e) {
+        if (verbose) {
+          message("Failed to extract fallback datetime: ", e$message)
+        }
+        NA_character_
+      }
+    )
   }
 
   return(batch_time_str)
-
 }
 
 #' Handle differences in datetimes
