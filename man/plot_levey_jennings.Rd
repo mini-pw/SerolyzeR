@@ -8,9 +8,11 @@ plot_levey_jennings(
   list_of_plates,
   analyte_name,
   dilution = "1/400",
-  sd_lines = c(1.96),
+  sd_lines = c(1, 2, 3),
   mfi_log_scale = TRUE,
   sort_plates = TRUE,
+  plate_labels = "number",
+  label_angle = 0,
   data_type = "Median"
 )
 }
@@ -27,13 +29,22 @@ Levey-Jennings chart. The default is "1/400"}
 \item{sd_lines}{(\code{numeric}) the vector of coefficients for the
 standard deviation lines to plot, for example, c(1.96, 2.58)
 will plot four horizontal lines: mean +/- 1.96\emph{sd, mean +/- 2.58}sd
-default is c(1.96) which will plot two lines mean +/- 1.96*sd}
+default is c(1, 2, 3) which will plot 6 lines in total}
 
 \item{mfi_log_scale}{(\code{logical(1)}) specifies if the MFI should be in the \code{log10} scale.
 By default it equals to \code{TRUE}, which corresponds to plotting the chart in \code{log10} scale.}
 
-\item{sort_plates}{(\code{logical(1)}) if \code{TRUE} sorts plates by the date of examiation.
+\item{sort_plates}{(\code{logical(1)}) if \code{TRUE} sorts plates by the date of examination.
 If \code{FALSE} plots using the plate order as in input. \code{TRUE} by default.}
+
+\item{plate_labels}{(\code{character(1)}) controls x-axis labels. Can improve readibility of the plot. Takes the following values:
+\itemize{
+\item \code{"numbers"}: shows the number of the plate,
+\item \code{"names"}: shows the plate names
+\item \code{"dates"}: shows the date of examination
+}}
+
+\item{label_angle}{(\code{numeric(1)}) angle in degrees to rotate x-axis labels. Can improve readibility of the plot. Default: 0}
 
 \item{data_type}{(\code{character(1)}) the type of data used plot. The default is "Median"}
 }
@@ -46,6 +57,14 @@ in the list of plates. The Levey-Jennings chart is a graphical
 representation of the data that enables the detection of outliers
 and trends. It is a quality control tool that is widely used
 in the laboratories across the world.
+
+The method takes several parameters that can customise its output.
+Except for the required parameters (\code{list_of_plates} and \code{analyte_name}),
+the most significant optional ones are \code{dilution} and \code{sd_lines}.
+
+The additional parameters can be used for improving the plots interpretability, by customizing the layout, y-scale, etc.
+
+For better readibilty, the plot is zoomed out in the \code{y}-axis, by a factor of \code{1.5}.
 }
 \examples{
 # creating temporary directory for the example

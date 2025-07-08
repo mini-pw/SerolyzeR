@@ -7,7 +7,13 @@
 #' and trends. It is a quality control tool that is widely used
 #' in the laboratories across the world.
 #'
+#' The method takes several parameters that can customise its output.
+#' Except for the required parameters (`list_of_plates` and `analyte_name`),
+#' the most significant optional ones are `dilution` and `sd_lines`.
 #'
+#' The additional parameters can be used for improving the plots interpretability, by customizing the layout, y-scale, etc.
+#'
+#' For better readibilty, the plot is zoomed out in the `y`-axis, by a factor of `1.5`.
 #'
 #' @param list_of_plates A list of plate objects for which to plot the
 #' Levey-Jennings chart
@@ -18,16 +24,15 @@
 #' @param sd_lines (`numeric`) the vector of coefficients for the
 #' standard deviation lines to plot, for example, c(1.96, 2.58)
 #' will plot four horizontal lines: mean +/- 1.96*sd, mean +/- 2.58*sd
-#' default is c(1.96) which will plot two lines mean +/- 1.96*sd
+#' default is c(1, 2, 3) which will plot 6 lines in total
 #' @param mfi_log_scale (`logical(1)`) specifies if the MFI should be in the `log10` scale.
 #' By default it equals to `TRUE`, which corresponds to plotting the chart in `log10` scale.
-#' @param sort_plates (`logical(1)`) if `TRUE` sorts plates by the date of examiation.
+#' @param sort_plates (`logical(1)`) if `TRUE` sorts plates by the date of examination.
 #' If `FALSE` plots using the plate order as in input. `TRUE` by default.
-#' @param plate_labels (`character` or `NULL`) controls x-axis labels. Can improve readibility of the plot. Takes the following values:
-#' * `NULL` or `"all"`: show all labels (default),
-#' * `"auto"`: automatically choose a subset of plate names to be displayed
-#' * `"hide"`: hide labels and replace with 1, 2, 3...
-#' * `character vector`: show only specific plate names.
+#' @param plate_labels (`character(1)`) controls x-axis labels. Can improve readibility of the plot. Takes the following values:
+#' * `"numbers"`: shows the number of the plate,
+#' * `"names"`: shows the plate names
+#' * `"dates"`: shows the date of examination
 #' @param label_angle (`numeric(1)`) angle in degrees to rotate x-axis labels. Can improve readibility of the plot. Default: 0
 #' @param data_type (`character(1)`) the type of data used plot. The default is "Median"
 #'
@@ -53,10 +58,10 @@
 plot_levey_jennings <- function(list_of_plates,
                                 analyte_name,
                                 dilution = "1/400",
-                                sd_lines = c(1.96),
+                                sd_lines = c(1, 2, 3),
                                 mfi_log_scale = TRUE,
                                 sort_plates = TRUE,
-                                plate_labels = "all",
+                                plate_labels = "number",
                                 label_angle = 0,
                                 data_type = "Median") {
   if (!is.list(list_of_plates)) {
@@ -99,8 +104,10 @@ plot_levey_jennings <- function(list_of_plates,
 
   if (!is.numeric(label_angle) || length(label_angle) != 1) stop("label_angle must be numeric(1).")
 
+  if( !(plate_labels %in% c("name", "number", "date"))) stop("plate_labels should be one of the following: 'name', 'number', or 'date'")
 
 
+  # gather the data for the plot
   date_of_experiment <- c()
   mfi_values <- c()
   plate_names <- c()
@@ -117,44 +124,53 @@ plot_levey_jennings <- function(list_of_plates,
   y_trans <- ifelse(mfi_log_scale, "log10", "identity")
   ylab <- format_ylab(data_type, y_trans)
 
+  # calculate the aggregates
   mean <- mean(mfi_values)
   sd <- sd(mfi_values)
 
+  # set up a dataframe of data to be plotted
   plot_data <- data.frame(date = as.POSIXct(date_of_experiment),
-                          mfi = mfi_values, plates = plate_names)
+                          mfi = mfi_values, plate = plate_names)
 
   if (sort_plates) {
     plot_data <- plot_data[order(plot_data$date), ]
   }
 
-  plot_data$counter <- seq(1, length(mfi_values))
-
-  # add labels of the plot
-  if (is.character(plate_labels) && plate_labels == "hide") {
-    breaks_to_show <- as.character(seq_len(nrow(plot_data)))
-    plot_data$label <- breaks_to_show
-  } else {
-    plot_data$label <- plot_data$plates
-    if (is.character(plate_labels) && plate_labels == "auto") {
-      breaks_to_show <- plot_data$plate[seq(1, nrow(plot_data), by = 2)]
-    } else if (is.null(plate_labels) || (is.character(plate_labels) && plate_labels == "all")) {
-      breaks_to_show <- plot_data$plate
-    } else {
-      # Custom vector of plate labels
-      breaks_to_show <- intersect(plot_data$plate, plate_labels)
-    }
-  }
-
   # add pretty angles - if there is no angle provided the label should appear in the center
   hjust <- ifelse(label_angle == 0, 0.5, 1)
 
-  p <- ggplot2::ggplot(data = plot_data, aes(x = .data$plates, y = .data$mfi, group = 1)) +
+  # configure the labels
+  plot_data$counter <- seq(1, length(mfi_values))
+
+  if (plate_labels == "number") {
+    xlab <- "Plate number"
+    plot_data$label <- plot_data$counter
+  } else if (plate_labels == "name") {
+    xlab <- "Plate name"
+    plot_data$label <- make.unique(as.character(plot_data$plate))
+  } else {
+    xlab <- "Examination date"
+    plot_data$label <- make.unique(as.character(plot_data$date))
+  }
+
+  # add correct ordering for the plot
+  plot_data$label <- factor(plot_data$label, levels = plot_data$label)
+
+  # calculate plot y limits
+  max_sd_line <- if (length(sd_lines) > 0) max(abs(sd_lines)) * sd else 0
+  max_observed_deviation <- max(abs(plot_data$mfi - mean), na.rm = TRUE)
+  max_range <- max(max_sd_line, max_observed_deviation)
+
+  limit_factor <- 1.5
+  y_limits <- c(mean - limit_factor * max_range, mean + limit_factor * max_range)
+
+  p <- ggplot2::ggplot(data = plot_data, aes(x = .data$label, y = .data$mfi, group = 1)) +
     ggplot2::geom_point(size = 3, colour = "blue") +
-    ggplot2::geom_line(linewidth = 1.3, colour = "blue") +
+    ggplot2::geom_line(linewidth = 1.1, colour = "blue") +
     ggplot2::geom_hline(yintercept = mean, color = "black", linewidth = 1) +
     ggplot2::labs(
       title = paste("Levey-Jennings chart for", analyte_name, "at", dilution, "dilution"),
-      x = "Plate",
+      x = xlab,
       y = ylab
     ) +
     ggplot2::theme_minimal() +
@@ -167,7 +183,8 @@ plot_levey_jennings <- function(list_of_plates,
       legend.title = element_blank(),
       panel.grid.minor = element_line(color = scales::alpha("grey", .5), linewidth = 0.1) # Make the minor grid lines less visible
     ) +
-    ggplot2::scale_y_continuous(trans = y_trans)
+    ggplot2::scale_y_continuous(trans = y_trans) +
+    ggplot2::coord_cartesian(ylim = y_limits)
 
   line_types <- c("dashed", "dotted", "dotdash", "longdash", "twodash", "1F")
   line_labels <- c()
