@@ -351,10 +351,14 @@ process_dir <- function(
     decreasing = FALSE
   )
 
-  file_ending <- format(now(), "%Y%m%d_%H%M%S")  # Timestamp for filenames
+  datetime_format <- "%Y%m%d_%H%M%S"
+
+  file_ending <- format(Sys.time(), datetime_format)
 
   # --- Merge outputs across all plates if requested ---
   if (merge_outputs) {
+    for (normalisation_type in normalisation_types) {
+
     merged_df <- merge_plate_outputs(
       plates = plates,
       normalisation_type = normalisation_type,
@@ -362,13 +366,12 @@ process_dir <- function(
       verbose = verbose
     )
 
-    file_ending <- format(Sys.time(), datetime_format)
     file_name <- paste0("merged_", normalisation_type, "_", file_ending, ".csv")
     output_path <- fs::path_join(c(output_dir, file_name))
     write.csv(merged_df, output_path, row.names = FALSE)
     verbose_cat("Merged output saved to: ", output_path, "\n", verbose = verbose)
+    }
   }
-
 
   # --- Generate multiplate quality control report if requested ---
   if (generate_multiplate_reports) {
