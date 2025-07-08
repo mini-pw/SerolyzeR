@@ -176,8 +176,8 @@ Each plate is more distinct from the others, which can be helpful when looking f
 plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE)
 ```
 
-There is few more useful parameters in this function. Mainly `legend_type` By default it is set to `NULL` which means that the legend type
-is determined based on the `monochromatic` value. If `monochromatic` is equal to `TRUE` then legend type is set to `date`, if it is `FALSE` then legend type is set to `plate_name`. User can override this behavior by setting explicitly `legend_type` to `date` or `plate_name`.
+There are a few more useful parameters in this function—mainly `legend_type`. By default it is set to `NULL`, which means that the legend type
+is determined based on the `monochromatic` value. If `monochromatic` is equal to `TRUE`, then the legend type is set to `date`; if it is `FALSE`, then the legend type is set to `plate_name`. The user can override this behavior by explicitly setting `legend_type` to `date` or `plate_name`.
 
 Additionally, if an user wants to play around with the legend position, a parameter `legend_position` is here to help. It simply specifies where the legend should be positioned - at the bottom, top, left or right of the plot. By default it is set to `bottom`. 
 
