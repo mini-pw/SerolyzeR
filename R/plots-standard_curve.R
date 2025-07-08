@@ -315,9 +315,14 @@ plot_standard_curve_thumbnail <- function(plate,
 #' @title Standard curve stacked plot for levey-jennings report
 #'
 #' @description
-#' Function generates a plot of stacked on top of each other standard curves
-#' for a given analyte form a list of plates. The plot is created with the
-#' levey-jennings report in mind, but it can be run by itself.
+#' As a quality control measure to detect plates with inconsistent results or drift in calibration over time,
+#' this function plots standard curves for a specified analyte across multiple plates on a single plot.
+#' It enables visual comparison of standard curves, making it easier to spot outliers or shifts in calibration.
+#' The function can be run standalone or used as part of a broader Levey-Jennings report.
+#'
+#' Each curve represents one plate, and users can choose how colours are applied — either in a
+#' monochromatic blue gradient (indicating time-based drift) or with distinct hues for clearer differentiation.
+#'
 #'
 #' @param list_of_plates list of Plate objects
 #' @param analyte_name Name of the analyte of which standard curves we want to plot.
@@ -337,12 +342,25 @@ plot_standard_curve_thumbnail <- function(plate,
 #' @param legend_text_size Font size of the legend. Can be useful if plotting long plate names. Default is 8
 #' @param decreasing_dilution_order If `TRUE` the dilution values are
 #' plotted in decreasing order, `TRUE` by default
+#' @param sort_plates (`logical(1)`) if `TRUE` sorts plates by the date of examination.
 #' @param log_scale Which elements on the plot should be displayed in log scale.
 #' By default `"all"`. If `NULL` or `c()` no log scale is used,
 #' if `"all"` or `c("dilutions", "MFI")` all elements are displayed in log scale.
 #' @param verbose If `TRUE` prints messages, `TRUE` by default
 #'
 #' @return ggplot object with the plot
+#'
+#' @details
+#' The function overlays all standard curves from the provided plates for the given analyte.
+#' When `monochromatic = TRUE`, the curves are drawn in a blue gradient — oldest plates in light blue (almost white) and most recent ones in dark blue.
+#' This visual encoding helps track drift in calibration over time.
+#'
+#' When `monochromatic = FALSE`, colours are selected from a hue palette to ensure distinct appearance,
+#' especially useful when comparing many plates simultaneously.
+#'
+#' The `legend_type` determines how curves are identified in the legend. By default, it adapts based on the `monochromatic` setting.
+#'
+#' If the legend becomes crowded (e.g., with long plate names), use `max_legend_items_per_row` and `legend_text_size` to improve layout and readability.
 #'
 #' @examples
 #'
@@ -368,6 +386,7 @@ plot_standard_curve_stacked <- function(list_of_plates,
                                         legend_position = "bottom",
                                         max_legend_items_per_row = 3,
                                         legend_text_size = 8,
+                                        sort_plates = TRUE,
                                         log_scale = c("all"),
                                         verbose = TRUE) {
   AVAILABLE_LOG_SCALE_VALUES <- c("all", "dilutions", "MFI")
@@ -404,6 +423,9 @@ plot_standard_curve_stacked <- function(list_of_plates,
     stop("`legend_text_size` must be an integer value greater than 0.")
   }
 
+  if (!is.logical(sort_plates) && length(sort_plates) != 1) stop("sort_plates parameter should be a single boolean value")
+
+
   # preserve the old options
   old <- options()
   on.exit(options(old))
@@ -411,6 +433,11 @@ plot_standard_curve_stacked <- function(list_of_plates,
   # preserve the old options
   old <- options()
   on.exit(options(old))
+
+  # sort the plates if required
+  if (sort_plates){
+    list_of_plates <- list_of_plates[order(sapply(list_of_plates, function(p) p$plate_datetime))]
+  }
 
   plot_name <- paste0("Standard curves of: ", analyte_name)
 
@@ -447,15 +474,16 @@ plot_standard_curve_stacked <- function(list_of_plates,
     ggplot2::coord_trans(x = x_cords_trans) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
-      axis.line = element_line(colour = "black"),
-      axis.text.x = element_text(size = 9, angle = 45, hjust = 1, vjust = 1),
-      axis.text.y = element_text(size = 9),
+      axis.line = ggplot2::element_line(colour = "black"),
+      axis.text.x = ggplot2::element_text(size = 9, angle = 45, hjust = 1, vjust = 1),
+      axis.text.y = ggplot2::element_text(size = 9),
       legend.position = legend_position,
-      legend.background = element_rect(fill = "white", color = "black"),
-      legend.title = element_blank(),
+      legend.background = ggplot2::element_rect(fill = "white", color = "black"),
+      legend.title = ggplot2::element_blank(),
       legend.text = ggplot2::element_text(size = legend_text_size),
-      panel.grid.minor = element_line(color = scales::alpha("grey", .5), size = 0.1) # Make the minor grid lines less visible
+      panel.grid.minor = ggplot2::element_line(color = scales::alpha("grey", .5), size = 0.1) # Make the minor grid lines less visible
     )
+
 
   number_of_colors <- length(list_of_plates)
 
