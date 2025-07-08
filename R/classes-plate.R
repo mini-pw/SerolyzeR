@@ -324,6 +324,8 @@ Plate <- R6::R6Class(
     #'
     #' @param sample_type is a type of the sample we want to extract data from.
     #'  The possible values are \cr \code{c(`r toString(VALID_SAMPLE_TYPES)`)}. Default value is `ALL`.
+    #'  `sample_type` can be also of length greater than 1. If `sample_type` is longer than 1 and `ALL` is in the vector,
+    #'  the method returns all the sample types.
     #' @param data_type The parameter specifying which data type should be returned.
     #'  This parameter has to take one of values: \cr \code{c(`r toString(VALID_DATA_TYPES)`)}.
     #'  What's more, the `data_type` has to be present in the plate's data
@@ -341,8 +343,8 @@ Plate <- R6::R6Class(
       }
 
       # check if the sample_type is a valid sample type
-      if (!is.null(sample_type) && !is.na(sample_type)) {
-        if (!is_valid_sample_type(sample_type)) {
+      if (!all(is.null(sample_type)) && !all(is.na(sample_type))) {
+        if (!all(is_valid_sample_type(sample_type))) {
           stop("Sample type ", sample_type, " is not a valid sample type")
         }
       } else {
@@ -361,10 +363,10 @@ Plate <- R6::R6Class(
       }
 
       # get samples of the given type, data_type and analyte and return them
-      if (sample_type == "ALL") {
+      if (any(sample_type == "ALL")) {
         valid_samples <- rep(TRUE, length(self$sample_types))
       } else {
-        valid_samples <- self$sample_types == sample_type
+        valid_samples <- self$sample_types %in% sample_type
       }
 
       data_of_specified_type <- self$data[[data_type]]

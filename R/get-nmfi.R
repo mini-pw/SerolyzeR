@@ -22,6 +22,7 @@
 #' This parameter could be either a numeric value or a string.
 #' In case it is a character string, it should have format `1/d+`, where `d+` is any positive integer.
 #' @param data_type (`character(1)`) type of data for the computation. Median is the default
+#'
 #' @param verbose (`logical(1)`) print additional information. The default is `TRUE`
 #'
 #' @return nmfi (`data.frame`) a data frame with normalised MFI values for each analyte in the plate and all test samples.
@@ -51,6 +52,7 @@ get_nmfi <-
   function(plate,
            reference_dilution = 1 / 400,
            data_type = "Median",
+           sample_type_filter = "TEST",
            verbose = TRUE) {
     stopifnot(inherits(plate, "Plate"))
 
@@ -58,6 +60,13 @@ get_nmfi <-
 
     # check if data_type is valid
     stopifnot(is_valid_data_type(data_type))
+
+    if (!is.character(sample_type_filter)) {
+      stop("`sample_type_filter` must be a character string.")
+    }
+
+    if (!all(is_valid_sample_type(sample_type_filter))) stop("Invalid sample_type_filter. The possible sample types are, ", VALID_SAMPLE_TYPES)
+
 
     # check if reference_dilution is numeric or string
     if (is.character(reference_dilution)) {
@@ -97,7 +106,7 @@ get_nmfi <-
     test_mfi <-
       plate$get_data(
         analyte = "ALL",
-        sample_type = "TEST",
+        sample_type = sample_type_filter,
         data_type = data_type
       )
     reference_mfi <- reference_mfi[rep(1, nrow(test_mfi)), ]
@@ -105,7 +114,7 @@ get_nmfi <-
     nmfi <- test_mfi / reference_mfi
 
     rownames(nmfi) <-
-      plate$sample_names[plate$sample_types == "TEST"]
+      plate$sample_names[plate$sample_types %in% sample_type_filter]
 
 
     return(nmfi)

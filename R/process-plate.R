@@ -93,6 +93,7 @@ process_plate <-
            write_output = TRUE,
            normalisation_type = "RAU",
            data_type = "Median",
+           sample_type_filter = "TEST",
            blank_adjustment = FALSE,
            verbose = TRUE,
            reference_dilution = 1 / 400,
@@ -101,6 +102,12 @@ process_plate <-
 
     stopifnot(is_valid_normalisation_type(normalisation_type))
     stopifnot(is.character(data_type))
+
+    if (!is.character(sample_type_filter)) {
+      stop("`sample_type_filter` must be a character string.")
+    }
+
+    if (!all(is_valid_sample_type(sample_type_filter))) stop("Invalid sample_type_filter. The possible sample types are, ", VALID_SAMPLE_TYPES)
 
     if (write_output) {
       output_path <- validate_filepath_and_output_dir(filename, output_dir,
@@ -117,17 +124,17 @@ process_plate <-
       plate <- plate$blank_adjustment(in_place = FALSE)
     }
 
-    test_sample_names <- plate$sample_names[plate$sample_types == "TEST"]
+    test_sample_names <- plate$sample_names[plate$sample_types %in% sample_type_filter]
     if (normalisation_type == "MFI") {
       verbose_cat("Extracting the raw MFI to the output dataframe\n")
       output_df <- plate$get_data(
-        "ALL", "TEST",
+        "ALL", sample_type_filter,
         data_type = data_type
       )
     } else if (normalisation_type == "nMFI") {
       verbose_cat("Computing nMFI values for each analyte\n", verbose = verbose)
       output_df <- get_nmfi(
-        plate,
+        plate, sample_type_filter = sample_type_filter,
         reference_dilution = reference_dilution, data_type = data_type
       )
     } else if (normalisation_type == "RAU") {
@@ -140,7 +147,7 @@ process_plate <-
           data_type = data_type, ...
         )
         test_samples_mfi <- plate$get_data(
-          analyte, "TEST",
+          analyte, sample_type_filter,
           data_type = data_type
         )
         test_sample_estimates <- predict(model, test_samples_mfi)
