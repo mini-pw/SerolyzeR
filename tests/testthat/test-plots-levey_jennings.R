@@ -92,7 +92,7 @@ test_that("Plot Levey-Jennings chart with a different legend position", {
 
   expect_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", "1/2", legend_position = "far away"))
 
-  p <- plot_levey_jennings(list_of_plates, "Spike_6P_IPP",legend_position = "left")
+  p <- plot_levey_jennings(list_of_plates, "Spike_6P_IPP", legend_position = "left")
 
   expect_equal(ggplot2::ggplot_build(p)$plot$theme$legend.position, "left")
 })

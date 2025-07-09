@@ -147,8 +147,6 @@ test_that("Plot Stacked Standard Curve legend position and number of rows", {
   # Check that plot_legend = TRUE overrides the legend_position
   p <- plot_standard_curve_stacked(list_of_plates, "Spike_6P_IPP", legend_position = "bottom", plot_legend = FALSE)
   expect_equal(ggplot2::ggplot_build(p)$plot$theme$legend.position, "none")
-
-
 })
 
 
@@ -178,10 +176,3 @@ test_that("plot_standard_curve_analyte respects legend_position parameter", {
     plot_standard_curve_analyte(plate, "Spike_6P_IPP", plot_legend = FALSE, legend_position = "top")
   )
 })
-
-
-
-
-
-
-

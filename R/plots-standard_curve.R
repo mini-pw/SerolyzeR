@@ -415,11 +415,11 @@ plot_standard_curve_stacked <- function(list_of_plates,
     stop("legend_position must be one of: ", SerolyzeR.env$legend_positions)
   }
   if (!is.null(max_legend_items_per_row) &&
-      (!is.numeric(max_legend_items_per_row) || max_legend_items_per_row <= 0)) {
+    (!is.numeric(max_legend_items_per_row) || max_legend_items_per_row <= 0)) {
     stop("`max_legend_items_per_row` must be an integer value greater than 0.")
   }
   if (!is.null(legend_text_size) &&
-      (!is.numeric(legend_text_size) || legend_text_size <= 0)) {
+    (!is.numeric(legend_text_size) || legend_text_size <= 0)) {
     stop("`legend_text_size` must be an integer value greater than 0.")
   }
 
@@ -435,7 +435,7 @@ plot_standard_curve_stacked <- function(list_of_plates,
   on.exit(options(old))
 
   # sort the plates if required
-  if (sort_plates){
+  if (sort_plates) {
     list_of_plates <- list_of_plates[order(sapply(list_of_plates, function(p) p$plate_datetime))]
   }
 

@@ -186,7 +186,7 @@ There might occur a situation, where the plate names are really long, and simply
 
 
 ```{r}
-plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position="top", max_legend_items_per_row = 3, legend_text_size = 4)
+plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position = "top", max_legend_items_per_row = 3, legend_text_size = 4)
 ```
 
 
@@ -196,13 +196,12 @@ To play around the additional theme settings of the plots produced by any of the
 ```{r}
 library(ggplot2)
 
-p <- plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position="bottom", max_legend_items_per_row = 3, legend_text_size = 7)
+p <- plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position = "bottom", max_legend_items_per_row = 3, legend_text_size = 7)
 
-p + 
-  geom_hline(yintercept = 1000, linetype = "dashed", colour = "red") + 
+p +
+  geom_hline(yintercept = 1000, linetype = "dashed", colour = "red") +
   ggplot2::labs(title = "A custom title for this amazing plot") +
-  annotate("text", x = 1/25000, y = 1000, label = "Threshold = 1000", color = "red", vjust = -0.5)
-
+  annotate("text", x = 1 / 25000, y = 1000, label = "Threshold = 1000", color = "red", vjust = -0.5)
 ```
 
 
