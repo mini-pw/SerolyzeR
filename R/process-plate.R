@@ -57,6 +57,7 @@ is_valid_normalisation_type <- function(normalisation_type) {
 #' @param sample_type_filter (`character()`) The types of samples to normalise.
 #'   (e.g., `"TEST"`, `"STANDARD CURVE"`). It can also be a vector of sample types.
 #'   In that case, dataframe with multiple sample types will be returned.
+#'   By default equals to `"ALL"`, which corresponds to processing all sample types.
 #' @param blank_adjustment (`logical(1)`, default = `FALSE`) Whether to perform blank adjustment before computing values.
 #' @param verbose (`logical(1)`, default = `TRUE`) Whether to print additional information during execution.
 #' @param reference_dilution (`numeric(1)` or `character(1)`, default = `1/400`)
@@ -96,7 +97,7 @@ process_plate <-
            write_output = TRUE,
            normalisation_type = "RAU",
            data_type = "Median",
-           sample_type_filter = "TEST",
+           sample_type_filter = "ALL",
            blank_adjustment = FALSE,
            verbose = TRUE,
            reference_dilution = 1 / 400,
