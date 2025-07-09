@@ -20,3 +20,5 @@ SerolyzeR.env$normalisation_pattern <- paste0(
   SerolyzeR.env$normalisation_types,
   collapse = "|"
 )
+
+SerolyzeR.env$legend_positions <- c("right", "bottom", "left", "top", "none")

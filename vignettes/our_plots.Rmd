@@ -155,8 +155,12 @@ In order to run this function, we need to provide the `list_of_plates` which is 
 dir_with_luminex_files <- system.file("extdata", "multiplate_tutorial",
   package = "SerolyzeR", mustWork = TRUE
 )
+
+output_dir <- file.path(tempdir(), "multiplate-tutorial") # create a temporary directory to store the output data
+R.utils::mkdirs(output_dir)
+
 list_of_plates <- process_dir(dir_with_luminex_files,
-  return_plates = TRUE, format = "xPONENT"
+  return_plates = TRUE, format = "xPONENT", output_dir = output_dir
 )
 plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3")
 ```
@@ -172,9 +176,34 @@ Each plate is more distinct from the others, which can be helpful when looking f
 plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE)
 ```
 
-There is one more useful parameter in this function mainly `legend_type'. By default it is set to `NULL` which means that the legend type
-is determined based on the `monochromatic` value. If `monochromatic` is equal to `TRUE` then legend type is set to `date`, if it is `FALSE` then legend
-type is set to `plate_name`. User can override this behavior by setting explicitly `legend_type` to `date` or `plate_name`.
+There are a few more useful parameters in this function—mainly `legend_type`. By default it is set to `NULL`, which means that the legend type
+is determined based on the `monochromatic` value. If `monochromatic` is equal to `TRUE`, then the legend type is set to `date`; if it is `FALSE`, then the legend type is set to `plate_name`. The user can override this behavior by explicitly setting `legend_type` to `date` or `plate_name`.
+
+Additionally, if an user wants to play around with the legend position, a parameter `legend_position` is here to help. It simply specifies where the legend should be positioned - at the bottom, top, left or right of the plot. By default it is set to `bottom`. 
+
+There might occur a situation, where the plate names are really long, and simply do not fit in the legend box. For such situations, we have prepared `max_legend_items_per_row` and `legend_text_size` parameters. The first one automatically decides how many legend elements should be placed in one row of the legend. By default it is set to `3`. The second parameter sets the font size in the legend.
+
+
+
+```{r}
+plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position = "top", max_legend_items_per_row = 3, legend_text_size = 4)
+```
+
+
+To play around the additional theme settings of the plots produced by any of the methods, you can also use the base `ggplot2` methods. To do so, all you need to do is modify the `ggplot2` object. Here, we will add a horizontal line, which could highlight some threshold and also modify the title a bit.
+
+
+```{r}
+library(ggplot2)
+
+p <- plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position = "bottom", max_legend_items_per_row = 3, legend_text_size = 7)
+
+p +
+  geom_hline(yintercept = 1000, linetype = "dashed", colour = "red") +
+  ggplot2::labs(title = "A custom title for this amazing plot") +
+  annotate("text", x = 1 / 25000, y = 1000, label = "Threshold = 1000", color = "red", vjust = -0.5)
+```
+
 
 # Levey-Jennings plot
 
@@ -191,6 +220,14 @@ plot_levey_jennings(list_of_plates, "Adenovirus.T3", dilution = "1/100", sd_line
 The plot above shows the Levey-Jennings plot for the analyte "ME" with the samples with `dilution` "1/100". 
 The default value of `dilution` is "1/400".
 The `sd_lines` parameter allows us to set the distance of horizontal lines from the mean.
-For example, `sd_lines = c(1, 2)` will plot four lines at +/- 1*SD and +/- 2*SD, where SD is the standard deviation of the data.
-The default value of the `sd_lines` parameter is `c(1.96)`, which 
+For example, `sd_lines = c(1, 2)` will plot four lines at ±1*SD and ± 2*SD, where SD is the standard deviation of the data.
+The default value of the `sd_lines` parameter is `c(1.96)`, which corresponds to approximately the 95% confidence interval under a normal distribution. This means two horizontal lines are drawn at ±1.96 times the standard deviation from the mean, highlighting the typical range of expected variation. Values falling outside these lines may indicate outliers or points requiring further investigation.
+
+The Levey-Jennings plot has some additional parameters that can improve the readibility. For instance, we can replace the x-label with actual plate names, or dates of examination - using a `plate_labels` parameter. This can create very congested labels, so to overcome this issue, the xlabels can be rotated with `label_angle` parameter. Legend can be also positioned in different places with `legend_position` parameter.
+
+To make the plot analysis easier, it is zoomed out by a factor 1.5 in y-axis.
+
+```{r}
+plot_levey_jennings(list_of_plates, "Adenovirus.T3", dilution = "1/100", sd_lines = c(1, 2, 3), plate_labels = "name", label_angle = 30)
+```
 

@@ -87,6 +87,16 @@ test_that("Plot Levey-Jennings chart with incorrect format of dilution", {
   expect_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", 1 / 400))
 })
 
+test_that("Plot Levey-Jennings chart with a different legend position", {
+  list_of_plates <- get_test_list_of_plates()
+
+  expect_error(plot_levey_jennings(list_of_plates, "Spike_6P_IPP", "1/2", legend_position = "far away"))
+
+  p <- plot_levey_jennings(list_of_plates, "Spike_6P_IPP", legend_position = "left")
+
+  expect_equal(ggplot2::ggplot_build(p)$plot$theme$legend.position, "left")
+})
+
 
 test_that("Plot Levey-Jennings chart with invalid horizontal lines parameter", {
   list_of_plates <- get_test_list_of_plates()

@@ -35,6 +35,7 @@
 #' * `"dates"`: shows the date of examination
 #' @param label_angle (`numeric(1)`) angle in degrees to rotate x-axis labels. Can improve readibility of the plot. Default: 0
 #' @param data_type (`character(1)`) the type of data used plot. The default is "Median"
+#' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
 #'
 #' @importFrom stats setNames
 #'
@@ -63,6 +64,7 @@ plot_levey_jennings <- function(list_of_plates,
                                 sort_plates = TRUE,
                                 plate_labels = "number",
                                 label_angle = 0,
+                                legend_position = "bottom",
                                 data_type = "Median") {
   if (!is.list(list_of_plates)) {
     stop("The list_of_plates is not a list.")
@@ -95,6 +97,9 @@ plot_levey_jennings <- function(list_of_plates,
   }
   if (length(sd_lines) > 6) {
     stop("It is impossible to have more than 6 pairs of standard deviation lines.")
+  }
+  if (!legend_position %in% SerolyzeR.env$legend_positions) {
+    stop("legend_position must be one of: ", SerolyzeR.env$legend_positions)
   }
   if (!is.logical(mfi_log_scale) && length(mfi_log_scale) != 1) {
     stop("mfi_log_scale parameter should be a single boolean value")
@@ -180,7 +185,7 @@ plot_levey_jennings <- function(list_of_plates,
       axis.line = element_line(colour = "black"),
       axis.text.x = element_text(size = 9, angle = label_angle, vjust = 1, hjust = hjust),
       axis.text.y = element_text(size = 9),
-      legend.position = "right",
+      legend.position = legend_position,
       legend.background = element_rect(fill = "white", color = "black"),
       legend.title = element_blank(),
       panel.grid.minor = element_line(color = scales::alpha("grey", .5), linewidth = 0.1) # Make the minor grid lines less visible
