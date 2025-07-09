@@ -202,6 +202,7 @@ get_output_dir <- function(
 #' @param flatten_output_dir (`logical(1)`, default = `FALSE`)
 #'   - If `TRUE`, saves output files directly in `output_dir`, ignoring the input directory structure.
 #' @param format (`character(1)`, optional) Luminex data format. If `NULL`, it is automatically detected. Options: `'xPONENT'`, `'INTELLIFLEX'`.
+#' By default equals to `'xPONENT'`.
 #' @param layout_filepath (`character(1)`, optional) Path to a layout file. If `NULL`, the function attempts to detect it automatically.
 #' @param normalisation_types (`character()`, default = `c("MFI", "RAU", "nMFI")`)
 #'   - The normalisation types to apply. Supported values: `"MFI"`, `"RAU"`, `"nMFI"`.
@@ -240,7 +241,7 @@ process_dir <- function(
     recurse = FALSE,
     flatten_output_dir = FALSE,
     layout_filepath = NULL,
-    format = NULL,
+    format = "xPONENT",
     normalisation_types = c("MFI", "RAU", "nMFI"),
     generate_reports = FALSE,
     generate_multiplate_reports = FALSE,
