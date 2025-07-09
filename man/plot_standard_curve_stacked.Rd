@@ -11,6 +11,11 @@ plot_standard_curve_stacked(
   decreasing_dilution_order = TRUE,
   monochromatic = TRUE,
   legend_type = NULL,
+  plot_legend = TRUE,
+  legend_position = "bottom",
+  max_legend_items_per_row = 3,
+  legend_text_size = 8,
+  sort_plates = TRUE,
   log_scale = c("all"),
   verbose = TRUE
 )
@@ -36,6 +41,16 @@ type is set to \code{date}, if it is \code{FALSE} then legend
 type is set to \code{plate_name}. User can override this behavior by
 setting explicitly \code{legend_type} to \code{date} or \code{plate_name}.}
 
+\item{plot_legend}{If \code{TRUE} the legend is plotted, \code{TRUE} by default}
+
+\item{legend_position}{the position of the legend, a possible values are \code{c(right, bottom, left, top, none)}. Is not used if \code{plot_legend} equals to \code{FALSE}.}
+
+\item{max_legend_items_per_row}{Maximum number of legend items per row when legend is at top or bottom. Default is 3.}
+
+\item{legend_text_size}{Font size of the legend. Can be useful if plotting long plate names. Default is 8}
+
+\item{sort_plates}{(\code{logical(1)}) if \code{TRUE} sorts plates by the date of examination.}
+
 \item{log_scale}{Which elements on the plot should be displayed in log scale.
 By default \code{"all"}. If \code{NULL} or \code{c()} no log scale is used,
 if \code{"all"} or \code{c("dilutions", "MFI")} all elements are displayed in log scale.}
@@ -46,9 +61,25 @@ if \code{"all"} or \code{c("dilutions", "MFI")} all elements are displayed in lo
 ggplot object with the plot
 }
 \description{
-Function generates a plot of stacked on top of each other standard curves
-for a given analyte form a list of plates. The plot is created with the
-levey-jennings report in mind, but it can be run by itself.
+As a quality control measure to detect plates with inconsistent results or drift in calibration over time,
+this function plots standard curves for a specified analyte across multiple plates on a single plot.
+It enables visual comparison of standard curves, making it easier to spot outliers or shifts in calibration.
+The function can be run standalone or used as part of a broader Levey-Jennings report.
+
+Each curve represents one plate, and users can choose how colours are applied — either in a
+monochromatic blue gradient (indicating time-based drift) or with distinct hues for clearer differentiation.
+}
+\details{
+The function overlays all standard curves from the provided plates for the given analyte.
+When \code{monochromatic = TRUE}, the curves are drawn in a blue gradient — oldest plates in light blue (almost white) and most recent ones in dark blue.
+This visual encoding helps track drift in calibration over time.
+
+When \code{monochromatic = FALSE}, colours are selected from a hue palette to ensure distinct appearance,
+especially useful when comparing many plates simultaneously.
+
+The \code{legend_type} determines how curves are identified in the legend. By default, it adapts based on the \code{monochromatic} setting.
+
+If the legend becomes crowded (e.g., with long plate names), use \code{max_legend_items_per_row} and \code{legend_text_size} to improve layout and readability.
 }
 \examples{
 

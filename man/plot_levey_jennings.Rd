@@ -13,6 +13,7 @@ plot_levey_jennings(
   sort_plates = TRUE,
   plate_labels = "number",
   label_angle = 0,
+  legend_position = "bottom",
   data_type = "Median"
 )
 }
@@ -45,6 +46,8 @@ If \code{FALSE} plots using the plate order as in input. \code{TRUE} by default.
 }}
 
 \item{label_angle}{(\code{numeric(1)}) angle in degrees to rotate x-axis labels. Can improve readibility of the plot. Default: 0}
+
+\item{legend_position}{the position of the legend, a possible values are \code{c(right, bottom, left, top, none)}. Is not used if \code{plot_legend} equals to \code{FALSE}.}
 
 \item{data_type}{(\code{character(1)}) the type of data used plot. The default is "Median"}
 }
