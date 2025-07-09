@@ -497,21 +497,6 @@ format_xlab <- function(prefix, prefix_short, scale_y) {
 #'
 #' @return A logical vector the same length as `sample_types`, indicating which samples match.
 #'
-#' @examples
-#' all_types <- c("TEST", "BLANK", "STANDARD CURVE", "TEST")
-#'
-#' # Filter only TEST samples
-#' filter_sample_types(all_types, "TEST")
-#' #> TRUE FALSE FALSE TRUE
-#'
-#' # Filter multiple types
-#' filter_sample_types(all_types, c("TEST", "BLANK"))
-#' #> TRUE TRUE FALSE TRUE
-#'
-#' # Filter all
-#' filter_sample_types(all_types, "ALL")
-#' #> TRUE TRUE TRUE TRUE
-#'
 #' @keywords internal
 filter_sample_types <- function(sample_types, sample_type_filter) {
   # check if the sample_type is a valid sample type

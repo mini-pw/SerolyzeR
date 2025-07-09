@@ -22,20 +22,4 @@ sample-related data such as MFI values, layout, or names.
 
 If \code{sample_type_filter} is set to \code{"ALL"}, all sample types are considered valid.
 }
-\examples{
-all_types <- c("TEST", "BLANK", "STANDARD CURVE", "TEST")
-
-# Filter only TEST samples
-filter_sample_types(all_types, "TEST")
-#> TRUE FALSE FALSE TRUE
-
-# Filter multiple types
-filter_sample_types(all_types, c("TEST", "BLANK"))
-#> TRUE TRUE FALSE TRUE
-
-# Filter all
-filter_sample_types(all_types, "ALL")
-#> TRUE TRUE TRUE TRUE
-
-}
 \keyword{internal}
