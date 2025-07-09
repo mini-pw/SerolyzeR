@@ -111,8 +111,6 @@ process_plate <-
       stop("`sample_type_filter` must be a character string.")
     }
 
-    if (!all(is_valid_sample_type(sample_type_filter))) stop("Invalid sample_type_filter. The possible sample types are, ", VALID_SAMPLE_TYPES)
-
     if (write_output) {
       output_path <- validate_filepath_and_output_dir(filename, output_dir,
         plate$plate_name, normalisation_type,
@@ -128,7 +126,9 @@ process_plate <-
       plate <- plate$blank_adjustment(in_place = FALSE)
     }
 
-    test_sample_names <- plate$sample_names[plate$sample_types %in% sample_type_filter]
+    valid_samples <- filter_sample_types(plate$sample_types, sample_type_filter)
+
+    test_sample_names <- plate$sample_names[valid_samples]
     if (normalisation_type == "MFI") {
       verbose_cat("Extracting the raw MFI to the output dataframe\n")
       output_df <- plate$get_data(

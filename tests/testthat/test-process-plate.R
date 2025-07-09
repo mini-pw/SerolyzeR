@@ -87,7 +87,14 @@ test_that("Test rows and columns in the output dataframes", {
     output_df <- process_plate(plate, output_dir = tmp_dir, filename = "output.csv", normalisation_type = "nMFI")
   )
   stopifnot(all(colnames(output_df) == plate$analyte_names))
+  stopifnot(all(rownames(output_df) == plate$sample_names))
+
+  expect_no_error(
+    output_df <- process_plate(plate, output_dir = tmp_dir, filename = "output.csv", normalisation_type = "nMFI", sample_type_filter = "TEST")
+  )
+  stopifnot(all(colnames(output_df) == plate$analyte_names))
   stopifnot(all(rownames(output_df) == plate$sample_names[plate$sample_types == "TEST"]))
+
 
   file.remove(test_output_path)
   unlink(tmp_dir, recursive = TRUE)

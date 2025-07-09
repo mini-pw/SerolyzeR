@@ -10,7 +10,7 @@ process_dir(
   recurse = FALSE,
   flatten_output_dir = FALSE,
   layout_filepath = NULL,
-  format = NULL,
+  format = "xPONENT",
   normalisation_types = c("MFI", "RAU", "nMFI"),
   generate_reports = FALSE,
   generate_multiplate_reports = FALSE,
@@ -39,7 +39,8 @@ process_dir(
 
 \item{layout_filepath}{(\code{character(1)}, optional) Path to a layout file. If \code{NULL}, the function attempts to detect it automatically.}
 
-\item{format}{(\code{character(1)}, optional) Luminex data format. If \code{NULL}, it is automatically detected. Options: \code{'xPONENT'}, \code{'INTELLIFLEX'}.}
+\item{format}{(\code{character(1)}, optional) Luminex data format. If \code{NULL}, it is automatically detected. Options: \code{'xPONENT'}, \code{'INTELLIFLEX'}.
+By default equals to \code{'xPONENT'}.}
 
 \item{normalisation_types}{(\code{character()}, default = \code{c("MFI", "RAU", "nMFI")})
 \itemize{

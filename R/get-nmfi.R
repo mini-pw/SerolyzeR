@@ -65,11 +65,7 @@ get_nmfi <-
     # check if data_type is valid
     stopifnot(is_valid_data_type(data_type))
 
-    if (!is.character(sample_type_filter)) {
-      stop("`sample_type_filter` must be a character string.")
-    }
 
-    if (!all(is_valid_sample_type(sample_type_filter))) stop("Invalid sample_type_filter. The possible sample types are, ", VALID_SAMPLE_TYPES)
 
 
     # check if reference_dilution is numeric or string
@@ -107,6 +103,8 @@ get_nmfi <-
 
     reference_mfi <- plate_data[reference_standard_curve_id, ]
 
+    valid_sample_types <- filter_sample_types(plate$sample_types, sample_type_filter)
+
     test_mfi <-
       plate$get_data(
         analyte = "ALL",
@@ -118,7 +116,7 @@ get_nmfi <-
     nmfi <- test_mfi / reference_mfi
 
     rownames(nmfi) <-
-      plate$sample_names[plate$sample_types %in% sample_type_filter]
+      plate$sample_names[valid_sample_types]
 
 
     return(nmfi)

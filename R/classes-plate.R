@@ -322,9 +322,9 @@ Plate <- R6::R6Class(
     #' @param analyte An analyte name or its id of which data we want to extract.
     #'  If set to 'ALL' returns data for all analytes.
     #'
-    #' @param sample_type is a type of the sample we want to extract data from.
+    #' @param sample_type_filter is a type of the sample we want to extract data from.
     #'  The possible values are \cr \code{c(`r toString(VALID_SAMPLE_TYPES)`)}. Default value is `ALL`.
-    #'  `sample_type` can be also of length greater than 1. If `sample_type` is longer than 1 and `ALL` is in the vector,
+    #'  `sample_type_filter` can be also of length greater than 1. If `sample_type` is longer than 1 and `ALL` is in the vector,
     #'  the method returns all the sample types.
     #' @param data_type The parameter specifying which data type should be returned.
     #'  This parameter has to take one of values: \cr \code{c(`r toString(VALID_DATA_TYPES)`)}.
@@ -332,7 +332,7 @@ Plate <- R6::R6Class(
     #'  Default value is plate's `default_data_type`, which is usually `Median`.
     #'
     #' @return Dataframe containing information about a given sample type and analyte
-    get_data = function(analyte, sample_type = "ALL", data_type = self$default_data_type) {
+    get_data = function(analyte, sample_type_filter = "ALL", data_type = self$default_data_type) {
       # check if the analyte exists in analytes_names
       if (!is.null(analyte) && !is.na(analyte)) {
         if (!(analyte %in% c(self$analyte_names, "ALL"))) {
@@ -342,14 +342,7 @@ Plate <- R6::R6Class(
         stop("Passed analyte is either NULL or NA")
       }
 
-      # check if the sample_type is a valid sample type
-      if (!all(is.null(sample_type)) && !all(is.na(sample_type))) {
-        if (!all(is_valid_sample_type(sample_type))) {
-          stop("Sample type ", sample_type, " is not a valid sample type")
-        }
-      } else {
-        stop("Passed sample type is either NULL or NA")
-      }
+      # check if the sample_type_filter is a valid sample type is performed in the filter
 
       # check if the data_type is a valid data type
       if (!is.null(data_type) && !is.na(data_type)) {
@@ -363,11 +356,7 @@ Plate <- R6::R6Class(
       }
 
       # get samples of the given type, data_type and analyte and return them
-      if (any(sample_type == "ALL")) {
-        valid_samples <- rep(TRUE, length(self$sample_types))
-      } else {
-        valid_samples <- self$sample_types %in% sample_type
-      }
+      valid_samples <- filter_sample_types(self$sample_types, sample_type_filter)
 
       data_of_specified_type <- self$data[[data_type]]
       if (analyte == "ALL") {
