@@ -515,7 +515,7 @@ filter_sample_types <- function(sample_types, sample_type_filter) {
 
   # check if the sample_type_filter is a valid sample type
   if (!all(is.null(sample_type_filter)) && !all(is.na(sample_type_filter))) {
-    if (!all(is_valid_sample_type(sample_type_filter) || sample_type_filter == "ALL")) {
+    if (!all(is_valid_sample_type(sample_type_filter) | sample_type_filter == "ALL")) {
       stop("Sample type ", sample_type_filter, " is not a valid sample type")
     }
   } else {

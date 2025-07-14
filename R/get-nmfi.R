@@ -25,6 +25,7 @@
 #' @param sample_type_filter (`character()`) The types of samples to normalise.
 #'   (e.g., `"TEST"`, `"STANDARD CURVE"`). It can also be a vector of sample types.
 #'   In that case, dataframe with multiple sample types will be returned.
+#'   The default value is `"ALL"`, which corresponds to returning all the samples.
 #' @param verbose (`logical(1)`) print additional information. The default is `TRUE`
 #'
 #' @return nmfi (`data.frame`) a data frame with normalised MFI values for each analyte in the plate and all test samples.
@@ -56,7 +57,7 @@ get_nmfi <-
   function(plate,
            reference_dilution = 1 / 400,
            data_type = "Median",
-           sample_type_filter = "TEST",
+           sample_type_filter = "ALL",
            verbose = TRUE) {
     stopifnot(inherits(plate, "Plate"))
 
