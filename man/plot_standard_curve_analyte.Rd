@@ -15,7 +15,8 @@ plot_standard_curve_analyte(
   plot_rau_bounds = TRUE,
   plot_legend = TRUE,
   legend_position = "bottom",
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ plot_standard_curve_analyte(
 \item{legend_position}{the position of the legend, a possible values are \code{c(right, bottom, left, top, none)}. Is not used if \code{plot_legend} equals to \code{FALSE}.}
 
 \item{verbose}{If \code{TRUE} prints messages, \code{TRUE} by default}
+
+\item{...}{Additional parameters, ignored here. Used here only for consistency with the SerolyzeR pipeline}
 }
 \value{
 ggplot object with the plot

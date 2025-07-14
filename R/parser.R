@@ -293,6 +293,7 @@ valid_formats <- c("xPONENT", "INTELLIFLEX")
 #' @param dilutions (`numeric()`, optional) A vector of dilutions to override extracted values.
 #' @param verbose (`logical(1)`, default = `TRUE`)
 #'   - Whether to print additional information and warnings.
+#' @param ... Additional arguments. Ignored in this method. Here included for better integration with the pipeline
 #'
 #' @return A [`Plate`] object containing the parsed Luminex data.
 #'
@@ -318,7 +319,8 @@ read_luminex_data <- function(plate_filepath,
                               default_data_type = "Median",
                               sample_types = NULL,
                               dilutions = NULL,
-                              verbose = TRUE) {
+                              verbose = TRUE,
+                              ...) {
   if (!(format %in% valid_formats)) {
     stop("Invalid format: ", format, ". Select from: ", paste(valid_formats, collapse = ", "))
   }

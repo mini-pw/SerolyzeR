@@ -8,7 +8,7 @@ get_nmfi(
   plate,
   reference_dilution = 1/400,
   data_type = "Median",
-  sample_type_filter = "TEST",
+  sample_type_filter = "ALL",
   verbose = TRUE
 )
 }
@@ -25,7 +25,8 @@ In case it is a character string, it should have format \verb{1/d+}, where \verb
 
 \item{sample_type_filter}{(\code{character()}) The types of samples to normalise.
 (e.g., \code{"TEST"}, \code{"STANDARD CURVE"}). It can also be a vector of sample types.
-In that case, dataframe with multiple sample types will be returned.}
+In that case, dataframe with multiple sample types will be returned.
+The default value is \code{"ALL"}, which corresponds to returning all the samples.}
 
 \item{verbose}{(\code{logical(1)}) print additional information. The default is \code{TRUE}}
 }

@@ -64,7 +64,7 @@ is_valid_normalisation_type <- function(normalisation_type) {
 #'   - The target dilution used as a reference for nMFI normalisation.
 #'   - Ignored for RAU normalisation.
 #'   - Can be numeric (e.g., `0.0025`) or a string (`'1/400'`).
-#' @param ... Additional arguments passed to the model fitting function (`create_standard_curve_model_analyte`).
+#' @param ... Additional arguments passed to the model fitting function [`create_standard_curve_model_analyte()`] and [`predict.Model`]
 #'
 #' @return A data frame containing the computed normalised values.
 #'
@@ -139,7 +139,8 @@ process_plate <-
       verbose_cat("Computing nMFI values for each analyte\n", verbose = verbose)
       output_df <- get_nmfi(
         plate, sample_type_filter = sample_type_filter,
-        reference_dilution = reference_dilution, data_type = data_type
+        reference_dilution = reference_dilution, data_type = data_type,
+        verbose = verbose
       )
     } else if (normalisation_type == "RAU") {
       # RAU normalisation
@@ -154,7 +155,7 @@ process_plate <-
           analyte, sample_type_filter,
           data_type = data_type
         )
-        test_sample_estimates <- predict(model, test_samples_mfi)
+        test_sample_estimates <- predict(model, test_samples_mfi, ...)
         output_list[[analyte]] <- test_sample_estimates[, "RAU"]
       }
       output_df <- data.frame(output_list)

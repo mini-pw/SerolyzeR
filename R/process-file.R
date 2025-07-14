@@ -32,7 +32,7 @@
 #'   - If `TRUE`, performs blank adjustment before processing.
 #' @param verbose (`logical(1)`, default = `TRUE`)
 #'   - If `TRUE`, prints additional information during execution.
-#' @param ... Additional arguments passed to [read_luminex_data()] and [generate_plate_report()].
+#' @param ... Additional arguments passed to [read_luminex_data()], [generate_plate_report()] and [process_plate()].
 #'
 #' @return A [`Plate`] object containing the processed data.
 #'
@@ -68,7 +68,7 @@ process_file <- function(
   stopifnot(fs::file_exists(plate_filepath))
   plate_filepath <- fs::path_abs(plate_filepath)
 
-  plate <- read_luminex_data(plate_filepath, layout_filepath, format = format)
+  plate <- read_luminex_data(plate_filepath, layout_filepath, format = format, ...)
 
   verbose_cat("Processing plate '", plate$plate_name, "'\n", verbose = verbose)
 
@@ -77,7 +77,8 @@ process_file <- function(
       process_plate(
         plate,
         normalisation_type = normalisation_type, output_dir = output_dir,
-        blank_adjustment = blank_adjustment, verbose = verbose
+        blank_adjustment = blank_adjustment, verbose = verbose,
+        ...
       )
     }
   }

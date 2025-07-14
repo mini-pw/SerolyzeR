@@ -10,7 +10,8 @@ plot_mfi_for_analyte(
   data_type = "Median",
   plot_type = "violin",
   scale_y = "log10",
-  plot_outliers = FALSE
+  plot_outliers = FALSE,
+  ...
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ under\code{transform} parameter.}
 \item{plot_outliers}{When using "boxplot" type of a plot
 one can set this parameter to TRUE and display the names of samples for
 which MFI falls outside the 1.5 IQR interval}
+
+\item{...}{Additional parameters, ignored here. Used here only for consistency with the SerolyzeR pipeline}
 }
 \value{
 A ggplot object

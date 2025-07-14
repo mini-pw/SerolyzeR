@@ -33,7 +33,7 @@ test_that("get_nmfi on artificial plate", {
 
   expect_no_error(plate <- read_luminex_data(path, format = "xPONENT", verbose = FALSE))
 
-  nmfi <- get_nmfi(plate, reference_dilution = 1 / 50)
+  nmfi <- get_nmfi(plate, reference_dilution = 1 / 50, sample_type_filter = "TEST")
 
   reference_dilution_index <- which(plate$dilution_values == 1 / 50)
 

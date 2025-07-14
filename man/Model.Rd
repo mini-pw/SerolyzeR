@@ -106,7 +106,8 @@ Create a new instance of Model \link[R6:R6Class]{R6} class
   log_mfi = TRUE,
   scale_mfi = TRUE,
   mfi_min = NULL,
-  mfi_max = NULL
+  mfi_max = NULL,
+  ...
 )}\if{html}{\out{</div>}}
 }
 
@@ -144,6 +145,8 @@ Use values before any transformations (e.g., before the \code{log10} transformat
 \item{\code{mfi_max}}{(\code{numeric(1)})\cr
 Enables to set the maximum MFI value used for scaling MFI values to the range [0, 1].
 Use values before any transformations (e.g., before the \code{log10} transformation)}
+
+\item{\code{...}}{Additional parameters, ignored here. Used here only for consistency with the SerolyzeR pipeline}
 }
 \if{html}{\out{</div>}}
 }
@@ -154,7 +157,7 @@ Use values before any transformations (e.g., before the \code{log10} transformat
 \subsection{Method \code{predict()}}{
 Predict RAU values from the MFI values
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Model$predict(mfi, over_max_extrapolation = 0, eps = 1e-06)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Model$predict(mfi, over_max_extrapolation = 0, eps = 1e-06, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -170,7 +173,9 @@ If the value of the predicted RAU is above \eqn{RAU_{max} + \text{over\_max\_ext
 the value is censored to the value of that sum.}
 
 \item{\code{eps}}{(\code{numeric(1)})\cr
-A small value used to avoid numerical issues close to the asymptotes
+A small value used to avoid numerical issues close to the asymptotes}
+
+\item{\code{...}}{Additional parameters. This method ignores them, used here for compatibility with the pipeline.
 
 Warning: High dose hook effect affects which dilution and MFI values
 are used to fit the logistic model and by extension affects the over_max_extrapolation value.

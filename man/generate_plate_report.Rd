@@ -11,7 +11,8 @@ generate_plate_report(
   output_dir = "reports",
   counts_lower_threshold = 50,
   counts_higher_threshold = 70,
-  additional_notes = NULL
+  additional_notes = NULL,
+  ...
 )
 }
 \arguments{
@@ -38,6 +39,8 @@ If it equals to \code{NULL} the current working directory will be used. Default 
 \item{counts_higher_threshold}{(\code{numeric(1)}) The higher threshold for the counts plots (works for each analyte). Default is 70.}
 
 \item{additional_notes}{(\code{character(1)}) Additional notes to be included in the report. Contents of this fields are left to the user's discretion. If not provided, the field will not be included in the report.}
+
+\item{...}{Additional params passed to the plots created in the report.}
 }
 \value{
 A report.

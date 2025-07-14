@@ -311,7 +311,7 @@ process_dir <- function(
   if (dry_run) {
     cat("The following files will be processed:\n")
     for (i in seq_along(input_files)) {
-      current_output_dir <- get_output_dir(input_files[i], input_dir,
+      current_output_dir <- get_output_dir(input_file = input_files[i], input_dir = input_dir,
                                            output_dir = output_dir, flatten_output_dir = flatten_output_dir
       )
       cat(

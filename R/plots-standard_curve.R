@@ -14,6 +14,7 @@
 #' @param plot_legend If `TRUE` the legend is plotted, `TRUE` by default
 #' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
 #' @param verbose If `TRUE` prints messages, `TRUE` by default
+#' @param ... Additional parameters, ignored here. Used here only for consistency with the SerolyzeR pipeline
 #'
 #' @return ggplot object with the plot
 #'
@@ -40,7 +41,8 @@ plot_standard_curve_analyte <- function(plate,
                                         plot_rau_bounds = TRUE,
                                         plot_legend = TRUE,
                                         legend_position = "bottom",
-                                        verbose = TRUE) {
+                                        verbose = TRUE,
+                                        ...) {
   AVAILABLE_LOG_SCALE_VALUES <- c("all", "RAU", "MFI")
 
   if (!inherits(plate, "Plate")) {

@@ -60,7 +60,7 @@ By default equals to \code{"ALL"}, which corresponds to processing all sample ty
 \item Can be numeric (e.g., \code{0.0025}) or a string (\code{'1/400'}).
 }}
 
-\item{...}{Additional arguments passed to the model fitting function (\code{create_standard_curve_model_analyte}).}
+\item{...}{Additional arguments passed to the model fitting function \code{\link[=create_standard_curve_model_analyte]{create_standard_curve_model_analyte()}} and \code{\link{predict.Model}}}
 }
 \value{
 A data frame containing the computed normalised values.
