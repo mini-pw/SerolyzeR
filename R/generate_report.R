@@ -2,7 +2,10 @@
 #'
 #' @description
 #' This function generates a report for a plate. The report contains all the necessary information about the plate, from the general plate parameters, such as examination date, to the breakdown of the analytes' plots.
-#' The report is generated using the `plate_report_template.Rmd` template.
+#' The report is generated using the R Markdown template file
+#' \code{plate_report_template.Rmd}, located in the
+#' \code{inst/templates} directory of the package. You can access it using:
+#' \code{system.file("templates/plate_report_template.Rmd", package = "SerolyzeR")}.
 #'
 #' @param plate A plate object.
 #' @param use_model (`logical(1)`) A logical value indicating whether the model should be used in the report.
@@ -105,8 +108,17 @@ generate_plate_report <-
 #'
 #' @description
 #' This function generates a Levey-Jennings report for a list of plates. The report includes layout plot, levey jennings plot, for each analyte and selected dilutions.
+#'
+#' @details
+#'
 #' The report also includes stacked standard curves plot in both monochromatic and color versions for each analyte.
-#' The report is generated using the `levey_jennings_report_template.Rmd` template.
+#' The report is generated using the R Markdown template file
+#' \code{levey_jennings_report_template.Rmd}, located in the
+#' \code{inst/templates} directory of the package. You can access it using:
+#' \code{system.file("templates/levey_jennings_report_template.Rmd", package = "SerolyzeR")}.
+#'
+#'
+#'
 #'
 #' @param list_of_plates A list of plate objects.
 #' @param report_title (`character(1)`) The title of the report.
