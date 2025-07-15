@@ -80,8 +80,8 @@ merge_plate_outputs <- function(
     )
     rownames(output_df) <- NULL
 
-    modifed_output_df <- cbind(df_header_columns, output_df)
-    dataframes[[plate$plate_name]] <- modifed_output_df
+    modified_output_df <- cbind(df_header_columns, output_df)
+    dataframes[[plate$plate_name]] <- modified_output_df
   }
 
   merged_df <- merge_dataframes(
