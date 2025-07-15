@@ -108,7 +108,7 @@ process_plate <-
     stopifnot(is.character(data_type))
 
     if (!is.character(sample_type_filter)) {
-      stop("`sample_type_filter` must be a character string.")
+      stop("`sample_type_filter` must be a character vector.")
     }
 
     if (write_output) {
