@@ -4,6 +4,7 @@ url: https://mini-pw.github.io/SerolyzeR/
 template:
   light-switch: true
   bootstrap: 5
+  math-rendering: "mathjax"
 
 
 reference:
