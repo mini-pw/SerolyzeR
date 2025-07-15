@@ -210,7 +210,7 @@ get_output_dir <- function(
 #'   - If `TRUE`, generates single plate quality control reports for each processed plate file.
 #' @param generate_multiplate_reports (`logical(1)`, default = `FALSE`)
 #'  - If `TRUE`, generates a multiplate quality control report for all processed plates.
-#' @param merge_outputs (`logical(1)`, default = `FALSE`)
+#' @param merge_outputs (`logical(1)`, default = `TRUE`)
 #'   - If `TRUE`, merges all normalised data into a single CSV file per normalisation type.
 #'   - The merged file is named `merged_{normalisation_type}_{timestamp}.csv`.
 #' @param column_collision_strategy (`character(1)`, default = `'intersection'`)
@@ -245,7 +245,7 @@ process_dir <- function(
     normalisation_types = c("MFI", "RAU", "nMFI"),
     generate_reports = FALSE,
     generate_multiplate_reports = FALSE,
-    merge_outputs = FALSE,
+    merge_outputs = TRUE,
     column_collision_strategy = "intersection",
     return_plates = FALSE,
     dry_run = FALSE,

@@ -14,7 +14,7 @@ process_dir(
   normalisation_types = c("MFI", "RAU", "nMFI"),
   generate_reports = FALSE,
   generate_multiplate_reports = FALSE,
-  merge_outputs = FALSE,
+  merge_outputs = TRUE,
   column_collision_strategy = "intersection",
   return_plates = FALSE,
   dry_run = FALSE,
@@ -57,7 +57,7 @@ By default equals to \code{'xPONENT'}.}
 \item If \code{TRUE}, generates a multiplate quality control report for all processed plates.
 }}
 
-\item{merge_outputs}{(\code{logical(1)}, default = \code{FALSE})
+\item{merge_outputs}{(\code{logical(1)}, default = \code{TRUE})
 \itemize{
 \item If \code{TRUE}, merges all normalised data into a single CSV file per normalisation type.
 \item The merged file is named \verb{merged_\{normalisation_type\}_\{timestamp\}.csv}.
