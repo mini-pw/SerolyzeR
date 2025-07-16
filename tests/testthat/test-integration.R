@@ -150,7 +150,7 @@ test_that("Duplicated sample names in layout trigger warning and renaming", {
   sn <- plate$sample_names
   expect_equal(length(sn), length(unique(sn)))
   # ensure suffixes added, e.g. "_1", ".1"
-  expect_true(any(grepl("(\\.1|_1)$", sn)))
+  expect_true(any(grepl("\\.1$", sn)))
 })
 
 
