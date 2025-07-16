@@ -352,9 +352,8 @@ process_dir <- function(
     decreasing = FALSE
   )
 
-  datetime_format <- "%Y%m%d_%H%M%S"
 
-  file_ending <- format(Sys.time(), datetime_format)
+  file_ending <- format(Sys.time(), SerolyzeR.env$filename_datetime_format)
 
   # --- Merge outputs across all plates if requested ---
   if (merge_outputs) {
