@@ -101,9 +101,9 @@ Plate <- R6::R6Class(
     #' Types of the samples that were examined on the plate.
     #' The possible values are \cr \code{c(`r toString(VALID_SAMPLE_TYPES)`)}.
     #' This vector is in the same order as the `sample_names` vector.
-    #' If the [`Plate`] object is read using [`read_luminex_data`], then the sample types
+    #' If the \link{Plate} object is read using [`read_luminex_data()`], then the sample types
     #' are usually detected based on the sample names according to the rules
-    #' described in [`translate_sample_names_to_sample_types`].
+    #' described in [`translate_sample_names_to_sample_types()`].
     sample_types = NULL,
     #'
     #' @field dilutions (`character()`)\cr
@@ -117,7 +117,7 @@ Plate <- R6::R6Class(
     dilution_values = NULL,
     #'
     #' @field default_data_type (`character(1)`)\cr
-    #' The default data type that will be returned by the `get_data` method.
+    #' The default data type that will be returned by the `Plate$get_data()` method.
     #' By default is set to `Median`.
     default_data_type = NULL,
     #'
@@ -428,7 +428,7 @@ Plate <- R6::R6Class(
     #' values to the aggregated value of the `BLANK` samples for each analyte separately.
     #'
     #' The purpose of this operation is to unify the data by clamping values below the background noise.
-    #' how this method works was inspired by the paper https://doi.org/10.1038/s41598-020-57876-0 which covers the quality control in the MBA.
+    #' how this method works was inspired by the paper "Quality control of multiplex antibody detection in samples from large-scale surveys: the example of malaria in Haiti." which covers the quality control in the MBA.
     #'
     #' In short, this operation firstly calculates the aggregate of MFI in the `BLANK` samples
     #' (available methods are: `min`, `max`, `mean`, `median`)
@@ -438,6 +438,8 @@ Plate <- R6::R6Class(
     #'
     #'  This operation is recommended to be performed before any further analysis, but is optional.
     #'  Skipping it before further analysis is allowed, but will result in a warning.
+    #'
+    #'  @references van den Hoogen, L.L., Présumé, J., Romilus, I. et al. Quality control of multiplex antibody detection in samples from large-scale surveys: the example of malaria in Haiti. Sci Rep 10, 1135 (2020). https://doi.org/10.1038/s41598-020-57876-0
     #'
     #' @param threshold The method used to calculate the background value for each analyte.
     #' Every value below this threshold will be clamped to the threshold value.

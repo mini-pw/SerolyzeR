@@ -18,11 +18,10 @@
 #'
 #' This equation is referred to as the Richards' equation. More information about the model can be found in the `nplr` package documentation.
 #'
-#' After the model is fitted to the data, the RAU values can be predicted using the `predict` method.
+#' After the model is fitted to the data, the RAU values can be predicted using the [`predict.Model()`] method.
 #' The RAU value is simply a predicted dilution value (using the standard curve) for a given MFI
 #' multiplied by 1,000 000 to have a more readable value.
-#' For more information about the differences between dilution, RAU and MFI values, please see the
-#' "Normalisation" section in the "Basic SerolyzeR functionalities" vignette.
+#' For more information about the differences between dilution, RAU and MFI values, please see \HTMLVignette{example_script}{normalisation}{Normalisation section in the Basic SerolyzeR functionalities vignette}.
 #'
 #'
 #' @examples
@@ -496,9 +495,6 @@ create_standard_curve_model_analyte <- function(plate,
 #' In that case, MFI values associated with dilutions above (or equal to)
 #' `high_dose_threshold` should be removed from the analysis.
 #'
-#' For more information about this effect please refer to:
-#' Namburi, R. P. et. al. (2014) High-dose hook effect.
-#  DOI: 10.4103/2277-8632.128412
 #'
 #' For the `nplr` model the recommended number of standard curve samples
 #' is at least 4. If the high dose hook effect is detected but the number
@@ -510,6 +506,9 @@ create_standard_curve_model_analyte <- function(plate,
 #' the maximum value to which the predicted RAU MFI values are extrapolated / truncated.
 #'
 #' The function returns a logical vector that can be used to subset the MFI values.
+#'
+#' @references
+#' Namburi, R. P. et. al. (2014) High-dose hook effect. DOI: 10.4103/2277-8632.128412
 #'
 #' @param mfi (`numeric()`)
 #' @param dilutions (`numeric()`)

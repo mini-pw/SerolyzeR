@@ -31,7 +31,7 @@ The basic functionality of the `SerolyzeR` package is reading raw MBA data.
 To present the package's functionalities, we use a sample dataset from the Covid OISE study, which is pre-loaded into the package.
 You might want to replace these variables with paths to your files on your local disk, to test the package on your data. 
 
-Firstly, let us load the dataset as the [`Plate`] object.
+Firstly, let us load the dataset as the \link{Plate} object.
 
 ```{r}
 library(SerolyzeR)
@@ -46,16 +46,16 @@ plate <- read_luminex_data(plate_filepath, layout_filepath) # read the data
 plate
 ```
 
-The [`Plate`] is an object which encapsulates all the information about the plate, such as the sample names, analyte names, and the MFI values. For more details about the object, check the documentation by executing the command `?Plate`.
+The \link{Plate} is an object which encapsulates all the information about the plate, such as the sample names, analyte names, and the MFI values. For more details about the object, check the documentation by executing the command `?Plate`.
 
-The `read_luminex_data` function used above, reads the data from the CSV plate file and the layout file and outputs the [`Plate`] object. This method allows also for more advanced options, such as overriding the information from the files, or setting the data reading options, e.g. the Luminex file format (`xPONENT` or `INTELLIFLEX`) or the file separators and data encoding. For more details about the function, we encourage you to explore the documentation by executing the command `?read_luminex_data`.
+The `read_luminex_data()` function used above, reads the data from the CSV plate file and the layout file and outputs the \link{Plate} object. This method allows also for more advanced options, such as overriding the information from the files, or setting the data reading options, e.g. the Luminex file format (`xPONENT` or `INTELLIFLEX`) or the file separators and data encoding. For more details about the function, we encourage you to explore the documentation by executing the command `?read_luminex_data`.
 
-It also detects automatically the sample types, using an internal method [`translate_sample_names_to_sample_types`]. The method uses the sample names, sourced either from the layout file or the CSV plate file, to determine the sample types. The types of samples are then stored in the `sample_types` field of the plate object. The sample types are used to distinguish between the standard curve samples, control samples and the test samples. The documentation of this function contains more details about the sample types detection.
+It also detects automatically the sample types, using an internal method [`translate_sample_names_to_sample_types()`]. The method uses the sample names, sourced either from the layout file or the CSV plate file, to determine the sample types. The types of samples are then stored in the `sample_types` field of the plate object. The sample types are used to distinguish between the standard curve samples, control samples and the test samples. The documentation of this function contains more details about the sample types detection.
 
 
 ## Processing the whole plate
 
-Once we have loaded the plate object, we may process it using the function [`process_plate`].
+Once we have loaded the plate object, we may process it using the function [`process_plate()`].
 This function fits a model to each analyte using the standard curve samples. By default, it computes RAU values for each analyte using the corresponding model.
 The computed RAU values are then saved to a CSV file in a specified folder with the parameter `output_dir` in a file with specified name `filename `, which by default is based on the plate name and the normalisation type - this function also allows normalisation for nMFI values, more details about this method may be found in the `nMFI` section of this document, or in documentation of `?get_nmfi` function.  
 
@@ -87,14 +87,14 @@ To automate the processing the plates, we can also use [`process_file`] and [`pr
 process_file(plate_filepath, layout_filepath, output_dir = example_dir, generate_report = FALSE)
 ```
 
-It saves `RAU` and `nMFI` values to the `output_dir`, working similarly to the [`process_plate`] function. Additionally it has an option to produce a single plate report, which can be enabled with `generate_report = TRUE` parameter. The report is saved in the same directory as the output files, with the name based on the plate name. For more detailed description of the reports, we refer to the vignette \code{vignette("SerolyzeR HTML reports", package="SerolyzeR")}.
+It saves `RAU` and `nMFI` values to the `output_dir`, working similarly to the [`process_plate()`] function. Additionally it has an option to produce a single plate report, which can be enabled with `generate_report = TRUE` parameter. The report is saved in the same directory as the output files, with the name based on the plate name. For more detailed description of the reports, we refer to the \HTMLVignette{our_plots}{}{Vignette on our reports}.
 
-[`process_dir`] processes all the files in the specified directory. The description of this method can be found in the separate vignette vignette("Multiplate SerolyzeR functionalities").
+[`process_dir()`] processes all the files in the specified directory. The description of this method can be found in the separate \HTMLVignette{multiplate_tutorial}{}{vignette on multiplate SerolyzeR functionalities}.
 
 
 ## Quality control and normalisation details
 
-Apart from the `process_plate` function, the package provides a set of methods allowing for more detailed and advanced quality control and normalisation of the data.
+Apart from the `process_plate()` function, the package provides a set of methods allowing for more detailed and advanced quality control and normalisation of the data.
 
 ### Plate summary and details
 
@@ -109,7 +109,7 @@ plate$sample_names[1:5] # print some of the sample names
 plate$analyte_names[1:4] # print some of the analyte names
 ```
 
-The summary can also be accessed using the built-in generic method `summary`.
+The summary can also be accessed using the built-in generic method `summary.Plate()`.
 
 ```{r}
 summary(plate)
@@ -144,7 +144,7 @@ plot_standard_curve_analyte(plate, analyte_name = "ME", log_scale = "all")
 The plotting function has more options, such as selecting which axis the log scale should be applied or reversing the curve.
 More detailed information can be found in the function documentation, accessed by executing the command `?plot_standard_curve_analyte`.
 
-Another valuable method of inspecting the potential errors of the data is `plot_mfi_for_analyte`.
+Another valuable method of inspecting the potential errors of the data is `plot_mfi_for_analyte()`.
 This method plots the MFI values of standard curve samples for a given analyte along the boxplot of the MFI values of the test samples.
 
 It helps identify the outlier samples and check if the test samples are within the range of the standard curve samples.
@@ -173,7 +173,7 @@ plate$blank_adjustment()
 
 After inspection, we may create the model for the standard curve of a specific antibody.
 The model is fitted using the `nplr` package, which provides a simple interface for fitting n-parameter logistic regression models. Still, to create a more straightforward interface for the user, we encapsulated this model into our own class called `Model` for simplicity.
-The detailed documentation of the `Model` class can be found by executing the command `?Model`.
+The detailed documentation of the \link{Model} class can be found by executing the command `?Model`.
 
 The model is then used to predict the RAU values of the samples based on the MFI values.
 
@@ -209,7 +209,7 @@ More information about the model can be found in the `nplr` package documentatio
 By reversing that logistic function, we can predict the dilution of the samples based on the MFI values.
 The RAU value is then the predicted dilution of the sample multiplied by $1,000,000$.
 
-To limit the extrapolation error from above (values above maximum RAU value \eqn{\text{RAU}_{max}} for the standard curve samples), we clip all predictions above \eqn{M = RAU_{max} + \text{over\_max\_extrapolation}} to $M$ where `over_max_extrapolation` is user controlled parameter to the `predict` function.
+To limit the extrapolation error from above (values above maximum RAU value \eqn{\text{RAU}_{max}} for the standard curve samples), we clip all predictions above \eqn{M = RAU_{max} + \text{over\_max\_extrapolation}} to $M$ where `over_max_extrapolation` is user controlled parameter to the `predict.Model()` function.
 By default `over_max_extrapolation` is set to $0$.
 
 > Warning: High dose hook effect affects the prediction truncation (clipping).
@@ -261,7 +261,7 @@ The dataframe contains original MFI values and the predicted RAU values based on
 
 In order to allow extrapolation from above (up to a certain value) we can set `over_max_extrapolation` to a positive value.
 To illustrate that we can look at prediction plots.
-The `plot_standard_curve_analyte_with_model` takes any additional parameters and passes them to a `predict` method so we can visually see the effect of the `over_max_extrapolation` parameter.
+The `plot_standard_curve_analyte_with_model()` takes any additional parameters and passes them to a `predict` method so we can visually see the effect of the `over_max_extrapolation` parameter.
 
 ```{r}
 model <- create_standard_curve_model_analyte(plate, analyte_name = "Spike_6P")
@@ -275,7 +275,7 @@ plot_standard_curve_analyte_with_model(plate, model, log_scale = c("all"), over_
 ### nMFI
 In some cases, the RAU values cannot be reliably calculated. This may happen when the MFI values of test samples are way higher than those of the standard curve samples. In that case, to avoid extrapolation but to be still able to compare the samples across the plates, we introduced a new unit called nMFI (Normalized MFI). The nMFI is calculated as the MFI value of the test sample divided by the MFI value of the standard curve sample with the selected dilution value.
 
-nMFI values of the samples can be calculated in two ways - using the `get_nmfi` function or with the `process_plate` function that also saves the output into the CSV file by setting the `normalisation_type` parameter to `nMFI` in the `process_plate` function. By default the output will be saved as a file with the same name as the plate name but with the `_nMFI` suffix. 
+nMFI values of the samples can be calculated in two ways - using the `get_nmfi()` function or with the `process_plate()` function that also saves the output into the CSV file by setting the `normalisation_type` parameter to `nMFI` in the `process_plate()` function. By default the output will be saved as a file with the same name as the plate name but with the `_nMFI` suffix. 
 
 ```{r}
 nmfi_values <- get_nmfi(plate)

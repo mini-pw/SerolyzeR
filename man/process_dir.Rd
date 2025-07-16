@@ -86,7 +86,7 @@ process_dir(
 \item{...}{Additional arguments passed to \code{\link[=process_file]{process_file()}}.}
 }
 \value{
-If \code{return_plates = TRUE}, returns a sorted list of \code{\link{Plate}} objects. Otherwise, returns \code{NULL}.
+If \code{return_plates = TRUE}, returns a sorted list of \link{Plate} objects. Otherwise, returns \code{NULL}.
 }
 \description{
 This function processes all Luminex plate files within a specified directory.

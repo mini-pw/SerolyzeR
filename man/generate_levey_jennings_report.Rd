@@ -36,8 +36,13 @@ A Levey-Jennings report in HTML format.
 }
 \description{
 This function generates a Levey-Jennings report for a list of plates. The report includes layout plot, levey jennings plot, for each analyte and selected dilutions.
+}
+\details{
 The report also includes stacked standard curves plot in both monochromatic and color versions for each analyte.
-The report is generated using the \code{levey_jennings_report_template.Rmd} template.
+The report is generated using the R Markdown template file
+\code{levey_jennings_report_template.Rmd}, located in the
+\code{inst/templates} directory of the package. You can access it using:
+\code{system.file("templates/levey_jennings_report_template.Rmd", package = "SerolyzeR")}.
 }
 \examples{
 output_dir <- tempdir(check = TRUE)

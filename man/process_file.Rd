@@ -64,13 +64,15 @@ process_file(
 \item{...}{Additional arguments passed to \code{\link[=read_luminex_data]{read_luminex_data()}} and \code{\link[=generate_plate_report]{generate_plate_report()}}.}
 }
 \value{
-A \code{\link{Plate}} object containing the processed data.
+A \link{Plate} object containing the processed data.
 }
 \description{
 This function reads a Luminex plate file by calling \code{\link[=read_luminex_data]{read_luminex_data()}} and then processes it by calling \code{\link[=process_plate]{process_plate()}}. It optionally generates also a quality control report using \code{\link[=generate_plate_report]{generate_plate_report()}}.
 It reads the specified plate file, processes the plate object using all specified normalisation types (including raw MFI values), and saves the results.
 If \code{generate_report = TRUE}, a quality control report is also generated.
-\subsection{Workflow}{
+}
+\section{Workflow}{
+
 \enumerate{
 \item Read the plate file and layout file.
 \item Process the plate data using the specified normalisation types (\code{MFI}, \code{RAU}, \code{nMFI}).
@@ -78,7 +80,7 @@ If \code{generate_report = TRUE}, a quality control report is also generated.
 \item Optionally, generate a quality control report. The report is saved as an HTML file in the \code{output_dir}, under the name \verb{\{plate_name\}_report.html}.
 }
 }
-}
+
 \examples{
 # Example 1: Process a plate file with default settings (all normalisation types)
 plate_file <- system.file("extdata", "CovidOISExPONTENT_CO_reduced.csv", package = "SerolyzeR")
