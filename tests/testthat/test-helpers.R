@@ -251,3 +251,57 @@ test_that("format_xlab returns correct labels", {
   expect_equal(format_xlab("Concentration", "Conc", "linear"), "Conc (linear scale)")
   expect_equal(format_xlab("Dose", "D", "identity"), "D (linear scale)")
 })
+
+
+
+test_that("filter_sample_types handles typical valid inputs", {
+  sample_types <- c("TEST", "BLANK", "STANDARD CURVE", "TEST", "POSITIVE CONTROL", "TEST")
+  # Single type
+  expect_equal(filter_sample_types(sample_types, "TEST"),
+               c(TRUE, FALSE, FALSE, TRUE, FALSE, TRUE))
+  # Multiple types
+  expect_equal(filter_sample_types(sample_types, c("TEST", "STANDARD CURVE")),
+               c(TRUE, FALSE, TRUE, TRUE, FALSE, TRUE))
+  # ALL wildcard
+  expect_true(all(filter_sample_types(sample_types, "ALL")))
+  expect_true(all(filter_sample_types(sample_types, c("ALL", "TEST"))))
+})
+
+test_that("filter_sample_types returns correct length", {
+  sample_types <- rep("TEST", 5)
+  res <- filter_sample_types(sample_types, "TEST")
+  expect_length(res, length(sample_types))
+})
+
+test_that("filter_sample_types errors on invalid sample_types input", {
+  expect_error(
+    filter_sample_types(NULL, "TEST"),
+    "Passed sample types is either NULL or NA"
+  )
+  expect_error(
+    filter_sample_types(c(NA, NA), "TEST"),
+    "Passed sample types is either NULL or NA"
+  )
+  expect_error(
+    filter_sample_types(c("TEST", "INVALID"), "TEST"),
+    "is not a valid sample type"
+  )
+})
+
+test_that("filter_sample_types errors on invalid sample_type_filter input", {
+  sample_types <- c("TEST", "BLANK")
+  expect_error(
+    filter_sample_types(sample_types, NULL),
+  )
+  expect_error(
+    filter_sample_types(sample_types, c(NA, "TEST")),
+  )
+  expect_error(
+    filter_sample_types(sample_types, "FOO"),
+    "is not a valid sample type"
+  )
+  expect_error(
+    filter_sample_types(sample_types, c("TEST", "FOO")),
+    "is not a valid sample type"
+  )
+})
