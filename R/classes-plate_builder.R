@@ -29,7 +29,8 @@ PlateBuilder <- R6::R6Class(
     #' Initialize the PlateBuilder object
     #'
     #' @param sample_names - vector of sample names measured during
-    #' an examination in the same order as in the data
+    #' an examination in the same order as in the data.
+    #' It should not contain any duplicates.
     #'
     #' @param analyte_names - vector of analytes names measured during
     #' an examination in the same order as in the data
@@ -194,6 +195,8 @@ PlateBuilder <- R6::R6Class(
     #' Set the sample names used during the examination. If the layout is provided,
     #' extract the sample names from the layout file. Otherwise, uses the original sample names from the Luminex file
     #'
+    #' In case there are multiple samples with the same name, it prints a warning and renames the samples, by adding a number.
+    #'
     #' @param use_layout_sample_names logical value indicating whether
     #' to use names extracted from layout files. If set to false, this function only checks if the sample names are provided in the plate
     set_sample_names = function(use_layout_sample_names = TRUE) {
@@ -209,6 +212,18 @@ PlateBuilder <- R6::R6Class(
           extract_sample_names_from_layout(layout_names, locations)
       }
       stopifnot(!is.null(self$sample_names))
+
+      # Check for duplicates
+      dup_flags <- duplicated(self$sample_names) | duplicated(self$sample_names, fromLast = TRUE)
+      if (any(dup_flags)) {
+        dup_names <- unique(self$sample_names[dup_flags])
+        warning(sprintf("Duplicate sample names detected: %s. Renaming to make them unique.",
+                        paste(dup_names, collapse = ", ")))
+
+        # Rename duplicates by adding suffix ".1", ".2", etc.
+        self$sample_names <- make.unique(self$sample_names)
+      }
+
     },
 
     #' @description
