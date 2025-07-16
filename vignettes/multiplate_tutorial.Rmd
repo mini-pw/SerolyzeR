@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 
 In this tutorial we are going to cover all the possible options of reading and writing data from multiple plates implemented in `SerolyzeR` package.
 
-This tutorial will not be focused on a detailed analysis of the package functionalities that are designed to analyse a single plate at a time, as this is already covered in the \code{vignette("Basic SerolyzeR functionalities", package="SerolyzeR")}.
+This tutorial will not be focused on a detailed analysis of the package functionalities that are designed to analyse a single plate at a time, as this is already covered in the \HTMLVignette{example_script}{}{Basic SerolyzeR functionalities}.
 
 ## Reading the data
 
@@ -50,7 +50,7 @@ Let us first read the directory.
 
 ## Reading a whole directory
 
-To read the directory as above, we need to import the library `SerolyzeR` and run a single command `process_dir`. This function reads all the files in the directory and processes them. It has an option to generate 3 tabular outputs (similarly to the `process_file` function). It is:
+To read the directory as above, we need to import the library `SerolyzeR` and run a single command `process_dir()`. This function reads all the files in the directory and processes them. It has an option to generate 3 tabular outputs (similarly to the `process_file()` function). It is:
 - MFI (mean fluorescence intensity) - the raw input MFI values, with optional blank adjustment only
 - nMFI (normalised mean fluorescence intensity) - the normalised values, with optional blank adjustment and normalisation to the reference sample
 - RAU (relative antibody units) - the normalised values, with optional blank adjustment transformed to the relative antibody units
@@ -63,7 +63,7 @@ Now, we will discuss how this method works and describe its most important param
 By default, it saves all the outputs into the input directory, this can be changed with the `output_dir` parameter. In this tutorial, we will set the output directory to a temporary directory, which can be created with the `tempdir()` function.
 We also specify the format of the input files, which is `xPONENT` in this case. The `format` parameter can be either set to `xPONENT`, `INTELLIFLEX` or `NULL`. In case the format is `NULL`, the function will try to infer the format based on the filename. For more details, we refer the reader to the documentation of the ` function.
 
-One of the most useful features of the `process_dir` function is that it enables us to do all the preprocessing steps in one go. By setting `merge_outputs` parameter to `TRUE`, the method will output a single file with all the data from all the plates. This is very useful when we want to analyse the data from multiple plates at once.
+One of the most useful features of the `process_dir()` function is that it enables us to do all the preprocessing steps in one go. By setting `merge_outputs` parameter to `TRUE`, the method will output a single file with all the data from all the plates. This is very useful when we want to analyse the data from multiple plates at once.
 
 
 This method also supports automatic generation of HTML reports, which could be enabled with setting the parameter `generate_reports` to `TRUE`, for the single plate reports, and `generate_multiplate_report` to `TRUE`, for the multiplate report. By default both of these values are set to `FALSE`. 
@@ -79,10 +79,10 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
 ```
 Remember, if you want to read all your files properly, you need to follow the naming convention of the files. The layout file should have the same name as the plate file, with the added suffix `_layout`. The detailed description of the convention, along with the list of all the possible arguments can be found in the documentation of the function, which can be accessed with `?process_dir` command.
 
-Now, let us investigate the merged output of the `process_dir` function, which contains the data for all the samples and analytes, for each data type: MFI, nMFI and RAU.
+Now, let us investigate the merged output of the `process_dir()` function, which contains the data for all the samples and analytes, for each data type: MFI, nMFI and RAU.
 
 
-For detailed description of the normalised output for a single plate, we refer the reader to the \code{vignette("Basic SerolyzeR functionalities", package="SerolyzeR")}. For the detailed description of the reports, we refer the reader to the \code{vignette("SerolyzeR HTML reports", package="SerolyzeR")}. If you are interested in specific plots genrerated by our package, for quality control of both single and multiple plates, we refer you to the vignette \code{vignette("SerolyzeR plots")}. 
+For detailed description of the normalised output for a single plate, we refer the reader to the \HTMLVignette{example_script}{}{Basic SerolyzeR functionalities vignette}. For the detailed description of the reports, we refer the reader to the \HTMLVignette{our_plots}{}{SerolyzeR HTML reports}. If you are interested in specific plots genrerated by our package, for quality control of both single and multiple plates, we refer you to the vignette \HTMLVignette{our_plots}{}{SerolyzeR plots}.
 
 
 Let us investigate the output directory and the files that were created.

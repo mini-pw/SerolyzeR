@@ -1,19 +1,32 @@
-#' @title Calculate normalised MFI values for a plate
+#' @title
+#' Calculate Normalised MFI (nMFI) Values for a Plate
 #'
 #' @description
-#' The function calculates the normalised MFI (nMFI) values for each of the analytes in the plate.
+#' Calculates normalised MFI (nMFI) values for each analyte in a Luminex plate.
+#' The nMFI values are computed as the ratio of each test sample's MFI to the
+#' MFI of a standard curve sample at a specified reference dilution.
 #'
-#' The nMFI values are calculated as the ratio of the test samples' MFI values to the standard curve samples with the target dilution.
+#' @details
+#' Normalised MFI (nMFI) is a simple, model-free metric used to compare test
+#' sample responses relative to a fixed concentration from the standard curve.
+#' It is particularly useful when model fitting (e.g., for RAU calculation)
+#' is unreliable or not possible, such as when test sample intensities fall
+#' outside the standard curve range.
 #'
+#' The function locates standard samples with the specified dilution and divides
+#' each test sample’s MFI by the corresponding standard MFI value for each analyte.
 #'
+#' @section When Should nMFI Be Used?:
+#' While RAU values are generally preferred for antibody quantification,
+#' they require successful model fitting of the standard curve.
+#' This may not be feasible when:
 #'
-#' **When nMFI could be used?**
-#' In general, it is preferred to use Relative Antibody Unit (RAU) values for any analysis.
-#' However, it is sometimes impossible to fit a model to the standard curve samples.
-#' This may happen if the MFI values of test samples are much higher than the MFI of standard curve samples.
-#' Then, the prediction would require significant data extrapolation, which could lead to unreliable results.
+#' - The test samples produce MFI values outside the range of the standard curve.
+#' - The standard curve is poorly shaped or missing critical points.
 #'
-#' In such cases, the nMFI values could be used as a proxy for RAU values if we want, for instance, to account for plate-to-plate variation.
+#' In such cases, nMFI serves as a useful alternative, allowing for
+#' plate-to-plate comparison without the need for extrapolation.
+#'
 #'
 #' @param plate (`Plate()`) a plate object for which to calculate the nMFI values
 #' @param reference_dilution (`numeric(1) or character(1)`) the dilution value of the standard curve sample
@@ -25,6 +38,8 @@
 #' @param verbose (`logical(1)`) print additional information. The default is `TRUE`
 #'
 #' @return nmfi (`data.frame`) a data frame with normalised MFI values for each analyte in the plate and all test samples.
+#'
+#' @references L. Y. Chan, E. K. Yim, and A. B. Choo, Normalized median fluorescence: An alternative flow cytometry analysis method for tracking human embryonic stem cell states during differentiation,  http://dx.doi.org/10.1089/ten.tec.2012.0150
 #'
 #' @examples
 #'

@@ -223,7 +223,7 @@ get_output_dir <- function(
 #'   - If `TRUE`, prints detailed processing information.
 #' @param ... Additional arguments passed to [process_file()].
 #'
-#' @return If `return_plates = TRUE`, returns a sorted list of [`Plate`] objects. Otherwise, returns `NULL`.
+#' @return If `return_plates = TRUE`, returns a sorted list of \link{Plate} objects. Otherwise, returns `NULL`.
 #'
 #' @examples
 #' # Process all plate files in a directory

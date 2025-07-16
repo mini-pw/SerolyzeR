@@ -81,4 +81,12 @@ test_that("Getters in plate object", {
   expect_error(plate$get_data(NULL))
   expect_error(plate$get_data("Spike_6P_IPP", sample_type = "incorrect sample"))
   expect_error(plate$get_data("Spike_6P_IPP", data_type = "average"))
+
+  # test sample types
+  expect_no_error(plate$get_data("Spike_6P_IPP", data_type = "Median", sample_type = "ALL"))
+  expect_no_error(plate$get_data("Spike_6P_IPP", data_type = "Median", sample_type = "BLANK"))
+
+  expect_error(plate$get_data("Spike_6P_IPP", sample_type = NULL, data_type = "Median"))
+  expect_error(plate$get_data("Spike_6P_IPP", sample_type = "ALL", data_type = NULL))
+
 })

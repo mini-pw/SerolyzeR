@@ -6,7 +6,7 @@
 #' It reads the specified plate file, processes the plate object using all specified normalisation types (including raw MFI values), and saves the results.
 #' If `generate_report = TRUE`, a quality control report is also generated.
 #'
-#' ## Workflow
+#' @section Workflow:
 #' 1. Read the plate file and layout file.
 #' 2. Process the plate data using the specified normalisation types (`MFI`, `RAU`, `nMFI`).
 #' 3. Save the processed data to CSV files in the specified `output_dir`. The files are named as `{plate_name}_{normalisation_type}.csv`.
@@ -34,7 +34,7 @@
 #'   - If `TRUE`, prints additional information during execution.
 #' @param ... Additional arguments passed to [read_luminex_data()] and [generate_plate_report()].
 #'
-#' @return A [`Plate`] object containing the processed data.
+#' @return A \link{Plate} object containing the processed data.
 #'
 #' @examples
 #' # Example 1: Process a plate file with default settings (all normalisation types)

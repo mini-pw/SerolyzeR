@@ -39,9 +39,9 @@ as the \code{sample_names} vector.}
 Types of the samples that were examined on the plate.
 The possible values are \cr \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)}.
 This vector is in the same order as the \code{sample_names} vector.
-If the \code{\link{Plate}} object is read using \code{\link{read_luminex_data}}, then the sample types
+If the \link{Plate} object is read using \code{\link[=read_luminex_data]{read_luminex_data()}}, then the sample types
 are usually detected based on the sample names according to the rules
-described in \code{\link{translate_sample_names_to_sample_types}}.}
+described in \code{\link[=translate_sample_names_to_sample_types]{translate_sample_names_to_sample_types()}}.}
 
 \item{\code{dilutions}}{(\code{character()})\cr
 A list containing names of the samples as keys and string representing dilutions as values.
@@ -52,7 +52,7 @@ A list containing names of the samples as keys and numeric values representing d
 It is in the same order as the \code{sample_names} vector.}
 
 \item{\code{default_data_type}}{(\code{character(1)})\cr
-The default data type that will be returned by the \code{get_data} method.
+The default data type that will be returned by the \code{Plate$get_data()} method.
 By default is set to \code{Median}.}
 
 \item{\code{data}}{(\code{list()})\cr
@@ -308,7 +308,7 @@ Function adjusts the values of samples (all samples excluding the blanks) by cla
 values to the aggregated value of the \code{BLANK} samples for each analyte separately.
 
 The purpose of this operation is to unify the data by clamping values below the background noise.
-how this method works was inspired by the paper https://doi.org/10.1038/s41598-020-57876-0 which covers the quality control in the MBA.
+how this method works was inspired by the paper "Quality control of multiplex antibody detection in samples from large-scale surveys: the example of malaria in Haiti." which covers the quality control in the MBA.
 
 In short, this operation firstly calculates the aggregate of MFI in the \code{BLANK} samples
 (available methods are: \code{min}, \code{max}, \code{mean}, \code{median})
@@ -318,6 +318,8 @@ Method does not modifies the data of type \code{Count}.
 
 This operation is recommended to be performed before any further analysis, but is optional.
 Skipping it before further analysis is allowed, but will result in a warning.
+
+@references van den Hoogen, L.L., Présumé, J., Romilus, I. et al. Quality control of multiplex antibody detection in samples from large-scale surveys: the example of malaria in Haiti. Sci Rep 10, 1135 (2020). https://doi.org/10.1038/s41598-020-57876-0
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Plate$blank_adjustment(threshold = "max", in_place = TRUE)}\if{html}{\out{</div>}}
 }

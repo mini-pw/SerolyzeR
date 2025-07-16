@@ -70,18 +70,21 @@ read_luminex_data(
 }}
 }
 \value{
-A \code{\link{Plate}} object containing the parsed Luminex data.
+A \link{Plate} object containing the parsed Luminex data.
 }
 \description{
-Reads a Luminex plate file and returns a \code{\link{Plate}} object containing the extracted data.
+Reads a Luminex plate file and returns a \link{Plate} object containing the extracted data.
 Optionally, a layout file can be provided to specify the arrangement of samples on the plate.
-
+}
+\details{
 The function supports two Luminex data formats:
 \itemize{
 \item \strong{xPONENT}: Used by older Luminex machines.
 \item \strong{INTELLIFLEX}: Used by newer Luminex devices.
 }
-\subsection{Workflow}{
+}
+\section{Workflow}{
+
 \enumerate{
 \item Validate input parameters, ensuring the specified format is supported.
 \item Read the plate file using the appropriate parser:
@@ -98,7 +101,8 @@ The function supports two Luminex data formats:
 }
 }
 
-\subsection{File Structure}{
+\section{File Structure}{
+
 \itemize{
 \item \strong{Plate File (\code{plate_filepath})}: A CSV file containing Luminex fluorescence intensity data.
 \item \strong{Layout File (\code{layout_filepath})} (optional): An Excel or CSV file containing the plate layout.
@@ -109,13 +113,14 @@ The function supports two Luminex data formats:
 }
 }
 
-\subsection{Sample types detection}{
+\section{Sample types detection}{
 
-The \code{\link{read_luminex_data}} method automatically detects the sample types based on the sample names, unless provided the \code{sample_types} parameter.
-The sample types are detected used the \code{\link{translate_sample_names_to_sample_types}} method.
+
+The \code{\link[=read_luminex_data]{read_luminex_data()}} method automatically detects the sample types based on the sample names, unless provided the \code{sample_types} parameter.
+The sample types are detected used the \code{\link[=translate_sample_names_to_sample_types]{translate_sample_names_to_sample_types()}} method.
 In the documentation of this method, which can be accessed with command \code{?translate_sample_names_to_sample_types}, you can find the detailed description of the sample types detection.
 }
-}
+
 \examples{
 # Read a Luminex plate file with an associated layout file
 plate_file <- system.file("extdata", "CovidOISExPONTENT.csv", package = "SerolyzeR")

@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
 # Introduction
 
 The `SerolyzeR` package provides for two reports:
-- plate report that can be generated using the `generate_plate_report` function,
-- Levey-Jennings report that can be generated using the `generate_levey_jennings_report` function. 
+- plate report that can be generated using the `generate_plate_report()` function,
+- Levey-Jennings report that can be generated using the `generate_levey_jennings_report()` function. 
 
 They are HTML report that were optimized for size so they could be sent via email.
 The first one contains a summary of the plate. It includes information about the plate, the layout of the plate, the preview of standard curves, and detailed information about analytes.
@@ -49,7 +49,7 @@ plate <- read_luminex_data(plate_filepath, layout_filepath)
 plate
 ```
 
-To generate the report, we need to use the `generate_plate_report` function. There is one parameter that needs to be set, which is the `plate` object.
+To generate the report, we need to use the `generate_plate_report()` function. There is one parameter that needs to be set, which is the `plate` object.
 Generation of the report takes a few seconds, so please be patient. It can take up to a minute for a large plate.
 
 ```{r, eval=FALSE}
@@ -87,7 +87,7 @@ The warnings are displayed in the `detailed information about analytes` section.
 ## Additional parameters
 
 The user can customize the report by setting additional parameters. 
-The `generate_plate_report` function has the following optional parameters:
+The `generate_plate_report()` function has the following optional parameters:
 
 - `additional_notes` - string with additional notes that will be added to the report
 
@@ -177,7 +177,7 @@ list_of_plates <- process_dir(dir,
 unlink(output_dir, recursive = TRUE)
 ```
 
-To generate the report, we need to use the `generate_levey_jennings_report` function. There are two parameters that need to be set, which are:
+To generate the report, we need to use the `generate_levey_jennings_report()` function. There are two parameters that need to be set, which are:
 - `list_of_plates` - list of `Plate` instances, it is recommended generate is with `process_dir` function
 - `report_title` - title of the report
 
@@ -209,9 +209,9 @@ charts for dilution "1/100" and "1/400".
 ## Additional parameters
 
 The user can customize the report by setting additional parameters.
-The `generate_levey_jennings_report` function has the following optional parameters:
+The `generate_levey_jennings_report()` function has the following optional parameters:
 
 - `dilutions` - vector of dilutions that will be used to create Levey-Jennings plots. By default, it is set to `c("1/100", "1/400")`
-- `additional_notes` - string with additional notes that will be added to the report, works the same way as in the `generate_plate_report` function
-- `filename` - The name of the output HTML report file. It works the same way as in the `generate_plate_report` function
-- `output_dir` - The directory where the output CSV file should be saved. It works the same way as in the `generate_plate_report` function
+- `additional_notes` - string with additional notes that will be added to the report, works the same way as in the `generate_plate_report()` function
+- `filename` - The name of the output HTML report file. It works the same way as in the `generate_plate_report()` function
+- `output_dir` - The directory where the output CSV file should be saved. It works the same way as in the `generate_plate_report()` function
