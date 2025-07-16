@@ -23,11 +23,10 @@ where:
 
 This equation is referred to as the Richards' equation. More information about the model can be found in the \code{nplr} package documentation.
 
-After the model is fitted to the data, the RAU values can be predicted using the \code{predict} method.
+After the model is fitted to the data, the RAU values can be predicted using the \code{\link[=predict.Model]{predict.Model()}} method.
 The RAU value is simply a predicted dilution value (using the standard curve) for a given MFI
 multiplied by 1,000 000 to have a more readable value.
-For more information about the differences between dilution, RAU and MFI values, please see the
-"Normalisation" section in the "Basic SerolyzeR functionalities" vignette.
+For more information about the differences between dilution, RAU and MFI values, please see \HTMLVignette{example_script}{normalisation}{Normalisation section in the Basic SerolyzeR functionalities vignette}.
 }
 \examples{
 plate_file <- system.file("extdata", "CovidOISExPONTENT.csv", package = "SerolyzeR")
