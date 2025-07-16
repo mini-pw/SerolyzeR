@@ -121,3 +121,38 @@ test_that("Test ignoring datatypes with missing rows", {
   expect_false("Net MFI" %in% names(plate$data))
   expect_equal(length(plate$sample_types), 96)
 })
+
+test_that("Duplicated sample names in layout trigger warning and renaming", {
+  layout_path <- system.file(
+    "extdata",
+    "CovidOISExPONTENT_layout_duplicates.csv",
+    package = "SerolyzeR",
+    mustWork = TRUE
+  )
+  data_path <- system.file(
+    "extdata",
+    "CovidOISExPONTENT.csv",
+    package = "SerolyzeR",
+    mustWork = TRUE
+  )
+
+  expect_warning(
+    plate <- read_luminex_data(
+      data_path,
+      format = "xPONENT",
+      layout_filepath = layout_path,
+      verbose = FALSE,
+      use_layout_sample_names = TRUE
+    ),
+    "Duplicate sample names detected"
+  )
+
+  sn <- plate$sample_names
+  expect_equal(length(sn), length(unique(sn)))
+  # ensure suffixes added, e.g. "_1", ".1"
+  expect_true(any(grepl("(\\.1|_1)$", sn)))
+})
+
+
+
+
