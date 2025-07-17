@@ -66,7 +66,6 @@
 #' nmfi <- get_nmfi(plate, reference_dilution = "1/50")
 #' nmfi <- get_nmfi(plate, reference_dilution = "1/50", sample_type_filter = c("TEST", "BLANK"))
 #'
-#'
 #' @export
 get_nmfi <-
   function(plate,

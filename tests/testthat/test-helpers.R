@@ -257,11 +257,15 @@ test_that("format_xlab returns correct labels", {
 test_that("filter_sample_types handles typical valid inputs", {
   sample_types <- c("TEST", "BLANK", "STANDARD CURVE", "TEST", "POSITIVE CONTROL", "TEST")
   # Single type
-  expect_equal(filter_sample_types(sample_types, "TEST"),
-               c(TRUE, FALSE, FALSE, TRUE, FALSE, TRUE))
+  expect_equal(
+    filter_sample_types(sample_types, "TEST"),
+    c(TRUE, FALSE, FALSE, TRUE, FALSE, TRUE)
+  )
   # Multiple types
-  expect_equal(filter_sample_types(sample_types, c("TEST", "STANDARD CURVE")),
-               c(TRUE, FALSE, TRUE, TRUE, FALSE, TRUE))
+  expect_equal(
+    filter_sample_types(sample_types, c("TEST", "STANDARD CURVE")),
+    c(TRUE, FALSE, TRUE, TRUE, FALSE, TRUE)
+  )
   # ALL wildcard
   expect_true(all(filter_sample_types(sample_types, "ALL")))
   expect_true(all(filter_sample_types(sample_types, c("ALL", "TEST"))))

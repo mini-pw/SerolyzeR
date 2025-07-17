@@ -294,7 +294,7 @@ process_dir <- function(
   for (i in seq_along(input_files)) {
     formats[i] <- detect_mba_format(input_files[i], format = format)
   }
-  stopifnot(all(!is.na(formats)))  # Ensure all formats were detected
+  stopifnot(all(!is.na(formats))) # Ensure all formats were detected
 
 
   layouts <- rep(NA, length(input_files))
@@ -304,15 +304,16 @@ process_dir <- function(
       layout_filepath = layout_filepath
     )
   }
-  stopifnot(all(!is.na(layouts)))  # Ensure all layouts were found
+  stopifnot(all(!is.na(layouts))) # Ensure all layouts were found
 
 
   # --- Print input/output mappings in dry run mode ---
   if (dry_run) {
     cat("The following files will be processed:\n")
     for (i in seq_along(input_files)) {
-      current_output_dir <- get_output_dir(input_file = input_files[i], input_dir = input_dir,
-                                           output_dir = output_dir, flatten_output_dir = flatten_output_dir
+      current_output_dir <- get_output_dir(
+        input_file = input_files[i], input_dir = input_dir,
+        output_dir = output_dir, flatten_output_dir = flatten_output_dir
       )
       cat(
         "\n",
@@ -329,14 +330,14 @@ process_dir <- function(
   plates <- list()
   for (i in seq_along(input_files)) {
     current_output_dir <- get_output_dir(input_files[i], input_dir,
-                                         output_dir = output_dir, flatten_output_dir = flatten_output_dir
+      output_dir = output_dir, flatten_output_dir = flatten_output_dir
     )
     plate <- process_file(
       input_files[i],
       layout_filepath = ifelse(is.na(layouts[i]), NULL, layouts[i]),
       output_dir = current_output_dir,
       format = formats[i],
-      process_plate = !merge_outputs,  # Skip plate-level output if merging
+      process_plate = !merge_outputs, # Skip plate-level output if merging
       normalisation_types = normalisation_types,
       generate_report = generate_reports,
       verbose = verbose,
@@ -358,18 +359,17 @@ process_dir <- function(
   # --- Merge outputs across all plates if requested ---
   if (merge_outputs) {
     for (normalisation_type in normalisation_types) {
+      merged_df <- merge_plate_outputs(
+        plates = plates,
+        normalisation_type = normalisation_type,
+        column_collision_strategy = column_collision_strategy,
+        verbose = verbose
+      )
 
-    merged_df <- merge_plate_outputs(
-      plates = plates,
-      normalisation_type = normalisation_type,
-      column_collision_strategy = column_collision_strategy,
-      verbose = verbose
-    )
-
-    file_name <- paste0("merged_", normalisation_type, "_", file_ending, ".csv")
-    output_path <- fs::path_join(c(output_dir, file_name))
-    write.csv(merged_df, output_path, row.names = FALSE)
-    verbose_cat("Merged output saved to: ", output_path, "\n", verbose = verbose)
+      file_name <- paste0("merged_", normalisation_type, "_", file_ending, ".csv")
+      output_path <- fs::path_join(c(output_dir, file_name))
+      write.csv(merged_df, output_path, row.names = FALSE)
+      verbose_cat("Merged output saved to: ", output_path, "\n", verbose = verbose)
     }
   }
 

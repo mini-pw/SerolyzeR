@@ -529,5 +529,3 @@ filter_sample_types <- function(sample_types, sample_type_filter) {
     return(sample_types %in% sample_type_filter)
   }
 }
-
-

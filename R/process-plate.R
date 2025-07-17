@@ -140,7 +140,8 @@ process_plate <-
     } else if (normalisation_type == "nMFI") {
       verbose_cat("Computing nMFI values for each analyte\n", verbose = verbose)
       output_df <- get_nmfi(
-        plate, sample_type_filter = sample_type_filter,
+        plate,
+        sample_type_filter = sample_type_filter,
         reference_dilution = reference_dilution, data_type = data_type,
         verbose = verbose
       )
