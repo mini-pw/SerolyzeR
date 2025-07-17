@@ -152,7 +152,3 @@ test_that("Duplicated sample names in layout trigger warning and renaming", {
   # ensure suffixes added, e.g. "_1", ".1"
   expect_true(any(grepl("\\.1$", sn)))
 })
-
-
-
-

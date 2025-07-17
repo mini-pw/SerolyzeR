@@ -217,13 +217,14 @@ PlateBuilder <- R6::R6Class(
       dup_flags <- duplicated(self$sample_names) | duplicated(self$sample_names, fromLast = TRUE)
       if (any(dup_flags)) {
         dup_names <- unique(self$sample_names[dup_flags])
-        warning(sprintf("Duplicate sample names detected: %s. Renaming to make them unique.",
-                       paste(dup_names, collapse = ", ")))
+        warning(sprintf(
+          "Duplicate sample names detected: %s. Renaming to make them unique.",
+          paste(dup_names, collapse = ", ")
+        ))
 
         # Rename duplicates by adding suffix ".1", ".2", etc.
         self$sample_names <- make.unique(self$sample_names)
       }
-
     },
 
     #' @description
