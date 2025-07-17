@@ -27,6 +27,9 @@ Function translates sample names to sample types based on the sample name
 from Luminex file and the sample name from the layout file, which may not
 be provided. The function uses regular expressions to match the sample names
 to the sample types.
+}
+\details{
+Function assigns SampleType to each of the samples from one of \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)}.
 
 It parses the names as follows:
 
@@ -46,6 +49,8 @@ whitespace, \code{POS} followed by whitespace, some sample name followed by
 substring \verb{1/\\d+} SampleType equals to \verb{POSITIVE CONTROL}
 
 Otherwise, the returned SampleType is \code{TEST}
+
+It also removes any additional suffixes created by \code{make.unique()} method, such as, \code{.1}, \code{.4}.
 }
 \examples{
 translate_sample_names_to_sample_types(c("B", "BLANK", "NEG", "TEST1"))

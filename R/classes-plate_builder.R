@@ -29,7 +29,8 @@ PlateBuilder <- R6::R6Class(
     #' Initialize the PlateBuilder object
     #'
     #' @param sample_names - vector of sample names measured during
-    #' an examination in the same order as in the data
+    #' an examination in the same order as in the data.
+    #' It should not contain any duplicates.
     #'
     #' @param analyte_names - vector of analytes names measured during
     #' an examination in the same order as in the data
@@ -194,6 +195,8 @@ PlateBuilder <- R6::R6Class(
     #' Set the sample names used during the examination. If the layout is provided,
     #' extract the sample names from the layout file. Otherwise, uses the original sample names from the Luminex file
     #'
+    #' In case there are multiple samples with the same name, it prints a warning and renames the samples, by adding a number.
+    #'
     #' @param use_layout_sample_names logical value indicating whether
     #' to use names extracted from layout files. If set to false, this function only checks if the sample names are provided in the plate
     set_sample_names = function(use_layout_sample_names = TRUE) {
@@ -209,6 +212,18 @@ PlateBuilder <- R6::R6Class(
           extract_sample_names_from_layout(layout_names, locations)
       }
       stopifnot(!is.null(self$sample_names))
+
+      # Check for duplicates
+      dup_flags <- duplicated(self$sample_names) | duplicated(self$sample_names, fromLast = TRUE)
+      if (any(dup_flags)) {
+        dup_names <- unique(self$sample_names[dup_flags])
+        warning(sprintf("Duplicate sample names detected: %s. Renaming to make them unique.",
+                       paste(dup_names, collapse = ", ")))
+
+        # Rename duplicates by adding suffix ".1", ".2", etc.
+        self$sample_names <- make.unique(self$sample_names)
+      }
+
     },
 
     #' @description
@@ -514,6 +529,9 @@ convert_dilutions_to_numeric <- function(dilutions) {
 #' be provided. The function uses regular expressions to match the sample names
 #' to the sample types.
 #'
+#' @details
+#' Function assigns SampleType to each of the samples from one of \code{c(`r toString(VALID_SAMPLE_TYPES)`)}.
+#'
 #' It parses the names as follows:
 #'
 #' If `sample_names` or `sample_names_from_layout` equals to `BLANK`, `BACKGROUND` or `B`,
@@ -532,6 +550,8 @@ convert_dilutions_to_numeric <- function(dilutions) {
 #' substring `1/\d+` SampleType equals to `POSITIVE CONTROL`
 #'
 #' Otherwise, the returned SampleType is `TEST`
+#'
+#' It also removes any additional suffixes created by `make.unique()` method, such as, `.1`, `.4`.
 #'
 #' @param sample_names (`character()`)\cr
 #' Vector of sample names from Luminex file
@@ -552,6 +572,12 @@ convert_dilutions_to_numeric <- function(dilutions) {
 translate_sample_names_to_sample_types <-
   function(sample_names, sample_names_from_layout = NULL) {
     stopifnot(is.character(sample_names))
+    # Step 1: Clean any numeric suffixes from make.unique (e.g. ".1", ".2")
+    sample_names <- sub("\\.\\d+$", "", sample_names)
+    if (!is.null(sample_names_from_layout)) {
+      sample_names_from_layout <- sub("\\.\\d+$", "", sample_names_from_layout)
+    }
+
     # Handle case when sample name from layout is not provided
     if (is.null(sample_names_from_layout)) {
       sample_names_from_layout <- rep("", length(sample_names))

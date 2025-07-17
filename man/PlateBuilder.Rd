@@ -46,7 +46,8 @@ Initialize the PlateBuilder object
 \describe{
 \item{\code{sample_names}}{\itemize{
 \item vector of sample names measured during
-an examination in the same order as in the data
+an examination in the same order as in the data.
+It should not contain any duplicates.
 }}
 
 \item{\code{analyte_names}}{\itemize{
@@ -137,6 +138,8 @@ to extract sample types}
 \subsection{Method \code{set_sample_names()}}{
 Set the sample names used during the examination. If the layout is provided,
 extract the sample names from the layout file. Otherwise, uses the original sample names from the Luminex file
+
+In case there are multiple samples with the same name, it prints a warning and renames the samples, by adding a number.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_sample_names(use_layout_sample_names = TRUE)}\if{html}{\out{</div>}}
 }

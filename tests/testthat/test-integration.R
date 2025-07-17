@@ -6,7 +6,7 @@ test_that("Fully Parse CovidOISExPONTENT.csv plate data", {
   expect_no_error(plate <- read_luminex_data(path, format = "xPONENT", verbose = FALSE))
   # Check basic properties
   expect_equal(plate$plate_name, "CovidOISExPONTENT")
-  expect_equal(plate$sample_names[10:13], c("S", "S", "S", "Unknown2"))
+  expect_equal(plate$sample_names[10:13], c("S.8", "S.9", "S.10", "Unknown2"))
   expect_equal(plate$sample_types[10:13], c("STANDARD CURVE", "STANDARD CURVE", "STANDARD CURVE", "TEST"))
   expect_equal(plate$sample_types[1], "BLANK")
   expect_true(all(is.na(plate$dilutions)))
@@ -27,7 +27,7 @@ test_that("Test error catching without the layout file", {
   # sample names
   expect_no_error(plate <- read_luminex_data(path, format = "xPONENT", verbose = FALSE, use_layout_sample_names = FALSE))
 
-  expect_equal(plate$sample_names[10:13], c("S", "S", "S", "Unknown2"))
+  expect_equal(plate$sample_names[10:13], c("S.8", "S.9", "S.10", "Unknown2"))
 
   # sample types
   expect_no_error(plate <- read_luminex_data(path, format = "xPONENT", verbose = FALSE, use_layout_types = FALSE))
@@ -121,3 +121,38 @@ test_that("Test ignoring datatypes with missing rows", {
   expect_false("Net MFI" %in% names(plate$data))
   expect_equal(length(plate$sample_types), 96)
 })
+
+test_that("Duplicated sample names in layout trigger warning and renaming", {
+  layout_path <- system.file(
+    "extdata",
+    "CovidOISExPONTENT_layout_duplicates.csv",
+    package = "SerolyzeR",
+    mustWork = TRUE
+  )
+  data_path <- system.file(
+    "extdata",
+    "CovidOISExPONTENT.csv",
+    package = "SerolyzeR",
+    mustWork = TRUE
+  )
+
+  expect_warning(
+    plate <- read_luminex_data(
+      data_path,
+      format = "xPONENT",
+      layout_filepath = layout_path,
+      verbose = FALSE,
+      use_layout_sample_names = TRUE
+    ),
+    "Duplicate sample names detected"
+  )
+
+  sn <- plate$sample_names
+  expect_equal(length(sn), length(unique(sn)))
+  # ensure suffixes added, e.g. "_1", ".1"
+  expect_true(any(grepl("\\.1$", sn)))
+})
+
+
+
+

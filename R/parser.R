@@ -273,6 +273,14 @@ valid_formats <- c("xPONENT", "INTELLIFLEX")
 #' The sample types are detected used the [`translate_sample_names_to_sample_types()`] method.
 #' In the documentation of this method, which can be accessed with command `?translate_sample_names_to_sample_types`, you can find the detailed description of the sample types detection.
 #'
+#' ## Duplicates in sample names
+#' In some cases, we want to analyse the sample with the same name twice on one plate. The package allows for such situations, but we assume that the user knows what they are doing.
+#'
+#' When importing sample names (either from the layout file or the plate file), the function will check for duplicates. If any are found, it will issue a warning like:
+#'
+#' **Duplicate sample names detected: A, B. Renaming to make them unique.**
+#'
+#' Then it will add simple numeric suffixes (e.g. “.1”, “.2”) to the repeated sample names so that every name is unique while keeping the original text easy to recognize.
 #'
 #' @param plate_filepath (`character(1)`) Path to the Luminex plate file.
 #' @param layout_filepath (`character(1)`, optional) Path to the Luminex layout file.
