@@ -61,7 +61,7 @@ process_file(
 \item If \code{TRUE}, prints additional information during execution.
 }}
 
-\item{...}{Additional arguments passed to \code{\link[=read_luminex_data]{read_luminex_data()}} and \code{\link[=generate_plate_report]{generate_plate_report()}}.}
+\item{...}{Additional arguments passed to \code{\link[=read_luminex_data]{read_luminex_data()}}, \code{\link[=generate_plate_report]{generate_plate_report()}} and \code{\link[=process_plate]{process_plate()}}.}
 }
 \value{
 A \link{Plate} object containing the processed data.

@@ -16,7 +16,8 @@ read_luminex_data(
   default_data_type = "Median",
   sample_types = NULL,
   dilutions = NULL,
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 }
 \arguments{
@@ -68,6 +69,8 @@ read_luminex_data(
 \itemize{
 \item Whether to print additional information and warnings.
 }}
+
+\item{...}{Additional arguments. Ignored in this method. Here included for better integration with the pipeline}
 }
 \value{
 A \link{Plate} object containing the parsed Luminex data.

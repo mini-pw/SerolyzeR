@@ -35,6 +35,10 @@
 #' This parameter could be either a numeric value or a string.
 #' In case it is a character string, it should have format `1/d+`, where `d+` is any positive integer.
 #' @param data_type (`character(1)`) type of data for the computation. Median is the default
+#' @param sample_type_filter (`character()`) The types of samples to normalise.
+#'   (e.g., `"TEST"`, `"STANDARD CURVE"`). It can also be a vector of sample types.
+#'   In that case, dataframe with multiple sample types will be returned.
+#'   The default value is `"ALL"`, which corresponds to returning all the samples.
 #' @param verbose (`logical(1)`) print additional information. The default is `TRUE`
 #'
 #' @return nmfi (`data.frame`) a data frame with normalised MFI values for each analyte in the plate and all test samples.
@@ -60,12 +64,15 @@
 #' head(nmfi)
 #' # different params
 #' nmfi <- get_nmfi(plate, reference_dilution = "1/50")
+#' nmfi <- get_nmfi(plate, reference_dilution = "1/50", sample_type_filter = c("TEST", "BLANK"))
+#'
 #'
 #' @export
 get_nmfi <-
   function(plate,
            reference_dilution = 1 / 400,
            data_type = "Median",
+           sample_type_filter = "ALL",
            verbose = TRUE) {
     stopifnot(inherits(plate, "Plate"))
 
@@ -73,6 +80,9 @@ get_nmfi <-
 
     # check if data_type is valid
     stopifnot(is_valid_data_type(data_type))
+
+
+
 
     # check if reference_dilution is numeric or string
     if (is.character(reference_dilution)) {
@@ -109,10 +119,12 @@ get_nmfi <-
 
     reference_mfi <- plate_data[reference_standard_curve_id, ]
 
+    valid_sample_types <- filter_sample_types(plate$sample_types, sample_type_filter)
+
     test_mfi <-
       plate$get_data(
         analyte = "ALL",
-        sample_type = "TEST",
+        sample_type = sample_type_filter,
         data_type = data_type
       )
     reference_mfi <- reference_mfi[rep(1, nrow(test_mfi)), ]
@@ -120,7 +132,7 @@ get_nmfi <-
     nmfi <- test_mfi / reference_mfi
 
     rownames(nmfi) <-
-      plate$sample_names[plate$sample_types == "TEST"]
+      plate$sample_names[valid_sample_types]
 
 
     return(nmfi)

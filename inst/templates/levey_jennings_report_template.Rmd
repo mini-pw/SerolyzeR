@@ -6,11 +6,14 @@ params:
   report_title: !r NULL
   dilutions: !r NULL
   additional_notes: !r NULL
+  extra_args: !r NULL
 ---
 
 ```{r param-check, echo=FALSE}
 list_of_plates <- params$list_of_plates
 additional_notes <- params$additional_notes
+extra_args <- params$extra_args
+
 
 if (is.null(list_of_plates)) {
   stop("The `list_of_plates` must be provided when rendering the document.")
@@ -60,7 +63,7 @@ for (plate in list_of_plates) {
   intersection_analytes <- intersect(intersection_analytes, plate$analyte_names)
 }
 
-if (length(intersection_analytes) == length(all_analyte_names)) {
+if (length(intersection_analytes) != length(all_analyte_names)) {
   warning("Not all plates contain the same analytes. The report will contain only the analytes that are present in all plates. Number of all analytes: ",
           length(all_analyte_names),
           ". Number of common analytes: ",
@@ -89,11 +92,38 @@ date_of_last_plate <- as.POSIXct(date_of_last_plate,
                                  origin = "1970-01-01",
                                  tz = "UTC")
 time_span <- difftime(date_of_last_plate, date_of_first_plate, units = "days")
+
+
+# perform additional check for extra_args
+
+# Validate extra_args: ensure it's a named list
+if (!is.list(extra_args)) {
+  stop("`extra_args` must be a list.")
+}
+if (length(extra_args) > 0 && (is.null(names(extra_args)) || any(names(extra_args) == ""))) {
+  stop("All elements in `extra_args` must be named.")
+}
+
+# Hard-coded list of arguments passed explicitly in this Rmd script
+reserved_names <- c(
+  "list_of_plates", "analyte_name", "monochromatic"
+)
+
+# Check for forbidden overlaps
+conflicting_args <- intersect(names(extra_args), reserved_names)
+if (length(conflicting_args) > 0) {
+  stop(
+    "The following `extra_args` fields are not allowed, as they are explicitly passed in the report script: ",
+    paste(conflicting_args, collapse = ", "),
+    ". Please rename or remove them."
+  )
+}
+
 ```
 
-Report generated on:  `r format(Sys.time(), "%d-%m-%Y %H:%M:%S")`.  
-First plate was run on: `r if(!is.null(date_of_first_plate)) format(date_of_first_plate, "%d-%m-%Y %H:%M") else "Date of running plate was not found in Luminex file"`.  
-Last plate was run on: `r if(!is.null(date_of_last_plate)) format(date_of_last_plate, "%d-%m-%Y %H:%M") else "Date of running plate was not found in Luminex file"`.  
+Report generated on:  `r format(Sys.time(), SerolyzeR.env$report_datetime_format)`.  
+First plate was run on: `r if(!is.null(date_of_first_plate)) format(date_of_first_plate, SerolyzeR.env$report_datetime_format) else "Date of running plate was not found in Luminex file"`.  
+Last plate was run on: `r if(!is.null(date_of_last_plate)) format(date_of_last_plate, SerolyzeR.env$report_datetime_format) else "Date of running plate was not found in Luminex file"`.  
 Time span: `r if(!is.null(time_span)) paste0(round(time_span, 2), " days") else "Dates were not found in Luminex file"`.  
 Number of plates used in report: `r length(list_of_plates)`.  
 Plates have `r paste0(length(analyte_names), " analytes")`.  
@@ -137,16 +167,17 @@ for (i in seq_along(analyte_names)) {
   cat(paste0("#### ", analyte_names[i], "\n"))
 
   # Plot stacked curves monochromatic
-  print(plot_standard_curve_stacked(list_of_plates, analyte_names[i]))
+  print(inject(plot_standard_curve_stacked(list_of_plates = list_of_plates, analyte_name = analyte_names[i], monochromatic = TRUE, !!!extra_args)))
 
   # Plot stacked curves colored
-  print(plot_standard_curve_stacked(list_of_plates,
-                                    analyte_names[i],
-                                    monochromatic = FALSE))
+  print(inject(plot_standard_curve_stacked(list_of_plates = list_of_plates,
+                                    analyte_name = analyte_names[i],
+                                    monochromatic = FALSE, 
+                                    !!!extra_args)))
 
   for (dilution in params$dilutions) {
     # Plot levey-jennings
-    print(plot_levey_jennings(list_of_plates, analyte_names[i], dilution))
+    print(inject(plot_levey_jennings(list_of_plates = list_of_plates, analyte_name = analyte_names[i], dilution = dilution, !!!extra_args)))
   }
 
   cat("\n\n")

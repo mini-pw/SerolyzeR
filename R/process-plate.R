@@ -48,19 +48,20 @@ is_valid_normalisation_type <- function(normalisation_type) {
 #'   If \code{NULL}, the current working directory is used.
 #' @param write_output (`logical(1)`, default = \code{TRUE})
 #'   Whether to write the output to disk.
-#' @param normalisation_type (`character(1)`, default = \code{"RAU"})
-#'   The normalisation method to use. Must be one of:
-#'   \code{c("RAU", "nMFI", "MFI")}.
+#' @param normalisation_type (`character(1)`, default = `'RAU'`) The normalisation method to apply.
+#'   - Allowed values: \code{c(`r toString(SerolyzeR.env$normalisation_types)`)}.
 #' @param data_type (`character(1)`, default = \code{"Median"})
 #'   The data type to use for normalisation (e.g., \code{"Median"}).
-#' @param blank_adjustment (`logical(1)`, default = \code{FALSE})
-#'   Whether to apply blank adjustment before processing.
-#' @param verbose (`logical(1)`, default = \code{TRUE})
-#'   If \code{TRUE}, prints progress and messages.
+#' @param sample_type_filter (`character()`) The types of samples to normalise.
+#'   (e.g., `"TEST"`, `"STANDARD CURVE"`). It can also be a vector of sample types.
+#'   In that case, dataframe with multiple sample types will be returned.
+#'   By default equals to `"ALL"`, which corresponds to processing all sample types.
+#' @param blank_adjustment (`logical(1)`, default =  \code{FALSE}) Whether to apply blank adjustment before processing.
+#' @param verbose (`logical(1)`, default = `TRUE`) Whether to print additional information during execution.
 #' @param reference_dilution (`numeric(1)` or `character(1)`, default = \code{1/400})
 #'   Target dilution used for nMFI calculation. Ignored for other types.
 #'   Can be numeric (e.g., \code{0.0025}) or string (e.g., \code{"1/400"}).
-#' @param ... Additional arguments passed to \code{\link{create_standard_curve_model_analyte}}.
+#' @param ... Additional arguments passed to the model fitting function [`create_standard_curve_model_analyte()`] and [`predict.Model`]
 #'
 #' @return A data frame of computed values, with test samples as rows and analytes as columns.
 #'
@@ -98,6 +99,7 @@ process_plate <-
            write_output = TRUE,
            normalisation_type = "RAU",
            data_type = "Median",
+           sample_type_filter = "ALL",
            blank_adjustment = FALSE,
            verbose = TRUE,
            reference_dilution = 1 / 400,
@@ -106,6 +108,10 @@ process_plate <-
 
     stopifnot(is_valid_normalisation_type(normalisation_type))
     stopifnot(is.character(data_type))
+
+    if (!is.character(sample_type_filter)) {
+      stop("`sample_type_filter` must be a character vector.")
+    }
 
     if (write_output) {
       output_path <- validate_filepath_and_output_dir(filename, output_dir,
@@ -122,18 +128,21 @@ process_plate <-
       plate <- plate$blank_adjustment(in_place = FALSE)
     }
 
-    test_sample_names <- plate$sample_names[plate$sample_types == "TEST"]
+    valid_samples <- filter_sample_types(plate$sample_types, sample_type_filter)
+
+    test_sample_names <- plate$sample_names[valid_samples]
     if (normalisation_type == "MFI") {
       verbose_cat("Extracting the raw MFI to the output dataframe\n")
       output_df <- plate$get_data(
-        "ALL", "TEST",
+        "ALL", sample_type_filter,
         data_type = data_type
       )
     } else if (normalisation_type == "nMFI") {
       verbose_cat("Computing nMFI values for each analyte\n", verbose = verbose)
       output_df <- get_nmfi(
-        plate,
-        reference_dilution = reference_dilution, data_type = data_type
+        plate, sample_type_filter = sample_type_filter,
+        reference_dilution = reference_dilution, data_type = data_type,
+        verbose = verbose
       )
     } else if (normalisation_type == "RAU") {
       # RAU normalisation
@@ -145,10 +154,10 @@ process_plate <-
           data_type = data_type, ...
         )
         test_samples_mfi <- plate$get_data(
-          analyte, "TEST",
+          analyte, sample_type_filter,
           data_type = data_type
         )
-        test_sample_estimates <- predict(model, test_samples_mfi)
+        test_sample_estimates <- predict(model, test_samples_mfi, ...)
         output_list[[analyte]] <- test_sample_estimates[, "RAU"]
       }
       output_df <- data.frame(output_list)

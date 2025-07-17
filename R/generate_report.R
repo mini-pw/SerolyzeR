@@ -26,11 +26,11 @@
 #' @param counts_lower_threshold (`numeric(1)`) The lower threshold for the counts plots (works for each analyte). Default is 50.
 #' @param counts_higher_threshold (`numeric(1)`) The higher threshold for the counts plots (works for each analyte). Default is 70.
 #' @param additional_notes (`character(1)`) Additional notes to be included in the report. Contents of this fields are left to the user's discretion. If not provided, the field will not be included in the report.
-#'
+#' @param ... Additional params passed to the plots created in the report.
 #'
 #' @return A report.
 #'
-#' @import svglite
+#' @import svglite rlang
 #'
 #' @examples
 #'
@@ -55,7 +55,8 @@ generate_plate_report <-
            output_dir = "reports",
            counts_lower_threshold = 50,
            counts_higher_threshold = 70,
-           additional_notes = NULL) {
+           additional_notes = NULL,
+           ...) {
     message("Generating report...This will take approximately 30 seconds.")
 
     output_path <- validate_filepath_and_output_dir(filename, output_dir, plate$plate_name, "report", "html")
@@ -81,6 +82,9 @@ generate_plate_report <-
         )
     }
 
+    # make the dots dynamic
+    extra_args <- rlang::list2(...)
+
     rmarkdown::render(
       template_path,
       params = list(
@@ -88,7 +92,8 @@ generate_plate_report <-
         use_model = use_model,
         counts_lower_threshold = counts_lower_threshold,
         counts_higher_threshold = counts_higher_threshold,
-        additional_notes = additional_notes
+        additional_notes = additional_notes,
+        extra_args = extra_args
       ),
       output_file = filename,
       output_dir = output_dir,
@@ -134,9 +139,12 @@ generate_plate_report <-
 #'
 #' @param additional_notes (`character(1)`) Additional notes to be included in the report. Markdown formatting is supported. If not provided, the section will be omitted.
 #'
+#' @param ... Additional params passed to the plots created within the report.
+#'
+#'
 #' @return A Levey-Jennings report in HTML format.
 #'
-#' @import svglite
+#' @import svglite rlang
 #'
 #' @examples
 #' output_dir <- tempdir(check = TRUE)
@@ -164,7 +172,8 @@ generate_levey_jennings_report <-
            dilutions = c("1/100", "1/400"),
            filename = NULL,
            output_dir = "reports",
-           additional_notes = NULL) {
+           additional_notes = NULL,
+           ...) {
     message("Generating report... For large reports with more than 30 plates, this will take a few minutes.")
 
     plate <- list_of_plates[[1]]
@@ -192,13 +201,16 @@ generate_levey_jennings_report <-
         )
     }
 
+    extra_args <- list(...)
+
     rmarkdown::render(
       template_path,
       params = list(
         list_of_plates = list_of_plates,
         report_title = report_title,
         dilutions = dilutions,
-        additional_notes = additional_notes
+        additional_notes = additional_notes,
+        extra_args = extra_args
       ),
       output_file = filename,
       output_dir = output_dir,

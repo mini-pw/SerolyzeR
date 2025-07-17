@@ -229,7 +229,7 @@ Function returns data for a specific analyte and sample.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Plate$get_data(
   analyte,
-  sample_type = "ALL",
+  sample_type_filter = "ALL",
   data_type = self$default_data_type
 )}\if{html}{\out{</div>}}
 }
@@ -240,8 +240,10 @@ Function returns data for a specific analyte and sample.
 \item{\code{analyte}}{An analyte name or its id of which data we want to extract.
 If set to 'ALL' returns data for all analytes.}
 
-\item{\code{sample_type}}{is a type of the sample we want to extract data from.
-The possible values are \cr \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)}. Default value is \code{ALL}.}
+\item{\code{sample_type_filter}}{is a type of the sample we want to extract data from.
+The possible values are \cr \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)}. Default value is \code{ALL}.
+\code{sample_type_filter} can be also of length greater than 1. If \code{sample_type} is longer than 1 and \code{ALL} is in the vector,
+the method returns all the sample types.}
 
 \item{\code{data_type}}{The parameter specifying which data type should be returned.
 This parameter has to take one of values: \cr \code{c(Median, Net MFI, Count, Avg Net MFI, Mean, Peak)}.

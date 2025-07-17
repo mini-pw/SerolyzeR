@@ -10,7 +10,8 @@ generate_levey_jennings_report(
   dilutions = c("1/100", "1/400"),
   filename = NULL,
   output_dir = "reports",
-  additional_notes = NULL
+  additional_notes = NULL,
+  ...
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ Existing files at the specified path will be overwritten.}
 If \code{NULL}, the current working directory will be used. Necessary directories will be created if they do not exist.}
 
 \item{additional_notes}{(\code{character(1)}) Additional notes to be included in the report. Markdown formatting is supported. If not provided, the section will be omitted.}
+
+\item{...}{Additional params passed to the plots created within the report.}
 }
 \value{
 A Levey-Jennings report in HTML format.

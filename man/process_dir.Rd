@@ -10,11 +10,11 @@ process_dir(
   recurse = FALSE,
   flatten_output_dir = FALSE,
   layout_filepath = NULL,
-  format = NULL,
+  format = "xPONENT",
   normalisation_types = c("MFI", "RAU", "nMFI"),
   generate_reports = FALSE,
   generate_multiplate_reports = FALSE,
-  merge_outputs = FALSE,
+  merge_outputs = TRUE,
   column_collision_strategy = "intersection",
   return_plates = FALSE,
   dry_run = FALSE,
@@ -39,7 +39,8 @@ process_dir(
 
 \item{layout_filepath}{(\code{character(1)}, optional) Path to a layout file. If \code{NULL}, the function attempts to detect it automatically.}
 
-\item{format}{(\code{character(1)}, optional) Luminex data format. If \code{NULL}, it is automatically detected. Options: \code{'xPONENT'}, \code{'INTELLIFLEX'}.}
+\item{format}{(\code{character(1)}, optional) Luminex data format. If \code{NULL}, it is automatically detected. Options: \code{'xPONENT'}, \code{'INTELLIFLEX'}.
+By default equals to \code{'xPONENT'}.}
 
 \item{normalisation_types}{(\code{character()}, default = \code{c("MFI", "RAU", "nMFI")})
 \itemize{
@@ -56,7 +57,7 @@ process_dir(
 \item If \code{TRUE}, generates a multiplate quality control report for all processed plates.
 }}
 
-\item{merge_outputs}{(\code{logical(1)}, default = \code{FALSE})
+\item{merge_outputs}{(\code{logical(1)}, default = \code{TRUE})
 \itemize{
 \item If \code{TRUE}, merges all normalised data into a single CSV file per normalisation type.
 \item The merged file is named \verb{merged_\{normalisation_type\}_\{timestamp\}.csv}.

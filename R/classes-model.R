@@ -97,6 +97,8 @@ Model <- R6::R6Class(
     #' @param mfi_max (`numeric(1)`)\cr
     #'   Enables to set the maximum MFI value used for scaling MFI values to the range \[0, 1\].
     #'   Use values before any transformations (e.g., before the `log10` transformation)
+    #' @param ... Additional parameters, ignored here. Used here only for consistency with the SerolyzeR pipeline
+    #'
     #'
     initialize = function(analyte,
                           dilutions,
@@ -107,7 +109,8 @@ Model <- R6::R6Class(
                           log_mfi = TRUE,
                           scale_mfi = TRUE,
                           mfi_min = NULL,
-                          mfi_max = NULL) {
+                          mfi_max = NULL,
+                          ...) {
       stopifnot(is.character(analyte) &&
         !is.null(analyte) && nchar(analyte) > 0)
 
@@ -225,6 +228,7 @@ Model <- R6::R6Class(
     #'
     #' @param eps (`numeric(1)`)\cr
     #' A small value used to avoid numerical issues close to the asymptotes
+    #' @param ... Additional parameters. This method ignores them, used here for compatibility with the pipeline.
     #'
     #' Warning: High dose hook effect affects which dilution and MFI values
     #' are used to fit the logistic model and by extension affects the over_max_extrapolation value.
@@ -240,7 +244,8 @@ Model <- R6::R6Class(
     #'
     predict = function(mfi,
                        over_max_extrapolation = 0,
-                       eps = 1e-6) {
+                       eps = 1e-6,
+                       ...) {
       private$assert_model_fitted()
       original_mfi <- mfi
       # Extrapolation maximum

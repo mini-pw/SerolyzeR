@@ -7,11 +7,15 @@ params:
   counts_lower_threshold: !r NULL
   counts_higher_threshold: !r NULL
   additional_notes: !r NULL
+  extra_args: !r list()
 ---
 
 ```{r param-check, echo=FALSE}
+library(rlang)
+
 plate <- params$plate
 additional_notes <- params$additional_notes
+extra_args <- params$extra_args
 
 if (is.null(plate)) {
   stop("The `plate` must be provided when rendering the document.")
@@ -40,10 +44,36 @@ if (!is(params$counts_higher_threshold, "numeric")) {
 if (!is.null(additional_notes) && !is(additional_notes, "character")) {
   stop("The `additional_notes` must be a character value.")
 }
+
+# perform additional check for extra_args
+
+# Validate extra_args: ensure it's a named list
+if (!is.list(extra_args)) {
+  stop("`extra_args` must be a list.")
+}
+if (length(extra_args) > 0 && (is.null(names(extra_args)) || any(names(extra_args) == ""))) {
+  stop("All elements in `extra_args` must be named.")
+}
+
+# Hard-coded list of arguments passed explicitly in this Rmd script
+reserved_names <- c(
+  "plate", "analyte_name", "model"
+)
+
+# Check for forbidden overlaps
+conflicting_args <- intersect(names(extra_args), reserved_names)
+if (length(conflicting_args) > 0) {
+  stop(
+    "The following `extra_args` fields are not allowed, as they are explicitly passed in the report script: ",
+    paste(conflicting_args, collapse = ", "),
+    ". Please rename or remove them."
+  )
+}
+
 ```
 
-Report generated on:  `r format(Sys.time(), "%d-%m-%Y %H:%M:%S")`.  
-Plate was run on: `r if(!is.null(plate$plate_datetime)) format(plate$plate_datetime, "%d-%m-%Y %H:%M:%S") else "Date of running plate was not found in Luminex file"`.  
+Report generated on:  `r format(Sys.time(), SerolyzeR.env$report_datetime_format)`.  
+Plate was run on: `r if(!is.null(plate$plate_datetime)) format(plate$plate_datetime, SerolyzeR.env$report_datetime_format) else "Date of running plate was not found in Luminex file"`.  
 Plate batch name: `r if(!is.null(plate$batch_name)) plate$batch_name else "Batch name was not found in Luminex file"`.  
 This is plate with `r paste0(length(plate$sample_names), " samples and ", length(plate$analyte_names), " analytes")`.  
 Standard curve sample dilutions: `r format_dilutions(plate$dilutions, plate$dilution_values, plate$sample_types)`.
@@ -183,7 +213,10 @@ for (i in seq_along(plate$analyte_names)) {
              tolower(plate$analyte_names[i]),
              '" aria-expanded="false">'))
   # Generate the plot
-  model <- create_standard_curve_model_analyte(plate, plate$analyte_names[i])
+  
+  model <- inject(
+    create_standard_curve_model_analyte(plate = plate, analyte_name = plate$analyte_names[i], !!!extra_args))
+  
   models_list[[plate$analyte_names[i]]] <- model
   print(plot_standard_curve_thumbnail(plate, plate$analyte_names[i]))
   cat("</a></div>")
@@ -241,15 +274,15 @@ for (i in seq_along(plate$analyte_names)) {
                     higher_threshold = params$counts_higher_threshold))
 
   # Plot MFI
-  print(plot_mfi_for_analyte(plate,
-                             plate$analyte_names[i], 
-                             plot_type = "violin"))
+  print(inject(plot_mfi_for_analyte(plate = plate,
+                             analyte_name = plate$analyte_names[i], 
+                             !!!extra_args)))
 
   # Plot Standard Curve
-  print(plot_standard_curve_analyte(plate, plate$analyte_names[i]))
+  print(inject(plot_standard_curve_analyte(plate = plate, analyte_name = plate$analyte_names[i], !!!extra_args)))
   if (params$use_model) {
     model <- models_list[[plate$analyte_names[i]]]
-    print(plot_standard_curve_analyte_with_model(plate, model))
+    print(inject(plot_standard_curve_analyte_with_model(plate = plate, model = model, !!!extra_args)))
   }
 
   cat("\n\n")

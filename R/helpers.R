@@ -480,3 +480,54 @@ format_xlab <- function(prefix, prefix_short, scale_y) {
   }
   return(xlab)
 }
+
+
+#' @title Filter Samples by Sample Type
+#'
+#' @description
+#' This function returns a logical vector indicating which samples in the plate
+#' match the specified `sample_type_filter`. It is typically used for subsetting
+#' sample-related data such as MFI values, layout, or names.
+#'
+#' If `sample_type_filter` is set to `"ALL"`, all sample types are considered valid.
+#'
+#' @param sample_types (`character`) A character vector of sample types for each sample in the plate. Must by a valid sample type \cr \code{c(`r toString(VALID_SAMPLE_TYPES)`)}.
+#' @param sample_type_filter (`character`) A vector of desired sample types to select (e.g., `"TEST"`, `"BLANK"`).
+#' If `"ALL"` is within the vector, it returns all the samples.
+#'
+#' @return A logical vector the same length as `sample_types`, indicating which samples match.
+#'
+#' @keywords internal
+filter_sample_types <- function(sample_types, sample_type_filter) {
+  # check if the sample_type is a valid sample type
+  if (!all(is.null(sample_types)) && !all(is.na(sample_types))) {
+    if (!all(is_valid_sample_type(sample_types))) {
+      stop("Sample types ", sample_types, " is not a valid sample type")
+    }
+  } else {
+    stop("Passed sample types is either NULL or NA")
+  }
+
+
+  if (!is.character(sample_type_filter)) {
+    stop("`sample_type_filter` must be a character vector.")
+  }
+
+  # check if the sample_type_filter is a valid sample type
+  if (!all(is.null(sample_type_filter)) && !all(is.na(sample_type_filter))) {
+    if (!all(is_valid_sample_type(sample_type_filter) | sample_type_filter == "ALL")) {
+      stop("Sample type ", sample_type_filter, " is not a valid sample type")
+    }
+  } else {
+    stop("Passed sample_type_filter is either NULL or NA")
+  }
+
+
+  if ("ALL" %in% sample_type_filter) {
+    return(rep(TRUE, length(sample_types)))
+  } else {
+    return(sample_types %in% sample_type_filter)
+  }
+}
+
+

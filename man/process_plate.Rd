@@ -11,6 +11,7 @@ process_plate(
   write_output = TRUE,
   normalisation_type = "RAU",
   data_type = "Median",
+  sample_type_filter = "ALL",
   blank_adjustment = FALSE,
   verbose = TRUE,
   reference_dilution = 1/400,
@@ -32,24 +33,28 @@ If \code{NULL}, the current working directory is used.}
 \item{write_output}{(\code{logical(1)}, default = \code{TRUE})
 Whether to write the output to disk.}
 
-\item{normalisation_type}{(\code{character(1)}, default = \code{"RAU"})
-The normalisation method to use. Must be one of:
-\code{c("RAU", "nMFI", "MFI")}.}
+\item{normalisation_type}{(\code{character(1)}, default = \code{'RAU'}) The normalisation method to apply.
+\itemize{
+\item Allowed values: \code{c(MFI, RAU, nMFI)}.
+}}
 
 \item{data_type}{(\code{character(1)}, default = \code{"Median"})
 The data type to use for normalisation (e.g., \code{"Median"}).}
 
-\item{blank_adjustment}{(\code{logical(1)}, default = \code{FALSE})
-Whether to apply blank adjustment before processing.}
+\item{sample_type_filter}{(\code{character()}) The types of samples to normalise.
+(e.g., \code{"TEST"}, \code{"STANDARD CURVE"}). It can also be a vector of sample types.
+In that case, dataframe with multiple sample types will be returned.
+By default equals to \code{"ALL"}, which corresponds to processing all sample types.}
 
-\item{verbose}{(\code{logical(1)}, default = \code{TRUE})
-If \code{TRUE}, prints progress and messages.}
+\item{blank_adjustment}{(\code{logical(1)}, default =  \code{FALSE}) Whether to apply blank adjustment before processing.}
+
+\item{verbose}{(\code{logical(1)}, default = \code{TRUE}) Whether to print additional information during execution.}
 
 \item{reference_dilution}{(\code{numeric(1)} or \code{character(1)}, default = \code{1/400})
 Target dilution used for nMFI calculation. Ignored for other types.
 Can be numeric (e.g., \code{0.0025}) or string (e.g., \code{"1/400"}).}
 
-\item{...}{Additional arguments passed to \code{\link{create_standard_curve_model_analyte}}.}
+\item{...}{Additional arguments passed to the model fitting function \code{\link[=create_standard_curve_model_analyte]{create_standard_curve_model_analyte()}} and \code{\link{predict.Model}}}
 }
 \value{
 A data frame of computed values, with test samples as rows and analytes as columns.
