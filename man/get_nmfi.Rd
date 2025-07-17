@@ -83,7 +83,6 @@ head(nmfi)
 nmfi <- get_nmfi(plate, reference_dilution = "1/50")
 nmfi <- get_nmfi(plate, reference_dilution = "1/50", sample_type_filter = c("TEST", "BLANK"))
 
-
 }
 \references{
 L. Y. Chan, E. K. Yim, and A. B. Choo, Normalized median fluorescence: An alternative flow cytometry analysis method for tracking human embryonic stem cell states during differentiation,  http://dx.doi.org/10.1089/ten.tec.2012.0150
