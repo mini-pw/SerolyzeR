@@ -46,9 +46,6 @@ list_of_plates <- process_dir(dir_with_luminex_files,
   return_plates = TRUE, format = "xPONENT", output_dir = output_dir
 )
 
-df <- merge_plate_outputs(list_of_plates, "RAU")
-
-
 df <- merge_plate_outputs(list_of_plates, "RAU", sample_type_filter = c("TEST", "STANDARD CURVE"))
 
 }
