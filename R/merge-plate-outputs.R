@@ -27,9 +27,6 @@
 #'   return_plates = TRUE, format = "xPONENT", output_dir = output_dir
 #' )
 #'
-#' df <- merge_plate_outputs(list_of_plates, "RAU")
-#'
-#'
 #' df <- merge_plate_outputs(list_of_plates, "RAU", sample_type_filter = c("TEST", "STANDARD CURVE"))
 #'
 #' @export
@@ -39,6 +36,7 @@ merge_plate_outputs <- function(
     column_collision_strategy = "intersection",
     verbose = TRUE,
     ...) {
+    
   if (!is.character(normalisation_type) || length(normalisation_type) != 1) {
     stop("`normalisation_type` must be a single character string.")
   }
