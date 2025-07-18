@@ -6,7 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Basic SerolyzeR functionalities • SerolyzeR</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -20,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">SerolyzeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +79,7 @@
                         <h4 data-toc-skip class="author">Tymoteusz
 Kwieciński</h4>
             
-            <h4 data-toc-skip class="date">2025-04-14</h4>
+            <h4 data-toc-skip class="date">2025-07-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mini-pw/SerolyzeR/blob/main/vignettes/example_script.Rmd" class="external-link"><code>vignettes/example_script.Rmd</code></a></small>
       <div class="d-none name"><code>example_script.Rmd</code></div>
@@ -89,8 +95,7 @@ reading raw MBA data. To present the package’s functionalities, we use a
 sample dataset from the Covid OISE study, which is pre-loaded into the
 package. You might want to replace these variables with paths to your
 files on your local disk, to test the package on your data.</p>
-<p>Firstly, let us load the dataset as the [<code>Plate</code>]
-object.</p>
+<p>Firstly, let us load the dataset as the object.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mini-pw/SerolyzeR" class="external-link">SerolyzeR</a></span><span class="op">)</span></span>
 <span></span>
@@ -108,33 +113,33 @@ object.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plate</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Plate with 96 samples and 30 analytes</span></span></code></pre>
-<p>The [<code>Plate</code>] is an object which encapsulates all the
-information about the plate, such as the sample names, analyte names,
-and the MFI values. For more details about the object, check the
-documentation by executing the command <code><a href="../reference/Plate.html">?Plate</a></code>.</p>
-<p>The <code>read_luminex_data</code> function used above, reads the
-data from the CSV plate file and the layout file and outputs the
-[<code>Plate</code>] object. This method allows also for more advanced
-options, such as overriding the information from the files, or setting
-the data reading options, e.g. the Luminex file format
-(<code>xPONENT</code> or <code>INTELLIFLEX</code>) or the file
-separators and data encoding. For more details about the function, we
-encourage you to explore the documentation by executing the command
+<p>The is an object which encapsulates all the information about the
+plate, such as the sample names, analyte names, and the MFI values. For
+more details about the object, check the documentation by executing the
+command <code><a href="../reference/Plate.html">?Plate</a></code>.</p>
+<p>The <code><a href="../reference/read_luminex_data.html">read_luminex_data()</a></code> function used above, reads the
+data from the CSV plate file and the layout file and outputs the object.
+This method allows also for more advanced options, such as overriding
+the information from the files, or setting the data reading options,
+e.g. the Luminex file format (<code>xPONENT</code> or
+<code>INTELLIFLEX</code>) or the file separators and data encoding. For
+more details about the function, we encourage you to explore the
+documentation by executing the command
 <code><a href="../reference/read_luminex_data.html">?read_luminex_data</a></code>.</p>
 <p>It also detects automatically the sample types, using an internal
-method [<code>translate_sample_names_to_sample_types</code>]. The method
-uses the sample names, sourced either from the layout file or the CSV
-plate file, to determine the sample types. The types of samples are then
-stored in the <code>sample_types</code> field of the plate object. The
-sample types are used to distinguish between the standard curve samples,
-control samples and the test samples. The documentation of this function
-contains more details about the sample types detection.</p>
+method [<code><a href="../reference/translate_sample_names_to_sample_types.html">translate_sample_names_to_sample_types()</a></code>]. The
+method uses the sample names, sourced either from the layout file or the
+CSV plate file, to determine the sample types. The types of samples are
+then stored in the <code>sample_types</code> field of the plate object.
+The sample types are used to distinguish between the standard curve
+samples, control samples and the test samples. The documentation of this
+function contains more details about the sample types detection.</p>
 </div>
 <div class="section level2">
 <h2 id="processing-the-whole-plate">Processing the whole plate<a class="anchor" aria-label="anchor" href="#processing-the-whole-plate"></a>
 </h2>
 <p>Once we have loaded the plate object, we may process it using the
-function [<code>process_plate</code>]. This function fits a model to
+function [<code><a href="../reference/process_plate.html">process_plate()</a></code>]. This function fits a model to
 each analyte using the standard curve samples. By default, it computes
 RAU values for each analyte using the corresponding model. The computed
 RAU values are then saved to a CSV file in a specified folder with the
@@ -164,7 +169,7 @@ output to a temporary directory.</p>
 <code class="sourceCode R"><span><span class="va">example_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span>check <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># create a temporary directory to store the output</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_plate.html">process_plate</a></span><span class="op">(</span><span class="va">plate</span>, output_dir <span class="op">=</span> <span class="va">example_dir</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Fitting the models and predicting RAU for each analyte</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Saving the computed RAU values to a CSV file located in: '/tmp/RtmpOWTTlj/CovidOISExPONTENT_RAU.csv'</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Saving the computed RAU values to a CSV file located in: '/tmp/RtmpyXVcJ4/CovidOISExPONTENT_RAU.csv'</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt;  [1] "Spike_6P"      "ME"            "HKU1_S"        "OC43_NP"      </span></span>
@@ -179,12 +184,12 @@ output to a temporary directory.</p>
 overcrowd the article).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt;                Spike_6P        ME     HKU1_S   OC43_NP     OC43_S</span></span>
-<span><span class="co">#&gt; CO-F-226-01-CF 20000.00  5768.628   829.2993 4289.2647  6871.6113</span></span>
-<span><span class="co">#&gt; CO-F-263-02-KC 20000.00  4050.148  8128.2569 3681.9063  8828.6351</span></span>
-<span><span class="co">#&gt; CO-F-080-02-TV 20000.00  5889.229 15877.9572 1473.4541 11012.7498</span></span>
-<span><span class="co">#&gt; CO-F-215-01-BA 20000.00 10446.952  6069.3115  828.9687  1116.0059</span></span>
-<span><span class="co">#&gt; CO-H-SD-039-BC 17665.36  2656.989  4055.8890  990.4044   670.7302</span></span></code></pre>
+<pre><code><span><span class="co">#&gt;           Spike_6P           ME       HKU1_S      OC43_NP       OC43_S</span></span>
+<span><span class="co">#&gt; B         4.931518 3.704750e-08     6.898885     5.119416     2.375258</span></span>
+<span><span class="co">#&gt; 1/50  20000.000000 2.000000e+04 20000.000000 20000.000000 20000.000000</span></span>
+<span><span class="co">#&gt; 1/100  9143.434470 8.254827e+03  8235.114494  8343.787523  8326.658518</span></span>
+<span><span class="co">#&gt; 1/200  5907.196193 5.394031e+03  5200.885095  5169.162138  5240.371360</span></span>
+<span><span class="co">#&gt; 1/400  2485.577756 2.537018e+03  2603.062419  2626.436864  2556.577252</span></span></code></pre>
 <p>To automate the processing the plates, we can also use
 [<code>process_file</code>] and [<code>process_dir</code>] methods. The
 former processes a single file, while the latter processes all the files
@@ -201,28 +206,28 @@ of the function is shown below.</p>
 <span><span class="co"><span style="color: #00BB00;">#&gt; </span></span></span>
 <span><span class="co">#&gt; Processing plate 'CovidOISExPONTENT'</span></span>
 <span><span class="co">#&gt; Extracting the raw MFI to the output dataframe</span></span>
-<span><span class="co">#&gt; Saving the computed MFI values to a CSV file located in: '/tmp/RtmpOWTTlj/CovidOISExPONTENT_MFI.csv'</span></span></code></pre>
+<span><span class="co">#&gt; Saving the computed MFI values to a CSV file located in: '/tmp/RtmpyXVcJ4/CovidOISExPONTENT_MFI.csv'</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Fitting the models and predicting RAU for each analyte</span></span></code></pre>
-<pre><code><span><span class="co">#&gt; Saving the computed RAU values to a CSV file located in: '/tmp/RtmpOWTTlj/CovidOISExPONTENT_RAU.csv'</span></span>
+<pre><code><span><span class="co">#&gt; Saving the computed RAU values to a CSV file located in: '/tmp/RtmpyXVcJ4/CovidOISExPONTENT_RAU.csv'</span></span>
 <span><span class="co">#&gt; Computing nMFI values for each analyte</span></span>
-<span><span class="co">#&gt; Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpOWTTlj/CovidOISExPONTENT_nMFI.csv'</span></span></code></pre>
+<span><span class="co">#&gt; Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpyXVcJ4/CovidOISExPONTENT_nMFI.csv'</span></span></code></pre>
 <pre><code><span><span class="co">#&gt; Plate with 96 samples and 30 analytes</span></span></code></pre>
 <p>It saves <code>RAU</code> and <code>nMFI</code> values to the
 <code>output_dir</code>, working similarly to the
-[<code>process_plate</code>] function. Additionally it has an option to
-produce a single plate report, which can be enabled with
+[<code><a href="../reference/process_plate.html">process_plate()</a></code>] function. Additionally it has an option
+to produce a single plate report, which can be enabled with
 <code>generate_report = TRUE</code> parameter. The report is saved in
 the same directory as the output files, with the name based on the plate
 name. For more detailed description of the reports, we refer to the
-vignette .</p>
-<p>[<code>process_dir</code>] processes all the files in the specified
+.</p>
+<p>[<code><a href="../reference/process_dir.html">process_dir()</a></code>] processes all the files in the specified
 directory. The description of this method can be found in the separate
-vignette vignette(“Multiplate SerolyzeR functionalities”).</p>
+.</p>
 </div>
 <div class="section level2">
 <h2 id="quality-control-and-normalisation-details">Quality control and normalisation details<a class="anchor" aria-label="anchor" href="#quality-control-and-normalisation-details"></a>
 </h2>
-<p>Apart from the <code>process_plate</code> function, the package
+<p>Apart from the <code><a href="../reference/process_plate.html">process_plate()</a></code> function, the package
 provides a set of methods allowing for more detailed and advanced
 quality control and normalisation of the data.</p>
 <div class="section level3">
@@ -233,7 +238,7 @@ information about it.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plate</span><span class="op">$</span><span class="fu">summary</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Summary of the plate with name 'CovidOISExPONTENT':</span></span>
-<span><span class="co">#&gt; Plate examination date: 2022-05-11 16:45:00</span></span>
+<span><span class="co">#&gt; Plate examination date: 2022-05-12 18:17:40</span></span>
 <span><span class="co">#&gt; Total number of samples: 96</span></span>
 <span><span class="co">#&gt; Number of blank samples: 1</span></span>
 <span><span class="co">#&gt; Number of standard curve samples: 11</span></span>
@@ -244,7 +249,7 @@ information about it.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plate</span><span class="op">$</span><span class="fu">summary</span><span class="op">(</span>include_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># more detailed summary</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Summary of the plate with name 'CovidOISExPONTENT':</span></span>
-<span><span class="co">#&gt; Plate examination date: 2022-05-11 16:45:00</span></span>
+<span><span class="co">#&gt; Plate examination date: 2022-05-12 18:17:40</span></span>
 <span><span class="co">#&gt; Total number of samples: 96</span></span>
 <span><span class="co">#&gt; Number of blank samples: 1</span></span>
 <span><span class="co">#&gt; Number of standard curve samples: 11</span></span>
@@ -260,11 +265,11 @@ information about it.</p>
 <code class="sourceCode R"><span><span class="va">plate</span><span class="op">$</span><span class="va">analyte_names</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="co"># print some of the analyte names</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; [1] "Spike_6P" "ME"       "HKU1_S"   "OC43_NP"</span></span></code></pre>
 <p>The summary can also be accessed using the built-in generic method
-<code>summary</code>.</p>
+<code>summary.Plate()</code>.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">plate</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Summary of the plate with name 'CovidOISExPONTENT':</span></span>
-<span><span class="co">#&gt; Plate examination date: 2022-05-11 16:45:00</span></span>
+<span><span class="co">#&gt; Plate examination date: 2022-05-12 18:17:40</span></span>
 <span><span class="co">#&gt; Total number of samples: 96</span></span>
 <span><span class="co">#&gt; Number of blank samples: 1</span></span>
 <span><span class="co">#&gt; Number of standard curve samples: 11</span></span>
@@ -310,7 +315,7 @@ the log scale should be applied or reversing the curve. More detailed
 information can be found in the function documentation, accessed by
 executing the command <code><a href="../reference/plot_standard_curve_analyte.html">?plot_standard_curve_analyte</a></code>.</p>
 <p>Another valuable method of inspecting the potential errors of the
-data is <code>plot_mfi_for_analyte</code>. This method plots the MFI
+data is <code><a href="../reference/plot_mfi_for_analyte.html">plot_mfi_for_analyte()</a></code>. This method plots the MFI
 values of standard curve samples for a given analyte along the boxplot
 of the MFI values of the test samples.</p>
 <p>It helps identify the outlier samples and check if the test samples
@@ -345,8 +350,7 @@ package, which provides a simple interface for fitting n-parameter
 logistic regression models. Still, to create a more straightforward
 interface for the user, we encapsulated this model into our own class
 called <code>Model</code> for simplicity. The detailed documentation of
-the <code>Model</code> class can be found by executing the command
-<code><a href="../reference/Model.html">?Model</a></code>.</p>
+the class can be found by executing the command <code><a href="../reference/Model.html">?Model</a></code>.</p>
 <p>The model is then used to predict the RAU values of the samples based
 on the MFI values.</p>
 <div class="section level4">
@@ -356,32 +360,30 @@ on the MFI values.</p>
 standard curve samples) from the dilution predictions (obtained using
 the fitted standard curve), we introduced into our package a unit called
 RAU (Relative Antibody Unit) which is equal to the dilution
-<strong>prediction</strong> multiplied by a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>000</mn><mo>,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">1,000,000</annotation></semantics></math>
-to provide a more readable value.</p>
+<strong>prediction</strong> multiplied by a <span class="math inline">\(1,000,000\)</span> to provide a more readable
+value.</p>
 </div>
 <div class="section level4">
 <h4 id="inner-nplr-model">Inner nplr model<a class="anchor" aria-label="anchor" href="#inner-nplr-model"></a>
 </h4>
 <p><code>nplr</code> package fits the model using the formula:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>B</mi><mo>+</mo><mfrac><mrow><mi>T</mi><mo>−</mo><mi>B</mi></mrow><msup><mrow><mo stretchy="true" form="prefix">[</mo><mn>1</mn><mo>+</mo><msup><mn>10</mn><mrow><mi>b</mi><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>m</mi><mi>i</mi><mi>d</mi></mrow></msub><mo>−</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>s</mi></msup></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex"> y = B + \frac{T - B}{[1 + 10^{b \cdot (x_{mid} - x)}]^s},</annotation></semantics></math>
-where:</p>
+<p><span class="math display">\[ y = B + \frac{T - B}{[1 + 10^{b \cdot
+(x_{mid} - x)}]^s},\]</span> where:</p>
 <ul>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
-is the predicted value, MFI in our case,</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
-is the independent variable, dilution of the standard curve samples in
-our case,</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-is the bottom plateau - the right horizontal asymptote,</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
-is the top plateau - the left horizontal asymptote,</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
-is the slope of the curve at the inflection point,</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mrow><mi>m</mi><mi>i</mi><mi>d</mi></mrow></msub><annotation encoding="application/x-tex">x_{mid}</annotation></semantics></math>
-is x-coordinate at the inflection point,</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
-is the asymmetric coefficient.</p></li>
+<li><p><span class="math inline">\(y\)</span> is the predicted value,
+MFI in our case,</p></li>
+<li><p><span class="math inline">\(x\)</span> is the independent
+variable, dilution of the standard curve samples in our case,</p></li>
+<li><p><span class="math inline">\(B\)</span> is the bottom plateau -
+the right horizontal asymptote,</p></li>
+<li><p><span class="math inline">\(T\)</span> is the top plateau - the
+left horizontal asymptote,</p></li>
+<li><p><span class="math inline">\(b\)</span> is the slope of the curve
+at the inflection point,</p></li>
+<li><p><span class="math inline">\(x_{mid}\)</span> is x-coordinate at
+the inflection point,</p></li>
+<li><p><span class="math inline">\(s\)</span> is the asymmetric
+coefficient.</p></li>
 </ul>
 <p>This equation is referred to as the Richards’ equation. More
 information about the model can be found in the <code>nplr</code>
@@ -392,15 +394,13 @@ package documentation.</p>
 </h4>
 <p>By reversing that logistic function, we can predict the dilution of
 the samples based on the MFI values. The RAU value is then the predicted
-dilution of the sample multiplied by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>000</mn><mo>,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">1,000,000</annotation></semantics></math>.</p>
+dilution of the sample multiplied by <span class="math inline">\(1,000,000\)</span>.</p>
 <p>To limit the extrapolation error from above (values above maximum RAU
 value for the standard curve samples), we clip all predictions above to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-where <code>over_max_extrapolation</code> is user controlled parameter
-to the <code>predict</code> function. By default
-<code>over_max_extrapolation</code> is set to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>.</p>
+<span class="math inline">\(M\)</span> where
+<code>over_max_extrapolation</code> is user controlled parameter to the
+<code><a href="../reference/predict.Model.html">predict.Model()</a></code> function. By default
+<code>over_max_extrapolation</code> is set to <span class="math inline">\(0\)</span>.</p>
 <blockquote>
 <p>Warning: High dose hook effect affects the prediction truncation
 (clipping).</p>
@@ -408,8 +408,7 @@ to the <code>predict</code> function. By default
 <p>When a high dose hook effect is detected we exclude from standard
 curve calculations the samples that have dilutions higher or equal to
 1/200. This will cause a truncation of values to the next greatest
-dilution multiplied by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>000</mn><mo>,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">1,000,000</annotation></semantics></math>.</p>
+dilution multiplied by <span class="math inline">\(1,000,000\)</span>.</p>
 </div>
 <div class="section level4">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -473,10 +472,10 @@ values based on the model.</p>
 <p>In order to allow extrapolation from above (up to a certain value) we
 can set <code>over_max_extrapolation</code> to a positive value. To
 illustrate that we can look at prediction plots. The
-<code>plot_standard_curve_analyte_with_model</code> takes any additional
-parameters and passes them to a <code>predict</code> method so we can
-visually see the effect of the <code>over_max_extrapolation</code>
-parameter.</p>
+<code><a href="../reference/plot_standard_curve_analyte_with_model.html">plot_standard_curve_analyte_with_model()</a></code> takes any
+additional parameters and passes them to a <code>predict</code> method
+so we can visually see the effect of the
+<code>over_max_extrapolation</code> parameter.</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_standard_curve_model_analyte.html">create_standard_curve_model_analyte</a></span><span class="op">(</span><span class="va">plate</span>, analyte_name <span class="op">=</span> <span class="st">"Spike_6P"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_standard_curve_analyte_with_model.html">plot_standard_curve_analyte_with_model</a></span><span class="op">(</span><span class="va">plate</span>, <span class="va">model</span>, log_scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -497,12 +496,12 @@ new unit called nMFI (Normalized MFI). The nMFI is calculated as the MFI
 value of the test sample divided by the MFI value of the standard curve
 sample with the selected dilution value.</p>
 <p>nMFI values of the samples can be calculated in two ways - using the
-<code>get_nmfi</code> function or with the <code>process_plate</code>
-function that also saves the output into the CSV file by setting the
-<code>normalisation_type</code> parameter to <code>nMFI</code> in the
-<code>process_plate</code> function. By default the output will be saved
-as a file with the same name as the plate name but with the
-<code>_nMFI</code> suffix.</p>
+<code><a href="../reference/get_nmfi.html">get_nmfi()</a></code> function or with the
+<code><a href="../reference/process_plate.html">process_plate()</a></code> function that also saves the output into
+the CSV file by setting the <code>normalisation_type</code> parameter to
+<code>nMFI</code> in the <code><a href="../reference/process_plate.html">process_plate()</a></code> function. By
+default the output will be saved as a file with the same name as the
+plate name but with the <code>_nMFI</code> suffix.</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nmfi_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_nmfi.html">get_nmfi</a></span><span class="op">(</span><span class="va">plate</span><span class="op">)</span></span>
 <span></span>
@@ -510,15 +509,15 @@ as a file with the same name as the plate name but with the
 <span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_plate.html">process_plate</a></span><span class="op">(</span><span class="va">plate</span>, output_dir <span class="op">=</span> <span class="va">example_dir</span>, normalisation_type <span class="op">=</span> <span class="st">"nMFI"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Computing nMFI values for each analyte</span></span>
-<span><span class="co">#&gt; Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpOWTTlj/CovidOISExPONTENT_nMFI.csv'</span></span></code></pre>
+<span><span class="co">#&gt; Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpyXVcJ4/CovidOISExPONTENT_nMFI.csv'</span></span></code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt;                Spike_6P       ME    HKU1_S   OC43_NP    OC43_S</span></span>
-<span><span class="co">#&gt; CO-F-226-01-CF 5.842408 1.988889 0.3821903 1.5449180 2.4537445</span></span>
-<span><span class="co">#&gt; CO-F-263-02-KC 7.171064 1.471111 2.6996681 1.3481967 3.0638767</span></span>
-<span><span class="co">#&gt; CO-F-080-02-TV 7.169239 2.024444 4.6227876 0.6085246 3.7077827</span></span>
-<span><span class="co">#&gt; CO-F-215-01-BA 7.586304 3.288889 2.1028761 0.3816393 0.4919236</span></span>
-<span><span class="co">#&gt; CO-H-SD-039-BC 3.695481 1.037778 1.4778761 0.4393443 0.3340675</span></span></code></pre>
+<pre><code><span><span class="co">#&gt;          Spike_6P        ME     HKU1_S    OC43_NP     OC43_S</span></span>
+<span><span class="co">#&gt; B     0.006735897 0.1466667 0.03318584 0.03409836 0.06314244</span></span>
+<span><span class="co">#&gt; 1/50  4.001122649 5.6133333 5.61172566 6.11081967 6.15712188</span></span>
+<span><span class="co">#&gt; 1/100 2.436289644 2.7000000 2.72953540 2.79934426 2.91042584</span></span>
+<span><span class="co">#&gt; 1/200 1.824586023 1.8777778 1.83849558 1.82557377 1.92070485</span></span>
+<span><span class="co">#&gt; 1/400 1.000000000 1.0000000 1.00000000 1.00000000 1.00000000</span></span></code></pre>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -532,7 +531,7 @@ as a file with the same name as the plate name but with the
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

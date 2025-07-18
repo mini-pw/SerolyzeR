@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   example_script: example_script.html
@@ -8,7 +8,7 @@ articles:
   our_plots: our_plots.html
   our_reports: our_reports.html
   parsers: parsers.html
-last_built: 2025-04-14T15:06Z
+last_built: 2025-07-18T17:56Z
 urls:
   reference: https://mini-pw.github.io/SerolyzeR/reference
   article: https://mini-pw.github.io/SerolyzeR/articles
