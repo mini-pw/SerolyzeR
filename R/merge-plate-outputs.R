@@ -36,7 +36,6 @@ merge_plate_outputs <- function(
     column_collision_strategy = "intersection",
     verbose = TRUE,
     ...) {
-    
   if (!is.character(normalisation_type) || length(normalisation_type) != 1) {
     stop("`normalisation_type` must be a single character string.")
   }
