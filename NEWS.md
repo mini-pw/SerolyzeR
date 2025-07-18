@@ -2,7 +2,7 @@
 Version 1.3.0
 ---------------------------------------------------------------
 * more precise selection of `data_type` in all of the methods, with better flow of optional parameters ([#304](https://github.com/mini-pw/SerolyzeR/issues/304))
-* improved the readibility of the levey-jennings and stacked standard curve plots ([#293](https://github.com/mini-pw/SerolyzeR/issues/293), [#292](https://github.com/mini-pw/SerolyzeR/issues/292), [#296](https://github.com/mini-pw/SerolyzeR/issues/296), [#297](https://github.com/mini-pw/SerolyzeR/issues/297)
+* improved the readibility of the levey-jennings and stacked standard curve plots ([#293](https://github.com/mini-pw/SerolyzeR/issues/293), [#292](https://github.com/mini-pw/SerolyzeR/issues/292), [#296](https://github.com/mini-pw/SerolyzeR/issues/296), [#297](https://github.com/mini-pw/SerolyzeR/issues/297))
 * fixed reading the experiment date ([#290](https://github.com/mini-pw/SerolyzeR/issues/290))
 * improved the documentation ([#313](https://github.com/mini-pw/SerolyzeR/issues/313), [#308](https://github.com/mini-pw/SerolyzeR/issues/308), [#307](https://github.com/mini-pw/SerolyzeR/issues/307))
 * added selection of sample types in `process_dir` function 
