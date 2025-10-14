@@ -16,7 +16,7 @@ Authors@R: c(
         person("Nuno", "Sepulveda", email = "nuno.sepulveda@pw.edu.pl", role = c("ths"), 
             comment = c(ORCID = "0000-0002-8542-1706")))
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports:
     dplyr,
     ggplot2,
