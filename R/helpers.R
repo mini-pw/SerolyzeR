@@ -529,3 +529,34 @@ filter_sample_types <- function(sample_types, sample_type_filter) {
     return(sample_types %in% sample_type_filter)
   }
 }
+
+
+
+#' @title Try cast dataframe columns as numeric
+#'
+#' @description
+#' This function attempts to convert each column of a dataframe to numeric.
+#' Additionally, it replaces commas with dots to handle decimal separators.
+#'
+#' If at any point of the conversion a Nan value is detected,
+#' where it was not present in the original column, then
+#' the original column is retained.
+#'
+#' @param dataframe (`data.frame`) A dataframe whose columns are to be converted to numeric.
+#'
+#' @return A dataframe with columns converted to numeric where possible.
+#'
+#' @keywords internal
+try_cast_as_numeric <- function(dataframe) {
+  dataframe[] <- lapply(dataframe, function(col) {
+    if (is.character(col)) {
+      num_col <- gsub(",", ".", col)
+      num_col <- suppressWarnings(as.numeric(num_col))
+      if (!any(is.na(num_col[!is.na(col)]))) {
+        return(num_col)
+      }
+    }
+    return(col)
+  })
+  return(dataframe)
+}
