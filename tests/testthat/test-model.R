@@ -93,7 +93,6 @@ test_that("Validation checks", {
   )
 
 
-
   # negative mfi below zero
   expect_error(
     Model$new(

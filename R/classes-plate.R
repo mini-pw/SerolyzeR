@@ -65,7 +65,6 @@ is_valid_data_type <- function(data_type) {
 Plate <- R6::R6Class(
   "Plate",
   public = list(
-
     ## Fields ----------------------------------------------------------------
     ## Must be set ---
 
@@ -485,7 +484,6 @@ Plate <- R6::R6Class(
     }
   ),
   private = list(
-
     ## Private Fields ---------------------------------------------------------
     verbose = TRUE
   )

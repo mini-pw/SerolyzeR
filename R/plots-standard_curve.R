@@ -285,7 +285,6 @@ plot_standard_curve_thumbnail <- function(plate,
   x_labels <- c(sprintf("%0.2f", plot_data$RAU), "")
 
 
-
   p <- ggplot2::ggplot(plot_data, aes(x = .data$RAU, y = .data$MFI)) +
     ggplot2::geom_point(aes(color = "Standard curve samples"), size = 9) +
     ggplot2::geom_hline(

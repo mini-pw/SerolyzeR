@@ -172,6 +172,11 @@ test_that("Parse the random plate data", {
   expect_error(read_xponent_format(plate_file), NA)
 })
 
+test_that("Parse the random plate data with blank lines", {
+  plate_file <- system.file("extdata", "random_blanks.csv", package = "SerolyzeR", mustWork = TRUE)
+  expect_error(read_xponent_format(plate_file), NA)
+})
+
 test_that("Parse the random plate 2 data", {
   plate_file <- system.file("extdata", "random2.csv", package = "SerolyzeR", mustWork = TRUE)
   expect_error(read_xponent_format(plate_file), NA)

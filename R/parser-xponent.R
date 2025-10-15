@@ -317,6 +317,7 @@ csv_table_parser <- function(name, separator, max_rows = Inf, remove_na_rows = F
     if ((any(nrow(df)) > 0) && remove_na_rows) {
       df <- df[rowSums(is.na(df)) < ncol(df), ]
     }
+    df <- try_cast_as_numeric(df)
 
     names(lines)[index:(end_index - 1)] <- rep(paste0("CSV: ", name), end_index - index)
     output_list <- list()
@@ -355,12 +356,12 @@ program_metadata_parser <- function(separator) {
       key_value_parser("Program", separator, check_length = FALSE),
       key_value_parser("Build", separator),
       program_build_data_parser(separator),
-      skip_blanks_parser,
       key_value_parser("SN", separator),
       match_any_parser(
         key_value_parser("Batch", separator),
         key_value_parser("Session", separator)
-      )
+      ),
+      do_skip_blanks = TRUE
     )(index, lines)
     # Rename Session to Batch if it exists
     if ("Session" %in% names(output[[1]])) {
@@ -492,6 +493,7 @@ crc32_parser <- function(separator) {
   }
   join_parsers(
     check_key_parser("^-- CRC --", separator),
+    skip_blanks_parser,
     parse_crc32_value
   )
 }

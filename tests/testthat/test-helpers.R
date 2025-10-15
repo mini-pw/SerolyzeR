@@ -253,7 +253,6 @@ test_that("format_xlab returns correct labels", {
 })
 
 
-
 test_that("filter_sample_types handles typical valid inputs", {
   sample_types <- c("TEST", "BLANK", "STANDARD CURVE", "TEST", "POSITIVE CONTROL", "TEST")
   # Single type
@@ -308,4 +307,20 @@ test_that("filter_sample_types errors on invalid sample_type_filter input", {
     filter_sample_types(sample_types, c("TEST", "FOO")),
     "is not a valid sample type"
   )
+})
+
+test_that("Test try_cast_as_numeric function", {
+  df1 <- data.frame(A = c("1", "2", "3"), B = c("a", "b", "c"), stringsAsFactors = FALSE)
+  df1_res <- data.frame(A = c(1.0, 2.0, 3.0), B = c("a", "b", "c"), stringsAsFactors = FALSE)
+  result <- try_cast_as_numeric(df1)
+  expect_equal(result, df1_res)
+
+  df2 <- data.frame(A = c("1", "two", "3"), B = c("4", "5", "six"), stringsAsFactors = FALSE)
+  result <- try_cast_as_numeric(df2)
+  expect_equal(result, df2)
+
+  df3 <- data.frame(A = c(NA, "1", "2"), B = c("4", "5", "6"), stringsAsFactors = FALSE)
+  df3_res <- data.frame(A = c(NA, 1.0, 2.0), B = c(4.0, 5.0, 6.0), stringsAsFactors = FALSE)
+  result <- try_cast_as_numeric(df3)
+  expect_equal(result, df3_res)
 })
