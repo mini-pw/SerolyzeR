@@ -227,7 +227,6 @@ is.decreasing <- function(x) {
 }
 
 
-
 #' @title Validate filepath and output_dir
 #' @description This function validates the filepath and output_dir arguments.
 #'
@@ -529,7 +528,6 @@ filter_sample_types <- function(sample_types, sample_type_filter) {
     return(sample_types %in% sample_type_filter)
   }
 }
-
 
 
 #' @title Try cast dataframe columns as numeric

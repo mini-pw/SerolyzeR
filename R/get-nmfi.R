@@ -81,8 +81,6 @@ get_nmfi <-
     stopifnot(is_valid_data_type(data_type))
 
 
-
-
     # check if reference_dilution is numeric or string
     if (is.character(reference_dilution)) {
       reference_dilution <-

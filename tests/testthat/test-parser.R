@@ -55,7 +55,6 @@ test_that("Test extract_xponent_experiment_date method", {
 })
 
 
-
 test_that("Test parser validation", {
   # Default xPONENT datetime format MM/DD/YYYY HH:MM AM/PM
   expect_error(read_luminex_data("non-existent-data.csv", "wrong"))

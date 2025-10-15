@@ -253,7 +253,6 @@ test_that("format_xlab returns correct labels", {
 })
 
 
-
 test_that("filter_sample_types handles typical valid inputs", {
   sample_types <- c("TEST", "BLANK", "STANDARD CURVE", "TEST", "POSITIVE CONTROL", "TEST")
   # Single type

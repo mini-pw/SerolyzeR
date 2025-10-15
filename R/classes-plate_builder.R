@@ -496,7 +496,6 @@ is_dilution <- function(character_vector) {
 }
 
 
-
 #' Convert dilutions to numeric values
 #' @description
 #' Convert dilutions saved as strings in format `1/\d+` into numeric values
@@ -629,7 +628,6 @@ translate_sample_names_to_sample_types <-
 
     return(sample_types)
   }
-
 
 
 #' Generate the matrix of plate locations
