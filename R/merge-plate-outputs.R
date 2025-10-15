@@ -31,12 +31,11 @@
 #'
 #' @export
 merge_plate_outputs <- function(
-  plates,
-  normalisation_type,
-  column_collision_strategy = "intersection",
-  verbose = TRUE,
-  ...
-) {
+    plates,
+    normalisation_type,
+    column_collision_strategy = "intersection",
+    verbose = TRUE,
+    ...) {
   if (!is.character(normalisation_type) || length(normalisation_type) != 1) {
     stop("`normalisation_type` must be a single character string.")
   }
