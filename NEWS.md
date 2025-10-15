@@ -1,3 +1,6 @@
+Version 1.3.0
+---------------------------------------------------------------
+* improve handling of xPONENT files with excessive empty lines
 
 Version 1.3.0
 ---------------------------------------------------------------
