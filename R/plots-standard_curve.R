@@ -347,6 +347,7 @@ plot_standard_curve_thumbnail <- function(plate,
 #' @param log_scale Which elements on the plot should be displayed in log scale.
 #' By default `"all"`. If `NULL` or `c()` no log scale is used,
 #' if `"all"` or `c("dilutions", "MFI")` all elements are displayed in log scale.
+#' @param separate_legend If `TRUE`, the legend is returned as concatatenated ggplot object.
 #' @param verbose If `TRUE` prints messages, `TRUE` by default
 #'
 #' @return ggplot object with the plot
@@ -389,6 +390,8 @@ plot_standard_curve_stacked <- function(list_of_plates,
                                         legend_text_size = 8,
                                         sort_plates = TRUE,
                                         log_scale = c("all"),
+                                        separate_legend = FALSE,
+                                        legend_rel_height = 0.4,
                                         verbose = TRUE) {
   AVAILABLE_LOG_SCALE_VALUES <- c("all", "dilutions", "MFI")
 
@@ -482,9 +485,9 @@ plot_standard_curve_stacked <- function(list_of_plates,
       legend.background = ggplot2::element_rect(fill = "white", color = "black"),
       legend.title = ggplot2::element_blank(),
       legend.text = ggplot2::element_text(size = legend_text_size),
+      legend.box.margin = ggplot2::margin(t = 5, r = 1, b = 5, l = 1),
       panel.grid.minor = ggplot2::element_line(color = scales::alpha("grey", .5), size = 0.1) # Make the minor grid lines less visible
     )
-
 
   number_of_colors <- length(list_of_plates)
 
@@ -544,6 +547,10 @@ plot_standard_curve_stacked <- function(list_of_plates,
 
   if (!plot_legend) {
     p <- p + ggplot2::theme(legend.position = "none")
+  }
+
+  if (separate_legend) {
+    p <- move_legend_to_separate_plot(p, legend_rel_height = legend_rel_height)
   }
 
   p

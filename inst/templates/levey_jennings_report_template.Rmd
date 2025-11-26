@@ -171,16 +171,33 @@ plot_layout(list_of_plates[[1]])
 for (i in seq_along(analyte_names)) {
   cat(paste0("#### ", analyte_names[i], "\n"))
 
+  # Set figure height based on number of plates (the size of the legend)
+  n <- length(list_of_plates)
+  l_h <- 0.5 * (1 + (n %/% 3)) # legend size in inches
+  h <- 7.5 + l_h # figure height in inches
+  rel_l_h <- l_h / h
+  # Not used right now but may be useful in the future
+
   # Plot stacked curves monochromatic
-  print(inject(plot_standard_curve_stacked(list_of_plates = list_of_plates, analyte_name = analyte_names[i], monochromatic = TRUE, !!!extra_args)))
+  p_mono <- inject(plot_standard_curve_stacked(
+    list_of_plates = list_of_plates,
+    analyte_name = analyte_names[i],
+    monochromatic = TRUE,
+    separate_legend = FALSE,
+    !!!extra_args
+  ))
+  print(p_mono)
 
   # Plot stacked curves colored
-  print(inject(plot_standard_curve_stacked(
+  p_color <- inject(plot_standard_curve_stacked(
     list_of_plates = list_of_plates,
     analyte_name = analyte_names[i],
     monochromatic = FALSE,
+    separate_legend = FALSE,
     !!!extra_args
-  )))
+  ))
+  print(p_color)
+
 
   for (dilution in params$dilutions) {
     # Plot levey-jennings
