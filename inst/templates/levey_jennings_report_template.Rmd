@@ -163,6 +163,17 @@ plot_layout(list_of_plates[[1]])
 </details>
 
 ------------------
+
+```{r echo=FALSE}
+svg_plot_file <- function(plot, width = 7, height = 7) {
+  file <- tempfile(fileext = ".svg")
+  svglite::svglite(file, width = width, height = height)
+  print(plot)
+  grDevices::dev.off()
+  return(file)
+}
+```
+
  
 ### Details for given analyte {.tabset .tabset-fade}
 
@@ -186,9 +197,10 @@ for (i in seq_along(analyte_names)) {
     separate_legend = FALSE,
     !!!extra_args
   ))
-  print(p_mono)
+  cat("![](", svg_plot_file(p_mono, width = 4, height = 6), ")")
 
   # Plot stacked curves colored
+  knitr::opts_current$set(fig.height = h)
   p_color <- inject(plot_standard_curve_stacked(
     list_of_plates = list_of_plates,
     analyte_name = analyte_names[i],
@@ -196,8 +208,7 @@ for (i in seq_along(analyte_names)) {
     separate_legend = FALSE,
     !!!extra_args
   ))
-  print(p_color)
-
+  cat("![](", svg_plot_file(p_color, width = 4, height = 6), ")")
 
   for (dilution in params$dilutions) {
     # Plot levey-jennings
