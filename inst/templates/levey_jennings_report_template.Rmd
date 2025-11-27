@@ -177,27 +177,32 @@ svg_plot_file <- function(plot, width = 7, height = 7) {
  
 ### Details for given analyte {.tabset .tabset-fade}
 
-```{r quality-control, results='asis', echo=FALSE, message=FALSE, out.width="50%", dev='svglite', dpi=72, warning=FALSE}
+```{r quality-control, results='asis', echo=FALSE, message=FALSE, dpi=72, warning=FALSE}
 # Code used to create dynamic tabs based on the number of analytes
 for (i in seq_along(analyte_names)) {
   cat(paste0("#### ", analyte_names[i], "\n"))
 
   # Set figure height based on number of plates (the size of the legend)
   n <- length(list_of_plates)
-  l_h <- 0.5 * (1 + (n %/% 3)) # legend size in inches
-  h <- 7.5 + l_h # figure height in inches
+  l_h <- 0.35 * (1 + (n %/% 3)) # legend size in inches
+  h <- 3.5 + l_h # figure height in inches
   rel_l_h <- l_h / h
-  # Not used right now but may be useful in the future
 
   # Plot stacked curves monochromatic
   p_mono <- inject(plot_standard_curve_stacked(
     list_of_plates = list_of_plates,
     analyte_name = analyte_names[i],
     monochromatic = TRUE,
-    separate_legend = FALSE,
+    separate_legend = TRUE,
+    legend_rel_height = rel_l_h,
     !!!extra_args
   ))
-  cat("![](", svg_plot_file(p_mono, width = 4, height = 6), ")")
+  cat("![](", svg_plot_file(p_mono, width = 5, height = h), "){width='50%'}")
+
+  # Relative for color plot
+  l_h <- 0.35 * (1 + (n %/% 2)) # legend size in inches
+  h <- 3.5 + l_h # figure height in inches
+  rel_l_h <- l_h / h
 
   # Plot stacked curves colored
   knitr::opts_current$set(fig.height = h)
@@ -205,14 +210,21 @@ for (i in seq_along(analyte_names)) {
     list_of_plates = list_of_plates,
     analyte_name = analyte_names[i],
     monochromatic = FALSE,
-    separate_legend = FALSE,
+    separate_legend = TRUE,
+    legend_rel_height = rel_l_h,
+    max_legend_items_per_row = 2,
     !!!extra_args
   ))
-  cat("![](", svg_plot_file(p_color, width = 4, height = 6), ")")
+  cat("![](", svg_plot_file(p_color, width = 5, height = h), "){width='50%'}")
+
+  cat("\n\n")
 
   for (dilution in params$dilutions) {
     # Plot levey-jennings
-    print(inject(plot_levey_jennings(list_of_plates = list_of_plates, analyte_name = analyte_names[i], dilution = dilution, !!!extra_args)))
+    p <- inject(plot_levey_jennings(
+      list_of_plates = list_of_plates, analyte_name = analyte_names[i], dilution = dilution, !!!extra_args
+    ))
+    cat("![](", svg_plot_file(p, width = 7, height = 5), "){width='50%'}")
   }
 
   cat("\n\n")

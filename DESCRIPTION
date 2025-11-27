@@ -34,7 +34,8 @@ Imports:
     svglite,
     fs,
     scales,
-    rlang
+    rlang,
+    cowplot
 Suggests:
     knitr,
     qpdf,
