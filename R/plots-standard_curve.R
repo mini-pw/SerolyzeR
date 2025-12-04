@@ -339,6 +339,7 @@ plot_standard_curve_thumbnail <- function(plate,
 #' setting explicitly `legend_type` to `date` or `plate_name`.
 #' @param plot_legend If `TRUE` the legend is plotted, `TRUE` by default
 #' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
+#' @param legend_rel_height Relative height of the legend when `separate_legend` is set to `TRUE`.
 #' @param max_legend_items_per_row Maximum number of legend items per row when legend is at top or bottom. Default is 3.
 #' @param legend_text_size Font size of the legend. Can be useful if plotting long plate names. Default is 8
 #' @param decreasing_dilution_order If `TRUE` the dilution values are
@@ -347,6 +348,7 @@ plot_standard_curve_thumbnail <- function(plate,
 #' @param log_scale Which elements on the plot should be displayed in log scale.
 #' By default `"all"`. If `NULL` or `c()` no log scale is used,
 #' if `"all"` or `c("dilutions", "MFI")` all elements are displayed in log scale.
+#' @param separate_legend If `TRUE`, the legend is returned as concatatenated ggplot object.
 #' @param verbose If `TRUE` prints messages, `TRUE` by default
 #'
 #' @return ggplot object with the plot
@@ -386,9 +388,11 @@ plot_standard_curve_stacked <- function(list_of_plates,
                                         plot_legend = TRUE,
                                         legend_position = "bottom",
                                         max_legend_items_per_row = 3,
-                                        legend_text_size = 8,
+                                        legend_text_size = 6,
                                         sort_plates = TRUE,
                                         log_scale = c("all"),
+                                        separate_legend = FALSE,
+                                        legend_rel_height = 0.4,
                                         verbose = TRUE) {
   AVAILABLE_LOG_SCALE_VALUES <- c("all", "dilutions", "MFI")
 
@@ -476,15 +480,26 @@ plot_standard_curve_stacked <- function(list_of_plates,
     ggplot2::theme_minimal() +
     ggplot2::theme(
       axis.line = ggplot2::element_line(colour = "black"),
-      axis.text.x = ggplot2::element_text(size = 9, angle = 45, hjust = 1, vjust = 1),
+      axis.text.x = ggplot2::element_text(
+        size = 9, angle = 45, hjust = 1, vjust = 1
+      ),
       axis.text.y = ggplot2::element_text(size = 9),
       legend.position = legend_position,
-      legend.background = ggplot2::element_rect(fill = "white", color = "black"),
+      legend.background = ggplot2::element_rect(
+        fill = "white", color = "black"
+      ),
       legend.title = ggplot2::element_blank(),
-      legend.text = ggplot2::element_text(size = legend_text_size),
-      panel.grid.minor = ggplot2::element_line(color = scales::alpha("grey", .5), size = 0.1) # Make the minor grid lines less visible
+      legend.text = ggplot2::element_text(
+        size = legend_text_size, margin = ggplot2::margin(l = 1)
+      ),
+      legend.margin = ggplot2::margin(1, 1, 1, 1),
+      legend.box.margin = ggplot2::margin(0, 0, 0, 0),
+      legend.spacing.x = unit(0.2, "cm"),
+      legend.key.size = unit(0.4, "cm"),
+      panel.grid.minor = ggplot2::element_line(
+        color = scales::alpha("grey", .5), size = 0.1
+      )
     )
-
 
   number_of_colors <- length(list_of_plates)
 
@@ -544,6 +559,10 @@ plot_standard_curve_stacked <- function(list_of_plates,
 
   if (!plot_legend) {
     p <- p + ggplot2::theme(legend.position = "none")
+  }
+
+  if (separate_legend) {
+    p <- move_legend_to_separate_plot(p, legend_rel_height = legend_rel_height)
   }
 
   p
