@@ -171,7 +171,7 @@ process_plate <-
         "'\n",
         verbose = verbose
       )
-      write.csv(output_df, output_path)
+      save_csv(output_df, output_path, row_names_col = "sample_name")
     }
 
     return(output_df)

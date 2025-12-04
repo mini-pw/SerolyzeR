@@ -356,7 +356,6 @@ read_luminex_data <- function(plate_filepath,
     },
     error = function(e) {
       error_messsage <- paste("Error reading Luminex plate file from: ", plate_filepath, " using the ", format, " format.\n")
-
       stop(
         "Error reading Luminex plate file from: ", plate_filepath, " using the ", format, " format.\n",
         ifelse(format == "xPONENT", paste0("Check if the separator and encoding are correct. Currently using separator: '", plate_file_separator, "' and the '", plate_file_encoding, "' encoding.\n"), ""),

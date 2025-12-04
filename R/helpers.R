@@ -585,3 +585,43 @@ move_legend_to_separate_plot <- function(plot, legend_rel_height = 0.4) {
     align = "v"
   )
 }
+
+
+#' @title Wrapper for write.table to save CSV files
+#'
+#' @description
+#' This wrapper handles locale difference when saving CSV files.
+#'
+#' @param df (`data.frame`) A dataframe to be saved as a CSV file.
+#' @param filepath (`character(1)`) The path where the CSV file will be saved.
+#' @param row_names_col (`character(1)`) The name of the column to store row names. If empty, row names are not saved.
+#'
+#' @keywords internal
+save_csv <- function(df, filepath, row_names_col = "") {
+  old_locale <- Sys.getlocale("LC_NUMERIC")
+  on.exit(
+    suppressWarnings(Sys.setlocale("LC_NUMERIC", old_locale)),
+    add = TRUE
+  )
+
+  Sys.setlocale("LC_NUMERIC", "C") # Make sure decimal separator is "."
+
+  # Create new column for row names if needed
+  if (row_names_col != "") {
+    df[[row_names_col]] <- rownames(df)
+    # Move the new column to the front
+    df <- df[, c(row_names_col, setdiff(names(df), row_names_col))]
+  }
+
+  write.table(
+    df,
+    file = filepath,
+    sep = ",",
+    dec = ".",
+    na = "",
+    row.names = FALSE, # write row names in a separate column
+    col.names = TRUE,
+    quote = TRUE,
+    qmethod = "double"
+  )
+}

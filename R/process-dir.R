@@ -135,11 +135,10 @@ detect_mba_format <- function(filepath, format = NULL) {
 #' @keywords internal
 #'
 get_output_dir <- function(
-  input_file,
-  input_dir,
-  output_dir = NULL,
-  flatten_output_dir = FALSE
-) {
+    input_file,
+    input_dir,
+    output_dir = NULL,
+    flatten_output_dir = FALSE) {
   output_root <- ifelse(is.null(output_dir), input_dir, output_dir)
   if (!fs::dir_exists(output_root)) {
     stop("Output directory does not exist.")
@@ -237,22 +236,21 @@ get_output_dir <- function(
 #'
 #' @export
 process_dir <- function(
-  input_dir,
-  output_dir = NULL,
-  recurse = FALSE,
-  flatten_output_dir = FALSE,
-  layout_filepath = NULL,
-  format = "xPONENT",
-  normalisation_types = c("MFI", "RAU", "nMFI"),
-  generate_reports = FALSE,
-  generate_multiplate_reports = FALSE,
-  merge_outputs = TRUE,
-  column_collision_strategy = "intersection",
-  return_plates = FALSE,
-  dry_run = FALSE,
-  verbose = TRUE,
-  ...
-) {
+    input_dir,
+    output_dir = NULL,
+    recurse = FALSE,
+    flatten_output_dir = FALSE,
+    layout_filepath = NULL,
+    format = "xPONENT",
+    normalisation_types = c("MFI", "RAU", "nMFI"),
+    generate_reports = FALSE,
+    generate_multiplate_reports = FALSE,
+    merge_outputs = TRUE,
+    column_collision_strategy = "intersection",
+    return_plates = FALSE,
+    dry_run = FALSE,
+    verbose = TRUE,
+    ...) {
   # --- Validate input paths and parameters ---
   if (!fs::dir_exists(input_dir)) {
     stop("Input directory does not exist.")
@@ -370,7 +368,7 @@ process_dir <- function(
 
       file_name <- paste0("merged_", normalisation_type, "_", file_ending, ".csv")
       output_path <- fs::path_join(c(output_dir, file_name))
-      write.csv(merged_df, output_path, row.names = FALSE)
+      save_csv(merged_df, output_path, row_names_col = "") # No row names column
       verbose_cat("Merged output saved to: ", output_path, "\n", verbose = verbose)
     }
   }
