@@ -587,7 +587,6 @@ move_legend_to_separate_plot <- function(plot, legend_rel_height = 0.4) {
 }
 
 
-
 #' @title Wrapper for write.table to save CSV files
 #'
 #' @description
