@@ -183,7 +183,6 @@ PlateBuilder <- R6::R6Class(
         warning("No blank/background control samples found in the plate")
       }
 
-
       if (!"TEST" %in% sample_types) {
         warning("No test samples found in the plate")
       }
