@@ -389,16 +389,13 @@ PlateBuilder <- R6::R6Class(
       warnings_list <- list()
 
       if (length(self$sample_names) != length(self$sample_locations)) {
-        warnings_list <- append(
-          warnings_list,
-          "Length of sample_names and sample_locations is not equal"
-        )
+        errors_list <- append(errors_list, "Length of sample_names and sample_locations is not equal")
       }
       if (length(self$sample_names) != length(self$dilutions)) {
         errors_list <- append(errors_list, "Length of sample_names and dilutions is not equal")
       }
       if (length(self$sample_names) != length(self$sample_types)) {
-        warnings_list <- append(warnings_list, "Length of sample_names and sample_types is not equal")
+        errors_list <- append(errors_list, "Length of sample_names and sample_types is not equal")
       }
       if (!is_valid_data_type(self$default_data_type)) {
         errors_list <- append(errors_list, "Data type used is not valid")
@@ -420,14 +417,12 @@ PlateBuilder <- R6::R6Class(
           }
         }
         if (length(zero_bead_columns) > 0) {
-          errors_list <- append(
-            errors_list,
-            paste0(
-              "The following analytes have samples with zero bead counts: ",
-              paste(zero_bead_columns, collapse = ", "), "\n",
-              ". Please check the bead counts in the data."
-            )
+          message <- paste0(
+            "The following analytes have samples with zero bead counts: ",
+            paste(zero_bead_columns, collapse = ", "), "\n",
+            ". Please check the bead counts in the data."
           )
+          errors_list <- append(errors_list, message)
         }
       }
 
