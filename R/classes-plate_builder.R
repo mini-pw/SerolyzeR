@@ -580,8 +580,8 @@ convert_dilutions_to_numeric <- function(dilutions) {
 #' `S` or `CP3`, then SampleType equals to `STANDARD CURVE`. For instance, sample with a name
 #' `S_1/2` or `S 1/2` will be classified as `STANDARD CURVE`.
 #'
-#' If `sample_names` or `sample_names_from_layout` equals to `NEGATIVE CONTROL`, `N`,
-#' or contains substring `NEG`, then SampleType equals to `NEGATIVE CONTROL`
+#' If `sample_names` or `sample_names_from_layout` equals to `NEGATIVE CONTROL`,
+#' starts with `NEG` (or `Neg`) or ends with `NEG`, then SampleType equals to `NEGATIVE CONTROL`
 #'
 #' If `sample_names` or `sample_names_from_layout` starts with `P` followed by
 #' whitespace, `POS` followed by whitespace, some sample name followed by
@@ -644,8 +644,8 @@ translate_sample_names_to_sample_types <-
         sample_type <- "POSITIVE CONTROL"
       }
       # Check if the sample is a negative control
-      negative_types <- c("NEGATIVE CONTROL", "N")
-      negative_pattern <- "^(N..|.*\\bNEG\\b)"
+      negative_types <- c("NEGATIVE CONTROL", "NEG")
+      negative_pattern <- "^(NEG.*|Neg.*|.*NEG)"
       if (name %in% negative_types ||
         grepl(negative_pattern, name) ||
         grepl(negative_pattern, name_layout)) {
