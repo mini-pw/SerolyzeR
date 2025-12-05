@@ -42,10 +42,10 @@ test_that("Sample type is correctly identified as STANDARD CURVE", {
 test_that("Sample type is correctly identified as NEGATIVE CONTROL", {
   expect_equal(
     translate_sample_names_to_sample_types(
-      c("NEGATIVE CONTROL", "NEG1", "Neg2"),
-      c("NEGATIVE CONTROL", "NEG1", "NEGATIVE")
+      c("NEGATIVE CONTROL", "NEG1", "Neg2", "SampleNEG"),
+      c("NEGATIVE CONTROL", "NEG1", "NEGATIVE", "NEG")
     ),
-    c("NEGATIVE CONTROL", "NEGATIVE CONTROL", "NEGATIVE CONTROL")
+    c("NEGATIVE CONTROL", "NEGATIVE CONTROL", "NEGATIVE CONTROL", "NEGATIVE CONTROL")
   )
 
   expect_equal(

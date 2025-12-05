@@ -645,7 +645,7 @@ translate_sample_names_to_sample_types <-
       }
       # Check if the sample is a negative control
       negative_types <- c("NEGATIVE CONTROL", "NEG")
-      negative_pattern <- "^(NEG.*|Neg.*)"
+      negative_pattern <- "^(NEG.*|Neg.*|.*NEG)"
       if (name %in% negative_types ||
         grepl(negative_pattern, name) ||
         grepl(negative_pattern, name_layout)) {
