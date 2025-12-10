@@ -122,6 +122,8 @@ detect_mba_format <- function(filepath, format = NULL) {
     return("xPONENT")
   } else if (grepl(SerolyzeR.env$intelliflex_pattern, basename, ignore.case = TRUE)) {
     return("INTELLIFLEX")
+  } else if (grepl(SerolyzeR.env$bioplex_pattern, basename, ignore.case = TRUE)) {
+    return("BIOPLEX")
   } else {
     stop("The format of the file could not be detected.")
   }
@@ -135,11 +137,10 @@ detect_mba_format <- function(filepath, format = NULL) {
 #' @keywords internal
 #'
 get_output_dir <- function(
-  input_file,
-  input_dir,
-  output_dir = NULL,
-  flatten_output_dir = FALSE
-) {
+    input_file,
+    input_dir,
+    output_dir = NULL,
+    flatten_output_dir = FALSE) {
   output_root <- ifelse(is.null(output_dir), input_dir, output_dir)
   if (!fs::dir_exists(output_root)) {
     stop("Output directory does not exist.")
@@ -202,8 +203,8 @@ get_output_dir <- function(
 #'   - If `TRUE`, searches for plate files in subdirectories as well.
 #' @param flatten_output_dir (`logical(1)`, default = `FALSE`)
 #'   - If `TRUE`, saves output files directly in `output_dir`, ignoring the input directory structure.
-#' @param format (`character(1)`, optional) Luminex data format. If `NULL`, it is automatically detected. Options: `'xPONENT'`, `'INTELLIFLEX'`.
-#' By default equals to `'xPONENT'`.
+#' @param format (`character(1)`, optional) Luminex data format. If `NULL`, it is automatically detected.
+#' Options: `'xPONENT'`, `'INTELLIFLEX'`, `'BIOPLEX'`. By default equals to `'xPONENT'`.
 #' @param layout_filepath (`character(1)`, optional) Path to a layout file. If `NULL`, the function attempts to detect it automatically.
 #' @param normalisation_types (`character()`, default = `c("MFI", "RAU", "nMFI")`)
 #'   - The normalisation types to apply. Supported values: `"MFI"`, `"RAU"`, `"nMFI"`.
@@ -237,22 +238,21 @@ get_output_dir <- function(
 #'
 #' @export
 process_dir <- function(
-  input_dir,
-  output_dir = NULL,
-  recurse = FALSE,
-  flatten_output_dir = FALSE,
-  layout_filepath = NULL,
-  format = "xPONENT",
-  normalisation_types = c("MFI", "RAU", "nMFI"),
-  generate_reports = FALSE,
-  generate_multiplate_reports = FALSE,
-  merge_outputs = TRUE,
-  column_collision_strategy = "intersection",
-  return_plates = FALSE,
-  dry_run = FALSE,
-  verbose = TRUE,
-  ...
-) {
+    input_dir,
+    output_dir = NULL,
+    recurse = FALSE,
+    flatten_output_dir = FALSE,
+    layout_filepath = NULL,
+    format = "xPONENT",
+    normalisation_types = c("MFI", "RAU", "nMFI"),
+    generate_reports = FALSE,
+    generate_multiplate_reports = FALSE,
+    merge_outputs = TRUE,
+    column_collision_strategy = "intersection",
+    return_plates = FALSE,
+    dry_run = FALSE,
+    verbose = TRUE,
+    ...) {
   # --- Validate input paths and parameters ---
   if (!fs::dir_exists(input_dir)) {
     stop("Input directory does not exist.")

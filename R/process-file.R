@@ -19,7 +19,7 @@
 #'   - If it does not exist, it will be created.
 #' @param format (`character(1)`, default = `'xPONENT'`)
 #'   - Format of the Luminex data.
-#'   - Available options: `'xPONENT'`, `'INTELLIFLEX'`.
+#'   - Available options: `'xPONENT'`, `'INTELLIFLEX'`, `'BIOPLEX'`.
 #' @param generate_report (`logical(1)`, default = `FALSE`)
 #'   - If `TRUE`, generates a quality control report using [generate_plate_report()].
 #' @param process_plate (`logical(1)`, default = `TRUE`)
@@ -53,16 +53,15 @@
 #'
 #' @export
 process_file <- function(
-  plate_filepath, layout_filepath,
-  output_dir = "normalised_data",
-  format = "xPONENT",
-  generate_report = FALSE,
-  process_plate = TRUE,
-  normalisation_types = c("MFI", "RAU", "nMFI"),
-  blank_adjustment = FALSE,
-  verbose = TRUE,
-  ...
-) {
+    plate_filepath, layout_filepath,
+    output_dir = "normalised_data",
+    format = "xPONENT",
+    generate_report = FALSE,
+    process_plate = TRUE,
+    normalisation_types = c("MFI", "RAU", "nMFI"),
+    blank_adjustment = FALSE,
+    verbose = TRUE,
+    ...) {
   if (is.null(plate_filepath)) {
     stop("Plate filepath is required.")
   }

@@ -1,16 +1,16 @@
 intelliflex_to_xponent_mapping <- VALID_DATA_TYPES
 names(intelliflex_to_xponent_mapping) <- c(
-  "MEDIAN", "COUNT", "NET.MEDIAN", "NET.AVERAGE.MEDIAN", "AVERAGE.MFI"
+  "MEDIAN", "NET.MEDIAN", "COUNT", "NET.AVERAGE.MEDIAN", "AVERAGE.MFI", "NOT DEFINED"
 )
 bioplex_to_xponent_mapping <- VALID_DATA_TYPES
 names(bioplex_to_xponent_mapping) <- c(
-  "FI", "Bead Count", "FI - Bkgd", "NOT DEFINED", "NOT DEFINED"
+  "FI", "FI - Bkgd", "Bead Count", "NOT DEFINED", "NOT DEFINED", "NOT DEFINED"
 )
 
 data_must_contain <- c("Median", "Count") # Median is a must have
 location_column_name <- "Location"
 sample_column_name <- "Sample"
-non_analyte_columns <- c("Location", "Sample", "Total.Events")
+non_analyte_columns <- c("Location", "Sample", "Total.Events", "SampleDescription")
 
 filter_list <- function(lst, allowed_names) {
   lst[names(lst) %in% allowed_names]
@@ -244,8 +244,31 @@ postprocess_xponent <- function(xponent_output, verbose = TRUE) {
   )
 }
 
+postprocess_bioplex <- function(bioplex_output, verbose = TRUE) {
+  data <- bioplex_output$Results
+  names(data) <- bioplex_to_xponent_mapping[names(data)]
+  data <- filter_list(data, VALID_DATA_TYPES)
+  check_data(data)
 
-valid_formats <- c("xPONENT", "INTELLIFLEX")
+  sample_names <- data$Median[[sample_column_name]]
+  analyte_names <- find_analyte_names(data$Median)
+  sample_locations <- data$Median[[location_column_name]]
+  plate_datetime <- handle_datetime(
+    bioplex_output$AcquisitionDate, "BIOPLEX"
+  )
+  data <- remove_non_analyte_columns(data)
+
+  list(
+    batch_name = bioplex_output$PlateName,
+    sample_locations = sample_locations,
+    sample_names = sample_names,
+    plate_datetime = plate_datetime,
+    analyte_names = analyte_names,
+    data = data,
+    batch_info = bioplex_output$Metadata
+  )
+}
+
 
 #' @title
 #' Read Luminex Data
@@ -259,12 +282,14 @@ valid_formats <- c("xPONENT", "INTELLIFLEX")
 #' The function supports two Luminex data formats:
 #' - **xPONENT**: Used by older Luminex machines.
 #' - **INTELLIFLEX**: Used by newer Luminex devices.
+#' - **BIOPLEX**: Used by Bio-Rad Luminex devices.
 #'
 #' @section Workflow:
 #' 1. Validate input parameters, ensuring the specified format is supported.
 #' 2. Read the plate file using the appropriate parser:
 #'    - xPONENT files are read using [read_xponent_format()].
 #'    - INTELLIFLEX files are read using [read_intelliflex_format()].
+#'    - BIOPLEX files are read using [read_bioplex_format()].
 #' 3. Post-process the extracted data:
 #'    - Validate required data columns (`Median`, `Count`).
 #'    - Extract sample locations and analyte names.
@@ -295,7 +320,7 @@ valid_formats <- c("xPONENT", "INTELLIFLEX")
 #' @param layout_filepath (`character(1)`, optional) Path to the Luminex layout file.
 #' @param format (`character(1)`, default = `'xPONENT'`)
 #'   - The format of the Luminex data file.
-#'   - Supported formats: `'xPONENT'`, `'INTELLIFLEX'`.
+#'   - Supported formats: `'xPONENT'`, `'INTELLIFLEX'`, `'BIOPLEX'`.
 #' @param plate_file_separator (`character(1)`, default = `','`)
 #'   - The delimiter used in the plate file (CSV format). Used only for the xPONENT format.
 #' @param plate_file_encoding (`character(1)`, default = `'UTF-8'`)
@@ -340,8 +365,8 @@ read_luminex_data <- function(plate_filepath,
                               dilutions = NULL,
                               verbose = TRUE,
                               ...) {
-  if (!(format %in% valid_formats)) {
-    stop("Invalid format: ", format, ". Select from: ", paste(valid_formats, collapse = ", "))
+  if (!(format %in% SerolyzeR.env$mba_formats)) {
+    stop("Invalid format: ", format, ". Select from: ", paste(SerolyzeR.env$mba_formats, collapse = ", "))
   }
 
   verbose_cat("Reading Luminex data from: ", plate_filepath, "\nusing format ", format, "\n", verbose = verbose)
@@ -360,6 +385,10 @@ read_luminex_data <- function(plate_filepath,
         "INTELLIFLEX" = {
           output <- read_intelliflex_format(plate_filepath, verbose = verbose)
           postprocess_intelliflex(output, verbose = verbose)
+        },
+        "BIOPLEX" = {
+          output <- read_bioplex_format(plate_filepath, verbose = verbose)
+          postprocess_bioplex(output, verbose = verbose)
         }
       )
     },
