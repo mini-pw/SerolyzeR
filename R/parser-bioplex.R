@@ -1,3 +1,10 @@
+#' Get the index of the end of the header in the first column
+#'
+#' @param first_col The first column of the BIOPLEX excel sheet
+#'
+#' @return The index of the last row of the header
+#'
+#' @keywords internal
 get_header_end_idx <- function(first_col) {
   header_end_idx_1 <- min(which(is.na(first_col))) - 1
   header_end_idx_2 <- min(which(first_col == "Type")) - 1
@@ -8,6 +15,15 @@ get_header_end_idx <- function(first_col) {
   return(header_end_idx)
 }
 
+#' Extract header information from the first column of a BIOPLEX file
+#'
+#' @param first_col The first column of the BIOPLEX excel sheet
+#'
+#' @return A named list containing the header key-value pairs
+#'
+#' @import stringi
+#'
+#' @keywords internal
 extract_header_information <- function(first_col) {
   header_end_idx <- get_header_end_idx(first_col)
   header_col <- first_col[1:header_end_idx]
@@ -30,9 +46,11 @@ extract_header_information <- function(first_col) {
 #' @param path Path to the BIOPLEX file (excel file)
 #' @param verbose Print additional information. Default is `TRUE`
 #'
-#' @import dplyr
-#' @import utils
 #' @import stringr
+#' @import stringi
+#' @import readxl
+#' @import cellranger
+#'
 read_bioplex_format <- function(path, verbose = TRUE) {
   DATATYPE_ROW_OFFSET <- 2
   ANALYTES_ROW_OFFSET <- 1

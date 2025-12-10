@@ -28,7 +28,7 @@ read_luminex_data(
 \item{format}{(\code{character(1)}, default = \code{'xPONENT'})
 \itemize{
 \item The format of the Luminex data file.
-\item Supported formats: \code{'xPONENT'}, \code{'INTELLIFLEX'}.
+\item Supported formats: \code{'xPONENT'}, \code{'INTELLIFLEX'}, \code{'BIOPLEX'}.
 }}
 
 \item{plate_file_separator}{(\code{character(1)}, default = \code{','})
@@ -84,6 +84,7 @@ The function supports two Luminex data formats:
 \itemize{
 \item \strong{xPONENT}: Used by older Luminex machines.
 \item \strong{INTELLIFLEX}: Used by newer Luminex devices.
+\item \strong{BIOPLEX}: Used by Bio-Rad Luminex devices.
 }
 }
 \section{Workflow}{
@@ -94,6 +95,7 @@ The function supports two Luminex data formats:
 \itemize{
 \item xPONENT files are read using \code{\link[=read_xponent_format]{read_xponent_format()}}.
 \item INTELLIFLEX files are read using \code{\link[=read_intelliflex_format]{read_intelliflex_format()}}.
+\item BIOPLEX files are read using \code{\link[=read_bioplex_format]{read_bioplex_format()}}.
 }
 \item Post-process the extracted data:
 \itemize{
