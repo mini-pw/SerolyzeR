@@ -2,6 +2,11 @@ intelliflex_to_xponent_mapping <- VALID_DATA_TYPES
 names(intelliflex_to_xponent_mapping) <- c(
   "MEDIAN", "COUNT", "NET.MEDIAN", "NET.AVERAGE.MEDIAN", "AVERAGE.MFI"
 )
+bioplex_to_xponent_mapping <- VALID_DATA_TYPES
+names(bioplex_to_xponent_mapping) <- c(
+  "FI", "Bead Count", "FI - Bkgd", "NOT DEFINED", "NOT DEFINED"
+)
+
 data_must_contain <- c("Median", "Count") # Median is a must have
 location_column_name <- "Location"
 sample_column_name <- "Sample"
