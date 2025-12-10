@@ -141,13 +141,13 @@ extract_xponent_experiment_date <- function(xponent_output, verbose = TRUE) {
 #' Handle differences in datetimes
 #'
 #' @description
-#' Handle differences in the datetime format between xPONENT and INTELLIFLEX
+#' Handle differences in the datetime format between xPONENT and INTELLIFLEX, BIOPLEX
 #' and output POSIXct datetime object containing the correct datetime with the default timezone.
 #'
 #' @import lubridate
 #'
 #' @param datetime_str The datetime string to parse
-#' @param file_format The format of the file. Select from: xPONENT, INTELLIFLEX
+#' @param file_format The format of the file. Select from: xPONENT, INTELLIFLEX, BIOPLEX
 #'
 #' @return POSIXct datetime object
 #'
@@ -165,6 +165,10 @@ handle_datetime <- function(datetime_str, file_format = "xPONENT") {
       "Ymd IMS p", "Ymd HMS", "Ymd IM p", "Ymd HM",
       "mdY IMS p", "mdY HMS", "mdY IM p", "mdY HM",
       "dmY IMS p", "dmY HMS", "dmY IM p", "dmY HM"
+    )
+  } else if (file_format == "BIOPLEX") {
+    possible_orders <- c(
+      "dmY IM p", "mdY HM", "mdY IMS p", "mdY HMS"
     )
   } else {
     stop("Invalid file format: ", file_format)
