@@ -108,6 +108,19 @@ test_that("Test xponent file with holes in the layout", {
   expect_equal(sum(is.na(plate$sample_types)), 0)
 })
 
+test_that("Test reading a synthetic BIOPLEX dataframe", {
+  path <- system.file("extdata", "synthetic_bioplex.xlsx", package = "SerolyzeR", mustWork = TRUE)
+  layout_path <- system.file("extdata", "synthetic_bioplex_layout.xlsx", package = "SerolyzeR", mustWork = TRUE)
+
+  expect_no_warning(
+    plate <- read_luminex_data(path, format = "BIOPLEX", layout_filepath = layout_path, verbose = FALSE)
+  )
+  expect_equal(sum(plate$sample_types == "STANDARD CURVE"), 11)
+  expect_true("Median" %in% names(plate$data))
+  expect_false("Net MFI" %in% names(plate$data))
+  expect_equal(length(plate$sample_types), 11 + 1 + 3)
+})
+
 test_that("Test ignoring datatypes with missing rows", {
   path <- system.file("extdata", "CovidOISExPONTENT_missing_rows.csv", package = "SerolyzeR", mustWork = TRUE)
   layout_path <- system.file("extdata", "CovidOISExPONTENT_layout.xlsx", package = "SerolyzeR", mustWork = TRUE)
