@@ -87,7 +87,7 @@ plot_plate <- function(colours, plot_numbers = FALSE, numbers = NULL, plot_title
       legend.text = element_text(size = 12, face = "bold"),
       legend.background = element_rect(fill = "white", linewidth = 0),
       legend.key = element_rect(fill = "white", color = "white"),
-      legend.margin = margin(c(5, 5, 5, 5))
+      legend.margin = ggplot2::margin(t = 5, r = 5, b = 5, l = 5)
     ) +
     guides(fill = guide_legend(title = NULL, override.aes = list(size = 6, shape = 21, stroke = 1, color = "black")))
 

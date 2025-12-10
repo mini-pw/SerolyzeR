@@ -205,6 +205,7 @@ generate_levey_jennings_report <-
 
     rmarkdown::render(
       template_path,
+      rmarkdown::html_document(pandoc_args = c("--self-contained")),
       params = list(
         list_of_plates = list_of_plates,
         report_title = report_title,

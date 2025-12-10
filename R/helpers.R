@@ -558,3 +558,70 @@ try_cast_as_numeric <- function(dataframe) {
   })
   return(dataframe)
 }
+
+
+#' @title Create a ggplot with legend in a separate plot
+#'
+#' @description
+#' Using cowplot, this function extracts the legend from a ggplot object
+#' and places it in a separate plot below the original plot without the legend.
+#' This is useful for creating cleaner visualizations where the legend is displayed separately.
+#'
+#'
+#' @param plot (`ggplot`) A ggplot object whose legend is to be separated.
+#' @param legend_rel_height (`numeric(1)`) A numeric value indicating the relative height of the legend plot compared to the main plot. Default is 0.4.
+#'
+#' @return A ggplot object with the legend placed in a separate plot.
+#'
+#' @keywords internal
+move_legend_to_separate_plot <- function(plot, legend_rel_height = 0.4) {
+  legend_from_plot <- cowplot::get_legend(plot)
+  plot_no_lengend <- plot + ggplot2::theme(legend.position = "none")
+  cowplot::plot_grid(
+    plot_no_lengend,
+    legend_from_plot,
+    ncol = 1,
+    rel_heights = c(1, legend_rel_height),
+    align = "v"
+  )
+}
+
+
+#' @title Wrapper for write.table to save CSV files
+#'
+#' @description
+#' This wrapper handles locale difference when saving CSV files.
+#'
+#' @param df (`data.frame`) A dataframe to be saved as a CSV file.
+#' @param filepath (`character(1)`) The path where the CSV file will be saved.
+#' @param row_names_col (`character(1)`) The name of the column to store row names. If empty, row names are not saved.
+#'
+#' @keywords internal
+save_csv <- function(df, filepath, row_names_col = "") {
+  old_locale <- Sys.getlocale("LC_NUMERIC")
+  on.exit(
+    suppressWarnings(Sys.setlocale("LC_NUMERIC", old_locale)),
+    add = TRUE
+  )
+
+  Sys.setlocale("LC_NUMERIC", "C") # Make sure decimal separator is "."
+
+  # Create new column for row names if needed
+  if (row_names_col != "") {
+    df[[row_names_col]] <- rownames(df)
+    # Move the new column to the front
+    df <- df[, c(row_names_col, setdiff(names(df), row_names_col))]
+  }
+
+  write.table(
+    df,
+    file = filepath,
+    sep = ",",
+    dec = ".",
+    na = "",
+    row.names = FALSE, # write row names in a separate column
+    col.names = TRUE,
+    quote = TRUE,
+    qmethod = "double"
+  )
+}

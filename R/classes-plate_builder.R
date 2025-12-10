@@ -183,7 +183,6 @@ PlateBuilder <- R6::R6Class(
         warning("No blank/background control samples found in the plate")
       }
 
-
       if (!"TEST" %in% sample_types) {
         warning("No test samples found in the plate")
       }
@@ -353,7 +352,6 @@ PlateBuilder <- R6::R6Class(
         private$reorder()
       }
 
-
       plate <- Plate$new(
         plate_name = self$plate_name,
         sample_names = self$sample_names,
@@ -386,32 +384,72 @@ PlateBuilder <- R6::R6Class(
   private = list(
     verbose = TRUE,
     validate = function() {
-      errors <- list()
+      errors_list <- list()
+      warnings_list <- list()
+
       if (length(self$sample_names) != length(self$sample_locations)) {
-        append(
-          errors,
-          "Length of sample_names and sample_locations is not equal"
-        )
+        errors_list <- append(errors_list, "Length of sample_names and sample_locations is not equal")
       }
       if (length(self$sample_names) != length(self$dilutions)) {
-        append(errors, "Length of sample_names and dilutions is not equal")
+        errors_list <- append(errors_list, "Length of sample_names and dilutions is not equal")
       }
       if (length(self$sample_names) != length(self$sample_types)) {
-        append(errors, "Length of sample_names and sample_types is not equal")
+        errors_list <- append(errors_list, "Length of sample_names and sample_types is not equal")
       }
       if (!is_valid_data_type(self$default_data_type)) {
-        append(errors, "Data type used is not valid")
-      }
-      if (length(self$data) == 0) {
-        append(errors, "Data is empty")
+        errors_list <- append(errors_list, "Data type used is not valid")
       }
       if (!(self$default_data_type %in% names(self$data))) {
-        append(errors, "Data type used is not present in data")
+        errors_list <- append(errors_list, "Data type used is not present in data")
       }
       if (length(self$analyte_names) == 0) {
-        append(errors, "Analyte names are empty")
+        errors_list <- append(errors_list, "Analyte names are empty")
       }
-      # BUG:: Issue #164 - Unhandled errors
+      if (length(self$data) == 0) {
+        errors_list <- append(errors_list, "Data is empty")
+      } else {
+        bead_counts <- self$data[["Count"]]
+        zero_bead_columns <- list()
+        for (colname in colnames(bead_counts)) {
+          if (any(bead_counts[[colname]] == 0)) {
+            zero_bead_columns <- c(zero_bead_columns, colname)
+          }
+        }
+        if (length(zero_bead_columns) > 0) {
+          message <- paste0(
+            "The following analytes have samples with zero bead counts: ",
+            paste(zero_bead_columns, collapse = ", "), "\n",
+            ". Please check the bead counts in the data."
+          )
+          errors_list <- append(errors_list, message)
+        }
+      }
+
+      # Display warnings and errors
+      if (length(warnings) > 0) {
+        message <- paste(warnings_list, collapse = "\n")
+        message <- paste0(
+          color_codes$yellow_start,
+          "Warnings during PlateBuilder validation for the plate ",
+          self$plate_name, " :\n",
+          message,
+          color_codes$yellow_end
+        )
+        message <- paste0("\n", message, "\n")
+        warnings(message)
+      }
+      if (length(errors_list) > 0) {
+        message <- paste(errors_list, collapse = "\n")
+        message <- paste0(
+          color_codes$red_start,
+          "Errors during PlateBuilder validation for the plate ",
+          self$plate_name, ":\n",
+          message,
+          color_codes$red_end
+        )
+        message <- paste0("\n", message, "\n")
+        stop(message)
+      }
     },
     reorder = function() {
       # reordering the data according to the locations
@@ -542,8 +580,8 @@ convert_dilutions_to_numeric <- function(dilutions) {
 #' `S` or `CP3`, then SampleType equals to `STANDARD CURVE`. For instance, sample with a name
 #' `S_1/2` or `S 1/2` will be classified as `STANDARD CURVE`.
 #'
-#' If `sample_names` or `sample_names_from_layout` equals to `NEGATIVE CONTROL`, `N`,
-#' or contains substring `NEG`, then SampleType equals to `NEGATIVE CONTROL`
+#' If `sample_names` or `sample_names_from_layout` equals to `NEGATIVE CONTROL`,
+#' starts with `NEG` (or `Neg`) or ends with `NEG`, then SampleType equals to `NEGATIVE CONTROL`
 #'
 #' If `sample_names` or `sample_names_from_layout` starts with `P` followed by
 #' whitespace, `POS` followed by whitespace, some sample name followed by
@@ -606,8 +644,8 @@ translate_sample_names_to_sample_types <-
         sample_type <- "POSITIVE CONTROL"
       }
       # Check if the sample is a negative control
-      negative_types <- c("NEGATIVE CONTROL", "N")
-      negative_pattern <- "^(N..|.*\\bNEG\\b)"
+      negative_types <- c("NEGATIVE CONTROL", "NEG")
+      negative_pattern <- "^(NEG.*|Neg.*|.*NEG)"
       if (name %in% negative_types ||
         grepl(negative_pattern, name) ||
         grepl(negative_pattern, name_layout)) {

@@ -14,9 +14,11 @@ plot_standard_curve_stacked(
   plot_legend = TRUE,
   legend_position = "bottom",
   max_legend_items_per_row = 3,
-  legend_text_size = 8,
+  legend_text_size = 6,
   sort_plates = TRUE,
   log_scale = c("all"),
+  separate_legend = FALSE,
+  legend_rel_height = 0.4,
   verbose = TRUE
 )
 }
@@ -54,6 +56,10 @@ setting explicitly \code{legend_type} to \code{date} or \code{plate_name}.}
 \item{log_scale}{Which elements on the plot should be displayed in log scale.
 By default \code{"all"}. If \code{NULL} or \code{c()} no log scale is used,
 if \code{"all"} or \code{c("dilutions", "MFI")} all elements are displayed in log scale.}
+
+\item{separate_legend}{If \code{TRUE}, the legend is returned as concatatenated ggplot object.}
+
+\item{legend_rel_height}{Relative height of the legend when \code{separate_legend} is set to \code{TRUE}.}
 
 \item{verbose}{If \code{TRUE} prints messages, \code{TRUE} by default}
 }

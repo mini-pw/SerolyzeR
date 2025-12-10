@@ -370,7 +370,7 @@ process_dir <- function(
 
       file_name <- paste0("merged_", normalisation_type, "_", file_ending, ".csv")
       output_path <- fs::path_join(c(output_dir, file_name))
-      write.csv(merged_df, output_path, row.names = FALSE)
+      save_csv(merged_df, output_path, row_names_col = "") # No row names column
       verbose_cat("Merged output saved to: ", output_path, "\n", verbose = verbose)
     }
   }

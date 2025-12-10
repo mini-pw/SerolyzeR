@@ -48,10 +48,12 @@ if (!all(grepl("(^1\\s*)\\/(\\s*\\d+$)", params$dilutions))) {
 for (dilution in params$dilutions) {
   if (!all(sapply(list_of_plates, function(plate) dilution %in% plate$get_dilution("STANDARD CURVE")))) {
     plate_where_dilution_is_missing <- which(sapply(list_of_plates, function(plate) !(dilution %in% plate$get_dilution("STANDARD CURVE"))))
-    stop("The dilution",
-         dilution,
-         "is not present in plates ",
-         paste(plate_where_dilution_is_missing, collapse = ", "))
+    stop(
+      "The dilution",
+      dilution,
+      "is not present in plates ",
+      paste(plate_where_dilution_is_missing, collapse = ", ")
+    )
   }
 }
 all_analyte_names <- c()
@@ -64,10 +66,12 @@ for (plate in list_of_plates) {
 }
 
 if (length(intersection_analytes) != length(all_analyte_names)) {
-  warning("Not all plates contain the same analytes. The report will contain only the analytes that are present in all plates. Number of all analytes: ",
-          length(all_analyte_names),
-          ". Number of common analytes: ",
-          length(intersection_analytes))
+  warning(
+    "Not all plates contain the same analytes. The report will contain only the analytes that are present in all plates. Number of all analytes: ",
+    length(all_analyte_names),
+    ". Number of common analytes: ",
+    length(intersection_analytes)
+  )
 }
 
 analyte_names <- intersection_analytes
@@ -86,11 +90,13 @@ date_of_last_plate <- max(sapply(list_of_plates, function(plate) plate$plate_dat
 # it may cause some problems with timezones
 # but few hours difference is not a big deal
 date_of_first_plate <- as.POSIXct(date_of_first_plate,
-                                  origin = "1970-01-01",
-                                  tz = "UTC")
+  origin = "1970-01-01",
+  tz = "UTC"
+)
 date_of_last_plate <- as.POSIXct(date_of_last_plate,
-                                 origin = "1970-01-01",
-                                 tz = "UTC")
+  origin = "1970-01-01",
+  tz = "UTC"
+)
 time_span <- difftime(date_of_last_plate, date_of_first_plate, units = "days")
 
 
@@ -118,7 +124,6 @@ if (length(conflicting_args) > 0) {
     ". Please rename or remove them."
   )
 }
-
 ```
 
 Report generated on:  `r format(Sys.time(), SerolyzeR.env$report_datetime_format)`.  
@@ -158,26 +163,68 @@ plot_layout(list_of_plates[[1]])
 </details>
 
 ------------------
+
+```{r echo=FALSE}
+svg_plot_file <- function(plot, width = 7, height = 7) {
+  file <- tempfile(fileext = ".svg")
+  svglite::svglite(file, width = width, height = height)
+  print(plot)
+  grDevices::dev.off()
+  return(file)
+}
+```
+
  
 ### Details for given analyte {.tabset .tabset-fade}
 
-```{r quality-control, results='asis', echo=FALSE, message=FALSE, out.width="50%", out.height="325", dev='svglite', dpi=72, warning=FALSE}
+```{r quality-control, results='asis', echo=FALSE, message=FALSE, dpi=72, warning=FALSE}
 # Code used to create dynamic tabs based on the number of analytes
 for (i in seq_along(analyte_names)) {
   cat(paste0("#### ", analyte_names[i], "\n"))
 
+  # Set figure height based on number of plates (the size of the legend)
+  n <- length(list_of_plates)
+  l_h <- 0.35 * (1 + (n %/% 3)) # legend size in inches
+  h <- 3.5 + l_h # figure height in inches
+  rel_l_h <- l_h / h
+
   # Plot stacked curves monochromatic
-  print(inject(plot_standard_curve_stacked(list_of_plates = list_of_plates, analyte_name = analyte_names[i], monochromatic = TRUE, !!!extra_args)))
+  p_mono <- inject(plot_standard_curve_stacked(
+    list_of_plates = list_of_plates,
+    analyte_name = analyte_names[i],
+    monochromatic = TRUE,
+    separate_legend = TRUE,
+    legend_rel_height = rel_l_h,
+    !!!extra_args
+  ))
+  cat("![](", svg_plot_file(p_mono, width = 5, height = h), "){width='50%'}")
+
+  # Relative for color plot
+  l_h <- 0.35 * (1 + (n %/% 2)) # legend size in inches
+  h <- 3.5 + l_h # figure height in inches
+  rel_l_h <- l_h / h
 
   # Plot stacked curves colored
-  print(inject(plot_standard_curve_stacked(list_of_plates = list_of_plates,
-                                    analyte_name = analyte_names[i],
-                                    monochromatic = FALSE, 
-                                    !!!extra_args)))
+  knitr::opts_current$set(fig.height = h)
+  p_color <- inject(plot_standard_curve_stacked(
+    list_of_plates = list_of_plates,
+    analyte_name = analyte_names[i],
+    monochromatic = FALSE,
+    separate_legend = TRUE,
+    legend_rel_height = rel_l_h,
+    max_legend_items_per_row = 2,
+    !!!extra_args
+  ))
+  cat("![](", svg_plot_file(p_color, width = 5, height = h), "){width='50%'}")
+
+  cat("\n\n")
 
   for (dilution in params$dilutions) {
     # Plot levey-jennings
-    print(inject(plot_levey_jennings(list_of_plates = list_of_plates, analyte_name = analyte_names[i], dilution = dilution, !!!extra_args)))
+    p <- inject(plot_levey_jennings(
+      list_of_plates = list_of_plates, analyte_name = analyte_names[i], dilution = dilution, !!!extra_args
+    ))
+    cat("![](", svg_plot_file(p, width = 7, height = 5), "){width='50%'}")
   }
 
   cat("\n\n")
