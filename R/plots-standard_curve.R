@@ -71,6 +71,7 @@ plot_standard_curve_analyte <- function(plate,
     plate = plate$plate_name,
     RAU = dilution_to_rau(plate$get_dilution_values("STANDARD CURVE"))
   )
+  colnames(plot_data) <- c("MFI", "plate", "RAU") # Overwrite
   blank_mean <- mean(plate$get_data(analyte_name, "BLANK", data_type = data_type))
 
 
