@@ -108,10 +108,9 @@ test_that("Test xponent file with holes in the layout", {
   expect_equal(sum(is.na(plate$sample_types)), 0)
 })
 
-test_that("Test reading a synthetic BIOPLEX dataframe", {
+test_that("Test reading a synthetic BIOPLEX format", {
   path <- system.file("extdata", "synthetic_bioplex.xlsx", package = "SerolyzeR", mustWork = TRUE)
   layout_path <- system.file("extdata", "synthetic_bioplex_layout.xlsx", package = "SerolyzeR", mustWork = TRUE)
-
   expect_no_warning(
     plate <- read_luminex_data(path, format = "BIOPLEX", layout_filepath = layout_path, verbose = FALSE)
   )
