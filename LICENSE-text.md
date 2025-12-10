@@ -1,0 +1,5 @@
+# License
+
+    YEAR: 2024
+    COPYRIGHT HOLDER: Tymoteusz Kwieciński
+    ORGANIZATION: Faculty of Mathematics and Information Science, Warsaw University of Technology

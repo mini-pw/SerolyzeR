@@ -23,7 +23,7 @@ monochromatic blue gradient (indicating time-based drift) or with distinct hues 
 
     <a class="navbar-brand me-2" href="../index.html">SerolyzeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,9 +85,11 @@ monochromatic blue gradient (indicating time-based drift) or with distinct hues 
 <span>  plot_legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  legend_position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
 <span>  max_legend_items_per_row <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  legend_text_size <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>  legend_text_size <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  sort_plates <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  log_scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span><span class="op">)</span>,</span>
+<span>  separate_legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  legend_rel_height <span class="op">=</span> <span class="fl">0.4</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -152,6 +154,14 @@ setting explicitly <code>legend_type</code> to <code>date</code> or <code>plate_
 <dd><p>Which elements on the plot should be displayed in log scale.
 By default <code>"all"</code>. If <code>NULL</code> or <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> no log scale is used,
 if <code>"all"</code> or <code>c("dilutions", "MFI")</code> all elements are displayed in log scale.</p></dd>
+
+
+<dt id="arg-separate-legend">separate_legend<a class="anchor" aria-label="anchor" href="#arg-separate-legend"></a></dt>
+<dd><p>If <code>TRUE</code>, the legend is returned as concatatenated ggplot object.</p></dd>
+
+
+<dt id="arg-legend-rel-height">legend_rel_height<a class="anchor" aria-label="anchor" href="#arg-legend-rel-height"></a></dt>
+<dd><p>Relative height of the legend when <code>separate_legend</code> is set to <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -219,15 +229,15 @@ especially useful when comparing many plates simultaneously.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpwCdw23/merged_MFI_20251015_105124.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpHRzMKG/merged_MFI_20251210_094809.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpwCdw23/merged_RAU_20251015_105124.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpHRzMKG/merged_RAU_20251210_094809.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpwCdw23/merged_nMFI_20251015_105124.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpHRzMKG/merged_nMFI_20251210_094809.csv</span>
 <span class="r-in"><span><span class="fu">plot_standard_curve_stacked</span><span class="op">(</span><span class="va">list_of_plates</span>, <span class="st">"ME"</span>, data_type <span class="op">=</span> <span class="st">"Median"</span>, monochromatic <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_standard_curve_stacked-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -242,7 +252,7 @@ especially useful when comparing many plates simultaneously.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

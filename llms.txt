@@ -1,0 +1,191 @@
+# SerolyzeR - an R package for automated analysis of serological data
+
+## Overview
+
+This package is a simple tool that handles various raw data formats
+produced in Multiplex Bead Assay (MBA). In short, it reads the
+unstructured, raw data from, e.g., the Luminex device and outputs
+normalised and well-structured data, which can be used later in more
+advanced downstream analysis.
+
+The package includes three main steps for preprocessing the data:
+
+1.  data reading and manipulation
+2.  quality control
+3.  data normalisation
+
+The graphical overview of the package can be seen in the image below:
+
+![overview](https://github.com/mini-pw/SerolyzeR/blob/main/inst/img/overview.png?raw=true)
+
+`SerolyzeR` package is developed within the
+[PvSTATEM](https://www.pvstatem.eu/) initiative. The project has
+received funding from the European Union’s Horizon Europe research and
+innovation program under grant agreement No 101057665.
+
+Previously, this package was named `PvSTATEM`, but it has been rebranded
+to `SerolyzeR` to better reflect its purpose and scope.
+
+## Installation
+
+The easiest way to install the package is using the CRAN repository:
+
+``` r
+install.packages("SerolyzeR")
+require(SerolyzeR) # load the installed package
+```
+
+Now, you are ready to use the package to read your files!
+
+Please note that since uploading the package to the CRAN repository
+requires the volunteers’ time to manually run checks on the packages,
+the **package version currently released on CRAN might not be the
+latest**.
+
+The package is under heavy development, with new features being released
+weekly. Therefore, if you’d like to test the latest package
+functionalities, we recommend installing it in the development version.
+It can be done using a simple command `install_github` available in the
+`devtools` library:
+
+``` r
+require(devtools)
+install_github("mini-pw/SerolyzeR")
+require(SerolyzeR) # load the installed package
+```
+
+The first command loads the `devtools` library (you might need to
+install it first - using the command `install_packages("devtools")`),
+and the second one sources the git repository with the code of our
+package and automatically installs it.
+
+## Examples and instructions
+
+The example use of the package and its functionalities can be found in
+[the
+vignettes](https://mini-pw.github.io/SerolyzeR/articles/example_script.html).
+For more detailed documentation, check [the package
+website](https://mini-pw.github.io/SerolyzeR/).
+
+## Contributing and issues
+
+As a project in the development phase, we are open to any suggestions,
+bug reports, and contributions. If you have any ideas or issues, please
+report them in the [Issues](https://github.com/mini-pw/SerolyzeR/issues)
+section. Our team of developers will address them as soon as possible.
+
+## Acknowledgements
+
+Funded by the European Union. Views and opinions expressed are, however,
+those of the author(s) only and do not necessarily reflect those of the
+European Union or HaDEA. Neither the European Union nor the granting
+authority can be held responsible for them.
+
+The package was developed as a Bachelor’s thesis by Jakub Grzywaczewski,
+Tymoteusz Kwieciński and Mateusz Nizwantowski on Warsaw University of
+Technology, Faculty of Mathematics and Information Science, supervised
+by prof. dr hab. inż. Przemysław Biecek.
+
+[![PvSTATEM
+logo](https://github.com/mini-pw/SerolyzeR/blob/main/inst/img/PvSTATEM.png?raw=true)](https://www.pvstatem.eu/)
+![EU
+logo](https://github.com/mini-pw/SerolyzeR/blob/main/inst/img/EU.jpg?raw=true)
+[![WUT
+logo](https://github.com/mini-pw/SerolyzeR/blob/main/inst/img/WUT.png?raw=true)](https://www.pw.edu.pl/)
+
+# Package index
+
+## Core functions
+
+Reading, processing and summarising the data. These functions allow for
+end-to-end analysis without going into more complex details.
+
+- [`read_luminex_data()`](https://mini-pw.github.io/SerolyzeR/reference/read_luminex_data.md)
+  : Read Luminex Data
+- [`process_plate()`](https://mini-pw.github.io/SerolyzeR/reference/process_plate.md)
+  : Process Plate Data and Save Normalised Output
+- [`process_file()`](https://mini-pw.github.io/SerolyzeR/reference/process_file.md)
+  : Process a File to Generate Normalised Data and Reports
+- [`process_dir()`](https://mini-pw.github.io/SerolyzeR/reference/process_dir.md)
+  : Process a Directory of Luminex Data Files
+- [`generate_plate_report()`](https://mini-pw.github.io/SerolyzeR/reference/generate_plate_report.md)
+  : Generate a report for a plate.
+- [`generate_levey_jennings_report()`](https://mini-pw.github.io/SerolyzeR/reference/generate_levey_jennings_report.md)
+  : Generate a Levey-Jennings Report for Multiple Plates.
+
+## Plate and Model classes
+
+Instances of the Plate and Model classes and additional functions for
+predictions and normalisation. These methods are used to store the data
+and the model and facilitate the analysis.
+
+- [`Model`](https://mini-pw.github.io/SerolyzeR/reference/Model.md) :
+  Logistic regression model for the standard curve
+- [`Plate`](https://mini-pw.github.io/SerolyzeR/reference/Plate.md) :
+  Plate Object
+- [`PlateBuilder`](https://mini-pw.github.io/SerolyzeR/reference/PlateBuilder.md)
+  : PlateBuilder
+- [`create_standard_curve_model_analyte()`](https://mini-pw.github.io/SerolyzeR/reference/create_standard_curve_model_analyte.md)
+  : Create a standard curve model for a certain analyte
+- [`predict(`*`<Model>`*`)`](https://mini-pw.github.io/SerolyzeR/reference/predict.Model.md)
+  : Predict the RAU values from the MFI values
+- [`get_nmfi()`](https://mini-pw.github.io/SerolyzeR/reference/get_nmfi.md)
+  : Calculate Normalised MFI (nMFI) Values for a Plate
+
+## Plots
+
+Functions for plotting the data, quality control and the results of the
+analysis.
+
+- [`plot_counts()`](https://mini-pw.github.io/SerolyzeR/reference/plot_counts.md)
+  : Plot counts in a 96-well plate
+- [`plot_layout()`](https://mini-pw.github.io/SerolyzeR/reference/plot_layout.md)
+  : Plot layout of a 96-well plate
+- [`plot_mfi_for_analyte()`](https://mini-pw.github.io/SerolyzeR/reference/plot_mfi_for_analyte.md)
+  : Plot MFI value distribution for a given analyte
+- [`plot_standard_curve_analyte()`](https://mini-pw.github.io/SerolyzeR/reference/plot_standard_curve_analyte.md)
+  : Standard curves
+- [`plot_standard_curve_analyte_with_model()`](https://mini-pw.github.io/SerolyzeR/reference/plot_standard_curve_analyte_with_model.md)
+  : Plot standard curve of a certain analyte with fitted model
+- [`plot_standard_curve_stacked()`](https://mini-pw.github.io/SerolyzeR/reference/plot_standard_curve_stacked.md)
+  : Standard curve stacked plot for levey-jennings report
+- [`plot_levey_jennings()`](https://mini-pw.github.io/SerolyzeR/reference/plot_levey_jennings.md)
+  : Plot Levey-Jennings chart
+
+## Helper functions
+
+Additional, lower level functions that are used in the analysis
+
+- [`read_xponent_format()`](https://mini-pw.github.io/SerolyzeR/reference/read_xponent_format.md)
+  : Read the xPONENT format data
+- [`read_intelliflex_format()`](https://mini-pw.github.io/SerolyzeR/reference/read_intelliflex_format.md)
+  : Read the Intelliflex format data
+- [`read_layout_data()`](https://mini-pw.github.io/SerolyzeR/reference/read_layout_data.md)
+  : Read layout data from a file
+- [`merge_plate_outputs()`](https://mini-pw.github.io/SerolyzeR/reference/merge_plate_outputs.md)
+  : Merge Normalised Data from Multiple Plates
+- [`is_valid_data_type()`](https://mini-pw.github.io/SerolyzeR/reference/is_valid_data_type.md)
+  : Check validity of given data type
+- [`is_valid_sample_type()`](https://mini-pw.github.io/SerolyzeR/reference/is_valid_sample_type.md)
+  : Check validity of given sample type
+- [`translate_sample_names_to_sample_types()`](https://mini-pw.github.io/SerolyzeR/reference/translate_sample_names_to_sample_types.md)
+  : Translate sample names to sample types
+- [`handle_high_dose_hook()`](https://mini-pw.github.io/SerolyzeR/reference/handle_high_dose_hook.md)
+  : Detect and handle the high dose hook effect
+
+# Articles
+
+### All vignettes
+
+- [Basic SerolyzeR
+  functionalities](https://mini-pw.github.io/SerolyzeR/articles/example_script.md):
+- [Multiplate SerolyzeR
+  functionalities](https://mini-pw.github.io/SerolyzeR/articles/multiplate_tutorial.md):
+- [Our
+  datasets](https://mini-pw.github.io/SerolyzeR/articles/our_datasets.md):
+- [SerolyzeR
+  plots](https://mini-pw.github.io/SerolyzeR/articles/our_plots.md):
+- [SerolyzeR HTML
+  reports](https://mini-pw.github.io/SerolyzeR/articles/our_reports.md):
+- [Raw data
+  parsers](https://mini-pw.github.io/SerolyzeR/articles/parsers.md):

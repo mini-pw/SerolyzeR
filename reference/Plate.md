@@ -1,0 +1,455 @@
+# Plate Object
+
+The `Plate` object represents a Luminex assay plate and stores data
+related to its samples, analytes, metadata, and batch information. This
+object is typically created by functions such as
+[`read_luminex_data()`](https://mini-pw.github.io/SerolyzeR/reference/read_luminex_data.md),
+[`process_file()`](https://mini-pw.github.io/SerolyzeR/reference/process_file.md),
+or
+[`process_dir()`](https://mini-pw.github.io/SerolyzeR/reference/process_dir.md).
+
+It provides methods for accessing and manipulating data, including
+retrieving specific analyte measurements, filtering by sample type, and
+performing blank adjustments.
+
+## Public fields
+
+- `plate_name`:
+
+  (`character(1)`)  
+  Name of the plate. Set to the name of the file from which the plate
+  was read.
+
+- `analyte_names`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  Names of the analytes that were examined on the plate.
+
+- `sample_names`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  Names of the samples that were examined on the plate. The order of the
+  samples in this vector is identical with order in the CSV source file.
+
+- `batch_name`:
+
+  (`character(1)`)  
+  Name of the batch to which the plate belongs.
+
+- `plate_datetime`:
+
+  (`POSIXct()`)  
+  A date and time when the plate was created by the machine
+
+- `sample_locations`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  Locations of the samples on the plate. This vector is in the same
+  order as the `sample_names` vector.
+
+- `sample_types`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  Types of the samples that were examined on the plate. The possible
+  values are  
+  `c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)`.
+  This vector is in the same order as the `sample_names` vector. If the
+  Plate object is read using
+  [`read_luminex_data()`](https://mini-pw.github.io/SerolyzeR/reference/read_luminex_data.md),
+  then the sample types are usually detected based on the sample names
+  according to the rules described in
+  [`translate_sample_names_to_sample_types()`](https://mini-pw.github.io/SerolyzeR/reference/translate_sample_names_to_sample_types.md).
+
+- `dilutions`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  A list containing names of the samples as keys and string representing
+  dilutions as values. The dilutions are represented as strings. This
+  vector is in the same order as the `sample_names` vector.
+
+- `dilution_values`:
+
+  ([`numeric()`](https://rdrr.io/r/base/numeric.html))  
+  A list containing names of the samples as keys and numeric values
+  representing dilutions as values. It is in the same order as the
+  `sample_names` vector.
+
+- `default_data_type`:
+
+  (`character(1)`)  
+  The default data type that will be returned by the `Plate$get_data()`
+  method. By default is set to `Median`.
+
+- `data`:
+
+  ([`list()`](https://rdrr.io/r/base/list.html))  
+  A list containing dataframes with the data for each sample and
+  analyte. The possible data types - the keys of the list are:  
+  `c(Median, Net MFI, Count, Avg Net MFI, Mean, Peak)`.
+
+  In each dataframe, the rows represent samples and the columns
+  represent analytes.
+
+- `batch_info`:
+
+  ([`list()`](https://rdrr.io/r/base/list.html))  
+  A list containing additional, technical information about the batch.
+
+- `layout`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  A list containing information about the layout of the plate. The
+  layout is read from the separate file and usually provides additional
+  information about the dilutions, sample names, and the sample layout
+  on the actual plate.
+
+- `blank_adjusted`:
+
+  (`logical`)  
+  A flag indicating whether the blank values have been adjusted.
+
+## Methods
+
+### Public methods
+
+- [`Plate$new()`](#method-Plate-new)
+
+- [`Plate$print()`](#method-Plate-print)
+
+- [`Plate$summary()`](#method-Plate-summary)
+
+- [`Plate$get_data()`](#method-Plate-get_data)
+
+- [`Plate$get_dilution()`](#method-Plate-get_dilution)
+
+- [`Plate$get_dilution_values()`](#method-Plate-get_dilution_values)
+
+- [`Plate$blank_adjustment()`](#method-Plate-blank_adjustment)
+
+- [`Plate$clone()`](#method-Plate-clone)
+
+------------------------------------------------------------------------
+
+### Method `new()`
+
+Method to initialize the Plate object
+
+#### Usage
+
+    Plate$new(
+      plate_name,
+      sample_names,
+      analyte_names,
+      batch_name = "",
+      plate_datetime = NULL,
+      sample_locations = NULL,
+      sample_types = NULL,
+      dilutions = NULL,
+      dilution_values = NULL,
+      default_data_type = NULL,
+      data = NULL,
+      batch_info = NULL,
+      layout = NULL
+    )
+
+#### Arguments
+
+- `plate_name`:
+
+  (`character(1)`)  
+  Name of the plate. By default is set to an empty string, during the
+  reading process it is set to the name of the file from which the plate
+  was read.
+
+- `sample_names`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  Names of the samples that were examined on the plate. Sample names are
+  by default ordered by location in the plate, using the row-major
+  order. The first sample is the one in upper-left corner, then follows
+  the ones in the first row, then the second row, and so on.
+
+- `analyte_names`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  Names of the analytes that were examined on the plate.
+
+- `batch_name`:
+
+  (`character(1)`)  
+  Name of the batch to which the plate belongs. By default is set to an
+  empty string, during the reading process it is set to the `batch`
+  field of the plate
+
+- `plate_datetime`:
+
+  (`POSIXct()`)  
+  Datetime object representing the date and time when the plate was
+  created by the machine.
+
+- `sample_locations`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  Locations of the samples on the plate. Sample locations are ordered in
+  the same way as samples in the input CSV file.
+
+- `sample_types`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  Types of the samples that were examined on the plate. The possible
+  values are  
+  `c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)`.
+  Sample types are ordered in the same way as the `sample_names` vector.
+
+  If the Plate object is initialised using the default methods (
+  [`read_luminex_data`](https://mini-pw.github.io/SerolyzeR/reference/read_luminex_data.md)
+  or any of the processing methods:
+  [`process_dir`](https://mini-pw.github.io/SerolyzeR/reference/process_dir.md),
+  [`process_file`](https://mini-pw.github.io/SerolyzeR/reference/process_file.md)
+  and
+  [`process_plate`](https://mini-pw.github.io/SerolyzeR/reference/process_plate.md))
+  the sample types are detected based on the sample names according to
+  the rules described in
+  [`translate_sample_names_to_sample_types`](https://mini-pw.github.io/SerolyzeR/reference/translate_sample_names_to_sample_types.md).
+
+- `dilutions`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  A list containing names of the samples as keys and string representing
+  dilutions as values. The dilutions are represented as strings. The
+  dilutions are ordered in the same way as the `sample_names` vector
+
+- `dilution_values`:
+
+  ([`numeric()`](https://rdrr.io/r/base/numeric.html))  
+  A list containing names of the samples as keys and numeric values
+  representing dilutions as values. The dilution values are ordered in
+  the same way as the `sample_names` vector
+
+- `default_data_type`:
+
+  (`character(1)`)  
+  The default data type that will be returned by the `get_data` method.
+  By default is set to `Median`.
+
+- `data`:
+
+  ([`list()`](https://rdrr.io/r/base/list.html))  
+  A list containing dataframes with the data for each sample and
+  analyte. The possible data types - the keys of the list are  
+  `c(Median, Net MFI, Count, Avg Net MFI, Mean, Peak)`. In each
+  dataframe, the rows represent samples and the columns represent
+  analytes. Rows of each dataframe are ordered in the same way as the
+  `sample_names` vector.
+
+- `batch_info`:
+
+  ([`list()`](https://rdrr.io/r/base/list.html))  
+  A list containing additional, technical information about the batch.
+
+- `layout`:
+
+  ([`character()`](https://rdrr.io/r/base/character.html))  
+  A list containing information about the layout of the plate. The
+  layout is read from the separate file and usually provides additional
+  information about the dilutions, sample names, and the sample layout
+  on the actual plate.
+
+------------------------------------------------------------------------
+
+### Method [`print()`](https://rdrr.io/r/base/print.html)
+
+Function prints the basic information about the plate such as the number
+of samples and analytes
+
+#### Usage
+
+    Plate$print(...)
+
+#### Arguments
+
+- `...`:
+
+  Additional parameters to be passed to the print function Print the
+  summary of the plate
+
+------------------------------------------------------------------------
+
+### Method [`summary()`](https://rdrr.io/r/base/summary.html)
+
+Function outputs basic information about the plate, such as examination
+date, batch name, and sample types.
+
+#### Usage
+
+    Plate$summary(..., include_names = FALSE)
+
+#### Arguments
+
+- `...`:
+
+  Additional parameters to be passed to the print function Get data for
+  a specific analyte and sample type
+
+- `include_names`:
+
+  If `include_names` parameter is `TRUE`, a part from count of control
+  samples, provides also their names. By default `FALSE`
+
+------------------------------------------------------------------------
+
+### Method `get_data()`
+
+Function returns data for a specific analyte and sample.
+
+#### Usage
+
+    Plate$get_data(
+      analyte,
+      sample_type_filter = "ALL",
+      data_type = self$default_data_type
+    )
+
+#### Arguments
+
+- `analyte`:
+
+  An analyte name or its id of which data we want to extract. If set to
+  'ALL' returns data for all analytes.
+
+- `sample_type_filter`:
+
+  is a type of the sample we want to extract data from. The possible
+  values are  
+  `c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)`.
+  Default value is `ALL`. `sample_type_filter` can be also of length
+  greater than 1. If `sample_type` is longer than 1 and `ALL` is in the
+  vector, the method returns all the sample types.
+
+- `data_type`:
+
+  The parameter specifying which data type should be returned. This
+  parameter has to take one of values:  
+  `c(Median, Net MFI, Count, Avg Net MFI, Mean, Peak)`. What's more, the
+  `data_type` has to be present in the plate's data Default value is
+  plate's `default_data_type`, which is usually `Median`.
+
+#### Returns
+
+Dataframe containing information about a given sample type and analyte
+Get the string representation of dilutions
+
+------------------------------------------------------------------------
+
+### Method `get_dilution()`
+
+Function returns the dilution represented as strings for a specific
+sample type.
+
+#### Usage
+
+    Plate$get_dilution(sample_type)
+
+#### Arguments
+
+- `sample_type`:
+
+  type of the samples that we want to obtain the dilution for. The
+  possible values are  
+  `c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)`
+  Default value is `ALL`.
+
+#### Returns
+
+A list containing names of the samples as keys and string representing
+dilutions as values. Get the numeric representation of dilutions
+
+------------------------------------------------------------------------
+
+### Method `get_dilution_values()`
+
+Function returns the dilution values for a specific sample type.
+
+#### Usage
+
+    Plate$get_dilution_values(sample_type)
+
+#### Arguments
+
+- `sample_type`:
+
+  type of the samples that we want to obtain the dilution values for.
+  The possible values are  
+  `c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)`
+  Default value is `ALL`.
+
+#### Returns
+
+A list containing names of the samples as keys and numeric values
+representing dilutions as values.
+
+Adjust the MFI values by subtracting the background
+
+------------------------------------------------------------------------
+
+### Method `blank_adjustment()`
+
+Function adjusts the values of samples (all samples excluding the
+blanks) by clamping the values to the aggregated value of the `BLANK`
+samples for each analyte separately.
+
+The purpose of this operation is to unify the data by clamping values
+below the background noise. how this method works was inspired by the
+paper "Quality control of multiplex antibody detection in samples from
+large-scale surveys: the example of malaria in Haiti." which covers the
+quality control in the MBA.
+
+In short, this operation firstly calculates the aggregate of MFI in the
+`BLANK` samples (available methods are: `min`, `max`, `mean`, `median`)
+and then replaces all values below this threshold with the threshold
+value.
+
+Method does not modifies the data of type `Count`.
+
+This operation is recommended to be performed before any further
+analysis, but is optional. Skipping it before further analysis is
+allowed, but will result in a warning.
+
+@references van den Hoogen, L.L., Présumé, J., Romilus, I. et al.
+Quality control of multiplex antibody detection in samples from
+large-scale surveys: the example of malaria in Haiti. Sci Rep 10, 1135
+(2020). https://doi.org/10.1038/s41598-020-57876-0
+
+#### Usage
+
+    Plate$blank_adjustment(threshold = "max", in_place = TRUE)
+
+#### Arguments
+
+- `threshold`:
+
+  The method used to calculate the background value for each analyte.
+  Every value below this threshold will be clamped to the threshold
+  value. By default `max`. Available methods are: `min`, `max`, `mean`,
+  `median`.
+
+- `in_place`:
+
+  Whether the method should produce new plate with adjusted values or
+  not, By default `TRUE` - operates on the current plate.
+
+------------------------------------------------------------------------
+
+### Method `clone()`
+
+The objects of this class are cloneable with this method.
+
+#### Usage
+
+    Plate$clone(deep = FALSE)
+
+#### Arguments
+
+- `deep`:
+
+  Whether to make a deep clone.

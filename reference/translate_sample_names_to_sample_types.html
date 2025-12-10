@@ -19,7 +19,7 @@ to the sample types."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">SerolyzeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,8 +106,8 @@ then SampleType equals to <code>BLANK</code></p>
 <code>SC</code>, <code>S</code>, contains substring <code>1/\d+</code> and has prefix <code> </code>, <code>S_</code>, <code>S </code>,
 <code>S</code> or <code>CP3</code>, then SampleType equals to <code>STANDARD CURVE</code>. For instance, sample with a name
 <code>S_1/2</code> or <code>S 1/2</code> will be classified as <code>STANDARD CURVE</code>.</p>
-<p>If <code>sample_names</code> or <code>sample_names_from_layout</code> equals to <code>NEGATIVE CONTROL</code>, <code>N</code>,
-or contains substring <code>NEG</code>, then SampleType equals to <code>NEGATIVE CONTROL</code></p>
+<p>If <code>sample_names</code> or <code>sample_names_from_layout</code> equals to <code>NEGATIVE CONTROL</code>,
+starts with <code>NEG</code> (or <code>Neg</code>) or ends with <code>NEG</code>, then SampleType equals to <code>NEGATIVE CONTROL</code></p>
 <p>If <code>sample_names</code> or <code>sample_names_from_layout</code> starts with <code>P</code> followed by
 whitespace, <code>POS</code> followed by whitespace, some sample name followed by
 substring <code>1/\d+</code> SampleType equals to <code>POSITIVE CONTROL</code></p>
@@ -133,7 +133,7 @@ substring <code>1/\d+</code> SampleType equals to <code>POSITIVE CONTROL</code><
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

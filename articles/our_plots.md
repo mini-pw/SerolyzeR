@@ -1,0 +1,469 @@
+# SerolyzeR plots
+
+## Introduction
+
+The `SerolyzeR` package provides a variety of plots that can be used to
+visualize the Luminex data. In this vignette, we will show how to use
+them. To present the package’s functionalities, we use a sample dataset
+from the Covid OISE study, which is pre-loaded into the package.
+Firstly, let us load the dataset as the `plate` object.
+
+``` r
+library(SerolyzeR)
+
+plate_filepath <- system.file("extdata", "CovidOISExPONTENT.csv", package = "SerolyzeR", mustWork = TRUE) # get the filepath of the csv dataset
+
+layout_filepath <- system.file("extdata", "CovidOISExPONTENT_layout.xlsx", package = "SerolyzeR", mustWork = TRUE)
+
+
+plate <- read_luminex_data(plate_filepath, layout_filepath) # read the data
+```
+
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/CovidOISExPONTENT.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: CovidOISExPONTENT!
+    #> 
+
+``` r
+plate
+```
+
+    #> Plate with 96 samples and 30 analytes
+
+## Plate layout
+
+We will omit some validation functionality in this vignette and focus on
+the plots. After successfully loading the plate, we should validate it
+by looking at some basic information using the summary function.
+However, we can obtain similar information more visually using the
+`plot_layout` function. It helps to quickly asses whether the layout of
+the plate is correctly read from Luminex or the layout file. The
+function takes the `plate` object as the argument.
+
+``` r
+plot_layout(plate)
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-2-1.png)
+
+The plot above shows the layout of the plate. The wells are coloured
+according to the type of sample. If the user is familiar with the colour
+scheme of this package, there is an option to turn off the legend. This
+can be done by setting the `show_legend` parameter to `FALSE`.
+
+If the plot window is resized, it is recommended that the function be
+rerun to adjust the scaling of the plot. Sometimes, the whole layout may
+be shifted when a legend is plotted. To solve this issue, one has to
+stretch the window toward the layout shift, and everything will be
+adjusted automatically.
+
+## Counts for a given analyte
+
+The `plot_counts` function allows us to visualize the counts of the
+analyte in the plate. This plot is useful for quickly spotting wells
+with a count that is too low to interpret results with high confidence.
+The function takes the `plate` object and the analyte name as the
+arguments. The function will return an error message if there is a typo
+in the analyte name.
+
+``` r
+plot_counts(plate, "Spike_B16172")
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-3-1.png)
+
+The plot above shows the the analyte “OC43_NP_NA” counts in the plate.
+The wells are coloured according to the count of the analyte. Too-low
+values are marked with red, values on the edge of the threshold are
+marked with yellow, and the rest are marked with green. There is an
+option to show legend by setting the `show_legend` parameter to `TRUE`.
+There is also an option to show the colours without the counts by
+setting the `show_counts` parameter to `FALSE`. This provides a cleaner
+plot without the counts.
+
+``` r
+plot_counts(plate, "FluA", plot_counts = FALSE)
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-4-1.png)
+
+## Distribution of MFI values
+
+The `plot_mfi_distribution` function allows us to visualize the
+distribution of the MFI values for test samples for the given analyte.
+And how they compare to standard curve samples on a given plate. This
+plot is helpful to asses if the standard curve samples cover the whole
+range of MFI of test samples. The function takes the `plate` object and
+the analyte name as the arguments. The function will return an error
+message if there is a typo in the analyte name.
+
+``` r
+plot_mfi_for_analyte(plate, "Spike_B16172")
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-5-1.png)
+
+This plot shows the distribution of the MFI values for test samples for
+the analyte “OC43_NP_NA”. The test samples are coloured in blue, and the
+standard curve samples are coloured in red. The default plot type is
+violin, but there is an option to change it to the boxplot by setting
+the `plot_type` parameter to `boxplot`.
+
+``` r
+plot_mfi_for_analyte(plate, "FluA", plot_type = "boxplot")
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-6-1.png)
+
+Additionally, we can modify the scale of y-axis by setting the `scale_y`
+to the desired transformation from ggplot2 package. In case of `boxplot`
+type of plot, we may include the outliers by the `plot_outliers`
+parameter.
+
+``` r
+plot_mfi_for_analyte(plate, "FluA", plot_type = "boxplot", scale_y = "identity", plot_outliers = TRUE)
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-7-1.png)
+
+## Standard curve plots
+
+Finally, we arrive at the most crucial visualization in our package -
+the standard curve-related plots. Those plots help assess the quality of
+the fit, which will be crucial to us in the next step of package
+development. It comes in two flavors: `plot_standard_curve_analyte` and
+`plot_standard_curve_analyte_with_model`. The first does not incorporate
+the model, while the second does.
+
+### Standard curve plot without model
+
+This plot should be used to assess the quality of the assay. If anything
+goes wrong during the plate preparation, it should be visible easily in
+this plot.
+
+``` r
+plot_standard_curve_analyte(plate, "Spike_B16172")
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-8-1.png)
+
+Above, we see the default plot for the analyte “Spike_B16172”. We can
+modify this plot by setting the parameters of the function. For example,
+we can change the direction of the x-axis by setting
+`decreasing_rau_order` parameter to `FALSE`. Other parameters worth
+mentioning are `log_scale`, the default value is `c("all")`, which means
+that both the x and y axes are in the log scale. Other parameters worth
+mentioning are `log_scale`, the default value of which is `c("all")`,
+which means that both the x and y axes are on the log scale. There is
+also an option to turn off some parts of the plot by setting parameters
+`plot_line`, `plot_blank_mean` and `plot_rau_bounds` to `FALSE`. The
+first disables drawing the line between standard curve points, the
+second turns off plotting the mean of blank samples, and the last
+disables plotting the RAU value bounds.
+
+### Standard curve plot with model
+
+This visualization is similar to the previous one but also incorporates
+the model. Thus, it carries more information at the cost of being more
+complex and crowded.
+
+``` r
+model <- create_standard_curve_model_analyte(plate, analyte_name = "Spike_B16172")
+plot_standard_curve_analyte_with_model(plate, model)
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-9-1.png)
+
+Here, we do not have to specify the analyte name, as the model already
+carries this information. The model is created by the
+`create_standard_curve_model_analyte` function, which takes the `plate`
+object and the analyte name as the arguments, but this is not the focus
+of this vignette. The arguments of this function are very similar to the
+previous one, except here there is a missing `plot_line` argument, and
+there are two new arguments: `plot_asymptote` and
+`plot_test_predictions`. The first turns off the asymptotes, and the
+second disables plotting the test samples’ predictions. By default, both
+are set to `TRUE`.
+
+### Standard curve plot stacked
+
+As another quality control measure, that detects either plates with
+inconsistent results or deterioration of calibration in time we can use
+the `plot_standard_curve_stacked` function. This function plots all
+standard curves on the same plot for a given analyte, which allows us to
+compare them easily. In order to run this function, we need to provide
+the `list_of_plates` which is a list of plate objects and the analyte
+name as the arguments.
+
+``` r
+dir_with_luminex_files <- system.file("extdata", "multiplate_tutorial",
+  package = "SerolyzeR", mustWork = TRUE
+)
+
+output_dir <- file.path(tempdir(), "multiplate-tutorial") # create a temporary directory to store the output data
+R.utils::mkdirs(output_dir)
+```
+
+    #> [1] TRUE
+
+``` r
+list_of_plates <- process_dir(dir_with_luminex_files,
+  return_plates = TRUE, format = "xPONENT", output_dir = output_dir
+)
+```
+
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P10_SEROPED_62PLEX_PLATE10_04062023_RUN004.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P10_SEROPED_62PLEX_PLATE10_04062023_RUN004!
+    #> 
+    #> Processing plate 'P10_SEROPED_62PLEX_PLATE10_04062023_RUN004'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P11_SEROPED_62PLEX_PLATE11_04062023_RUN005.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P11_SEROPED_62PLEX_PLATE11_04062023_RUN005!
+    #> 
+    #> Processing plate 'P11_SEROPED_62PLEX_PLATE11_04062023_RUN005'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P12_SEROPED_62PLEX_PLATE12_04072023_RUN000.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P12_SEROPED_62PLEX_PLATE12_04072023_RUN000!
+    #> 
+    #> Processing plate 'P12_SEROPED_62PLEX_PLATE12_04072023_RUN000'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P13_SEROPED_62PLEX_PLATE13_04072023_RUN001.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P13_SEROPED_62PLEX_PLATE13_04072023_RUN001!
+    #> 
+    #> Processing plate 'P13_SEROPED_62PLEX_PLATE13_04072023_RUN001'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P14_SEROPED_62PLEX_PLATE14_04072023_RUN002.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P14_SEROPED_62PLEX_PLATE14_04072023_RUN002!
+    #> 
+    #> Processing plate 'P14_SEROPED_62PLEX_PLATE14_04072023_RUN002'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001!
+    #> 
+    #> Processing plate 'P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P2_SEROPED_62PLEX_PLATE2_04042023_RUN000.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P2_SEROPED_62PLEX_PLATE2_04042023_RUN000!
+    #> 
+    #> Processing plate 'P2_SEROPED_62PLEX_PLATE2_04042023_RUN000'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P3_rerun_SEROPED_PLATE3_04042023_RUN002.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P3_rerun_SEROPED_PLATE3_04042023_RUN002!
+    #> 
+    #> Processing plate 'P3_rerun_SEROPED_PLATE3_04042023_RUN002'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P4_SEROPED_62PLEX_PLATE4_04042023_RUN003.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P4_SEROPED_62PLEX_PLATE4_04042023_RUN003!
+    #> 
+    #> Processing plate 'P4_SEROPED_62PLEX_PLATE4_04042023_RUN003'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P5_SEROPED_62PLEX_PLATE5_04052023_RUN001.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P5_SEROPED_62PLEX_PLATE5_04052023_RUN001!
+    #> 
+    #> Processing plate 'P5_SEROPED_62PLEX_PLATE5_04052023_RUN001'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P6_SEROPED_62PLEX_PLATE6_04052023_RUN003.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P6_SEROPED_62PLEX_PLATE6_04052023_RUN003!
+    #> 
+    #> Processing plate 'P6_SEROPED_62PLEX_PLATE6_04052023_RUN003'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P7_SEROPED_62PLEX_PLATE7_04052023_RUN004.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P7_SEROPED_62PLEX_PLATE7_04052023_RUN004!
+    #> 
+    #> Processing plate 'P7_SEROPED_62PLEX_PLATE7_04052023_RUN004'
+    #> Reading Luminex data from: /home/runner/work/_temp/Library/SerolyzeR/extdata/multiplate_tutorial/P8_SEROPED_62PLEX_PLATE8_04052023_RUN005.csv
+    #> using format xPONENT
+
+    #> 
+    #> New plate object has been created with name: P8_SEROPED_62PLEX_PLATE8_04052023_RUN005!
+    #> 
+    #> Processing plate 'P8_SEROPED_62PLEX_PLATE8_04052023_RUN005'
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Extracting the raw MFI to the output dataframe
+    #> Merged output saved to: /tmp/RtmpQ6jqXu/multiplate-tutorial/merged_MFI_20251210_094909.csv
+    #> Fitting the models and predicting RAU for each analyte
+
+    #> Fitting the models and predicting RAU for each analyte
+    #> Fitting the models and predicting RAU for each analyte
+
+    #> Fitting the models and predicting RAU for each analyte
+
+    #> Fitting the models and predicting RAU for each analyte
+
+    #> Fitting the models and predicting RAU for each analyte
+    #> Fitting the models and predicting RAU for each analyte
+    #> Fitting the models and predicting RAU for each analyte
+
+    #> Fitting the models and predicting RAU for each analyte
+    #> Fitting the models and predicting RAU for each analyte
+    #> Fitting the models and predicting RAU for each analyte
+    #> Fitting the models and predicting RAU for each analyte
+    #> Fitting the models and predicting RAU for each analyte
+
+    #> Merged output saved to: /tmp/RtmpQ6jqXu/multiplate-tutorial/merged_RAU_20251210_094909.csv
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Computing nMFI values for each analyte
+    #> Merged output saved to: /tmp/RtmpQ6jqXu/multiplate-tutorial/merged_nMFI_20251210_094909.csv
+
+``` r
+plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3")
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-10-1.png)
+
+While we can pass to this function parameters found in other standard
+curve plots, like `log_scale`, `decreasing_rau_order`, `data_type` there
+is one additional parameter that we want to focus on. Parameter is
+called `monochromatic` and its default value is `TRUE`. This results in
+a plots with a different shades of blue for each plate. The more recent
+plates are darker while the older ones are almost white. This helps
+quickly visualize drift in calibration of the equipment over time.
+
+When the `monochromatic` parameter is set to `FALSE`, there is more
+variety in the colours of the plates, which can be useful when comparing
+many plates. Each plate is more distinct from the others, which can be
+helpful when looking for outliers.
+
+``` r
+plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE)
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-11-1.png)
+
+There are a few more useful parameters in this function—mainly
+`legend_type`. By default it is set to `NULL`, which means that the
+legend type is determined based on the `monochromatic` value. If
+`monochromatic` is equal to `TRUE`, then the legend type is set to
+`date`; if it is `FALSE`, then the legend type is set to `plate_name`.
+The user can override this behavior by explicitly setting `legend_type`
+to `date` or `plate_name`.
+
+Additionally, if an user wants to play around with the legend position,
+a parameter `legend_position` is here to help. It simply specifies where
+the legend should be positioned - at the bottom, top, left or right of
+the plot. By default it is set to `bottom`.
+
+There might occur a situation, where the plate names are really long,
+and simply do not fit in the legend box. For such situations, we have
+prepared `max_legend_items_per_row` and `legend_text_size` parameters.
+The first one automatically decides how many legend elements should be
+placed in one row of the legend. By default it is set to `3`. The second
+parameter sets the font size in the legend.
+
+``` r
+plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position = "top", max_legend_items_per_row = 3, legend_text_size = 4)
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-12-1.png)
+
+To play around the additional theme settings of the plots produced by
+any of the methods, you can also use the base `ggplot2` methods. To do
+so, all you need to do is modify the `ggplot2` object. Here, we will add
+a horizontal line, which could highlight some threshold and also modify
+the title a bit.
+
+``` r
+library(ggplot2)
+
+p <- plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position = "bottom", max_legend_items_per_row = 3, legend_text_size = 7)
+
+p +
+  geom_hline(yintercept = 1000, linetype = "dashed", colour = "red") +
+  ggplot2::labs(title = "A custom title for this amazing plot") +
+  annotate("text", x = 1 / 25000, y = 1000, label = "Threshold = 1000", color = "red", vjust = -0.5)
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-13-1.png)
+
+## Levey-Jennings plot
+
+The `plot_levey_jennings` function allows us to visualize the
+Levey-Jennings plot for the given analyte. This plot is useful for
+spotting trends in the data, such as shifts or drifts in the data. The
+function takes the `list_of_plates` and the `analyte_name` as the
+mandatory arguments. The `list_of_plates` can be obtained by the
+`process_dir` function, which reads the plates from the directory, it is
+recommended way or creating list of plates.
+
+``` r
+plot_levey_jennings(list_of_plates, "Adenovirus.T3", dilution = "1/100", sd_lines = c(1, 2, 3))
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-14-1.png)
+
+The plot above shows the Levey-Jennings plot for the analyte “ME” with
+the samples with `dilution` “1/100”. The default value of `dilution` is
+“1/400”. The `sd_lines` parameter allows us to set the distance of
+horizontal lines from the mean. For example, `sd_lines = c(1, 2)` will
+plot four lines at ±1*SD and ± 2*SD, where SD is the standard deviation
+of the data. The default value of the `sd_lines` parameter is `c(1.96)`,
+which corresponds to approximately the 95% confidence interval under a
+normal distribution. This means two horizontal lines are drawn at ±1.96
+times the standard deviation from the mean, highlighting the typical
+range of expected variation. Values falling outside these lines may
+indicate outliers or points requiring further investigation.
+
+The Levey-Jennings plot has some additional parameters that can improve
+the readibility. For instance, we can replace the x-label with actual
+plate names, or dates of examination - using a `plate_labels` parameter.
+This can create very congested labels, so to overcome this issue, the
+xlabels can be rotated with `label_angle` parameter. Legend can be also
+positioned in different places with `legend_position` parameter.
+
+To make the plot analysis easier, it is zoomed out by a factor 1.5 in
+y-axis.
+
+``` r
+plot_levey_jennings(list_of_plates, "Adenovirus.T3", dilution = "1/100", sd_lines = c(1, 2, 3), plate_labels = "name", label_angle = 30)
+```
+
+![](our_plots_files/figure-html/unnamed-chunk-15-1.png)

@@ -50,6 +50,7 @@
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/is_valid_sample_type.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/merge_dataframes.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/merge_plate_outputs.html</loc></url>
+<url><loc>https://mini-pw.github.io/SerolyzeR/reference/move_legend_to_separate_plot.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/plot_counts.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/plot_layout.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/plot_levey_jennings.html</loc></url>
@@ -68,6 +69,7 @@
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/read_luminex_data.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/read_xponent_format.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/remove_empty_lists.html</loc></url>
+<url><loc>https://mini-pw.github.io/SerolyzeR/reference/save_csv.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/select_columns.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/sort_list_by.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/translate_sample_names_to_sample_types.html</loc></url>
