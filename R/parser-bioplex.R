@@ -65,7 +65,9 @@ read_bioplex_format <- function(path, verbose = TRUE) {
   first_col <- suppressMessages(readxl::read_excel(path,
     range = cellranger::cell_cols("A"),
     sheet = sheets[1],
-    col_names = FALSE
+    col_names = FALSE,
+    col_types = "text",
+    .name_repair = "minimal"
   ))[[1]]
   header_list <- extract_header_information(first_col)
   filename <- header_list[["File Name"]]
@@ -81,6 +83,8 @@ read_bioplex_format <- function(path, verbose = TRUE) {
       path = path,
       col_names = FALSE,
       sheet = sheet,
+      col_types = "text",
+      .name_repair = "minimal"
     ))
     if (ncol(xlsx_data) == 0) {
       next
