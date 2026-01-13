@@ -69,7 +69,6 @@ if (length(conflicting_args) > 0) {
     ". Please rename or remove them."
   )
 }
-
 ```
 
 Report generated on:  `r format(Sys.time(), SerolyzeR.env$report_datetime_format)`.  
@@ -206,17 +205,20 @@ models_list <- list()
 # Generate the clickable plots within the grid
 for (i in seq_along(plate$analyte_names)) {
   # HTML structure for each plot with a clickable link
-  cat(paste0('<div class="plot-container">',
-             '<a href="#',
-             tolower(plate$analyte_names[i]),
-             '" role="tab" data-toggle="tab" aria-controls="',
-             tolower(plate$analyte_names[i]),
-             '" aria-expanded="false">'))
+  cat(paste0(
+    '<div class="plot-container">',
+    '<a href="#',
+    tolower(plate$analyte_names[i]),
+    '" role="tab" data-toggle="tab" aria-controls="',
+    tolower(plate$analyte_names[i]),
+    '" aria-expanded="false">'
+  ))
   # Generate the plot
-  
+
   model <- inject(
-    create_standard_curve_model_analyte(plate = plate, analyte_name = plate$analyte_names[i], !!!extra_args))
-  
+    create_standard_curve_model_analyte(plate = plate, analyte_name = plate$analyte_names[i], !!!extra_args)
+  )
+
   models_list[[plate$analyte_names[i]]] <- model
   print(plot_standard_curve_thumbnail(plate, plate$analyte_names[i]))
   cat("</a></div>")
@@ -239,8 +241,9 @@ for (i in seq_along(plate$analyte_names)) {
   mfi <- plate$get_data(plate$analyte_names[i], "STANDARD CURVE")
   dilutions_numeric <- plate$get_dilution_values("STANDARD CURVE")
   warning <- tryCatch(handle_high_dose_hook(mfi, dilutions_numeric),
-                      error = function(e) e,
-                      warning = function(w) w)
+    error = function(e) e,
+    warning = function(w) w
+  )
 
   if (inherits(warning, "warning")) {
     cat("<div class='alert alert-info' role='alert'>")
@@ -257,26 +260,31 @@ for (i in seq_along(plate$analyte_names)) {
 
   if (fraction >= 25) {
     cat("<div class='alert alert-warning' role='alert'>")
-    cat(paste0("Warning: ",
-               number_of_high_test_sample,
-               "/",
-               number_of_test_samples,
-               " (",
-               fraction,
-               "%) of samples have MFI values greater than the maximum value on the standard curve. For data analysis, consider using nMFI values instead of RAU."))
+    cat(paste0(
+      "Warning: ",
+      number_of_high_test_sample,
+      "/",
+      number_of_test_samples,
+      " (",
+      fraction,
+      "%) of samples have MFI values greater than the maximum value on the standard curve. For data analysis, consider using nMFI values instead of RAU."
+    ))
     cat("</div>")
   }
 
   # Plot counts
   print(plot_counts(plate,
-                    plate$analyte_names[i],
-                    lower_threshold = params$counts_lower_threshold,
-                    higher_threshold = params$counts_higher_threshold))
+    plate$analyte_names[i],
+    lower_threshold = params$counts_lower_threshold,
+    higher_threshold = params$counts_higher_threshold
+  ))
 
   # Plot MFI
-  print(inject(plot_mfi_for_analyte(plate = plate,
-                             analyte_name = plate$analyte_names[i], 
-                             !!!extra_args)))
+  print(inject(plot_mfi_for_analyte(
+    plate = plate,
+    analyte_name = plate$analyte_names[i],
+    !!!extra_args
+  )))
 
   # Plot Standard Curve
   print(inject(plot_standard_curve_analyte(plate = plate, analyte_name = plate$analyte_names[i], !!!extra_args)))
