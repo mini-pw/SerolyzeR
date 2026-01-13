@@ -107,9 +107,13 @@ read_bioplex_format <- function(path, verbose = TRUE) {
       df <- df[c(-DATATYPE_ROW_OFFSET, -ANALYTES_ROW_OFFSET), ]
       ## Rename analyte columns
       analyte_names <- current_colnames[vrange]
-      analyte_names <- stringr::str_replace_all(analyte_names, "\\(\\d+\\)", "")
       analyte_names <- stringr::str_trim(analyte_names)
-      analyte_names <- stringr::str_replace_all(analyte_names, " ", "_")
+      ### Remove parentheses around numbers
+      analyte_names <- stringr::str_replace_all(analyte_names, "\\((\\d+)\\)", "\\1")
+      analyte_names <- stringr::str_replace_all(analyte_names, "\\s+", "_")
+      ### Replace all non-alphanumeric characters with underscore
+      analyte_names <- stringr::str_replace_all(analyte_names, "[^A-Za-z0-9_]", "_")
+
       current_colnames[vrange] <- analyte_names
       ## Set column names
       colnames(df) <- current_colnames
