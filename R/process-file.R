@@ -53,15 +53,16 @@
 #'
 #' @export
 process_file <- function(
-    plate_filepath, layout_filepath,
-    output_dir = "normalised_data",
-    format = "xPONENT",
-    generate_report = FALSE,
-    process_plate = TRUE,
-    normalisation_types = c("MFI", "RAU", "nMFI"),
-    blank_adjustment = FALSE,
-    verbose = TRUE,
-    ...) {
+  plate_filepath, layout_filepath,
+  output_dir = "normalised_data",
+  format = "xPONENT",
+  generate_report = FALSE,
+  process_plate = TRUE,
+  normalisation_types = c("MFI", "RAU", "nMFI"),
+  blank_adjustment = FALSE,
+  verbose = TRUE,
+  ...
+) {
   if (is.null(plate_filepath)) {
     stop("Plate filepath is required.")
   }
