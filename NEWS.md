@@ -1,6 +1,11 @@
+Version 1.4.0
+---------------------------------------------------------------
+* implemented a new Bio-Plex file format stored in xlsx files
+
+
 Version 1.3.2
 ---------------------------------------------------------------
-* improve rendering of stacked standard curve plots in multiplate reports
+* improved rendering of stacked standard curve plots in multiplate reports
 when handling a large number of plates
 * unified the CSV output format for single and multiple plate processing
 * changed regex for NEGATIVE CONTROLS to be more rigorous. For more details check the [reference](https://mini-pw.github.io/SerolyzeR/reference/translate_sample_names_to_sample_types.html#details).
@@ -9,7 +14,7 @@ when handling a large number of plates
 
 Version 1.3.1
 ---------------------------------------------------------------
-* improve handling of xPONENT files with excessive empty lines
+* improved handling of xPONENT files with excessive empty lines
 
 
 Version 1.3.0
