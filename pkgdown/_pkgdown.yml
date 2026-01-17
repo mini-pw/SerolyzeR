@@ -41,6 +41,7 @@ reference:
     contents:
     - read_xponent_format
     - read_intelliflex_format
+    - read_bioplex_format
     - read_layout_data
     - merge_plate_outputs
     - is_valid_data_type
