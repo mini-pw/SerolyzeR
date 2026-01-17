@@ -9,13 +9,13 @@ handle_datetime(datetime_str, file_format = "xPONENT")
 \arguments{
 \item{datetime_str}{The datetime string to parse}
 
-\item{file_format}{The format of the file. Select from: xPONENT, INTELLIFLEX}
+\item{file_format}{The format of the file. Select from: xPONENT, INTELLIFLEX, BIOPLEX}
 }
 \value{
 POSIXct datetime object
 }
 \description{
-Handle differences in the datetime format between xPONENT and INTELLIFLEX
+Handle differences in the datetime format between xPONENT and INTELLIFLEX, BIOPLEX
 and output POSIXct datetime object containing the correct datetime with the default timezone.
 }
 \keyword{internal}
