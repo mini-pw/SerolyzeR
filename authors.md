@@ -20,14 +20,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/mini-pw/SerolyzeR/blob/main/DESCRIPTION)
 
-Grzywaczewski J, Kwiecinski T, Nizwantowski M (2025). *SerolyzeR:
+Grzywaczewski J, Kwiecinski T, Nizwantowski M (2026). *SerolyzeR:
 Reading, Quality Control and Preprocessing of MBA (Multiplex Bead Assay)
-Data*. R package version 1.3.2, <https://github.com/mini-pw/SerolyzeR>.
+Data*. R package version 1.4.0, <https://github.com/mini-pw/SerolyzeR>.
 
     @Manual{,
       title = {SerolyzeR: Reading, Quality Control and Preprocessing of MBA (Multiplex Bead Assay) Data},
       author = {Jakub Grzywaczewski and Tymoteusz Kwiecinski and Mateusz Nizwantowski},
-      year = {2025},
-      note = {R package version 1.3.2},
+      year = {2026},
+      note = {R package version 1.4.0},
       url = {https://github.com/mini-pw/SerolyzeR},
     }

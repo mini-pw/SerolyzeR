@@ -5,8 +5,9 @@
 Our package primarily aims to read, perform quality control, and
 normalise raw MBA data. The entire package is made to be as
 user-friendly as possible, so in most of your code, you will read the
-data from xPONENT or INTELLIFLEX file using the `read_luminex_data`
-function and interacting with the created `Plate` object.
+data from xPONENT, INTELLIFLEX or BIOPLEX file using the
+`read_luminex_data` function and interacting with the created `Plate`
+object.
 
 Under the hood, the `read_luminex_data` function uses a specific
 function to read data from a given format and later standardises this
@@ -111,7 +112,7 @@ raw MBA data, such as the sample names following a specific pattern to
 be correctly classified. If your data does not follow our standards but
 you still want to use our parsers, you can directly use the
 format-specific functions here: - `read_xponent_format` -
-`read_intelliflex_format`
+`read_intelliflex_format` - `read_bioplex_format`
 
 For example, let us read the xPONENT file above using the
 `read_xponent_format`.

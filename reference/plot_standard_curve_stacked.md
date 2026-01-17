@@ -179,15 +179,15 @@ list_of_plates <- process_dir(dir_with_luminex_files,
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
-#> Merged output saved to: /tmp/RtmpHRzMKG/merged_MFI_20251210_094809.csv
+#> Merged output saved to: /tmp/RtmpZdvZIB/merged_MFI_20260117_182621.csv
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
-#> Merged output saved to: /tmp/RtmpHRzMKG/merged_RAU_20251210_094809.csv
+#> Merged output saved to: /tmp/RtmpZdvZIB/merged_RAU_20260117_182621.csv
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
-#> Merged output saved to: /tmp/RtmpHRzMKG/merged_nMFI_20251210_094809.csv
+#> Merged output saved to: /tmp/RtmpZdvZIB/merged_nMFI_20260117_182621.csv
 plot_standard_curve_stacked(list_of_plates, "ME", data_type = "Median", monochromatic = FALSE)
 
 ```

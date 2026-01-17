@@ -1,8 +1,8 @@
 # Handle differences in datetimes
 
 Handle differences in the datetime format between xPONENT and
-INTELLIFLEX and output POSIXct datetime object containing the correct
-datetime with the default timezone.
+INTELLIFLEX, BIOPLEX and output POSIXct datetime object containing the
+correct datetime with the default timezone.
 
 ## Usage
 
@@ -18,7 +18,7 @@ handle_datetime(datetime_str, file_format = "xPONENT")
 
 - file_format:
 
-  The format of the file. Select from: xPONENT, INTELLIFLEX
+  The format of the file. Select from: xPONENT, INTELLIFLEX, BIOPLEX
 
 ## Value
 

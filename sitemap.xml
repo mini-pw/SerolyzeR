@@ -24,6 +24,7 @@
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/dilution_to_rau.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/extract_dilution_from_names.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/extract_dilutions_from_layout.html</loc></url>
+<url><loc>https://mini-pw.github.io/SerolyzeR/reference/extract_header_information.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/extract_sample_names_from_layout.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/extract_xponent_experiment_date.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/filter_sample_types.html</loc></url>
@@ -33,6 +34,7 @@
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/format_ylab.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/generate_levey_jennings_report.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/generate_plate_report.html</loc></url>
+<url><loc>https://mini-pw.github.io/SerolyzeR/reference/get_header_end_idx.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/get_join_value.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/get_location_matrix.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/get_nmfi.html</loc></url>
@@ -64,6 +66,7 @@
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/process_dir.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/process_file.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/process_plate.html</loc></url>
+<url><loc>https://mini-pw.github.io/SerolyzeR/reference/read_bioplex_format.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/read_intelliflex_format.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/read_layout_data.html</loc></url>
 <url><loc>https://mini-pw.github.io/SerolyzeR/reference/read_luminex_data.html</loc></url>

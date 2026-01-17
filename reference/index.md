@@ -65,6 +65,8 @@ Additional, lower level functions that are used in the analysis
   : Read the xPONENT format data
 - [`read_intelliflex_format()`](https://mini-pw.github.io/SerolyzeR/reference/read_intelliflex_format.md)
   : Read the Intelliflex format data
+- [`read_bioplex_format()`](https://mini-pw.github.io/SerolyzeR/reference/read_bioplex_format.md)
+  : Read the BIOPLEX format data
 - [`read_layout_data()`](https://mini-pw.github.io/SerolyzeR/reference/read_layout_data.md)
   : Read layout data from a file
 - [`merge_plate_outputs()`](https://mini-pw.github.io/SerolyzeR/reference/merge_plate_outputs.md)

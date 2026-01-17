@@ -1,8 +1,12 @@
 # Changelog
 
+## Version 1.4.0
+
+- implemented a new Bio-Plex file format stored in xlsx files
+
 ## Version 1.3.2
 
-- improve rendering of stacked standard curve plots in multiplate
+- improved rendering of stacked standard curve plots in multiplate
   reports when handling a large number of plates
 - unified the CSV output format for single and multiple plate processing
 - changed regex for NEGATIVE CONTROLS to be more rigorous. For more
@@ -15,7 +19,7 @@
 
 CRAN release: 2025-10-21
 
-- improve handling of xPONENT files with excessive empty lines
+- improved handling of xPONENT files with excessive empty lines
 
 ## Version 1.3.0
 

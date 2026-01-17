@@ -15,7 +15,7 @@ Optionally, a layout file can be provided to specify the arrangement of samples 
 
     <a class="navbar-brand me-2" href="../index.html">SerolyzeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,7 @@ Optionally, a layout file can be provided to specify the arrangement of samples 
 
 <dt id="arg-format">format<a class="anchor" aria-label="anchor" href="#arg-format"></a></dt>
 <dd><p>(<code>character(1)</code>, default = <code>'xPONENT'</code>)</p><ul><li><p>The format of the Luminex data file.</p></li>
-<li><p>Supported formats: <code>'xPONENT'</code>, <code>'INTELLIFLEX'</code>.</p></li>
+<li><p>Supported formats: <code>'xPONENT'</code>, <code>'INTELLIFLEX'</code>, <code>'BIOPLEX'</code>.</p></li>
 </ul></dd>
 
 
@@ -153,6 +153,7 @@ Optionally, a layout file can be provided to specify the arrangement of samples 
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function supports two Luminex data formats:</p><ul><li><p><strong>xPONENT</strong>: Used by older Luminex machines.</p></li>
 <li><p><strong>INTELLIFLEX</strong>: Used by newer Luminex devices.</p></li>
+<li><p><strong>BIOPLEX</strong>: Used by Bio-Rad Luminex devices.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a></h2>
@@ -161,6 +162,7 @@ Optionally, a layout file can be provided to specify the arrangement of samples 
 <ol><li><p>Validate input parameters, ensuring the specified format is supported.</p></li>
 <li><p>Read the plate file using the appropriate parser:</p><ul><li><p>xPONENT files are read using <code><a href="read_xponent_format.html">read_xponent_format()</a></code>.</p></li>
 <li><p>INTELLIFLEX files are read using <code><a href="read_intelliflex_format.html">read_intelliflex_format()</a></code>.</p></li>
+<li><p>BIOPLEX files are read using <code><a href="read_bioplex_format.html">read_bioplex_format()</a></code>.</p></li>
 </ul></li>
 <li><p>Post-process the extracted data:</p><ul><li><p>Validate required data columns (<code>Median</code>, <code>Count</code>).</p></li>
 <li><p>Extract sample locations and analyte names.</p></li>

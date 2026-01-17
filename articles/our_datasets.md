@@ -29,8 +29,8 @@ dataset_filepath <- system.file("extdata", dataset_name, package = "SerolyzeR", 
 
 The variable `dataset_filepath` now contains the path to the specified
 dataset on your computer. Since we know the filepath to the desired
-dataset, we can execute the `read_data` function to read the data. The
-function has the following syntax:
+dataset, we can execute the `read_luminex_data` function to read the
+data. The function has the following syntax:
 
 ``` r
 library(SerolyzeR)

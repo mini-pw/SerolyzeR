@@ -41,7 +41,7 @@ read_luminex_data(
 
   - The format of the Luminex data file.
 
-  - Supported formats: `'xPONENT'`, `'INTELLIFLEX'`.
+  - Supported formats: `'xPONENT'`, `'INTELLIFLEX'`, `'BIOPLEX'`.
 
 - plate_file_separator:
 
@@ -117,6 +117,8 @@ The function supports two Luminex data formats:
 
 - **INTELLIFLEX**: Used by newer Luminex devices.
 
+- **BIOPLEX**: Used by Bio-Rad Luminex devices.
+
 ## Workflow
 
 1.  Validate input parameters, ensuring the specified format is
@@ -129,6 +131,9 @@ The function supports two Luminex data formats:
 
     - INTELLIFLEX files are read using
       [`read_intelliflex_format()`](https://mini-pw.github.io/SerolyzeR/reference/read_intelliflex_format.md).
+
+    - BIOPLEX files are read using
+      [`read_bioplex_format()`](https://mini-pw.github.io/SerolyzeR/reference/read_bioplex_format.md).
 
 3.  Post-process the extracted data:
 

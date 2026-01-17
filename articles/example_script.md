@@ -46,9 +46,9 @@ function used above, reads the data from the CSV plate file and the
 layout file and outputs the object. This method allows also for more
 advanced options, such as overriding the information from the files, or
 setting the data reading options, e.g. the Luminex file format
-(`xPONENT` or `INTELLIFLEX`) or the file separators and data encoding.
-For more details about the function, we encourage you to explore the
-documentation by executing the command
+(`xPONENT`, `INTELLIFLEX` or `BIOPLEX`) or the file separators and data
+encoding. For more details about the function, we encourage you to
+explore the documentation by executing the command
 [`?read_luminex_data`](https://mini-pw.github.io/SerolyzeR/reference/read_luminex_data.md).
 
 It also detects automatically the sample types, using an internal method
@@ -103,7 +103,7 @@ df <- process_plate(plate, output_dir = example_dir)
 
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Saving the computed RAU values to a CSV file located in: '/tmp/Rtmp3E7zVd/CovidOISExPONTENT_RAU.csv'
+    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpkEeKpC/CovidOISExPONTENT_RAU.csv'
 
 ``` r
 colnames(df)
@@ -125,12 +125,12 @@ overcrowd the article).
 df[1:5, 1:5]
 ```
 
-    #>           Spike_6P           ME       HKU1_S      OC43_NP       OC43_S
-    #> B         4.931518 3.704750e-08     6.898885     5.119416     2.375258
-    #> 1/50  20000.000000 2.000000e+04 20000.000000 20000.000000 20000.000000
-    #> 1/100  9143.434470 8.254827e+03  8235.114494  8343.787523  8326.658518
-    #> 1/200  5907.196193 5.394031e+03  5200.885095  5169.162138  5240.371360
-    #> 1/400  2485.577756 2.537018e+03  2603.062419  2626.436864  2556.577252
+    #>          Spike_6P           ME       HKU1_S      OC43_NP       OC43_S
+    #> B         4.93097 3.820887e-08     6.863521     5.119414     2.375259
+    #> 1/50  20000.00000 2.000000e+04 20000.000000 20000.000000 20000.000000
+    #> 1/100  9142.64021 8.255262e+03  8235.456814  8343.787455  8326.659000
+    #> 1/200  5906.86818 5.394138e+03  5200.256937  5169.162098  5240.371584
+    #> 1/400  2485.64570 2.536966e+03  2602.185159  2626.436852  2556.577201
 
 To automate the processing the plates, we can also use
 \[`process_file`\] and \[`process_dir`\] methods. The former processes a
@@ -152,13 +152,13 @@ process_file(plate_filepath, layout_filepath, output_dir = example_dir, generate
     #> 
     #> Processing plate 'CovidOISExPONTENT'
     #> Extracting the raw MFI to the output dataframe
-    #> Saving the computed MFI values to a CSV file located in: '/tmp/Rtmp3E7zVd/CovidOISExPONTENT_MFI.csv'
+    #> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpkEeKpC/CovidOISExPONTENT_MFI.csv'
 
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Saving the computed RAU values to a CSV file located in: '/tmp/Rtmp3E7zVd/CovidOISExPONTENT_RAU.csv'
+    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpkEeKpC/CovidOISExPONTENT_RAU.csv'
     #> Computing nMFI values for each analyte
-    #> Saving the computed nMFI values to a CSV file located in: '/tmp/Rtmp3E7zVd/CovidOISExPONTENT_nMFI.csv'
+    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpkEeKpC/CovidOISExPONTENT_nMFI.csv'
 
     #> Plate with 96 samples and 30 analytes
 
@@ -427,8 +427,8 @@ model
     #>  - using 11 samples
     #>  - using log residuals (mfi):  TRUE 
     #>  - using log dilution:  TRUE 
-    #>  - top asymptote: 28414.96 
-    #>  - bottom asymptote: 38.60885 
+    #>  - top asymptote: 28415.06 
+    #>  - bottom asymptote: 38.60886 
     #>  - goodness of fit: 0.9970645 
     #>  - weighted goodness of fit: 0.9998947
 
@@ -481,12 +481,12 @@ head(predicted_rau)
 ```
 
     #>            RAU    MFI
-    #> 1     2.375258   43.0
+    #> 1     2.375259   43.0
     #> 2 20000.000000 4193.0
-    #> 3  8326.658518 1982.0
-    #> 4  5240.371360 1308.0
-    #> 5  2556.577252  681.0
-    #> 6  1242.668884  365.5
+    #> 3  8326.659000 1982.0
+    #> 4  5240.371584 1308.0
+    #> 5  2556.577201  681.0
+    #> 6  1242.668792  365.5
 
 The dataframe contains original MFI values and the predicted RAU values
 based on the model.
@@ -541,7 +541,7 @@ df <- process_plate(plate, output_dir = example_dir, normalisation_type = "nMFI"
 ```
 
     #> Computing nMFI values for each analyte
-    #> Saving the computed nMFI values to a CSV file located in: '/tmp/Rtmp3E7zVd/CovidOISExPONTENT_nMFI.csv'
+    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpkEeKpC/CovidOISExPONTENT_nMFI.csv'
 
 ``` r
 df[1:5, 1:5]
