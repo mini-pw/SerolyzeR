@@ -227,7 +227,7 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
     #> Fitting the models and predicting RAU for each analyte
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Merged output saved to: /tmp/RtmpHE5mhp/multiplate-tutorial/merged_RAU_20260117_182648.csv
+    #> Merged output saved to: /tmp/RtmpdtZRww/multiplate-tutorial/merged_RAU_20260117_183106.csv
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
@@ -241,7 +241,7 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
-    #> Merged output saved to: /tmp/RtmpHE5mhp/multiplate-tutorial/merged_nMFI_20260117_182648.csv
+    #> Merged output saved to: /tmp/RtmpdtZRww/multiplate-tutorial/merged_nMFI_20260117_183106.csv
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
@@ -255,7 +255,7 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
-    #> Merged output saved to: /tmp/RtmpHE5mhp/multiplate-tutorial/merged_MFI_20260117_182648.csv
+    #> Merged output saved to: /tmp/RtmpdtZRww/multiplate-tutorial/merged_MFI_20260117_183106.csv
 
 Remember, if you want to read all your files properly, you need to
 follow the naming convention of the files. The layout file should have
@@ -283,8 +283,8 @@ Let us investigate the output directory and the files that were created.
 list.files(output_dir)
 ```
 
-    #> [1] "merged_MFI_20260117_182648.csv"  "merged_nMFI_20260117_182648.csv"
-    #> [3] "merged_RAU_20260117_182648.csv"
+    #> [1] "merged_MFI_20260117_183106.csv"  "merged_nMFI_20260117_183106.csv"
+    #> [3] "merged_RAU_20260117_183106.csv"
 
 Since, we have selected the `merge_outputs` parameter to be `TRUE`, we
 should see 3 files in the output directory:
@@ -309,14 +309,14 @@ RAU_data[1:5, 1:5]
 ```
 
     #>                                     plate_name sample_name Adenovirus.T3
-    #> 1 P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001           B  6.099746e-01
+    #> 1 P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001           B  8.920831e-01
     #> 2 P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001        1/50  2.000000e+04
-    #> 3 P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001       1/100  9.702059e+03
-    #> 4 P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001       1/200  4.626230e+03
-    #> 5 P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001       1/400  2.221371e+03
+    #> 3 P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001       1/100  9.700496e+03
+    #> 4 P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001       1/200  4.655472e+03
+    #> 5 P1_SEROPED_PBT_62PLEX_PLATE1_03312023_RUN001       1/400  2.238576e+03
     #>   Adenovirus.T5 Bordetella.p..Toxin
-    #> 1      1.009339        6.835253e-04
-    #> 2  20000.000000        1.999773e+04
-    #> 3  11255.929286        9.860779e+03
-    #> 4   3745.534616        5.374397e+03
-    #> 5   2274.001215        2.417493e+03
+    #> 1      1.042746        7.561766e-04
+    #> 2  20000.000000        1.998425e+04
+    #> 3  11301.180587        9.864071e+03
+    #> 4   3753.390453        5.376943e+03
+    #> 5   2278.218780        2.417622e+03

@@ -139,11 +139,11 @@ process_file(plate_file, layout_file, output_dir = example_dir)
 #> 
 #> Processing plate 'CovidOISExPONTENT_CO_reduced'
 #> Extracting the raw MFI to the output dataframe
-#> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_MFI.csv'
+#> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_MFI.csv'
 #> Fitting the models and predicting RAU for each analyte
-#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_RAU.csv'
+#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_RAU.csv'
 #> Computing nMFI values for each analyte
-#> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_nMFI.csv'
+#> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_nMFI.csv'
 #> Plate with 49 samples and 2 analytes
 
 # Example 2: Process the plate for only RAU normalisation
@@ -159,9 +159,9 @@ process_file(plate_file, layout_file, output_dir = example_dir, normalisation_ty
 #> New plate object has been created with name: CovidOISExPONTENT_CO_reduced!
 #> 
 #> Processing plate 'CovidOISExPONTENT_CO_reduced'
-#> Warning: The specified file /tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.
+#> Warning: The specified file /tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.
 #> Fitting the models and predicting RAU for each analyte
-#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_RAU.csv'
+#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_RAU.csv'
 #> Plate with 49 samples and 2 analytes
 
 # Example 3: Process the plate and generate a quality control report
@@ -177,17 +177,17 @@ process_file(plate_file, layout_file, output_dir = example_dir, generate_report 
 #> New plate object has been created with name: CovidOISExPONTENT_CO_reduced!
 #> 
 #> Processing plate 'CovidOISExPONTENT_CO_reduced'
-#> Warning: The specified file /tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_MFI.csv already exists. Overwriting it.
+#> Warning: The specified file /tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_MFI.csv already exists. Overwriting it.
 #> Extracting the raw MFI to the output dataframe
-#> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_MFI.csv'
-#> Warning: The specified file /tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.
+#> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_MFI.csv'
+#> Warning: The specified file /tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.
 #> Fitting the models and predicting RAU for each analyte
-#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_RAU.csv'
-#> Warning: The specified file /tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_nMFI.csv already exists. Overwriting it.
+#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_RAU.csv'
+#> Warning: The specified file /tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_nMFI.csv already exists. Overwriting it.
 #> Computing nMFI values for each analyte
-#> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_nMFI.csv'
+#> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_nMFI.csv'
 #> Generating report...This will take approximately 30 seconds.
-#> Warning: The specified file /tmp/RtmpZdvZIB/CovidOISExPONTENT_CO_reduced_report.html already exists. Overwriting it.
-#> Report successfully generated, saving to: /tmp/RtmpZdvZIB
+#> Warning: The specified file /tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_report.html already exists. Overwriting it.
+#> Report successfully generated, saving to: /tmp/RtmpGcElT2
 #> Plate with 49 samples and 2 analytes
 ```

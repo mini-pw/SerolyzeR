@@ -102,15 +102,15 @@ list_of_plates <- process_dir(dir_with_luminex_files,
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
-#> Merged output saved to: /tmp/RtmpZdvZIB/merged_MFI_20260117_182610.csv
+#> Merged output saved to: /tmp/RtmpGcElT2/merged_MFI_20260117_183029.csv
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
-#> Merged output saved to: /tmp/RtmpZdvZIB/merged_RAU_20260117_182610.csv
+#> Merged output saved to: /tmp/RtmpGcElT2/merged_RAU_20260117_183029.csv
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
-#> Merged output saved to: /tmp/RtmpZdvZIB/merged_nMFI_20260117_182610.csv
+#> Merged output saved to: /tmp/RtmpGcElT2/merged_nMFI_20260117_183029.csv
 
 df <- merge_plate_outputs(list_of_plates, "RAU", sample_type_filter = c("TEST", "STANDARD CURVE"))
 #> Fitting the models and predicting RAU for each analyte

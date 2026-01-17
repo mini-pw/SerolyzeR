@@ -318,7 +318,7 @@ list_of_plates <- process_dir(dir_with_luminex_files,
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
-    #> Merged output saved to: /tmp/Rtmp415s9z/multiplate-tutorial/merged_MFI_20260117_182719.csv
+    #> Merged output saved to: /tmp/RtmprjYKgI/multiplate-tutorial/merged_MFI_20260117_183138.csv
     #> Fitting the models and predicting RAU for each analyte
 
     #> Fitting the models and predicting RAU for each analyte
@@ -338,7 +338,7 @@ list_of_plates <- process_dir(dir_with_luminex_files,
     #> Fitting the models and predicting RAU for each analyte
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Merged output saved to: /tmp/Rtmp415s9z/multiplate-tutorial/merged_RAU_20260117_182719.csv
+    #> Merged output saved to: /tmp/RtmprjYKgI/multiplate-tutorial/merged_RAU_20260117_183138.csv
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
@@ -352,7 +352,7 @@ list_of_plates <- process_dir(dir_with_luminex_files,
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
-    #> Merged output saved to: /tmp/Rtmp415s9z/multiplate-tutorial/merged_nMFI_20260117_182719.csv
+    #> Merged output saved to: /tmp/RtmprjYKgI/multiplate-tutorial/merged_nMFI_20260117_183138.csv
 
 ``` r
 plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3")
