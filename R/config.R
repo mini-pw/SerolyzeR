@@ -1,14 +1,16 @@
 SerolyzeR.env <- new.env(parent = emptyenv())
 
 # MBA formats
-SerolyzeR.env$mba_formats <- c("xPONENT", "INTELLIFLEX")
+SerolyzeR.env$mba_formats <- c("xPONENT", "INTELLIFLEX", "BIOPLEX")
 
 # String patterns for declared MBA formats
 SerolyzeR.env$xponent_pattern <- "xpontent|xponent"
 SerolyzeR.env$intelliflex_pattern <- "intelliflex"
+SerolyzeR.env$bioplex_pattern <- "bioplex"
 SerolyzeR.env$mba_pattern <- paste(
   SerolyzeR.env$xponent_pattern,
   SerolyzeR.env$intelliflex_pattern,
+  SerolyzeR.env$bioplex_pattern,
   sep = "|"
 )
 

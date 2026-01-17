@@ -35,11 +35,13 @@ test_that("Test detecting format", {
   plate1_filepath <- system.file("extdata", "CovidOISExPONTENT.csv", package = "SerolyzeR", mustWork = TRUE) # get the filepath of the csv dataset
   plate2_filepath <- system.file("extdata", "CovidOISExPONTENT_CO.csv", package = "SerolyzeR", mustWork = TRUE) # get the filepath of the csv dataset
   plate3_filepath <- system.file("extdata", "random_intelliflex.csv", package = "SerolyzeR", mustWork = TRUE) # get the filepath of the csv dataset
+  plate4_filepath <- system.file("extdata", "synthetic_bioplex.xlsx", package = "SerolyzeR", mustWork = TRUE) # get the filepath of the csv dataset
 
   expect_equal(detect_mba_format(plate1_filepath), "xPONENT")
   expect_equal(detect_mba_format(plate2_filepath), "xPONENT")
   expect_equal(detect_mba_format(plate3_filepath), "INTELLIFLEX")
   expect_equal(detect_mba_format(NULL, format = "INTELLIFLEX"), "INTELLIFLEX")
+  expect_equal(detect_mba_format(plate4_filepath), "BIOPLEX")
 })
 
 test_that("Test obtaining an output directory", {

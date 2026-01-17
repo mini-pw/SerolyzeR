@@ -31,7 +31,7 @@ process_file(
 \item{format}{(\code{character(1)}, default = \code{'xPONENT'})
 \itemize{
 \item Format of the Luminex data.
-\item Available options: \code{'xPONENT'}, \code{'INTELLIFLEX'}.
+\item Available options: \code{'xPONENT'}, \code{'INTELLIFLEX'}, \code{'BIOPLEX'}.
 }}
 
 \item{generate_report}{(\code{logical(1)}, default = \code{FALSE})

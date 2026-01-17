@@ -39,8 +39,8 @@ process_dir(
 
 \item{layout_filepath}{(\code{character(1)}, optional) Path to a layout file. If \code{NULL}, the function attempts to detect it automatically.}
 
-\item{format}{(\code{character(1)}, optional) Luminex data format. If \code{NULL}, it is automatically detected. Options: \code{'xPONENT'}, \code{'INTELLIFLEX'}.
-By default equals to \code{'xPONENT'}.}
+\item{format}{(\code{character(1)}, optional) Luminex data format. If \code{NULL}, it is automatically detected.
+Options: \code{'xPONENT'}, \code{'INTELLIFLEX'}, \code{'BIOPLEX'}. By default equals to \code{'xPONENT'}.}
 
 \item{normalisation_types}{(\code{character()}, default = \code{c("MFI", "RAU", "nMFI")})
 \itemize{
