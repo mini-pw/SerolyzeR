@@ -217,8 +217,6 @@ for (i in seq_along(analyte_names)) {
   ))
   cat("![](", svg_plot_file(p_color, width = 5, height = h), "){width='50%'}")
 
-  cat("\n\n")
-
   for (dilution in params$dilutions) {
     # Plot levey-jennings
     p <- inject(plot_levey_jennings(
