@@ -340,7 +340,6 @@ plot_standard_curve_thumbnail <- function(plate,
 #' setting explicitly `legend_type` to `date` or `plate_name`.
 #' @param plot_legend If `TRUE` the legend is plotted, `TRUE` by default
 #' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
-#' @param legend_rel_height Relative height of the legend when `separate_legend` is set to `TRUE`.
 #' @param max_legend_items_per_row Maximum number of legend items per row when legend is at top or bottom. Default is 3.
 #' @param legend_text_size Font size of the legend. Can be useful if plotting long plate names. Default is 8
 #' @param decreasing_dilution_order If `TRUE` the dilution values are
@@ -393,7 +392,6 @@ plot_standard_curve_stacked <- function(list_of_plates,
                                         sort_plates = TRUE,
                                         log_scale = c("all"),
                                         separate_legend = FALSE,
-                                        legend_rel_height = 0.4,
                                         verbose = TRUE) {
   AVAILABLE_LOG_SCALE_VALUES <- c("all", "dilutions", "MFI")
 
@@ -563,7 +561,8 @@ plot_standard_curve_stacked <- function(list_of_plates,
   }
 
   if (separate_legend) {
-    p <- move_legend_to_separate_plot(p, legend_rel_height = legend_rel_height)
+    p <- p + patchwork::plot_layout(guides = "collect") &
+      ggplot2::theme(legend.position = "bottom")
   }
 
   p

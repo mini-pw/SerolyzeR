@@ -186,7 +186,6 @@ for (i in seq_along(analyte_names)) {
   n <- length(list_of_plates)
   l_h <- 0.35 * (1 + (n %/% 3)) # legend size in inches
   h <- 3.5 + l_h # figure height in inches
-  rel_l_h <- l_h / h
 
   # Plot stacked curves monochromatic
   p_mono <- inject(plot_standard_curve_stacked(
@@ -194,15 +193,13 @@ for (i in seq_along(analyte_names)) {
     analyte_name = analyte_names[i],
     monochromatic = TRUE,
     separate_legend = TRUE,
-    legend_rel_height = rel_l_h,
     !!!extra_args
   ))
   cat("![](", svg_plot_file(p_mono, width = 5, height = h), "){width='50%'}")
 
-  # Relative for color plot
+  # Set figure height based on number of plates (the size of the legend)
   l_h <- 0.35 * (1 + (n %/% 2)) # legend size in inches
   h <- 3.5 + l_h # figure height in inches
-  rel_l_h <- l_h / h
 
   # Plot stacked curves colored
   knitr::opts_current$set(fig.height = h)
@@ -211,7 +208,6 @@ for (i in seq_along(analyte_names)) {
     analyte_name = analyte_names[i],
     monochromatic = FALSE,
     separate_legend = TRUE,
-    legend_rel_height = rel_l_h,
     max_legend_items_per_row = 2,
     !!!extra_args
   ))
