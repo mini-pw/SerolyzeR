@@ -171,10 +171,6 @@ library(svglite)
 library(ggplot2)
 library(qs2) # Fast serialization
 
-# 1. SETUP PLAN
-# 'multisession' is safe for Windows/RStudio.
-num_workers <- min(4, future::availableCores() - 1) # Leave one core free
-future::plan(future::multisession, workers = num_workers)
 
 # 2. PREPARE DIRECTORIES
 plot_dir <- file.path(tempdir(), "report_svgs")
@@ -191,11 +187,8 @@ save_plot_to_svg <- function(plot, full_path, width, height) {
   grDevices::dev.off()
   return(full_path)
 }
-```
 
-```{r generate_plots, echo=FALSE, message=FALSE, warning=FALSE}
 # WRAPPER FUNCTION FOR PARALLEL EXECUTION
-# This function calculates heights and saves files, returning ONLY paths
 process_analyte_plots <- function(analyte, data_path, dilutions, extra_args, plot_dir) {
   # A. Read data inside the worker (Fast)
   list_of_plates <- qs2::qs_read(data_path)
@@ -255,22 +248,41 @@ process_analyte_plots <- function(analyte, data_path, dilutions, extra_args, plo
     lj_paths = lj_paths
   ))
 }
+```
 
-# EXECUTE PARALLEL MAP
-plot_results <- furrr::future_map(
-  analyte_names,
-  ~ process_analyte_plots(
-    .x, plates_data_path, params$dilutions, extra_args, plot_dir
-  ),
-  .options = furrr::furrr_options(
-    seed = TRUE,
-    # Explicitly load packages and global variables in each worker
-    packages = c("ggplot2", "svglite", "rlang", "qs2"),
-    globals = c(
-      "plot_standard_curve_stacked", "plot_levey_jennings", "save_plot_to_svg"
+```{r generate_plots, echo=FALSE, message=FALSE, warning=FALSE}
+if (length(analyte_names) == 0) {
+  stop("No common analytes found across plates. Cannot generate plots.")
+}
+if (length(analyte_names) < 4) {
+  # EXECUTE SEQUENTIAL MAP
+  plot_results <- list()
+  for (analyte in analyte_names) {
+    plot_results[[analyte]] <- process_analyte_plots(
+      analyte, plates_data_path, params$dilutions, extra_args, plot_dir
+    )
+  }
+} else {
+  # SETUP PLAN
+  num_workers <- min(4, future::availableCores() - 1) # Leave one core free
+  future::plan(future::multisession, workers = num_workers)
+
+  # EXECUTE PARALLEL MAP
+  plot_results <- furrr::future_map(
+    analyte_names,
+    ~ process_analyte_plots(
+      .x, plates_data_path, params$dilutions, extra_args, plot_dir
+    ),
+    .options = furrr::furrr_options(
+      seed = TRUE,
+      # Explicitly load packages and global variables in each worker
+      packages = c("ggplot2", "svglite", "rlang", "qs2"),
+      globals = c(
+        "plot_standard_curve_stacked", "plot_levey_jennings", "save_plot_to_svg"
+      )
     )
   )
-)
+}
 ```
 
  
