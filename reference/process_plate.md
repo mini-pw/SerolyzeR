@@ -152,9 +152,9 @@ example_dir <- tempdir(check = TRUE)
 
 # Process using default settings (RAU normalisation)
 process_plate(plate, output_dir = example_dir)
-#> Warning: The specified file /tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.
+#> Warning: The specified file /tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.
 #> Fitting the models and predicting RAU for each analyte
-#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_RAU.csv'
+#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_RAU.csv'
 #>          Spike_6P_IPP        ME_NA
 #> B            1.851528     1.644344
 #> 1/50     19996.648321 20000.000000
@@ -213,7 +213,7 @@ process_plate(plate,
   blank_adjustment = FALSE
 )
 #> Fitting the models and predicting RAU for each analyte
-#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpGcElT2/no_blank.csv'
+#> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpqWeo7P/no_blank.csv'
 #>          Spike_6P_IPP        ME_NA
 #> B            1.851528     1.644344
 #> 1/50     19996.648321 20000.000000
@@ -271,9 +271,9 @@ process_plate(plate,
   reference_dilution = "1/400",
   output_dir = example_dir
 )
-#> Warning: The specified file /tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_nMFI.csv already exists. Overwriting it.
+#> Warning: The specified file /tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_nMFI.csv already exists. Overwriting it.
 #> Computing nMFI values for each analyte
-#> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpGcElT2/CovidOISExPONTENT_CO_reduced_nMFI.csv'
+#> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_nMFI.csv'
 #>          Spike_6P_IPP      ME_NA
 #> B         0.005413105 0.05662806
 #> 1/50      3.624643875 4.73359073

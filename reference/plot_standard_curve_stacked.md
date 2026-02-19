@@ -28,7 +28,6 @@ plot_standard_curve_stacked(
   sort_plates = TRUE,
   log_scale = c("all"),
   separate_legend = FALSE,
-  legend_rel_height = 0.4,
   verbose = TRUE
 )
 ```
@@ -101,10 +100,6 @@ plot_standard_curve_stacked(
 - separate_legend:
 
   If `TRUE`, the legend is returned as concatatenated ggplot object.
-
-- legend_rel_height:
-
-  Relative height of the legend when `separate_legend` is set to `TRUE`.
 
 - verbose:
 
@@ -179,15 +174,15 @@ list_of_plates <- process_dir(dir_with_luminex_files,
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
-#> Merged output saved to: /tmp/RtmpGcElT2/merged_MFI_20260117_183040.csv
+#> Merged output saved to: /tmp/RtmpqWeo7P/merged_MFI_20260219_151555.csv
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
-#> Merged output saved to: /tmp/RtmpGcElT2/merged_RAU_20260117_183040.csv
+#> Merged output saved to: /tmp/RtmpqWeo7P/merged_RAU_20260219_151555.csv
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
-#> Merged output saved to: /tmp/RtmpGcElT2/merged_nMFI_20260117_183040.csv
+#> Merged output saved to: /tmp/RtmpqWeo7P/merged_nMFI_20260219_151555.csv
 plot_standard_curve_stacked(list_of_plates, "ME", data_type = "Median", monochromatic = FALSE)
 
 ```

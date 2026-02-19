@@ -1,6 +1,12 @@
 # Changelog
 
+## Version 1.4.1
+
+- improved multiplate report generation speed
+
 ## Version 1.4.0
+
+CRAN release: 2026-01-21
 
 - implemented a new Bio-Plex file format stored in xlsx files
 

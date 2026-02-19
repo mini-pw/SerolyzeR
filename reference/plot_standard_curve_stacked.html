@@ -23,7 +23,7 @@ monochromatic blue gradient (indicating time-based drift) or with distinct hues 
 
     <a class="navbar-brand me-2" href="../index.html">SerolyzeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,7 +89,6 @@ monochromatic blue gradient (indicating time-based drift) or with distinct hues 
 <span>  sort_plates <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  log_scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span><span class="op">)</span>,</span>
 <span>  separate_legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  legend_rel_height <span class="op">=</span> <span class="fl">0.4</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -160,10 +159,6 @@ if <code>"all"</code> or <code>c("dilutions", "MFI")</code> all elements are dis
 <dd><p>If <code>TRUE</code>, the legend is returned as concatatenated ggplot object.</p></dd>
 
 
-<dt id="arg-legend-rel-height">legend_rel_height<a class="anchor" aria-label="anchor" href="#arg-legend-rel-height"></a></dt>
-<dd><p>Relative height of the legend when <code>separate_legend</code> is set to <code>TRUE</code>.</p></dd>
-
-
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>If <code>TRUE</code> prints messages, <code>TRUE</code> by default</p></dd>
 
@@ -229,15 +224,15 @@ especially useful when comparing many plates simultaneously.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpGcElT2/merged_MFI_20260117_183040.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpqWeo7P/merged_MFI_20260219_151555.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpGcElT2/merged_RAU_20260117_183040.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpqWeo7P/merged_RAU_20260219_151555.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpGcElT2/merged_nMFI_20260117_183040.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpqWeo7P/merged_nMFI_20260219_151555.csv</span>
 <span class="r-in"><span><span class="fu">plot_standard_curve_stacked</span><span class="op">(</span><span class="va">list_of_plates</span>, <span class="st">"ME"</span>, data_type <span class="op">=</span> <span class="st">"Median"</span>, monochromatic <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_standard_curve_stacked-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

@@ -227,7 +227,7 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
     #> Fitting the models and predicting RAU for each analyte
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Merged output saved to: /tmp/RtmpdtZRww/multiplate-tutorial/merged_RAU_20260117_183106.csv
+    #> Merged output saved to: /tmp/Rtmpt9k7dl/multiplate-tutorial/merged_RAU_20260219_151622.csv
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
@@ -241,7 +241,7 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
-    #> Merged output saved to: /tmp/RtmpdtZRww/multiplate-tutorial/merged_nMFI_20260117_183106.csv
+    #> Merged output saved to: /tmp/Rtmpt9k7dl/multiplate-tutorial/merged_nMFI_20260219_151622.csv
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
@@ -255,7 +255,7 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
-    #> Merged output saved to: /tmp/RtmpdtZRww/multiplate-tutorial/merged_MFI_20260117_183106.csv
+    #> Merged output saved to: /tmp/Rtmpt9k7dl/multiplate-tutorial/merged_MFI_20260219_151622.csv
 
 Remember, if you want to read all your files properly, you need to
 follow the naming convention of the files. The layout file should have
@@ -283,8 +283,8 @@ Let us investigate the output directory and the files that were created.
 list.files(output_dir)
 ```
 
-    #> [1] "merged_MFI_20260117_183106.csv"  "merged_nMFI_20260117_183106.csv"
-    #> [3] "merged_RAU_20260117_183106.csv"
+    #> [1] "merged_MFI_20260219_151622.csv"  "merged_nMFI_20260219_151622.csv"
+    #> [3] "merged_RAU_20260219_151622.csv"
 
 Since, we have selected the `merge_outputs` parameter to be `TRUE`, we
 should see 3 files in the output directory:

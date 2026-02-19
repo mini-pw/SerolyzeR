@@ -144,15 +144,15 @@ list_of_plates <- process_dir(dir_with_luminex_files,
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
-#> Merged output saved to: /tmp/RtmpGcElT2/merged_MFI_20260117_183035.csv
+#> Merged output saved to: /tmp/RtmpqWeo7P/merged_MFI_20260219_151550.csv
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
-#> Merged output saved to: /tmp/RtmpGcElT2/merged_RAU_20260117_183035.csv
+#> Merged output saved to: /tmp/RtmpqWeo7P/merged_RAU_20260219_151550.csv
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
-#> Merged output saved to: /tmp/RtmpGcElT2/merged_nMFI_20260117_183035.csv
+#> Merged output saved to: /tmp/RtmpqWeo7P/merged_nMFI_20260219_151550.csv
 list_of_plates <- rep(list_of_plates, 10) # since we have only 3 plates i will repeat them 10 times
 
 plot_levey_jennings(list_of_plates, "ME", dilution = "1/400", sd_lines = c(0.5, 1, 1.96, 2.58))

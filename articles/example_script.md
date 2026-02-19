@@ -103,7 +103,7 @@ df <- process_plate(plate, output_dir = example_dir)
 
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpD8Kh0V/CovidOISExPONTENT_RAU.csv'
+    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_RAU.csv'
 
 ``` r
 colnames(df)
@@ -152,13 +152,13 @@ process_file(plate_filepath, layout_filepath, output_dir = example_dir, generate
     #> 
     #> Processing plate 'CovidOISExPONTENT'
     #> Extracting the raw MFI to the output dataframe
-    #> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpD8Kh0V/CovidOISExPONTENT_MFI.csv'
+    #> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_MFI.csv'
 
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpD8Kh0V/CovidOISExPONTENT_RAU.csv'
+    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_RAU.csv'
     #> Computing nMFI values for each analyte
-    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpD8Kh0V/CovidOISExPONTENT_nMFI.csv'
+    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_nMFI.csv'
 
     #> Plate with 96 samples and 30 analytes
 
@@ -541,7 +541,7 @@ df <- process_plate(plate, output_dir = example_dir, normalisation_type = "nMFI"
 ```
 
     #> Computing nMFI values for each analyte
-    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpD8Kh0V/CovidOISExPONTENT_nMFI.csv'
+    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_nMFI.csv'
 
 ``` r
 df[1:5, 1:5]
