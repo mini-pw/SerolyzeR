@@ -35,11 +35,14 @@ Imports:
     fs,
     scales,
     rlang,
-    cowplot,
+    patchwork,
     cellranger
 Suggests:
     knitr,
     qpdf,
+    furrr,
+    future,
+    qs2,
     rmarkdown,
     testthat (>= 3.0.0)
 Config/testfhat/edition: 3

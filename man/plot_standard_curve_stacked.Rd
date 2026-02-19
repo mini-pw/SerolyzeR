@@ -18,7 +18,6 @@ plot_standard_curve_stacked(
   sort_plates = TRUE,
   log_scale = c("all"),
   separate_legend = FALSE,
-  legend_rel_height = 0.4,
   verbose = TRUE
 )
 }
@@ -58,8 +57,6 @@ By default \code{"all"}. If \code{NULL} or \code{c()} no log scale is used,
 if \code{"all"} or \code{c("dilutions", "MFI")} all elements are displayed in log scale.}
 
 \item{separate_legend}{If \code{TRUE}, the legend is returned as concatatenated ggplot object.}
-
-\item{legend_rel_height}{Relative height of the legend when \code{separate_legend} is set to \code{TRUE}.}
 
 \item{verbose}{If \code{TRUE} prints messages, \code{TRUE} by default}
 }
