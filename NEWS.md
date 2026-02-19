@@ -1,3 +1,8 @@
+Version 1.4.1
+---------------------------------------------------------------
+* improved multiplate report generation speed
+
+
 Version 1.4.0
 ---------------------------------------------------------------
 * implemented a new Bio-Plex file format stored in xlsx files
