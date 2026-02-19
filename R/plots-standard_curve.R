@@ -340,7 +340,6 @@ plot_standard_curve_thumbnail <- function(plate,
 #' setting explicitly `legend_type` to `date` or `plate_name`.
 #' @param plot_legend If `TRUE` the legend is plotted, `TRUE` by default
 #' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
-#' @param legend_rel_height Relative height of the legend when `separate_legend` is set to `TRUE`.
 #' @param max_legend_items_per_row Maximum number of legend items per row when legend is at top or bottom. Default is 3.
 #' @param legend_text_size Font size of the legend. Can be useful if plotting long plate names. Default is 8
 #' @param decreasing_dilution_order If `TRUE` the dilution values are
@@ -393,7 +392,6 @@ plot_standard_curve_stacked <- function(list_of_plates,
                                         sort_plates = TRUE,
                                         log_scale = c("all"),
                                         separate_legend = FALSE,
-                                        legend_rel_height = 0.4,
                                         verbose = TRUE) {
   AVAILABLE_LOG_SCALE_VALUES <- c("all", "dilutions", "MFI")
 
@@ -436,10 +434,6 @@ plot_standard_curve_stacked <- function(list_of_plates,
   old <- options()
   on.exit(options(old))
 
-  # preserve the old options
-  old <- options()
-  on.exit(options(old))
-
   # sort the plates if required
   if (sort_plates) {
     list_of_plates <- list_of_plates[order(sapply(list_of_plates, function(p) p$plate_datetime))]
@@ -454,23 +448,70 @@ plot_standard_curve_stacked <- function(list_of_plates,
   x_cords_trans <- ifelse(decreasing_dilution_order, "reverse", "identity")
   y_trans <- ifelse(y_log_scale, "log10", "identity")
 
+  # Ticks
   x_ticks <- list_of_plates[[1]]$get_dilution_values("STANDARD CURVE")
   x_labels <- list_of_plates[[1]]$get_dilution("STANDARD CURVE")
-
-  # Add the BLANK to the plot
   x_ticks <- c(x_ticks, min(x_ticks) / 2)
   x_labels <- c(x_labels, "B")
 
+  # Labels
   xlab <- format_xlab("Dilutions", "Dilutions", x_trans)
   ylab <- format_ylab(data_type, y_trans)
-
   if (is.null(legend_type)) {
     legend_type <- ifelse(monochromatic, "date", "plate_name")
   }
 
   options(scipen = 30)
-  p <- ggplot2::ggplot()
-  p <- p + ggplot2::labs(title = plot_name, x = xlab, y = ylab) +
+
+  # --- COLOR SETUP ---
+  number_of_colors <- length(list_of_plates)
+  legend_nrow <- ceiling(number_of_colors / max_legend_items_per_row)
+  counter <- 1
+  if (monochromatic) {
+    number_of_colors <- number_of_colors + 2
+    counter <- counter + 2
+    palette <- grDevices::colorRampPalette(c("white", "blue"))
+    colors <- palette(number_of_colors)
+  } else {
+    colors <- scales::hue_pal()(number_of_colors)
+  }
+
+  # --- DATA PREPARATION LOOP (Optimized) ---
+  custom_colors <- list()
+  past_labels <- c()
+  all_plot_data <- list()
+
+  for (i in seq_along(list_of_plates)) {
+    plate <- list_of_plates[[i]]
+    blank_mean <- mean(plate$get_data(analyte_name, "BLANK", data_type = data_type))
+    legend_label <- ifelse(legend_type == "plate_name", plate$plate_name, format(plate$plate_datetime, format = "%Y-%m-%d %H:%M"))
+    past_labels <- c(past_labels, legend_label)
+    if (legend_label %in% names(custom_colors)) {
+      repetitions <- sum(past_labels == legend_label)
+      legend_label <- paste0(legend_label, " (", repetitions, ")")
+    }
+    # Store the color mapping
+    current_color <- colors[counter]
+    custom_colors[[legend_label]] <- current_color
+    # Create temp dataframe
+    temp_df <- data.frame(
+      MFI = c(plate$get_data(analyte_name, "STANDARD CURVE", data_type = data_type), blank_mean),
+      dilutions_value = c(plate$get_dilution_values("STANDARD CURVE"), min(plate$get_dilution_values("STANDARD CURVE")) / 2),
+      label = legend_label
+    )
+    all_plot_data[[i]] <- temp_df
+    counter <- counter + 1
+  }
+
+  # Combine all data at once
+  master_df <- do.call(rbind, all_plot_data)
+
+  # --- PLOTTING (Vectorized) ---
+  p <- ggplot2::ggplot(data = master_df, aes(x = .data$dilutions_value, y = .data$MFI)) +
+    ggplot2::labs(title = plot_name, x = xlab, y = ylab) +
+    ggplot2::geom_line(aes(group = .data$label), color = "black", linewidth = 1.5) +
+    ggplot2::geom_line(aes(color = .data$label), linewidth = 1.1) +
+    ggplot2::geom_point(aes(color = .data$label), size = 3) +
     ggplot2::scale_x_continuous(
       labels = x_labels,
       breaks = x_ticks,
@@ -478,81 +519,22 @@ plot_standard_curve_stacked <- function(list_of_plates,
     ) +
     ggplot2::scale_y_continuous(trans = y_trans) +
     ggplot2::coord_trans(x = x_cords_trans) +
+    ggplot2::scale_color_manual(values = unlist(custom_colors)) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       axis.line = ggplot2::element_line(colour = "black"),
-      axis.text.x = ggplot2::element_text(
-        size = 9, angle = 45, hjust = 1, vjust = 1
-      ),
+      axis.text.x = ggplot2::element_text(size = 9, angle = 45, hjust = 1, vjust = 1),
       axis.text.y = ggplot2::element_text(size = 9),
       legend.position = legend_position,
-      legend.background = ggplot2::element_rect(
-        fill = "white", color = "black"
-      ),
+      legend.background = ggplot2::element_rect(fill = "white", color = "black"),
       legend.title = ggplot2::element_blank(),
-      legend.text = ggplot2::element_text(
-        size = legend_text_size, margin = ggplot2::margin(l = 1)
-      ),
+      legend.text = ggplot2::element_text(size = legend_text_size, margin = ggplot2::margin(l = 1)),
       legend.margin = ggplot2::margin(1, 1, 1, 1),
       legend.box.margin = ggplot2::margin(0, 0, 0, 0),
       legend.spacing.x = unit(0.2, "cm"),
       legend.key.size = unit(0.4, "cm"),
-      panel.grid.minor = ggplot2::element_line(
-        color = scales::alpha("grey", .5), size = 0.1
-      )
+      panel.grid.minor = ggplot2::element_line(color = scales::alpha("grey", .5), size = 0.1)
     )
-
-  number_of_colors <- length(list_of_plates)
-
-  # number of rows in a legend
-  legend_nrow <- ceiling(number_of_colors / max_legend_items_per_row)
-
-
-  counter <- 1
-  if (monochromatic) {
-    # I don't want white and next one to be colors since on white background it's not visible
-    number_of_colors <- number_of_colors + 2
-    counter <- counter + 2 # skip white and closest one to white
-
-    palette <- grDevices::colorRampPalette(c("white", "blue"))
-    colors <- palette(number_of_colors)
-  } else {
-    colors <- scales::hue_pal()(number_of_colors)
-  }
-  custom_colors <- list()
-  past_labels <- c()
-
-  for  (plate in list_of_plates) {
-    blank_mean <- mean(plate$get_data(analyte_name, "BLANK", data_type = data_type))
-
-    legend_label <- ifelse(legend_type == "plate_name", plate$plate_name, format(plate$plate_datetime, format = "%Y-%m-%d %H:%M"))
-    past_labels <- c(past_labels, legend_label)
-    if (legend_label %in% names(custom_colors)) {
-      repetitions <- sum(past_labels == legend_label)
-      legend_label <- paste0(legend_label, " (", repetitions, ")")
-    }
-
-    plot_data <- data.frame(
-      MFI = c(plate$get_data(analyte_name, "STANDARD CURVE", data_type = data_type), blank_mean),
-      dilutions_value = c(plate$get_dilution_values("STANDARD CURVE"), min(plate$get_dilution_values("STANDARD CURVE")) / 2),
-      label = legend_label
-    )
-
-    current_color <- colors[counter]
-    custom_colors[[legend_label]] <- current_color
-
-    # Add standard curve samples to the plot
-    p <- p +
-      ggplot2::geom_line(data = plot_data, aes(x = .data$dilutions_value, y = .data$MFI), color = "black", linewidth = 1.5) +
-      ggplot2::geom_line(data = plot_data, aes(x = .data$dilutions_value, y = .data$MFI), color = current_color, linewidth = 1.1) +
-      ggplot2::geom_point(data = plot_data, aes(x = .data$dilutions_value, y = .data$MFI, color = .data$label), size = 3)
-
-    counter <- counter + 1
-  }
-
-  p <- p + ggplot2::scale_color_manual(
-    values = custom_colors,
-  )
 
   if (legend_position == "top" || legend_position == "bottom") {
     p <- p + ggplot2::guides(color = ggplot2::guide_legend(nrow = legend_nrow))
@@ -563,7 +545,8 @@ plot_standard_curve_stacked <- function(list_of_plates,
   }
 
   if (separate_legend) {
-    p <- move_legend_to_separate_plot(p, legend_rel_height = legend_rel_height)
+    p <- p + patchwork::plot_layout(guides = "collect") &
+      ggplot2::theme(legend.position = "bottom")
   }
 
   p
