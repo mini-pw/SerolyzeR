@@ -42,6 +42,9 @@ Suggests:
     qpdf,
     furrr,
     future,
+    shiny,
+    shinyFiles,
+    DT,
     qs2,
     rmarkdown,
     testthat (>= 3.0.0)
