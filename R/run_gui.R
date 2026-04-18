@@ -1,3 +1,4 @@
+# nocov start
 #' Launch the interactive GUI Shiny app
 #'
 #' @export
@@ -27,3 +28,4 @@ run_gui <- function() {
   options(SerolyzeR.launch_dir = getwd())
   shiny::runApp(app_dir, display.mode = "normal")
 }
+# nocov end
