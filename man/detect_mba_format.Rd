@@ -6,7 +6,14 @@
 \usage{
 detect_mba_format(filepath, format = NULL)
 }
+\arguments{
+\item{filepath}{(\code{character(1)}) The path to the file.}
+
+\item{format}{(\code{character(1)}, optional) If not \code{NULL},
+the function will check if the provided format is valid and return it.
+If \code{NULL}, the function will attempt to detect the format based on the filename.
+The default is \code{NULL}.}
+}
 \description{
 Try to detect the format of a file
 }
-\keyword{internal}

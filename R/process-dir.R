@@ -105,11 +105,16 @@ is_mba_data_file <- function(filepath, check_format = TRUE) {
 #' @title
 #' Try to detect the format of a file
 #'
+#' @param filepath (`character(1)`) The path to the file.
+#' @param format (`character(1)`, optional) If not `NULL`,
+#' the function will check if the provided format is valid and return it.
+#' If `NULL`, the function will attempt to detect the format based on the filename.
+#' The default is `NULL`.
+#'
 #' @import fs
 #' @importFrom stringr str_split
 #'
-#' @keywords internal
-#'
+#' @export
 detect_mba_format <- function(filepath, format = NULL) {
   if (!is.null(format)) {
     stopifnot(is_mba_format(format, allow_nullable = FALSE))
