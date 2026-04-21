@@ -1,4 +1,3 @@
-
 `%||%` <- function(a, b) if (!is.null(a)) a else b
 
 #' @title
@@ -270,7 +269,7 @@ process_dir <- function(
     stop("Input directory does not exist.")
   }
   if (!is.null(layout_filepath)) {
-    if(!fs::file_exists(layout_filepath)) {
+    if (!fs::file_exists(layout_filepath)) {
       stop("Layout file is specified, but does not exist.")
     }
   }
@@ -306,7 +305,8 @@ process_dir <- function(
   formats <- character(length(input_files))
   for (i in seq_along(input_files)) {
     formats[i] <- detect_mba_format(
-      input_files[i], format = format
+      input_files[i],
+      format = format
     ) %||% NA_character_
   }
 

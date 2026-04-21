@@ -5,7 +5,8 @@
 run_gui <- function() {
   required_pkgs <- c("shiny", "shinyFiles", "fs", "DT")
   missing_pkgs <- required_pkgs[!vapply(
-    required_pkgs, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1)
+    required_pkgs, requireNamespace,
+    quietly = TRUE, FUN.VALUE = logical(1)
   )]
 
   if (length(missing_pkgs) > 0) {
