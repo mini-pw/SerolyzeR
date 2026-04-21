@@ -71,7 +71,7 @@ Options: \code{'xPONENT'}, \code{'INTELLIFLEX'}, \code{'BIOPLEX'}. By default eq
 
 \item{return_plates}{(\code{logical(1)}, default = \code{FALSE})
 \itemize{
-\item If \code{TRUE}, returns a list of processed plates sorted by experiment date.
+\item f \code{TRUE}, returns a list of processed plates sorted by experiment date.
 }}
 
 \item{dry_run}{(\code{logical(1)}, default = \code{FALSE})
@@ -87,7 +87,9 @@ Options: \code{'xPONENT'}, \code{'INTELLIFLEX'}, \code{'BIOPLEX'}. By default eq
 \item{...}{Additional arguments passed to \code{\link[=process_file]{process_file()}}.}
 }
 \value{
-If \code{return_plates = TRUE}, returns a sorted list of \link{Plate} objects. Otherwise, returns \code{NULL}.
+If \code{dry_run = TRUE}, returns a list with three vectors (of Path|NULL),
+which represent the input triplets for \code{\link[=process_file]{process_file()}}, otherwise if \code{return_plates = TRUE},
+returns a sorted list of \link{Plate} objects. If both flags are FALSE returns NULL.
 }
 \description{
 This function processes all Luminex plate files within a specified directory.

@@ -337,6 +337,8 @@ postprocess_bioplex <- function(bioplex_output, verbose = TRUE) {
 #' @param dilutions (`numeric()`, optional) A vector of dilutions to override extracted values.
 #' @param verbose (`logical(1)`, default = `TRUE`)
 #'   - Whether to print additional information and warnings.
+#' @param validate (`logical(1)`, default = `TRUE`)
+#'  - Whether to validate the resulting \link{Plate} object after building.
 #' @param ... Additional arguments. Ignored in this method. Here included for better integration with the pipeline
 #'
 #' @return A \link{Plate} object containing the parsed Luminex data.
@@ -364,6 +366,7 @@ read_luminex_data <- function(plate_filepath,
                               sample_types = NULL,
                               dilutions = NULL,
                               verbose = TRUE,
+                              validate = TRUE,
                               ...) {
   if (!(format %in% SerolyzeR.env$mba_formats)) {
     stop("Invalid format: ", format, ". Select from: ", paste(SerolyzeR.env$mba_formats, collapse = ", "))
@@ -445,7 +448,7 @@ read_luminex_data <- function(plate_filepath,
 
   plate_builder$set_dilutions(use_layout_dilutions, dilutions)
 
-  plate <- plate_builder$build(validate = TRUE, reorder = TRUE)
+  plate <- plate_builder$build(validate = validate, reorder = TRUE)
 
   verbose_cat(color_codes$green_start, "\nNew plate object has been created with name: ",
     plate$plate_name, "!\n", color_codes$green_end, "\n",

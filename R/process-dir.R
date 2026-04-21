@@ -1,3 +1,6 @@
+
+`%||%` <- function(a, b) if (!is.null(a)) a else b
+
 #' @title
 #' Find a layout file given plate filepath
 #'
@@ -102,11 +105,16 @@ is_mba_data_file <- function(filepath, check_format = TRUE) {
 #' @title
 #' Try to detect the format of a file
 #'
+#' @param filepath (`character(1)`) The path to the file.
+#' @param format (`character(1)`, optional) If not `NULL`,
+#' the function will check if the provided format is valid and return it.
+#' If `NULL`, the function will attempt to detect the format based on the filename.
+#' The default is `NULL`.
+#'
 #' @import fs
 #' @importFrom stringr str_split
 #'
-#' @keywords internal
-#'
+#' @export
 detect_mba_format <- function(filepath, format = NULL) {
   if (!is.null(format)) {
     stopifnot(is_mba_format(format, allow_nullable = FALSE))
@@ -220,14 +228,16 @@ get_output_dir <- function(
 #'   - Determines how to handle missing or extra columns when merging outputs.
 #'   - Options: `'union'` (include all columns), `'intersection'` (include only common columns).
 #' @param return_plates (`logical(1)`, default = `FALSE`)
-#'   - If `TRUE`, returns a list of processed plates sorted by experiment date.
+#'   - f `TRUE`, returns a list of processed plates sorted by experiment date.
 #' @param dry_run (`logical(1)`, default = `FALSE`)
 #'   - If `TRUE`, prints file details without processing them.
 #' @param verbose (`logical(1)`, default = `TRUE`)
 #'   - If `TRUE`, prints detailed processing information.
 #' @param ... Additional arguments passed to [process_file()].
 #'
-#' @return If `return_plates = TRUE`, returns a sorted list of \link{Plate} objects. Otherwise, returns `NULL`.
+#' @return If `dry_run = TRUE`, returns a list with three vectors (of Path|NULL),
+#' which represent the input triplets for [process_file()], otherwise if `return_plates = TRUE`,
+#' returns a sorted list of \link{Plate} objects. If both flags are FALSE returns NULL.
 #'
 #' @examples
 #' # Process all plate files in a directory
@@ -259,11 +269,10 @@ process_dir <- function(
   if (!fs::dir_exists(input_dir)) {
     stop("Input directory does not exist.")
   }
-  if (!is.null(output_dir) && !fs::dir_exists(output_dir)) {
-    stop("Output directory is specified, but does not exist.")
-  }
-  if (!is.null(layout_filepath) && !fs::file_exists(layout_filepath)) {
-    stop("Layout file is specified, but does not exist.")
+  if (!is.null(layout_filepath)) {
+    if(!fs::file_exists(layout_filepath)) {
+      stop("Layout file is specified, but does not exist.")
+    }
   }
   stopifnot(is_mba_format(format, allow_nullable = TRUE))
 
@@ -294,31 +303,31 @@ process_dir <- function(
   }
 
   # --- Detect format and layout file for each input file ---
-  formats <- rep(NA, length(input_files))
+  formats <- character(length(input_files))
   for (i in seq_along(input_files)) {
-    formats[i] <- detect_mba_format(input_files[i], format = format)
+    formats[i] <- detect_mba_format(
+      input_files[i], format = format
+    ) %||% NA_character_
   }
-  stopifnot(all(!is.na(formats))) # Ensure all formats were detected
 
-
-  layouts <- rep(NA, length(input_files))
+  layouts <- character(length(input_files))
   for (i in seq_along(input_files)) {
     layouts[i] <- find_layout_file(
       input_files[i],
       layout_filepath = layout_filepath
-    )
+    ) %||% NA_character_
   }
-  stopifnot(all(!is.na(layouts))) # Ensure all layouts were found
-
 
   # --- Print input/output mappings in dry run mode ---
   if (dry_run) {
     cat("The following files will be processed:\n")
+    output_dirs <- character(length(input_files))
     for (i in seq_along(input_files)) {
       current_output_dir <- get_output_dir(
         input_file = input_files[i], input_dir = input_dir,
         output_dir = output_dir, flatten_output_dir = flatten_output_dir
       )
+      append(output_dirs, current_output_dir)
       cat(
         "\n",
         "File: ", input_files[i], "\n",
@@ -327,7 +336,19 @@ process_dir <- function(
         "Output:", current_output_dir, "\n"
       )
     }
-    return(NULL)
+    return(list(
+      files = input_files,
+      layouts = layouts,
+      formats = formats,
+      output_dirs = output_dirs
+    ))
+  }
+
+  # Check before processing
+  stopifnot(all(!is.na(layouts))) # Ensure all layouts were found
+  stopifnot(all(!is.na(formats))) # Ensure all formats were detected
+  if (!is.null(output_dir) && !fs::dir_exists(output_dir)) {
+    stop("Output directory is specified, but does not exist.")
   }
 
   # --- Process each input file individually ---

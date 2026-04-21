@@ -17,6 +17,7 @@ read_luminex_data(
   sample_types = NULL,
   dilutions = NULL,
   verbose = TRUE,
+  validate = TRUE,
   ...
 )
 }
@@ -68,6 +69,11 @@ read_luminex_data(
 \item{verbose}{(\code{logical(1)}, default = \code{TRUE})
 \itemize{
 \item Whether to print additional information and warnings.
+}}
+
+\item{validate}{(\code{logical(1)}, default = \code{TRUE})
+\itemize{
+\item Whether to validate the resulting \link{Plate} object after building.
 }}
 
 \item{...}{Additional arguments. Ignored in this method. Here included for better integration with the pipeline}
