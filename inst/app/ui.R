@@ -185,7 +185,7 @@ process_dir_tab <- tabPanel(
         inline   = TRUE
       ),
       checkboxInput("pd_recurse", "Search subdirectories", value = FALSE),
-      checkboxInput("pd_flatten", "Flatten output directory strucutre", value = FALSE),
+      checkboxInput("pd_flatten", "Flatten output directory structure", value = FALSE),
       checkboxInput("pd_reports", "Per-plate QC reports", value = FALSE),
       checkboxInput("pd_multiplate", "Multiplate QC report", value = FALSE),
       checkboxInput("pd_merge", "Merge outputs into single CSV", value = TRUE),

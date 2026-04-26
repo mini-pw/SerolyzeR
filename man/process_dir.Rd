@@ -71,7 +71,7 @@ Options: \code{'xPONENT'}, \code{'INTELLIFLEX'}, \code{'BIOPLEX'}. By default eq
 
 \item{return_plates}{(\code{logical(1)}, default = \code{FALSE})
 \itemize{
-\item f \code{TRUE}, returns a list of processed plates sorted by experiment date.
+\item If \code{TRUE}, returns a list of processed plates sorted by experiment date.
 }}
 
 \item{dry_run}{(\code{logical(1)}, default = \code{FALSE})
