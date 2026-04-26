@@ -38,14 +38,14 @@ By default it equals to \code{TRUE}, which corresponds to plotting the chart in 
 \item{sort_plates}{(\code{logical(1)}) if \code{TRUE} sorts plates by the date of examination.
 If \code{FALSE} plots using the plate order as in input. \code{TRUE} by default.}
 
-\item{plate_labels}{(\code{character(1)}) controls x-axis labels. Can improve readibility of the plot. Takes the following values:
+\item{plate_labels}{(\code{character(1)}) controls x-axis labels. Can improve readability of the plot. Takes the following values:
 \itemize{
 \item \code{"numbers"}: shows the number of the plate,
 \item \code{"names"}: shows the plate names
 \item \code{"dates"}: shows the date of examination
 }}
 
-\item{label_angle}{(\code{numeric(1)}) angle in degrees to rotate x-axis labels. Can improve readibility of the plot. Default: 0}
+\item{label_angle}{(\code{numeric(1)}) angle in degrees to rotate x-axis labels. Can improve readability of the plot. Default: 0}
 
 \item{legend_position}{the position of the legend, a possible values are \code{c(right, bottom, left, top, none)}. Is not used if \code{plot_legend} equals to \code{FALSE}.}
 
@@ -67,7 +67,7 @@ the most significant optional ones are \code{dilution} and \code{sd_lines}.
 
 The additional parameters can be used for improving the plots interpretability, by customizing the layout, y-scale, etc.
 
-For better readibilty, the plot is zoomed out in the \code{y}-axis, by a factor of \code{1.5}.
+For better readability, the plot is zoomed out in the \code{y}-axis, by a factor of \code{1.5}.
 }
 \examples{
 # creating temporary directory for the example
