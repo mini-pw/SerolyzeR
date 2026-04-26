@@ -107,16 +107,16 @@ single_plate_tab <- tabPanel(
           uiOutput("sp_output_dir_check")
         ),
         tags$hr(),
-        h4("Run status: "),
+        h4("Run Status"),
         tags$div(
           style = "padding-left: 3%;",
           uiOutput("sp_status")
         ),
         tags$hr(),
-        h4("Run logs: "),
+        h4("Run Logs"),
         tags$div(
           style = "padding-left: 3%;",
-          textOutput("sp_log")
+          verbatimTextOutput("sp_log")
         )
       ),
     )
@@ -243,7 +243,7 @@ process_dir_tab <- tabPanel(
         h4("Run Status"),
         uiOutput("pd_status"),
         hr(),
-        h4("Run Log"),
+        h4("Run Logs"),
         verbatimTextOutput("pd_log")
       )
     )
