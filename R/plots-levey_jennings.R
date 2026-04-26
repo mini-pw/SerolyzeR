@@ -13,7 +13,7 @@
 #'
 #' The additional parameters can be used for improving the plots interpretability, by customizing the layout, y-scale, etc.
 #'
-#' For better readibilty, the plot is zoomed out in the `y`-axis, by a factor of `1.5`.
+#' For better readability, the plot is zoomed out in the `y`-axis, by a factor of `1.5`.
 #'
 #' @param list_of_plates A list of plate objects for which to plot the
 #' Levey-Jennings chart
@@ -29,11 +29,11 @@
 #' By default it equals to `TRUE`, which corresponds to plotting the chart in `log10` scale.
 #' @param sort_plates (`logical(1)`) if `TRUE` sorts plates by the date of examination.
 #' If `FALSE` plots using the plate order as in input. `TRUE` by default.
-#' @param plate_labels (`character(1)`) controls x-axis labels. Can improve readibility of the plot. Takes the following values:
+#' @param plate_labels (`character(1)`) controls x-axis labels. Can improve readability of the plot. Takes the following values:
 #' * `"numbers"`: shows the number of the plate,
 #' * `"names"`: shows the plate names
 #' * `"dates"`: shows the date of examination
-#' @param label_angle (`numeric(1)`) angle in degrees to rotate x-axis labels. Can improve readibility of the plot. Default: 0
+#' @param label_angle (`numeric(1)`) angle in degrees to rotate x-axis labels. Can improve readability of the plot. Default: 0
 #' @param data_type (`character(1)`) the type of data used plot. The default is "Median"
 #' @param legend_position the position of the legend, a possible values are \code{c(`r toString(SerolyzeR.env$legend_positions)`)}. Is not used if `plot_legend` equals to `FALSE`.
 #'

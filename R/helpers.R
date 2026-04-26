@@ -250,7 +250,7 @@ validate_filepath_and_output_dir <- function(filename, output_dir, plate_name, s
   stopifnot(is.character(plate_name), is.character(suffix), is.character(extension))
 
   if (grepl("^\\.", extension)) {
-    stop("The extension should not contain a dot in the beggining.")
+    stop("The extension should not contain a dot in the beginning.")
   }
 
   if (is.null(filename)) {
