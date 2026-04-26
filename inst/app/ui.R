@@ -108,16 +108,10 @@ single_plate_tab <- tabPanel(
         ),
         tags$hr(),
         h4("Run Status"),
-        tags$div(
-          style = "padding-left: 3%;",
-          uiOutput("sp_status")
-        ),
-        tags$hr(),
-        h4("Run Logs"),
-        tags$div(
-          style = "padding-left: 3%;",
-          verbatimTextOutput("sp_log")
-        )
+        uiOutput("sp_status"),
+        hr(),
+        h4("Run Log"),
+        verbatimTextOutput("sp_log")
       ),
     )
   )
