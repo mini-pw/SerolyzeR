@@ -11,17 +11,6 @@ path_display <- function(output_id) {
   )
 }
 
-output_dir_ui <- function(browse_id, base_display_id, subdir_id) {
-  tagList(
-    h4("Output directory"),
-    shinyDirButton(browse_id, "Browse", "Select a directory"),
-    path_display(base_display_id),
-    textInput(subdir_id, NULL,
-      placeholder = "New subfolder name (optional, created if needed)"
-    )
-  )
-}
-
 # ---- UI ----
 single_plate_tab <- tabPanel(
   "Single Plate",
@@ -146,7 +135,7 @@ process_dir_tab <- tabPanel(
         shinyDirButton(
           "pd_input_btn", class = "btn-smaller",
           label = "Browse\u2026",
-          title = "Select output directory"
+          title = "Select input directory"
         ),
       ),
       path_display("pd_input_path"),
