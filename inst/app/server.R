@@ -132,7 +132,7 @@ server <- function(input, output, session) {
   shinyFileChooseWrapped("sp_plate_btn", sp_plate_path_rv, function(filepath) {
     sp_plate_status("processing")
     tryCatch({
-      format <- detect_mba_format(filepath)
+      format <- SerolyzeR::detect_mba_format(filepath)
       sp_plate_format_rv(format)
       sp_plate_status("success")
       sp_log_val(paste0("Plate format detected: ", format))
@@ -149,7 +149,7 @@ server <- function(input, output, session) {
     sp_layout_n_wells_rv(NULL)
 
     captured <- capture_all({
-      layout_data <- read_layout_data(filepath)
+      layout_data <- SerolyzeR::read_layout_data(filepath)
       sp_layout_shape_rv(paste0(nrow(layout_data), " x ", ncol(layout_data)))
       sp_layout_n_wells_rv(sum(!is.na(layout_data)))
     })
@@ -268,7 +268,7 @@ server <- function(input, output, session) {
     req(sp_plate_rv())
     showModal(modalDialog(
       title = "Plate layout",
-      renderPlot(SerolyzeR:::plot_layout(sp_plate_rv())),
+      renderPlot(SerolyzeR::plot_layout(sp_plate_rv())),
       easyClose = TRUE,
       size = "l"
     ))
@@ -347,7 +347,7 @@ server <- function(input, output, session) {
     pd_layout_n_wells_rv(NULL)
 
     captured <- capture_all({
-      layout_data <- read_layout_data(filepath)
+      layout_data <- SerolyzeR::read_layout_data(filepath)
       pd_layout_shape_rv(paste0(nrow(layout_data), " x ", ncol(layout_data)))
       pd_layout_n_wells_rv(sum(!is.na(layout_data)))
     })
@@ -443,8 +443,8 @@ server <- function(input, output, session) {
         formatStyle(
           "Format",
           backgroundColor = styleEqual(
-            c(SerolyzeR.env$mba_formats, NA_character_),
-            c(rep("#c8e6c9", length(SerolyzeR.env$mba_formats)), "#ffcdd2")
+            c(SerolyzeR:::SerolyzeR.env$mba_formats, NA_character_),
+            c(rep("#c8e6c9", length(SerolyzeR:::SerolyzeR.env$mba_formats)), "#ffcdd2")
           )
         )
     })

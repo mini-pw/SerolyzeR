@@ -227,7 +227,7 @@ get_output_dir <- function(
 #'   - Determines how to handle missing or extra columns when merging outputs.
 #'   - Options: `'union'` (include all columns), `'intersection'` (include only common columns).
 #' @param return_plates (`logical(1)`, default = `FALSE`)
-#'   - f `TRUE`, returns a list of processed plates sorted by experiment date.
+#'   - If `TRUE`, returns a list of processed plates sorted by experiment date.
 #' @param dry_run (`logical(1)`, default = `FALSE`)
 #'   - If `TRUE`, prints file details without processing them.
 #' @param verbose (`logical(1)`, default = `TRUE`)
@@ -327,7 +327,7 @@ process_dir <- function(
         input_file = input_files[i], input_dir = input_dir,
         output_dir = output_dir, flatten_output_dir = flatten_output_dir
       )
-      append(output_dirs, current_output_dir)
+      output_dirs[i] <- current_output_dir
       cat(
         "\n",
         "File: ", input_files[i], "\n",

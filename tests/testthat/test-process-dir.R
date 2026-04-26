@@ -49,17 +49,17 @@ test_that("Test obtaining an output directory", {
   input_dir <- fs::path_dir(plate_filepath)
   input_dir_parent <- fs::path_dir(input_dir)
   specified_output_dir <- fs::path(tempdir(check = TRUE))
-  specified_output_dir_plus <- fs::path_join(c(specified_output_dir, fs::path("other")))
+  specified_output_dir_plus <- fs::path_join(c(specified_output_dir, "other"))
 
-  expect_equal(get_output_dir(plate_filepath, input_dir), input_dir)
+  expect_equal(get_output_dir(plate_filepath, input_dir), fs::path(input_dir))
   expect_equal(get_output_dir(
     plate_filepath, input_dir_parent,
     flatten_output_dir = FALSE
-  ), input_dir)
+  ), fs::path(input_dir))
   expect_equal(get_output_dir(
     plate_filepath, input_dir_parent,
     flatten_output_dir = TRUE
-  ), input_dir_parent)
+  ), fs::path(input_dir_parent))
   expect_equal(get_output_dir(
     plate_filepath, input_dir_parent,
     output_dir = specified_output_dir

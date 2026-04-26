@@ -11,17 +11,6 @@ path_display <- function(output_id) {
   )
 }
 
-output_dir_ui <- function(browse_id, base_display_id, subdir_id) {
-  tagList(
-    h4("Output directory"),
-    shinyDirButton(browse_id, "Browse", "Select a directory"),
-    path_display(base_display_id),
-    textInput(subdir_id, NULL,
-      placeholder = "New subfolder name (optional, created if needed)"
-    )
-  )
-}
-
 # ---- UI ----
 single_plate_tab <- tabPanel(
   "Single Plate",
@@ -75,7 +64,7 @@ single_plate_tab <- tabPanel(
     ),
     mainPanel(
       column(
-        width = 8,
+        width = 12,
         # --- PLATE FILE STATUS
         h4("Status"),
         tags$div(
@@ -118,17 +107,11 @@ single_plate_tab <- tabPanel(
           uiOutput("sp_output_dir_check")
         ),
         tags$hr(),
-        h4("Run status: "),
-        tags$div(
-          style = "padding-left: 3%;",
-          uiOutput("sp_status")
-        ),
-        tags$hr(),
-        h4("Run logs: "),
-        tags$div(
-          style = "padding-left: 3%;",
-          textOutput("sp_log")
-        )
+        h4("Run Status"),
+        uiOutput("sp_status"),
+        hr(),
+        h4("Run Log"),
+        verbatimTextOutput("sp_log")
       ),
     )
   )
@@ -146,7 +129,7 @@ process_dir_tab <- tabPanel(
         shinyDirButton(
           "pd_input_btn", class = "btn-smaller",
           label = "Browse\u2026",
-          title = "Select output directory"
+          title = "Select input directory"
         ),
       ),
       path_display("pd_input_path"),
@@ -185,7 +168,7 @@ process_dir_tab <- tabPanel(
         inline   = TRUE
       ),
       checkboxInput("pd_recurse", "Search subdirectories", value = FALSE),
-      checkboxInput("pd_flatten", "Flatten output directory strucutre", value = FALSE),
+      checkboxInput("pd_flatten", "Flatten output directory structure", value = FALSE),
       checkboxInput("pd_reports", "Per-plate QC reports", value = FALSE),
       checkboxInput("pd_multiplate", "Multiplate QC report", value = FALSE),
       checkboxInput("pd_merge", "Merge outputs into single CSV", value = TRUE),
@@ -198,7 +181,7 @@ process_dir_tab <- tabPanel(
     ),
     mainPanel(
       column(
-        width = 8,
+        width = 12,
         h4("Status"),
         # --- INPUT STATUS
         tags$div(
@@ -254,7 +237,7 @@ process_dir_tab <- tabPanel(
         h4("Run Status"),
         uiOutput("pd_status"),
         hr(),
-        h4("Run Log"),
+        h4("Run Logs"),
         verbatimTextOutput("pd_log")
       )
     )
