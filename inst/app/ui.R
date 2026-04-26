@@ -64,7 +64,7 @@ single_plate_tab <- tabPanel(
     ),
     mainPanel(
       column(
-        width = 8,
+        width = 12,
         # --- PLATE FILE STATUS
         h4("Status"),
         tags$div(
@@ -187,7 +187,7 @@ process_dir_tab <- tabPanel(
     ),
     mainPanel(
       column(
-        width = 8,
+        width = 12,
         h4("Status"),
         # --- INPUT STATUS
         tags$div(
