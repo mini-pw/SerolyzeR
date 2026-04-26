@@ -268,7 +268,7 @@ server <- function(input, output, session) {
     req(sp_plate_rv())
     showModal(modalDialog(
       title = "Plate layout",
-      renderPlot(SerolyzeR:::plot_layout(sp_plate_rv())),
+      renderPlot(SerolyzeR::plot_layout(sp_plate_rv())),
       easyClose = TRUE,
       size = "l"
     ))
