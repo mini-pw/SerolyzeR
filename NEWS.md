@@ -1,3 +1,8 @@
+Version 1.5.0
+---------------------------------------------------------------
+* implemented a Shiny application interface (`run_gui`)
+
+
 Version 1.4.1
 ---------------------------------------------------------------
 * improved multiplate report generation speed
