@@ -13,29 +13,29 @@ specific analyte measurements, filtering by sample type, and performing
 blank adjustments.
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{plate_name}}{(\code{character(1)})\cr
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{plate_name}}{(\code{character(1)})\cr
 Name of the plate. Set to the name of the file from which the plate was read.}
 
-\item{\code{analyte_names}}{(\code{character()})\cr
+    \item{\code{analyte_names}}{(\code{character()})\cr
 Names of the analytes that were examined on the plate.}
 
-\item{\code{sample_names}}{(\code{character()})\cr
+    \item{\code{sample_names}}{(\code{character()})\cr
 Names of the samples that were examined on the plate. The order of the
 samples in this vector is identical with order in the CSV source file.}
 
-\item{\code{batch_name}}{(\code{character(1)})\cr
+    \item{\code{batch_name}}{(\code{character(1)})\cr
 Name of the batch to which the plate belongs.}
 
-\item{\code{plate_datetime}}{(\code{POSIXct()})\cr
+    \item{\code{plate_datetime}}{(\code{POSIXct()})\cr
 A date and time when the plate was created by the machine}
 
-\item{\code{sample_locations}}{(\code{character()})\cr
+    \item{\code{sample_locations}}{(\code{character()})\cr
 Locations of the samples on the plate. This vector is in the same order
 as the \code{sample_names} vector.}
 
-\item{\code{sample_types}}{(\code{character()})\cr
+    \item{\code{sample_types}}{(\code{character()})\cr
 Types of the samples that were examined on the plate.
 The possible values are \cr \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)}.
 This vector is in the same order as the \code{sample_names} vector.
@@ -43,59 +43,60 @@ If the \link{Plate} object is read using \code{\link[=read_luminex_data]{read_lu
 are usually detected based on the sample names according to the rules
 described in \code{\link[=translate_sample_names_to_sample_types]{translate_sample_names_to_sample_types()}}.}
 
-\item{\code{dilutions}}{(\code{character()})\cr
+    \item{\code{dilutions}}{(\code{character()})\cr
 A list containing names of the samples as keys and string representing dilutions as values.
 The dilutions are represented as strings. This vector is in the same order as the \code{sample_names} vector.}
 
-\item{\code{dilution_values}}{(\code{numeric()})\cr
+    \item{\code{dilution_values}}{(\code{numeric()})\cr
 A list containing names of the samples as keys and numeric values representing dilutions as values.
 It is in the same order as the \code{sample_names} vector.}
 
-\item{\code{default_data_type}}{(\code{character(1)})\cr
+    \item{\code{default_data_type}}{(\code{character(1)})\cr
 The default data type that will be returned by the \code{Plate$get_data()} method.
 By default is set to \code{Median}.}
 
-\item{\code{data}}{(\code{list()})\cr
+    \item{\code{data}}{(\code{list()})\cr
 A list containing dataframes with the data for each sample and analyte.
 The possible data types - the keys of the list are:
 \cr \code{c(Median, Net MFI, Count, Avg Net MFI, Mean, Peak)}.
 
 In each dataframe, the rows represent samples and the columns represent analytes.}
 
-\item{\code{batch_info}}{(\code{list()})\cr
+    \item{\code{batch_info}}{(\code{list()})\cr
 A list containing additional, technical information about the batch.}
 
-\item{\code{layout}}{(\code{character()})\cr
+    \item{\code{layout}}{(\code{character()})\cr
 A list containing information about the layout of the plate.
 The layout is read from the separate file and usually provides additional
 information about the dilutions, sample names, and the sample layout
 on the actual plate.}
 
-\item{\code{blank_adjusted}}{(\code{logical})\cr
+    \item{\code{blank_adjusted}}{(\code{logical})\cr
 A flag indicating whether the blank values have been adjusted.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Plate-new}{\code{Plate$new()}}
-\item \href{#method-Plate-print}{\code{Plate$print()}}
-\item \href{#method-Plate-summary}{\code{Plate$summary()}}
-\item \href{#method-Plate-get_data}{\code{Plate$get_data()}}
-\item \href{#method-Plate-get_dilution}{\code{Plate$get_dilution()}}
-\item \href{#method-Plate-get_dilution_values}{\code{Plate$get_dilution_values()}}
-\item \href{#method-Plate-blank_adjustment}{\code{Plate$blank_adjustment()}}
-\item \href{#method-Plate-clone}{\code{Plate$clone()}}
-}
+  \itemize{
+    \item \href{#method-Plate-initialize}{\code{Plate$new()}}
+    \item \href{#method-Plate-print}{\code{Plate$print()}}
+    \item \href{#method-Plate-summary}{\code{Plate$summary()}}
+    \item \href{#method-Plate-get_data}{\code{Plate$get_data()}}
+    \item \href{#method-Plate-get_dilution}{\code{Plate$get_dilution()}}
+    \item \href{#method-Plate-get_dilution_values}{\code{Plate$get_dilution_values()}}
+    \item \href{#method-Plate-blank_adjustment}{\code{Plate$blank_adjustment()}}
+    \item \href{#method-Plate-clone}{\code{Plate$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Plate-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Plate-new}{}}}
-\subsection{Method \code{new()}}{
-Method to initialize the Plate object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Plate$new(
+\if{html}{\out{<a id="method-Plate-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Plate-initialize}{}}}
+\subsection{\code{Plate$new()}}{
+  Method to initialize the Plate object
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Plate$new(
   plate_name,
   sample_names,
   analyte_names,
@@ -109,38 +110,32 @@ Method to initialize the Plate object
   data = NULL,
   batch_info = NULL,
   layout = NULL
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{plate_name}}{(\code{character(1)})\cr
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{plate_name}}{(\code{character(1)})\cr
 Name of the plate.
 By default is set to an empty string,
 during the reading process it is set to the name
 of the file from which the plate was read.}
-
-\item{\code{sample_names}}{(\code{character()})\cr
+      \item{\code{sample_names}}{(\code{character()})\cr
 Names of the samples that were examined on the plate. Sample names are by default ordered by location in the plate, using the row-major order.
 The first sample is the one in upper-left corner, then follows the ones in the first row, then the second row, and so on.}
-
-\item{\code{analyte_names}}{(\code{character()})\cr
+      \item{\code{analyte_names}}{(\code{character()})\cr
 Names of the analytes that were examined on the plate.}
-
-\item{\code{batch_name}}{(\code{character(1)})\cr
+      \item{\code{batch_name}}{(\code{character(1)})\cr
 Name of the batch to which the plate belongs.
 By default is set to an empty string, during the reading process it is set to
 the \code{batch} field of the plate}
-
-\item{\code{plate_datetime}}{(\code{POSIXct()})\cr
+      \item{\code{plate_datetime}}{(\code{POSIXct()})\cr
 Datetime object representing the date and time when the plate was created by the machine.}
-
-\item{\code{sample_locations}}{(\code{character()})\cr
+      \item{\code{sample_locations}}{(\code{character()})\cr
 Locations of the samples on the plate.
 Sample locations are ordered in the same way as samples in the input CSV file.}
-
-\item{\code{sample_types}}{(\code{character()})\cr
+      \item{\code{sample_types}}{(\code{character()})\cr
 Types of the samples that were examined on the plate.
 The possible values are \cr \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)}.
 Sample types are ordered in the same way as the \code{sample_names} vector.
@@ -148,165 +143,167 @@ Sample types are ordered in the same way as the \code{sample_names} vector.
 If the Plate object is initialised using the default methods ( \code{\link[=read_luminex_data]{read_luminex_data}}
 or any of the processing methods: \code{\link[=process_dir]{process_dir}}, \code{\link[=process_file]{process_file}} and \code{\link[=process_plate]{process_plate}})
 the sample types are detected based on the sample names according to the rules described in \code{\link[=translate_sample_names_to_sample_types]{translate_sample_names_to_sample_types}}.}
-
-\item{\code{dilutions}}{(\code{character()})\cr
+      \item{\code{dilutions}}{(\code{character()})\cr
 A list containing names of the samples as keys and string representing dilutions as values.
 The dilutions are represented as strings. The dilutions are ordered in the same way as the \code{sample_names} vector}
-
-\item{\code{dilution_values}}{(\code{numeric()})\cr
+      \item{\code{dilution_values}}{(\code{numeric()})\cr
 A list containing names of the samples as keys and numeric values representing dilutions as values.
 The dilution values are ordered in the same way as the \code{sample_names} vector}
-
-\item{\code{default_data_type}}{(\code{character(1)})\cr
+      \item{\code{default_data_type}}{(\code{character(1)})\cr
 The default data type that will be returned by the \code{get_data} method.
 By default is set to \code{Median}.}
-
-\item{\code{data}}{(\code{list()})\cr
+      \item{\code{data}}{(\code{list()})\cr
 A list containing dataframes with the data for each sample and analyte.
 The possible data types - the keys of the list are \cr \code{c(Median, Net MFI, Count, Avg Net MFI, Mean, Peak)}.
 In each dataframe, the rows represent samples and the columns represent analytes.
 Rows of each dataframe are ordered in the same way as the \code{sample_names} vector.}
-
-\item{\code{batch_info}}{(\code{list()})\cr
+      \item{\code{batch_info}}{(\code{list()})\cr
 A list containing additional, technical information about the batch.}
-
-\item{\code{layout}}{(\code{character()})\cr
+      \item{\code{layout}}{(\code{character()})\cr
 A list containing information about the layout of the plate.
 The layout is read from the separate file and usually provides additional
 information about the dilutions, sample names, and the sample layout
 on the actual plate.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Plate-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Plate-print}{}}}
-\subsection{Method \code{print()}}{
-Function prints the basic information about the plate
+\subsection{\code{Plate$print()}}{
+  Function prints the basic information about the plate
 such as the number of samples and analytes
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Plate$print(...)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Plate$print(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Additional parameters to be passed to the print function
+Print the summary of the plate}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Additional parameters to be passed to the print function
-Print the summary of the plate}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Plate-summary"></a>}}
 \if{latex}{\out{\hypertarget{method-Plate-summary}{}}}
-\subsection{Method \code{summary()}}{
-Function outputs basic information about the plate, such as
+\subsection{\code{Plate$summary()}}{
+  Function outputs basic information about the plate, such as
 examination date, batch name, and sample types.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Plate$summary(..., include_names = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Additional parameters to be passed to the print function
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Plate$summary(..., include_names = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Additional parameters to be passed to the print function
 Get data for a specific analyte and sample type}
-
-\item{\code{include_names}}{If \code{include_names} parameter is \code{TRUE}, a
+      \item{\code{include_names}}{If \code{include_names} parameter is \code{TRUE}, a
 part from count of control samples, provides also their names.
 By default \code{FALSE}}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Plate-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Plate-get_data}{}}}
-\subsection{Method \code{get_data()}}{
-Function returns data for a specific analyte and sample.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Plate$get_data(
+\subsection{\code{Plate$get_data()}}{
+  Function returns data for a specific analyte and sample.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Plate$get_data(
   analyte,
   sample_type_filter = "ALL",
   data_type = self$default_data_type
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{analyte}}{An analyte name or its id of which data we want to extract.
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{analyte}}{An analyte name or its id of which data we want to extract.
 If set to 'ALL' returns data for all analytes.}
-
-\item{\code{sample_type_filter}}{is a type of the sample we want to extract data from.
+      \item{\code{sample_type_filter}}{is a type of the sample we want to extract data from.
 The possible values are \cr \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)}. Default value is \code{ALL}.
 \code{sample_type_filter} can be also of length greater than 1. If \code{sample_type} is longer than 1 and \code{ALL} is in the vector,
 the method returns all the sample types.}
-
-\item{\code{data_type}}{The parameter specifying which data type should be returned.
+      \item{\code{data_type}}{The parameter specifying which data type should be returned.
 This parameter has to take one of values: \cr \code{c(Median, Net MFI, Count, Avg Net MFI, Mean, Peak)}.
 What's more, the \code{data_type} has to be present in the plate's data
 Default value is plate's \code{default_data_type}, which is usually \code{Median}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Dataframe containing information about a given sample type and analyte
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Dataframe containing information about a given sample type and analyte
 Get the string representation of dilutions
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Plate-get_dilution"></a>}}
 \if{latex}{\out{\hypertarget{method-Plate-get_dilution}{}}}
-\subsection{Method \code{get_dilution()}}{
-Function returns the dilution represented as strings for a specific sample type.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Plate$get_dilution(sample_type)}\if{html}{\out{</div>}}
+\subsection{\code{Plate$get_dilution()}}{
+  Function returns the dilution represented as strings for a specific sample type.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Plate$get_dilution(sample_type)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sample_type}}{type of the samples that we want to obtain the dilution for.
+The possible values are \cr \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)} Default value is \code{ALL}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A list containing names of the samples as keys and string representing dilutions as values.
+Get the numeric representation of dilutions
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sample_type}}{type of the samples that we want to obtain the dilution for.
-The possible values are \cr \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)} Default value is \code{ALL}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A list containing names of the samples as keys and string representing dilutions as values.
-Get the numeric representation of dilutions
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Plate-get_dilution_values"></a>}}
 \if{latex}{\out{\hypertarget{method-Plate-get_dilution_values}{}}}
-\subsection{Method \code{get_dilution_values()}}{
-Function returns the dilution values for a specific sample type.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Plate$get_dilution_values(sample_type)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sample_type}}{type of the samples that we want to obtain the dilution values for.
+\subsection{\code{Plate$get_dilution_values()}}{
+  Function returns the dilution values for a specific sample type.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Plate$get_dilution_values(sample_type)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sample_type}}{type of the samples that we want to obtain the dilution values for.
 The possible values are \cr \code{c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)} Default value is \code{ALL}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A list containing names of the samples as keys and numeric values representing dilutions as values.
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A list containing names of the samples as keys and numeric values representing dilutions as values.
 
 Adjust the MFI values by subtracting the background
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Plate-blank_adjustment"></a>}}
 \if{latex}{\out{\hypertarget{method-Plate-blank_adjustment}{}}}
-\subsection{Method \code{blank_adjustment()}}{
-Function adjusts the values of samples (all samples excluding the blanks) by clamping the
+\subsection{\code{Plate$blank_adjustment()}}{
+  Function adjusts the values of samples (all samples excluding the blanks) by clamping the
 values to the aggregated value of the \code{BLANK} samples for each analyte separately.
 
 The purpose of this operation is to unify the data by clamping values below the background noise.
@@ -322,38 +319,41 @@ This operation is recommended to be performed before any further analysis, but i
 Skipping it before further analysis is allowed, but will result in a warning.
 
 @references van den Hoogen, L.L., Présumé, J., Romilus, I. et al. Quality control of multiplex antibody detection in samples from large-scale surveys: the example of malaria in Haiti. Sci Rep 10, 1135 (2020). https://doi.org/10.1038/s41598-020-57876-0
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Plate$blank_adjustment(threshold = "max", in_place = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{threshold}}{The method used to calculate the background value for each analyte.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Plate$blank_adjustment(threshold = "max", in_place = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{threshold}}{The method used to calculate the background value for each analyte.
 Every value below this threshold will be clamped to the threshold value.
 By default \code{max}. Available methods are: \code{min}, \code{max}, \code{mean}, \code{median}.}
-
-\item{\code{in_place}}{Whether the method should produce new plate with adjusted
+      \item{\code{in_place}}{Whether the method should produce new plate with adjusted
 values or not, By default \code{TRUE} - operates on the current plate.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Plate-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Plate-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Plate$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Plate$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Plate$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

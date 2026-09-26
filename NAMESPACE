@@ -45,11 +45,15 @@ import(svglite)
 import(utils)
 importFrom(R.utils,isAbsolutePath)
 importFrom(R6,R6Class)
-importFrom(fs,file_exists)
-importFrom(fs,path_abs)
+importFrom(fs,
+  file_exists,
+  path_abs
+)
 importFrom(grDevices,dev.size)
-importFrom(stats,IQR)
-importFrom(stats,predict)
-importFrom(stats,quantile)
-importFrom(stats,setNames)
+importFrom(stats,
+  IQR,
+  predict,
+  quantile,
+  setNames
+)
 importFrom(stringr,str_split)

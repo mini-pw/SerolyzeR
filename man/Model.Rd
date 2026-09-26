@@ -37,65 +37,66 @@ print(model)
 
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{analyte}}{(\code{character(1)})\cr
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{analyte}}{(\code{character(1)})\cr
 Name of the analyte for which the model was fitted}
 
-\item{\code{dilutions}}{(\code{numeric()})\cr
+    \item{\code{dilutions}}{(\code{numeric()})\cr
 Dilutions used to fit the model}
 
-\item{\code{mfi}}{(\code{numeric()})\cr
+    \item{\code{mfi}}{(\code{numeric()})\cr
 MFI values used to fit the model}
 
-\item{\code{mfi_min}}{(\code{numeric(1)})\cr
+    \item{\code{mfi_min}}{(\code{numeric(1)})\cr
 Minimum MFI used for scaling MFI values to the range [0, 1]}
 
-\item{\code{mfi_max}}{(\code{numeric(1)})\cr
+    \item{\code{mfi_max}}{(\code{numeric(1)})\cr
 Maximum MFI used for scaling MFI values to the range [0, 1]}
 
-\item{\code{model}}{(\code{nplr})\cr
+    \item{\code{model}}{(\code{nplr})\cr
 Instance of the \code{nplr} model fitted to the data}
 
-\item{\code{log_dilution}}{(\code{logical()})\cr
+    \item{\code{log_dilution}}{(\code{logical()})\cr
 Indicator should the dilutions be transformed using the \code{log10} function}
 
-\item{\code{log_mfi}}{(\code{logical()})\cr
+    \item{\code{log_mfi}}{(\code{logical()})\cr
 Indicator should the MFI values be transformed using the \code{log10} function}
 
-\item{\code{scale_mfi}}{(\code{logical()})\cr
+    \item{\code{scale_mfi}}{(\code{logical()})\cr
 Indicator should the MFI values be scaled to the range [0, 1]}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{top_asymptote}}{(\code{numeric(1)})\cr
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{top_asymptote}}{(\code{numeric(1)})\cr
 The top asymptote of the logistic curve}
 
-\item{\code{bottom_asymptote}}{(\code{numeric(1)})\cr
+    \item{\code{bottom_asymptote}}{(\code{numeric(1)})\cr
 The bottom asymptote of the logistic curve}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Model-new}{\code{Model$new()}}
-\item \href{#method-Model-predict}{\code{Model$predict()}}
-\item \href{#method-Model-get_plot_data}{\code{Model$get_plot_data()}}
-\item \href{#method-Model-print}{\code{Model$print()}}
-\item \href{#method-Model-clone}{\code{Model$clone()}}
-}
+  \itemize{
+    \item \href{#method-Model-initialize}{\code{Model$new()}}
+    \item \href{#method-Model-predict}{\code{Model$predict()}}
+    \item \href{#method-Model-get_plot_data}{\code{Model$get_plot_data()}}
+    \item \href{#method-Model-print}{\code{Model$print()}}
+    \item \href{#method-Model-clone}{\code{Model$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Model-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Model-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new instance of Model \link[R6:R6Class]{R6} class
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Model$new(
+\if{html}{\out{<a id="method-Model-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Model-initialize}{}}}
+\subsection{\code{Model$new()}}{
+  Create a new instance of Model \link[R6:R6Class]{R6} class
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Model$new(
   analyte,
   dilutions,
   mfi,
@@ -107,134 +108,130 @@ Create a new instance of Model \link[R6:R6Class]{R6} class
   mfi_min = NULL,
   mfi_max = NULL,
   ...
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{analyte}}{(\code{character(1)})\cr
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{analyte}}{(\code{character(1)})\cr
 Name of the analyte for which the model was fitted.}
-
-\item{\code{dilutions}}{(\code{numeric()})\cr
+      \item{\code{dilutions}}{(\code{numeric()})\cr
 Dilutions used to fit the model}
-
-\item{\code{mfi}}{MFI (\code{numeric()})\cr
+      \item{\code{mfi}}{MFI (\code{numeric()})\cr
 values used to fit the model}
-
-\item{\code{npars}}{(\code{numeric(1)})\cr
+      \item{\code{npars}}{(\code{numeric(1)})\cr
 Number of parameters to use in the model}
-
-\item{\code{verbose}}{(\code{logical()})\cr
+      \item{\code{verbose}}{(\code{logical()})\cr
 If \code{TRUE} prints messages, \code{TRUE} by default}
-
-\item{\code{log_dilution}}{(\code{logical()})\cr
+      \item{\code{log_dilution}}{(\code{logical()})\cr
 If \code{TRUE} the dilutions are transformed using the \code{log10} function, \code{TRUE} by default}
-
-\item{\code{log_mfi}}{(\code{logical()})\cr
+      \item{\code{log_mfi}}{(\code{logical()})\cr
 If \code{TRUE} the MFI values are transformed using the \code{log10} function, \code{TRUE} by default}
-
-\item{\code{scale_mfi}}{(\code{logical()})\cr
+      \item{\code{scale_mfi}}{(\code{logical()})\cr
 If \code{TRUE} the MFI values are scaled to the range [0, 1], \code{TRUE} by default}
-
-\item{\code{mfi_min}}{(\code{numeric(1)})\cr
+      \item{\code{mfi_min}}{(\code{numeric(1)})\cr
 Enables to set the minimum MFI value used for scaling MFI values to the range [0, 1].
 Use values before any transformations (e.g., before the \code{log10} transformation)}
-
-\item{\code{mfi_max}}{(\code{numeric(1)})\cr
+      \item{\code{mfi_max}}{(\code{numeric(1)})\cr
 Enables to set the maximum MFI value used for scaling MFI values to the range [0, 1].
 Use values before any transformations (e.g., before the \code{log10} transformation)}
+      \item{\code{...}}{Additional parameters, ignored here. Used here only for consistency with the SerolyzeR pipeline}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
 
-\item{\code{...}}{Additional parameters, ignored here. Used here only for consistency with the SerolyzeR pipeline}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Model-predict"></a>}}
 \if{latex}{\out{\hypertarget{method-Model-predict}{}}}
-\subsection{Method \code{predict()}}{
-Predict RAU values from the MFI values
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Model$predict(mfi, over_max_extrapolation = 0, eps = 1e-06, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mfi}}{(\code{numeric()})\cr
+\subsection{\code{Model$predict()}}{
+  Predict RAU values from the MFI values
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Model$predict(mfi, over_max_extrapolation = 0, eps = 1e-06, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mfi}}{(\code{numeric()})\cr
 MFI values for which we want to predict the RAU values}
-
-\item{\code{over_max_extrapolation}}{(\code{numeric(1)})\cr
+      \item{\code{over_max_extrapolation}}{(\code{numeric(1)})\cr
 How much we can extrapolate the values above the maximum RAU value
 seen in standard curve samples \eqn{\text{RAU}_{max}}. Defaults to 0.
 If the value of the predicted RAU is above \eqn{RAU_{max} + \text{over\_max\_extrapolation}},
 the value is censored to the value of that sum.}
-
-\item{\code{eps}}{(\code{numeric(1)})\cr
+      \item{\code{eps}}{(\code{numeric(1)})\cr
 A small value used to avoid numerical issues close to the asymptotes}
-
-\item{\code{...}}{Additional parameters. This method ignores them, used here for compatibility with the pipeline.
+      \item{\code{...}}{Additional parameters. This method ignores them, used here for compatibility with the pipeline.
 
 Warning: High dose hook effect affects which dilution and MFI values
 are used to fit the logistic model and by extension affects the over_max_extrapolation value.
 When a high dose hook effect is detected we remove the samples with dilutions above the high dose threshold
 (which by default is 1/200). Making the highest RAU value lower than the one calculated without
 handling of the high dose hook effect.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-(\code{data.frame()})\cr
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    (\code{data.frame()})\cr
 Dataframe with the predicted RAU values for given MFI values
 The columns are named as follows:
 \itemize{
 \item \code{RAU} - the Relative Antibody Units (RAU) value
 \item \code{MFI} - the predicted MFI value
 }
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Model-get_plot_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Model-get_plot_data}{}}}
-\subsection{Method \code{get_plot_data()}}{
-Data that can be used to plot the standard curve.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Model$get_plot_data()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-(\code{data.frame()})\cr
+\subsection{\code{Model$get_plot_data()}}{
+  Data that can be used to plot the standard curve.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Model$get_plot_data()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    (\code{data.frame()})\cr
 Prediction dataframe for scaled MFI (or logMFI) values in the range [0, 1].
 Columns are named as in the \code{predict} method
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Model-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Model-print}{}}}
-\subsection{Method \code{print()}}{
-Function prints the basic information about the model
+\subsection{\code{Model$print()}}{
+  Function prints the basic information about the model
 such as the number of parameters or samples used
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Model$print()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Model$print()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Model-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Model-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Model$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Model$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Model$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

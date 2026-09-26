@@ -8,182 +8,190 @@ This class helps creating the Plate object.
 It is used to store the data and validate the final fields.
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{layout_as_vector}}{Print the layout associated with the plate as a flattened vector of values.}
-}
-\if{html}{\out{</div>}}
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{layout_as_vector}}{Print the layout associated with the plate as a flattened vector of values.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-PlateBuilder-new}{\code{PlateBuilder$new()}}
-\item \href{#method-PlateBuilder-set_sample_locations}{\code{PlateBuilder$set_sample_locations()}}
-\item \href{#method-PlateBuilder-set_dilutions}{\code{PlateBuilder$set_dilutions()}}
-\item \href{#method-PlateBuilder-set_sample_types}{\code{PlateBuilder$set_sample_types()}}
-\item \href{#method-PlateBuilder-set_sample_names}{\code{PlateBuilder$set_sample_names()}}
-\item \href{#method-PlateBuilder-set_plate_datetime}{\code{PlateBuilder$set_plate_datetime()}}
-\item \href{#method-PlateBuilder-set_data}{\code{PlateBuilder$set_data()}}
-\item \href{#method-PlateBuilder-set_default_data_type}{\code{PlateBuilder$set_default_data_type()}}
-\item \href{#method-PlateBuilder-set_batch_info}{\code{PlateBuilder$set_batch_info()}}
-\item \href{#method-PlateBuilder-set_plate_name}{\code{PlateBuilder$set_plate_name()}}
-\item \href{#method-PlateBuilder-set_layout}{\code{PlateBuilder$set_layout()}}
-\item \href{#method-PlateBuilder-build}{\code{PlateBuilder$build()}}
-\item \href{#method-PlateBuilder-clone}{\code{PlateBuilder$clone()}}
-}
+  \itemize{
+    \item \href{#method-PlateBuilder-initialize}{\code{PlateBuilder$new()}}
+    \item \href{#method-PlateBuilder-set_sample_locations}{\code{PlateBuilder$set_sample_locations()}}
+    \item \href{#method-PlateBuilder-set_dilutions}{\code{PlateBuilder$set_dilutions()}}
+    \item \href{#method-PlateBuilder-set_sample_types}{\code{PlateBuilder$set_sample_types()}}
+    \item \href{#method-PlateBuilder-set_sample_names}{\code{PlateBuilder$set_sample_names()}}
+    \item \href{#method-PlateBuilder-set_plate_datetime}{\code{PlateBuilder$set_plate_datetime()}}
+    \item \href{#method-PlateBuilder-set_data}{\code{PlateBuilder$set_data()}}
+    \item \href{#method-PlateBuilder-set_default_data_type}{\code{PlateBuilder$set_default_data_type()}}
+    \item \href{#method-PlateBuilder-set_batch_info}{\code{PlateBuilder$set_batch_info()}}
+    \item \href{#method-PlateBuilder-set_plate_name}{\code{PlateBuilder$set_plate_name()}}
+    \item \href{#method-PlateBuilder-set_layout}{\code{PlateBuilder$set_layout()}}
+    \item \href{#method-PlateBuilder-build}{\code{PlateBuilder$build()}}
+    \item \href{#method-PlateBuilder-clone}{\code{PlateBuilder$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PlateBuilder-new"></a>}}
-\if{latex}{\out{\hypertarget{method-PlateBuilder-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize the PlateBuilder object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$new(sample_names, analyte_names, batch_name = "", verbose = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sample_names}}{\itemize{
+\if{html}{\out{<a id="method-PlateBuilder-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-PlateBuilder-initialize}{}}}
+\subsection{\code{PlateBuilder$new()}}{
+  Initialize the PlateBuilder object
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$new(sample_names, analyte_names, batch_name = "", verbose = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sample_names}}{\itemize{
 \item vector of sample names measured during
 an examination in the same order as in the data.
 It should not contain any duplicates.
 }}
-
-\item{\code{analyte_names}}{\itemize{
+      \item{\code{analyte_names}}{\itemize{
 \item vector of analytes names measured during
 an examination in the same order as in the data
 }}
-
-\item{\code{batch_name}}{\itemize{
+      \item{\code{batch_name}}{\itemize{
 \item name of the batch during which the plate was examined
 obtained from the plate info. An optional parameter, by default set to
 \code{""} - an empty string.
 }}
-
-\item{\code{verbose}}{\itemize{
+      \item{\code{verbose}}{\itemize{
 \item logical value indicating whether to print additional
 information. This parameter is stored as a private attribute of the object
 and reused in other methods
 }}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_sample_locations"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_sample_locations}{}}}
-\subsection{Method \code{set_sample_locations()}}{
-Set the sample types used during the examination
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_sample_locations(sample_locations)}\if{html}{\out{</div>}}
+\subsection{\code{PlateBuilder$set_sample_locations()}}{
+  Set the sample types used during the examination
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_sample_locations(sample_locations)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sample_locations}}{vector of sample locations pretty name ie. A1, B2}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sample_locations}}{vector of sample locations pretty name ie. A1, B2}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_dilutions"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_dilutions}{}}}
-\subsection{Method \code{set_dilutions()}}{
-Extract and set the dilutions from layout, sample names or use a provided vector of values.
+\subsection{\code{PlateBuilder$set_dilutions()}}{
+  Extract and set the dilutions from layout, sample names or use a provided vector of values.
 The provided vector should be the same length as the number of samples
 and should contain dilution factors saved as strings
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_dilutions(use_layout_dilutions = TRUE, values = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{use_layout_dilutions}}{logical value indicating whether to use names
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_dilutions(use_layout_dilutions = TRUE, values = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{use_layout_dilutions}}{logical value indicating whether to use names
 extracted from layout files to extract dilutions. If set to \code{FALSE} the
 function uses the sample names as a source for dilution}
-
-\item{\code{values}}{a vector of dilutions to overwrite the extraction process
+      \item{\code{values}}{a vector of dilutions to overwrite the extraction process
 
 Set and extract sample types from the sample names.
 Optionally use the layout file to extract the sample types}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_sample_types"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_sample_types}{}}}
-\subsection{Method \code{set_sample_types()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_sample_types(use_layout_types = TRUE, values = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{use_layout_types}}{logical value indicating whether to use names extracted from layout files
+\subsection{\code{PlateBuilder$set_sample_types()}}{
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_sample_types(use_layout_types = TRUE, values = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{use_layout_types}}{logical value indicating whether to use names extracted from layout files
 to extract sample types}
+      \item{\code{values}}{a vector of sample types to overwrite the extraction process}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
 
-\item{\code{values}}{a vector of sample types to overwrite the extraction process}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_sample_names"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_sample_names}{}}}
-\subsection{Method \code{set_sample_names()}}{
-Set the sample names used during the examination. If the layout is provided,
+\subsection{\code{PlateBuilder$set_sample_names()}}{
+  Set the sample names used during the examination. If the layout is provided,
 extract the sample names from the layout file. Otherwise, uses the original sample names from the Luminex file
 
 In case there are multiple samples with the same name, it prints a warning and renames the samples, by adding a number.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_sample_names(use_layout_sample_names = TRUE)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_sample_names(use_layout_sample_names = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{use_layout_sample_names}}{logical value indicating whether
+to use names extracted from layout files. If set to false, this function only checks if the sample names are provided in the plate}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{use_layout_sample_names}}{logical value indicating whether
-to use names extracted from layout files. If set to false, this function only checks if the sample names are provided in the plate}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_plate_datetime"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_plate_datetime}{}}}
-\subsection{Method \code{set_plate_datetime()}}{
-Set the plate datetime for the plate
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_plate_datetime(plate_datetime)}\if{html}{\out{</div>}}
+\subsection{\code{PlateBuilder$set_plate_datetime()}}{
+  Set the plate datetime for the plate
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_plate_datetime(plate_datetime)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{plate_datetime}}{a POSIXct datetime object
+representing the date and time of the examination}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{plate_datetime}}{a POSIXct datetime object
-representing the date and time of the examination}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_data"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_data}{}}}
-\subsection{Method \code{set_data()}}{
-Set the data used during the examination
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_data(data)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{a named list of data frames containing information about
+\subsection{\code{PlateBuilder$set_data()}}{
+  Set the data used during the examination
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_data(data)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{data}}{a named list of data frames containing information about
 the samples and analytes. The list is named by the type of the data
 e.g. \code{Median}, \verb{Net MFI}, etc.
 The data frames contain information about the samples and analytes
@@ -196,119 +204,131 @@ Example of how \code{data$Median} looks like:\tabular{llll}{
    ... \tab ... \tab ... \tab ... \cr
    Sample96 \tab 7.8 \tab 8.9 \tab 9.0 \cr
 }}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_default_data_type"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_default_data_type}{}}}
-\subsection{Method \code{set_default_data_type()}}{
-Set the data type used for calculations
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_default_data_type(data_type = "Median")}\if{html}{\out{</div>}}
+\subsection{\code{PlateBuilder$set_default_data_type()}}{
+  Set the data type used for calculations
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_default_data_type(data_type = "Median")}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{data_type}}{a character value representing the type of data
+that is currently used for calculations. By default, it is set to Median}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data_type}}{a character value representing the type of data
-that is currently used for calculations. By default, it is set to Median}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_batch_info"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_batch_info}{}}}
-\subsection{Method \code{set_batch_info()}}{
-Set the batch info for the plate
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_batch_info(batch_info)}\if{html}{\out{</div>}}
+\subsection{\code{PlateBuilder$set_batch_info()}}{
+  Set the batch info for the plate
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_batch_info(batch_info)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{batch_info}}{a raw list containing metadata about
+the plate read from the Luminex file}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{batch_info}}{a raw list containing metadata about
-the plate read from the Luminex file}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_plate_name"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_plate_name}{}}}
-\subsection{Method \code{set_plate_name()}}{
-Set the plate name for the plate.
+\subsection{\code{PlateBuilder$set_plate_name()}}{
+  Set the plate name for the plate.
 The plate name is extracted from the filepath
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_plate_name(file_path)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_plate_name(file_path)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{file_path}}{a character value representing the path to the file}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{file_path}}{a character value representing the path to the file}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-set_layout"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-set_layout}{}}}
-\subsection{Method \code{set_layout()}}{
-Set the layout matrix for the plate. This function performs basic validation
+\subsection{\code{PlateBuilder$set_layout()}}{
+  Set the layout matrix for the plate. This function performs basic validation
 \itemize{
 \item verifies if the plate is a matrix of shape 8x12 with 96 wells
 }
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$set_layout(layout_matrix)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$set_layout(layout_matrix)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{layout_matrix}}{a matrix containing information about the sample names. dilutions, etc.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{layout_matrix}}{a matrix containing information about the sample names. dilutions, etc.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-build"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-build}{}}}
-\subsection{Method \code{build()}}{
-Create a Plate object from the PlateBuilder object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$build(validate = TRUE, reorder = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{validate}}{logical value indicating whether to validate the fields}
-
-\item{\code{reorder}}{logical value indicating whether to reorder the data according to the locations on the plate.
+\subsection{\code{PlateBuilder$build()}}{
+  Create a Plate object from the PlateBuilder object
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$build(validate = TRUE, reorder = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{validate}}{logical value indicating whether to validate the fields}
+      \item{\code{reorder}}{logical value indicating whether to reorder the data according to the locations on the plate.
 If \code{FALSE}, the samples will be ordered in the same manner as in the CSV plate file.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PlateBuilder-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-PlateBuilder-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlateBuilder$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{PlateBuilder$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PlateBuilder$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }
