@@ -107,13 +107,13 @@ list_of_plates <- process_dir(dir_with_luminex_files,
 #> Processing plate 'CovidOISExPONTENT2'
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
-#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_MFI_20260926_161428.csv
+#> Merged output saved to: /tmp/Rtmpiht1pT/merged_MFI_20260926_161820.csv
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
-#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_RAU_20260926_161428.csv
+#> Merged output saved to: /tmp/Rtmpiht1pT/merged_RAU_20260926_161820.csv
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
-#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_nMFI_20260926_161428.csv
+#> Merged output saved to: /tmp/Rtmpiht1pT/merged_nMFI_20260926_161820.csv
 note <- "This is a Levey-Jennings report.\n**Author**: Jane Doe \n**Tester**: John Doe"
 
 generate_levey_jennings_report(
@@ -124,5 +124,5 @@ generate_levey_jennings_report(
   additional_notes = note
 )
 #> Generating report... For large reports with more than 30 plates, this will take a few minutes.
-#> Report successfully generated, saving to: /tmp/RtmpZ3QTyL/CovidOISExPONTENT_levey_jennings.html
+#> Report successfully generated, saving to: /tmp/Rtmpiht1pT/CovidOISExPONTENT_levey_jennings.html
 ```

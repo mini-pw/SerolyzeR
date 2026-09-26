@@ -102,7 +102,7 @@ vignette](https://mini-pw.github.io/SerolyzeR/articles/example_script.html#norma
 
 ### Public methods
 
-- [`Model$new()`](#method-Model-new)
+- [`Model$new()`](#method-Model-initialize)
 
 - [`Model$predict()`](#method-Model-predict)
 
@@ -114,7 +114,7 @@ vignette](https://mini-pw.github.io/SerolyzeR/articles/example_script.html#norma
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Model$new()`
 
 Create a new instance of Model
 [R6](https://r6.r-lib.org/reference/R6Class.html) class
@@ -201,7 +201,7 @@ Create a new instance of Model
 
 ------------------------------------------------------------------------
 
-### Method [`predict()`](https://rdrr.io/r/stats/predict.html)
+### `Model$predict()`
 
 Predict RAU values from the MFI values
 
@@ -254,7 +254,7 @@ are named as follows:
 
 ------------------------------------------------------------------------
 
-### Method `get_plot_data()`
+### `Model$get_plot_data()`
 
 Data that can be used to plot the standard curve.
 
@@ -270,7 +270,7 @@ Prediction dataframe for scaled MFI (or logMFI) values in the range \[0,
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `Model$print()`
 
 Function prints the basic information about the model such as the number
 of parameters or samples used
@@ -281,7 +281,7 @@ of parameters or samples used
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Model$clone()`
 
 The objects of this class are cloneable with this method.
 

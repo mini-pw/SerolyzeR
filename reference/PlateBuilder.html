@@ -75,8 +75,7 @@ It is used to store the data and validate the final fields.</p>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-PlateBuilder-new"><code>PlateBuilder$new()</code></a></p></li>
+<p></p><ul><li><p><a href="#method-PlateBuilder-initialize"><code>PlateBuilder$new()</code></a></p></li>
 <li><p><a href="#method-PlateBuilder-set_sample_locations"><code>PlateBuilder$set_sample_locations()</code></a></p></li>
 <li><p><a href="#method-PlateBuilder-set_dilutions"><code>PlateBuilder$set_dilutions()</code></a></p></li>
 <li><p><a href="#method-PlateBuilder-set_sample_types"><code>PlateBuilder$set_sample_types()</code></a></p></li>
@@ -89,14 +88,12 @@ It is used to store the data and validate the final fields.</p>
 <li><p><a href="#method-PlateBuilder-set_layout"><code>PlateBuilder$set_layout()</code></a></p></li>
 <li><p><a href="#method-PlateBuilder-build"><code>PlateBuilder$build()</code></a></p></li>
 <li><p><a href="#method-PlateBuilder-clone"><code>PlateBuilder$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-PlateBuilder-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+</ul></div><p></p><hr><a id="method-PlateBuilder-initialize"></a><div class="section">
+<h3 id="platebuilder-new-"><code>PlateBuilder$new()</code><a class="anchor" aria-label="anchor" href="#platebuilder-new-"></a></h3>
 <p>Initialize the PlateBuilder object</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/PlateBuilder.html">PlateBuilder</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">sample_names</span>, <span class="va">analyte_names</span>, batch_name <span class="op">=</span> <span class="st">""</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>sample_names</code></dt>
 <dd><ul><li><p>vector of sample names measured during
@@ -104,21 +101,18 @@ an examination in the same order as in the data.
 It should not contain any duplicates.</p></li>
 </ul></dd>
 
-
-<dt><code>analyte_names</code></dt>
+      <dt><code>analyte_names</code></dt>
 <dd><ul><li><p>vector of analytes names measured during
 an examination in the same order as in the data</p></li>
 </ul></dd>
 
-
-<dt><code>batch_name</code></dt>
+      <dt><code>batch_name</code></dt>
 <dd><ul><li><p>name of the batch during which the plate was examined
 obtained from the plate info. An optional parameter, by default set to
 <code>""</code> - an empty string.</p></li>
 </ul></dd>
 
-
-<dt><code>verbose</code></dt>
+      <dt><code>verbose</code></dt>
 <dd><ul><li><p>logical value indicating whether to print additional
 information. This parameter is stored as a private attribute of the object
 and reused in other methods</p></li>
@@ -128,14 +122,14 @@ and reused in other methods</p></li>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_sample_locations"></a><div class="section">
-<h3 id="method-set-sample-locations-">Method <code>set_sample_locations()</code><a class="anchor" aria-label="anchor" href="#method-set-sample-locations-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-set_sample_locations"></a><div class="section">
+<h3 id="platebuilder-set-sample-locations-"><code>PlateBuilder$set_sample_locations()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-sample-locations-"></a></h3>
 <p>Set the sample types used during the examination</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_sample_locations</span><span class="op">(</span><span class="va">sample_locations</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>sample_locations</code></dt>
 <dd><p>vector of sample locations pretty name ie. A1, B2</p></dd>
@@ -144,24 +138,23 @@ and reused in other methods</p></li>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_dilutions"></a><div class="section">
-<h3 id="method-set-dilutions-">Method <code>set_dilutions()</code><a class="anchor" aria-label="anchor" href="#method-set-dilutions-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-set_dilutions"></a><div class="section">
+<h3 id="platebuilder-set-dilutions-"><code>PlateBuilder$set_dilutions()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-dilutions-"></a></h3>
 <p>Extract and set the dilutions from layout, sample names or use a provided vector of values.
 The provided vector should be the same length as the number of samples
 and should contain dilution factors saved as strings</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_dilutions</span><span class="op">(</span>use_layout_dilutions <span class="op">=</span> <span class="cn">TRUE</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>use_layout_dilutions</code></dt>
 <dd><p>logical value indicating whether to use names
 extracted from layout files to extract dilutions. If set to <code>FALSE</code> the
 function uses the sample names as a source for dilution</p></dd>
 
-
-<dt><code>values</code></dt>
+      <dt><code>values</code></dt>
 <dd><p>a vector of dilutions to overwrite the extraction process</p>
 <p>Set and extract sample types from the sample names.
 Optionally use the layout file to extract the sample types</p></dd>
@@ -170,38 +163,36 @@ Optionally use the layout file to extract the sample types</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_sample_types"></a><div class="section">
-<h3 id="method-set-sample-types-">Method <code>set_sample_types()</code><a class="anchor" aria-label="anchor" href="#method-set-sample-types-"></a></h3>
-
-<div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_sample_types</span><span class="op">(</span>use_layout_types <span class="op">=</span> <span class="cn">TRUE</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
+<p></p><hr><a id="method-PlateBuilder-set_sample_types"></a><div class="section">
+<h3 id="platebuilder-set-sample-types-"><code>PlateBuilder$set_sample_types()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-sample-types-"></a></h3>
+<p></p><div class="section">
+<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_sample_types</span><span class="op">(</span>use_layout_types <span class="op">=</span> <span class="cn">TRUE</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>use_layout_types</code></dt>
 <dd><p>logical value indicating whether to use names extracted from layout files
 to extract sample types</p></dd>
 
-
-<dt><code>values</code></dt>
+      <dt><code>values</code></dt>
 <dd><p>a vector of sample types to overwrite the extraction process</p></dd>
 
 
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_sample_names"></a><div class="section">
-<h3 id="method-set-sample-names-">Method <code>set_sample_names()</code><a class="anchor" aria-label="anchor" href="#method-set-sample-names-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-set_sample_names"></a><div class="section">
+<h3 id="platebuilder-set-sample-names-"><code>PlateBuilder$set_sample_names()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-sample-names-"></a></h3>
 <p>Set the sample names used during the examination. If the layout is provided,
 extract the sample names from the layout file. Otherwise, uses the original sample names from the Luminex file</p>
 <p>In case there are multiple samples with the same name, it prints a warning and renames the samples, by adding a number.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_sample_names</span><span class="op">(</span>use_layout_sample_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>use_layout_sample_names</code></dt>
 <dd><p>logical value indicating whether
@@ -211,14 +202,14 @@ to use names extracted from layout files. If set to false, this function only ch
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_plate_datetime"></a><div class="section">
-<h3 id="method-set-plate-datetime-">Method <code>set_plate_datetime()</code><a class="anchor" aria-label="anchor" href="#method-set-plate-datetime-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-set_plate_datetime"></a><div class="section">
+<h3 id="platebuilder-set-plate-datetime-"><code>PlateBuilder$set_plate_datetime()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-plate-datetime-"></a></h3>
 <p>Set the plate datetime for the plate</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_plate_datetime</span><span class="op">(</span><span class="va">plate_datetime</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>plate_datetime</code></dt>
 <dd><p>a POSIXct datetime object
@@ -228,14 +219,14 @@ representing the date and time of the examination</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_data"></a><div class="section">
-<h3 id="method-set-data-">Method <code>set_data()</code><a class="anchor" aria-label="anchor" href="#method-set-data-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-set_data"></a><div class="section">
+<h3 id="platebuilder-set-data-"><code>PlateBuilder$set_data()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-data-"></a></h3>
 <p>Set the data used during the examination</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_data</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>data</code></dt>
 <dd><p>a named list of data frames containing information about
@@ -250,14 +241,14 @@ Example of how <code>data$Median</code> looks like:</p><table class="table table
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_default_data_type"></a><div class="section">
-<h3 id="method-set-default-data-type-">Method <code>set_default_data_type()</code><a class="anchor" aria-label="anchor" href="#method-set-default-data-type-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-set_default_data_type"></a><div class="section">
+<h3 id="platebuilder-set-default-data-type-"><code>PlateBuilder$set_default_data_type()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-default-data-type-"></a></h3>
 <p>Set the data type used for calculations</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_default_data_type</span><span class="op">(</span>data_type <span class="op">=</span> <span class="st">"Median"</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>data_type</code></dt>
 <dd><p>a character value representing the type of data
@@ -267,14 +258,14 @@ that is currently used for calculations. By default, it is set to Median</p></dd
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_batch_info"></a><div class="section">
-<h3 id="method-set-batch-info-">Method <code>set_batch_info()</code><a class="anchor" aria-label="anchor" href="#method-set-batch-info-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-set_batch_info"></a><div class="section">
+<h3 id="platebuilder-set-batch-info-"><code>PlateBuilder$set_batch_info()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-batch-info-"></a></h3>
 <p>Set the batch info for the plate</p><div class="section">
 <h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_batch_info</span><span class="op">(</span><span class="va">batch_info</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>batch_info</code></dt>
 <dd><p>a raw list containing metadata about
@@ -284,15 +275,15 @@ the plate read from the Luminex file</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_plate_name"></a><div class="section">
-<h3 id="method-set-plate-name-">Method <code>set_plate_name()</code><a class="anchor" aria-label="anchor" href="#method-set-plate-name-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-set_plate_name"></a><div class="section">
+<h3 id="platebuilder-set-plate-name-"><code>PlateBuilder$set_plate_name()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-plate-name-"></a></h3>
 <p>Set the plate name for the plate.
 The plate name is extracted from the filepath</p><div class="section">
 <h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_plate_name</span><span class="op">(</span><span class="va">file_path</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>file_path</code></dt>
 <dd><p>a character value representing the path to the file</p></dd>
@@ -301,15 +292,15 @@ The plate name is extracted from the filepath</p><div class="section">
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-set_layout"></a><div class="section">
-<h3 id="method-set-layout-">Method <code>set_layout()</code><a class="anchor" aria-label="anchor" href="#method-set-layout-"></a></h3>
-<p>Set the layout matrix for the plate. This function performs basic validation</p><ul><li><p>verifies if the plate is a matrix of shape 8x12 with 96 wells</p></li>
-</ul><div class="section">
-<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_layout</span><span class="op">(</span><span class="va">layout_matrix</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
+<p></p><hr><a id="method-PlateBuilder-set_layout"></a><div class="section">
+<h3 id="platebuilder-set-layout-"><code>PlateBuilder$set_layout()</code><a class="anchor" aria-label="anchor" href="#platebuilder-set-layout-"></a></h3>
+<p>Set the layout matrix for the plate. This function performs basic validation</p><ul><li><p>verifies if the plate is a matrix of shape 8x12 with 96 wells</p></li>
+</ul><p></p><div class="section">
+<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">set_layout</span><span class="op">(</span><span class="va">layout_matrix</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>layout_matrix</code></dt>
 <dd><p>a matrix containing information about the sample names. dilutions, etc.</p></dd>
@@ -318,20 +309,19 @@ The plate name is extracted from the filepath</p><div class="section">
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-build"></a><div class="section">
-<h3 id="method-build-">Method <code>build()</code><a class="anchor" aria-label="anchor" href="#method-build-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-build"></a><div class="section">
+<h3 id="platebuilder-build-"><code>PlateBuilder$build()</code><a class="anchor" aria-label="anchor" href="#platebuilder-build-"></a></h3>
 <p>Create a Plate object from the PlateBuilder object</p><div class="section">
 <h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">build</span><span class="op">(</span>validate <span class="op">=</span> <span class="cn">TRUE</span>, reorder <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>validate</code></dt>
 <dd><p>logical value indicating whether to validate the fields</p></dd>
 
-
-<dt><code>reorder</code></dt>
+      <dt><code>reorder</code></dt>
 <dd><p>logical value indicating whether to reorder the data according to the locations on the plate.
 If <code>FALSE</code>, the samples will be ordered in the same manner as in the CSV plate file.</p></dd>
 
@@ -339,14 +329,14 @@ If <code>FALSE</code>, the samples will be ordered in the same manner as in the 
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PlateBuilder-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PlateBuilder-clone"></a><div class="section">
+<h3 id="platebuilder-clone-"><code>PlateBuilder$clone()</code><a class="anchor" aria-label="anchor" href="#platebuilder-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PlateBuilder</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -356,6 +346,7 @@ If <code>FALSE</code>, the samples will be ordered in the same manner as in the 
 </div>
 
 </div>
+
 
     </div>
 

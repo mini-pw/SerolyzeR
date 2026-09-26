@@ -103,5 +103,5 @@ generate_plate_report(plate,
   additional_notes = note
 )
 #> Generating report...This will take approximately 30 seconds.
-#> Report successfully generated, saving to: /tmp/RtmpZ3QTyL
+#> Report successfully generated, saving to: /tmp/Rtmpiht1pT
 ```

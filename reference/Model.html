@@ -120,42 +120,42 @@ For more information about the differences between dilution, RAU and MFI values,
 Name of the analyte for which the model was fitted</p></dd>
 
 
-<dt><code>dilutions</code></dt>
+    <dt><code>dilutions</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
 Dilutions used to fit the model</p></dd>
 
 
-<dt><code>mfi</code></dt>
+    <dt><code>mfi</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
 MFI values used to fit the model</p></dd>
 
 
-<dt><code>mfi_min</code></dt>
+    <dt><code>mfi_min</code></dt>
 <dd><p>(<code>numeric(1)</code>)<br>
 Minimum MFI used for scaling MFI values to the range [0, 1]</p></dd>
 
 
-<dt><code>mfi_max</code></dt>
+    <dt><code>mfi_max</code></dt>
 <dd><p>(<code>numeric(1)</code>)<br>
 Maximum MFI used for scaling MFI values to the range [0, 1]</p></dd>
 
 
-<dt><code>model</code></dt>
+    <dt><code>model</code></dt>
 <dd><p>(<code>nplr</code>)<br>
 Instance of the <code>nplr</code> model fitted to the data</p></dd>
 
 
-<dt><code>log_dilution</code></dt>
+    <dt><code>log_dilution</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code>)<br>
 Indicator should the dilutions be transformed using the <code>log10</code> function</p></dd>
 
 
-<dt><code>log_mfi</code></dt>
+    <dt><code>log_mfi</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code>)<br>
 Indicator should the MFI values be transformed using the <code>log10</code> function</p></dd>
 
 
-<dt><code>scale_mfi</code></dt>
+    <dt><code>scale_mfi</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code>)<br>
 Indicator should the MFI values be scaled to the range [0, 1]</p></dd>
 
@@ -169,7 +169,7 @@ Indicator should the MFI values be scaled to the range [0, 1]</p></dd>
 The top asymptote of the logistic curve</p></dd>
 
 
-<dt><code>bottom_asymptote</code></dt>
+    <dt><code>bottom_asymptote</code></dt>
 <dd><p>(<code>numeric(1)</code>)<br>
 The bottom asymptote of the logistic curve</p></dd>
 
@@ -181,14 +181,13 @@ The bottom asymptote of the logistic curve</p></dd>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-Model-new"><code>Model$new()</code></a></p></li>
+<p></p><ul><li><p><a href="#method-Model-initialize"><code>Model$new()</code></a></p></li>
 <li><p><a href="#method-Model-predict"><code>Model$predict()</code></a></p></li>
 <li><p><a href="#method-Model-get_plot_data"><code>Model$get_plot_data()</code></a></p></li>
 <li><p><a href="#method-Model-print"><code>Model$print()</code></a></p></li>
 <li><p><a href="#method-Model-clone"><code>Model$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-Model-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+</ul></div><p></p><hr><a id="method-Model-initialize"></a><div class="section">
+<h3 id="model-new-"><code>Model$new()</code><a class="anchor" aria-label="anchor" href="#model-new-"></a></h3>
 <p>Create a new instance of Model <a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6</a> class</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/Model.html">Model</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
@@ -204,97 +203,82 @@ The bottom asymptote of the logistic curve</p></dd>
 <span>  mfi_max <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>analyte</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
 Name of the analyte for which the model was fitted.</p></dd>
 
-
-<dt><code>dilutions</code></dt>
+      <dt><code>dilutions</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
 Dilutions used to fit the model</p></dd>
 
-
-<dt><code>mfi</code></dt>
+      <dt><code>mfi</code></dt>
 <dd><p>MFI (<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
 values used to fit the model</p></dd>
 
-
-<dt><code>npars</code></dt>
+      <dt><code>npars</code></dt>
 <dd><p>(<code>numeric(1)</code>)<br>
 Number of parameters to use in the model</p></dd>
 
-
-<dt><code>verbose</code></dt>
+      <dt><code>verbose</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code>)<br>
 If <code>TRUE</code> prints messages, <code>TRUE</code> by default</p></dd>
 
-
-<dt><code>log_dilution</code></dt>
+      <dt><code>log_dilution</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code>)<br>
 If <code>TRUE</code> the dilutions are transformed using the <code>log10</code> function, <code>TRUE</code> by default</p></dd>
 
-
-<dt><code>log_mfi</code></dt>
+      <dt><code>log_mfi</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code>)<br>
 If <code>TRUE</code> the MFI values are transformed using the <code>log10</code> function, <code>TRUE</code> by default</p></dd>
 
-
-<dt><code>scale_mfi</code></dt>
+      <dt><code>scale_mfi</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code>)<br>
 If <code>TRUE</code> the MFI values are scaled to the range [0, 1], <code>TRUE</code> by default</p></dd>
 
-
-<dt><code>mfi_min</code></dt>
+      <dt><code>mfi_min</code></dt>
 <dd><p>(<code>numeric(1)</code>)<br>
 Enables to set the minimum MFI value used for scaling MFI values to the range [0, 1].
 Use values before any transformations (e.g., before the <code>log10</code> transformation)</p></dd>
 
-
-<dt><code>mfi_max</code></dt>
+      <dt><code>mfi_max</code></dt>
 <dd><p>(<code>numeric(1)</code>)<br>
 Enables to set the maximum MFI value used for scaling MFI values to the range [0, 1].
 Use values before any transformations (e.g., before the <code>log10</code> transformation)</p></dd>
 
-
-<dt><code>...</code></dt>
+      <dt><code>...</code></dt>
 <dd><p>Additional parameters, ignored here. Used here only for consistency with the SerolyzeR pipeline</p></dd>
 
 
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Model-predict"></a><div class="section">
-<h3 id="method-predict-">Method <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code><a class="anchor" aria-label="anchor" href="#method-predict-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Model-predict"></a><div class="section">
+<h3 id="model-predict-"><code>Model$predict()</code><a class="anchor" aria-label="anchor" href="#model-predict-"></a></h3>
 <p>Predict RAU values from the MFI values</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Model</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">mfi</span>, over_max_extrapolation <span class="op">=</span> <span class="fl">0</span>, eps <span class="op">=</span> <span class="fl">1e-06</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mfi</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
 MFI values for which we want to predict the RAU values</p></dd>
 
-
-<dt><code>over_max_extrapolation</code></dt>
+      <dt><code>over_max_extrapolation</code></dt>
 <dd><p>(<code>numeric(1)</code>)<br>
 How much we can extrapolate the values above the maximum RAU value
 seen in standard curve samples \(\text{RAU}_{max}\). Defaults to 0.
 If the value of the predicted RAU is above \(RAU_{max} + \text{over\_max\_extrapolation}\),
 the value is censored to the value of that sum.</p></dd>
 
-
-<dt><code>eps</code></dt>
+      <dt><code>eps</code></dt>
 <dd><p>(<code>numeric(1)</code>)<br>
 A small value used to avoid numerical issues close to the asymptotes</p></dd>
 
-
-<dt><code>...</code></dt>
+      <dt><code>...</code></dt>
 <dd><p>Additional parameters. This method ignores them, used here for compatibility with the pipeline.</p>
 <p>Warning: High dose hook effect affects which dilution and MFI values
 are used to fit the logistic model and by extension affects the over_max_extrapolation value.
@@ -304,46 +288,47 @@ handling of the high dose hook effect.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>(<code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code>)<br>
 Dataframe with the predicted RAU values for given MFI values
 The columns are named as follows:</p><ul><li><p><code>RAU</code> - the Relative Antibody Units (RAU) value</p></li>
 <li><p><code>MFI</code> - the predicted MFI value</p></li>
-</ul></div>
+</ul><p></p>
+</div>
 
-</div><p></p><hr><a id="method-Model-get_plot_data"></a><div class="section">
-<h3 id="method-get-plot-data-">Method <code>get_plot_data()</code><a class="anchor" aria-label="anchor" href="#method-get-plot-data-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Model-get_plot_data"></a><div class="section">
+<h3 id="model-get-plot-data-"><code>Model$get_plot_data()</code><a class="anchor" aria-label="anchor" href="#model-get-plot-data-"></a></h3>
 <p>Data that can be used to plot the standard curve.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Model</span><span class="op">$</span><span class="fu">get_plot_data</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>(<code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code>)<br>
 Prediction dataframe for scaled MFI (or logMFI) values in the range [0, 1].
 Columns are named as in the <code>predict</code> method</p>
 </div>
 
-</div><p></p><hr><a id="method-Model-print"></a><div class="section">
-<h3 id="method-print-">Method <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code><a class="anchor" aria-label="anchor" href="#method-print-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Model-print"></a><div class="section">
+<h3 id="model-print-"><code>Model$print()</code><a class="anchor" aria-label="anchor" href="#model-print-"></a></h3>
 <p>Function prints the basic information about the model
 such as the number of parameters or samples used</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Model</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Model-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p></p><hr><a id="method-Model-clone"></a><div class="section">
+<h3 id="model-clone-"><code>Model$clone()</code><a class="anchor" aria-label="anchor" href="#model-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Model</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -353,6 +338,7 @@ such as the number of parameters or samples used</p><div class="section">
 </div>
 
 </div>
+
 
     </div>
 

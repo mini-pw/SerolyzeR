@@ -250,11 +250,11 @@ plates <- process_dir(input_dir, return_plates = TRUE, output_dir = output_dir)
 #> Processing plate 'CovidOISExPONTENT2'
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
-#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_MFI_20260926_161456.csv
+#> Merged output saved to: /tmp/Rtmpiht1pT/merged_MFI_20260926_161850.csv
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
-#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_RAU_20260926_161456.csv
+#> Merged output saved to: /tmp/Rtmpiht1pT/merged_RAU_20260926_161850.csv
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
-#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_nMFI_20260926_161456.csv
+#> Merged output saved to: /tmp/Rtmpiht1pT/merged_nMFI_20260926_161850.csv
 ```

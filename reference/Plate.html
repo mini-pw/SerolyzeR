@@ -81,34 +81,34 @@ blank adjustments.</p>
 Name of the plate. Set to the name of the file from which the plate was read.</p></dd>
 
 
-<dt><code>analyte_names</code></dt>
+    <dt><code>analyte_names</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 Names of the analytes that were examined on the plate.</p></dd>
 
 
-<dt><code>sample_names</code></dt>
+    <dt><code>sample_names</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 Names of the samples that were examined on the plate. The order of the
 samples in this vector is identical with order in the CSV source file.</p></dd>
 
 
-<dt><code>batch_name</code></dt>
+    <dt><code>batch_name</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
 Name of the batch to which the plate belongs.</p></dd>
 
 
-<dt><code>plate_datetime</code></dt>
+    <dt><code>plate_datetime</code></dt>
 <dd><p>(<code>POSIXct()</code>)<br>
 A date and time when the plate was created by the machine</p></dd>
 
 
-<dt><code>sample_locations</code></dt>
+    <dt><code>sample_locations</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 Locations of the samples on the plate. This vector is in the same order
 as the <code>sample_names</code> vector.</p></dd>
 
 
-<dt><code>sample_types</code></dt>
+    <dt><code>sample_types</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 Types of the samples that were examined on the plate.
 The possible values are <br><code>c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)</code>.
@@ -118,25 +118,25 @@ are usually detected based on the sample names according to the rules
 described in <code><a href="translate_sample_names_to_sample_types.html">translate_sample_names_to_sample_types()</a></code>.</p></dd>
 
 
-<dt><code>dilutions</code></dt>
+    <dt><code>dilutions</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 A list containing names of the samples as keys and string representing dilutions as values.
 The dilutions are represented as strings. This vector is in the same order as the <code>sample_names</code> vector.</p></dd>
 
 
-<dt><code>dilution_values</code></dt>
+    <dt><code>dilution_values</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
 A list containing names of the samples as keys and numeric values representing dilutions as values.
 It is in the same order as the <code>sample_names</code> vector.</p></dd>
 
 
-<dt><code>default_data_type</code></dt>
+    <dt><code>default_data_type</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
 The default data type that will be returned by the <code>Plate$get_data()</code> method.
 By default is set to <code>Median</code>.</p></dd>
 
 
-<dt><code>data</code></dt>
+    <dt><code>data</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>)<br>
 A list containing dataframes with the data for each sample and analyte.
 The possible data types - the keys of the list are:
@@ -144,12 +144,12 @@ The possible data types - the keys of the list are:
 <p>In each dataframe, the rows represent samples and the columns represent analytes.</p></dd>
 
 
-<dt><code>batch_info</code></dt>
+    <dt><code>batch_info</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>)<br>
 A list containing additional, technical information about the batch.</p></dd>
 
 
-<dt><code>layout</code></dt>
+    <dt><code>layout</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 A list containing information about the layout of the plate.
 The layout is read from the separate file and usually provides additional
@@ -157,7 +157,7 @@ information about the dilutions, sample names, and the sample layout
 on the actual plate.</p></dd>
 
 
-<dt><code>blank_adjusted</code></dt>
+    <dt><code>blank_adjusted</code></dt>
 <dd><p>(<code>logical</code>)<br>
 A flag indicating whether the blank values have been adjusted.</p></dd>
 
@@ -169,8 +169,7 @@ A flag indicating whether the blank values have been adjusted.</p></dd>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-Plate-new"><code>Plate$new()</code></a></p></li>
+<p></p><ul><li><p><a href="#method-Plate-initialize"><code>Plate$new()</code></a></p></li>
 <li><p><a href="#method-Plate-print"><code>Plate$print()</code></a></p></li>
 <li><p><a href="#method-Plate-summary"><code>Plate$summary()</code></a></p></li>
 <li><p><a href="#method-Plate-get_data"><code>Plate$get_data()</code></a></p></li>
@@ -178,8 +177,8 @@ A flag indicating whether the blank values have been adjusted.</p></dd>
 <li><p><a href="#method-Plate-get_dilution_values"><code>Plate$get_dilution_values()</code></a></p></li>
 <li><p><a href="#method-Plate-blank_adjustment"><code>Plate$blank_adjustment()</code></a></p></li>
 <li><p><a href="#method-Plate-clone"><code>Plate$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-Plate-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+</ul></div><p></p><hr><a id="method-Plate-initialize"></a><div class="section">
+<h3 id="plate-new-"><code>Plate$new()</code><a class="anchor" aria-label="anchor" href="#plate-new-"></a></h3>
 <p>Method to initialize the Plate object</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/Plate.html">Plate</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
@@ -197,9 +196,7 @@ A flag indicating whether the blank values have been adjusted.</p></dd>
 <span>  batch_info <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  layout <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>plate_name</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
@@ -208,37 +205,31 @@ By default is set to an empty string,
 during the reading process it is set to the name
 of the file from which the plate was read.</p></dd>
 
-
-<dt><code>sample_names</code></dt>
+      <dt><code>sample_names</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 Names of the samples that were examined on the plate. Sample names are by default ordered by location in the plate, using the row-major order.
 The first sample is the one in upper-left corner, then follows the ones in the first row, then the second row, and so on.</p></dd>
 
-
-<dt><code>analyte_names</code></dt>
+      <dt><code>analyte_names</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 Names of the analytes that were examined on the plate.</p></dd>
 
-
-<dt><code>batch_name</code></dt>
+      <dt><code>batch_name</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
 Name of the batch to which the plate belongs.
 By default is set to an empty string, during the reading process it is set to
 the <code>batch</code> field of the plate</p></dd>
 
-
-<dt><code>plate_datetime</code></dt>
+      <dt><code>plate_datetime</code></dt>
 <dd><p>(<code>POSIXct()</code>)<br>
 Datetime object representing the date and time when the plate was created by the machine.</p></dd>
 
-
-<dt><code>sample_locations</code></dt>
+      <dt><code>sample_locations</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 Locations of the samples on the plate.
 Sample locations are ordered in the same way as samples in the input CSV file.</p></dd>
 
-
-<dt><code>sample_types</code></dt>
+      <dt><code>sample_types</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 Types of the samples that were examined on the plate.
 The possible values are <br><code>c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)</code>.
@@ -247,39 +238,33 @@ Sample types are ordered in the same way as the <code>sample_names</code> vector
 or any of the processing methods: <code><a href="process_dir.html">process_dir</a></code>, <code><a href="process_file.html">process_file</a></code> and <code><a href="process_plate.html">process_plate</a></code>)
 the sample types are detected based on the sample names according to the rules described in <code><a href="translate_sample_names_to_sample_types.html">translate_sample_names_to_sample_types</a></code>.</p></dd>
 
-
-<dt><code>dilutions</code></dt>
+      <dt><code>dilutions</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 A list containing names of the samples as keys and string representing dilutions as values.
 The dilutions are represented as strings. The dilutions are ordered in the same way as the <code>sample_names</code> vector</p></dd>
 
-
-<dt><code>dilution_values</code></dt>
+      <dt><code>dilution_values</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
 A list containing names of the samples as keys and numeric values representing dilutions as values.
 The dilution values are ordered in the same way as the <code>sample_names</code> vector</p></dd>
 
-
-<dt><code>default_data_type</code></dt>
+      <dt><code>default_data_type</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
 The default data type that will be returned by the <code>get_data</code> method.
 By default is set to <code>Median</code>.</p></dd>
 
-
-<dt><code>data</code></dt>
+      <dt><code>data</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>)<br>
 A list containing dataframes with the data for each sample and analyte.
 The possible data types - the keys of the list are <br><code>c(Median, Net MFI, Count, Avg Net MFI, Mean, Peak)</code>.
 In each dataframe, the rows represent samples and the columns represent analytes.
 Rows of each dataframe are ordered in the same way as the <code>sample_names</code> vector.</p></dd>
 
-
-<dt><code>batch_info</code></dt>
+      <dt><code>batch_info</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>)<br>
 A list containing additional, technical information about the batch.</p></dd>
 
-
-<dt><code>layout</code></dt>
+      <dt><code>layout</code></dt>
 <dd><p>(<code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>)<br>
 A list containing information about the layout of the plate.
 The layout is read from the separate file and usually provides additional
@@ -290,15 +275,15 @@ on the actual plate.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plate-print"></a><div class="section">
-<h3 id="method-print-">Method <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code><a class="anchor" aria-label="anchor" href="#method-print-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plate-print"></a><div class="section">
+<h3 id="plate-print-"><code>Plate$print()</code><a class="anchor" aria-label="anchor" href="#plate-print-"></a></h3>
 <p>Function prints the basic information about the plate
 such as the number of samples and analytes</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plate</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>...</code></dt>
 <dd><p>Additional parameters to be passed to the print function
@@ -308,22 +293,21 @@ Print the summary of the plate</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plate-summary"></a><div class="section">
-<h3 id="method-summary-">Method <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code><a class="anchor" aria-label="anchor" href="#method-summary-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plate-summary"></a><div class="section">
+<h3 id="plate-summary-"><code>Plate$summary()</code><a class="anchor" aria-label="anchor" href="#plate-summary-"></a></h3>
 <p>Function outputs basic information about the plate, such as
 examination date, batch name, and sample types.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plate</span><span class="op">$</span><span class="fu">summary</span><span class="op">(</span><span class="va">...</span>, include_names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>...</code></dt>
 <dd><p>Additional parameters to be passed to the print function
 Get data for a specific analyte and sample type</p></dd>
 
-
-<dt><code>include_names</code></dt>
+      <dt><code>include_names</code></dt>
 <dd><p>If <code>include_names</code> parameter is <code>TRUE</code>, a
 part from count of control samples, provides also their names.
 By default <code>FALSE</code></p></dd>
@@ -332,8 +316,10 @@ By default <code>FALSE</code></p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plate-get_data"></a><div class="section">
-<h3 id="method-get-data-">Method <code>get_data()</code><a class="anchor" aria-label="anchor" href="#method-get-data-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plate-get_data"></a><div class="section">
+<h3 id="plate-get-data-"><code>Plate$get_data()</code><a class="anchor" aria-label="anchor" href="#plate-get-data-"></a></h3>
 <p>Function returns data for a specific analyte and sample.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plate</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span></span>
@@ -341,23 +327,19 @@ By default <code>FALSE</code></p></dd>
 <span>  sample_type_filter <span class="op">=</span> <span class="st">"ALL"</span>,</span>
 <span>  data_type <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">default_data_type</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>analyte</code></dt>
 <dd><p>An analyte name or its id of which data we want to extract.
 If set to 'ALL' returns data for all analytes.</p></dd>
 
-
-<dt><code>sample_type_filter</code></dt>
+      <dt><code>sample_type_filter</code></dt>
 <dd><p>is a type of the sample we want to extract data from.
 The possible values are <br><code>c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD CURVE, POSITIVE CONTROL)</code>. Default value is <code>ALL</code>.
 <code>sample_type_filter</code> can be also of length greater than 1. If <code>sample_type</code> is longer than 1 and <code>ALL</code> is in the vector,
 the method returns all the sample types.</p></dd>
 
-
-<dt><code>data_type</code></dt>
+      <dt><code>data_type</code></dt>
 <dd><p>The parameter specifying which data type should be returned.
 This parameter has to take one of values: <br><code>c(Median, Net MFI, Count, Avg Net MFI, Mean, Peak)</code>.
 What's more, the <code>data_type</code> has to be present in the plate's data
@@ -365,21 +347,20 @@ Default value is plate's <code>default_data_type</code>, which is usually <code>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>Dataframe containing information about a given sample type and analyte
 Get the string representation of dilutions</p>
 </div>
 
-</div><p></p><hr><a id="method-Plate-get_dilution"></a><div class="section">
-<h3 id="method-get-dilution-">Method <code>get_dilution()</code><a class="anchor" aria-label="anchor" href="#method-get-dilution-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plate-get_dilution"></a><div class="section">
+<h3 id="plate-get-dilution-"><code>Plate$get_dilution()</code><a class="anchor" aria-label="anchor" href="#plate-get-dilution-"></a></h3>
 <p>Function returns the dilution represented as strings for a specific sample type.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plate</span><span class="op">$</span><span class="fu">get_dilution</span><span class="op">(</span><span class="va">sample_type</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>sample_type</code></dt>
 <dd><p>type of the samples that we want to obtain the dilution for.
@@ -387,21 +368,20 @@ The possible values are <br><code>c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>A list containing names of the samples as keys and string representing dilutions as values.
 Get the numeric representation of dilutions</p>
 </div>
 
-</div><p></p><hr><a id="method-Plate-get_dilution_values"></a><div class="section">
-<h3 id="method-get-dilution-values-">Method <code>get_dilution_values()</code><a class="anchor" aria-label="anchor" href="#method-get-dilution-values-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plate-get_dilution_values"></a><div class="section">
+<h3 id="plate-get-dilution-values-"><code>Plate$get_dilution_values()</code><a class="anchor" aria-label="anchor" href="#plate-get-dilution-values-"></a></h3>
 <p>Function returns the dilution values for a specific sample type.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plate</span><span class="op">$</span><span class="fu">get_dilution_values</span><span class="op">(</span><span class="va">sample_type</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>sample_type</code></dt>
 <dd><p>type of the samples that we want to obtain the dilution values for.
@@ -409,15 +389,16 @@ The possible values are <br><code>c(ALL, BLANK, TEST, NEGATIVE CONTROL, STANDARD
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p>A list containing names of the samples as keys and numeric values representing dilutions as values.</p>
 <p>Adjust the MFI values by subtracting the background</p>
 </div>
 
-</div><p></p><hr><a id="method-Plate-blank_adjustment"></a><div class="section">
-<h3 id="method-blank-adjustment-">Method <code>blank_adjustment()</code><a class="anchor" aria-label="anchor" href="#method-blank-adjustment-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plate-blank_adjustment"></a><div class="section">
+<h3 id="plate-blank-adjustment-"><code>Plate$blank_adjustment()</code><a class="anchor" aria-label="anchor" href="#plate-blank-adjustment-"></a></h3>
 <p>Function adjusts the values of samples (all samples excluding the blanks) by clamping the
 values to the aggregated value of the <code>BLANK</code> samples for each analyte separately.</p>
 <p>The purpose of this operation is to unify the data by clamping values below the background noise.
@@ -431,17 +412,14 @@ Skipping it before further analysis is allowed, but will result in a warning.</p
 <p>@references van den Hoogen, L.L., Présumé, J., Romilus, I. et al. Quality control of multiplex antibody detection in samples from large-scale surveys: the example of malaria in Haiti. Sci Rep 10, 1135 (2020). https://doi.org/10.1038/s41598-020-57876-0</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plate</span><span class="op">$</span><span class="fu">blank_adjustment</span><span class="op">(</span>threshold <span class="op">=</span> <span class="st">"max"</span>, in_place <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>threshold</code></dt>
 <dd><p>The method used to calculate the background value for each analyte.
 Every value below this threshold will be clamped to the threshold value.
 By default <code>max</code>. Available methods are: <code>min</code>, <code>max</code>, <code>mean</code>, <code>median</code>.</p></dd>
 
-
-<dt><code>in_place</code></dt>
+      <dt><code>in_place</code></dt>
 <dd><p>Whether the method should produce new plate with adjusted
 values or not, By default <code>TRUE</code> - operates on the current plate.</p></dd>
 
@@ -449,14 +427,14 @@ values or not, By default <code>TRUE</code> - operates on the current plate.</p>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plate-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plate-clone"></a><div class="section">
+<h3 id="plate-clone-"><code>Plate$clone()</code><a class="anchor" aria-label="anchor" href="#plate-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plate</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -466,6 +444,7 @@ values or not, By default <code>TRUE</code> - operates on the current plate.</p>
 </div>
 
 </div>
+
 
     </div>
 

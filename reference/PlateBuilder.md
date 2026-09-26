@@ -14,7 +14,7 @@ and validate the final fields.
 
 ### Public methods
 
-- [`PlateBuilder$new()`](#method-PlateBuilder-new)
+- [`PlateBuilder$new()`](#method-PlateBuilder-initialize)
 
 - [`PlateBuilder$set_sample_locations()`](#method-PlateBuilder-set_sample_locations)
 
@@ -42,7 +42,7 @@ and validate the final fields.
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PlateBuilder$new()`
 
 Initialize the PlateBuilder object
 
@@ -76,7 +76,7 @@ Initialize the PlateBuilder object
 
 ------------------------------------------------------------------------
 
-### Method `set_sample_locations()`
+### `PlateBuilder$set_sample_locations()`
 
 Set the sample types used during the examination
 
@@ -92,7 +92,7 @@ Set the sample types used during the examination
 
 ------------------------------------------------------------------------
 
-### Method `set_dilutions()`
+### `PlateBuilder$set_dilutions()`
 
 Extract and set the dilutions from layout, sample names or use a
 provided vector of values. The provided vector should be the same length
@@ -120,7 +120,7 @@ strings
 
 ------------------------------------------------------------------------
 
-### Method `set_sample_types()`
+### `PlateBuilder$set_sample_types()`
 
 #### Usage
 
@@ -139,7 +139,7 @@ strings
 
 ------------------------------------------------------------------------
 
-### Method `set_sample_names()`
+### `PlateBuilder$set_sample_names()`
 
 Set the sample names used during the examination. If the layout is
 provided, extract the sample names from the layout file. Otherwise, uses
@@ -162,7 +162,7 @@ warning and renames the samples, by adding a number.
 
 ------------------------------------------------------------------------
 
-### Method `set_plate_datetime()`
+### `PlateBuilder$set_plate_datetime()`
 
 Set the plate datetime for the plate
 
@@ -179,7 +179,7 @@ Set the plate datetime for the plate
 
 ------------------------------------------------------------------------
 
-### Method `set_data()`
+### `PlateBuilder$set_data()`
 
 Set the data used during the examination
 
@@ -207,7 +207,7 @@ Set the data used during the examination
 
 ------------------------------------------------------------------------
 
-### Method `set_default_data_type()`
+### `PlateBuilder$set_default_data_type()`
 
 Set the data type used for calculations
 
@@ -224,7 +224,7 @@ Set the data type used for calculations
 
 ------------------------------------------------------------------------
 
-### Method `set_batch_info()`
+### `PlateBuilder$set_batch_info()`
 
 Set the batch info for the plate
 
@@ -241,7 +241,7 @@ Set the batch info for the plate
 
 ------------------------------------------------------------------------
 
-### Method `set_plate_name()`
+### `PlateBuilder$set_plate_name()`
 
 Set the plate name for the plate. The plate name is extracted from the
 filepath
@@ -258,7 +258,7 @@ filepath
 
 ------------------------------------------------------------------------
 
-### Method `set_layout()`
+### `PlateBuilder$set_layout()`
 
 Set the layout matrix for the plate. This function performs basic
 validation
@@ -278,7 +278,7 @@ validation
 
 ------------------------------------------------------------------------
 
-### Method `build()`
+### `PlateBuilder$build()`
 
 Create a Plate object from the PlateBuilder object
 
@@ -300,7 +300,7 @@ Create a Plate object from the PlateBuilder object
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PlateBuilder$clone()`
 
 The objects of this class are cloneable with this method.
 

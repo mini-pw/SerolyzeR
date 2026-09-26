@@ -330,7 +330,7 @@ list_of_plates <- process_dir(dir_with_luminex_files,
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
-    #> Merged output saved to: /tmp/Rtmpsykn4R/multiplate-tutorial/merged_MFI_20260926_161553.csv
+    #> Merged output saved to: /tmp/RtmpuLhms4/multiplate-tutorial/merged_MFI_20260926_161949.csv
     #> Fitting the models and predicting RAU for each analyte
 
     #> Fitting the models and predicting RAU for each analyte
@@ -350,7 +350,7 @@ list_of_plates <- process_dir(dir_with_luminex_files,
     #> Fitting the models and predicting RAU for each analyte
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Merged output saved to: /tmp/Rtmpsykn4R/multiplate-tutorial/merged_RAU_20260926_161553.csv
+    #> Merged output saved to: /tmp/RtmpuLhms4/multiplate-tutorial/merged_RAU_20260926_161949.csv
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
@@ -364,7 +364,7 @@ list_of_plates <- process_dir(dir_with_luminex_files,
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
-    #> Merged output saved to: /tmp/Rtmpsykn4R/multiplate-tutorial/merged_nMFI_20260926_161553.csv
+    #> Merged output saved to: /tmp/RtmpuLhms4/multiplate-tutorial/merged_nMFI_20260926_161949.csv
 
 ``` r
 

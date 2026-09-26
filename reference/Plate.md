@@ -112,7 +112,7 @@ performing blank adjustments.
 
 ### Public methods
 
-- [`Plate$new()`](#method-Plate-new)
+- [`Plate$new()`](#method-Plate-initialize)
 
 - [`Plate$print()`](#method-Plate-print)
 
@@ -130,7 +130,7 @@ performing blank adjustments.
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Plate$new()`
 
 Method to initialize the Plate object
 
@@ -257,7 +257,7 @@ Method to initialize the Plate object
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `Plate$print()`
 
 Function prints the basic information about the plate such as the number
 of samples and analytes
@@ -275,7 +275,7 @@ of samples and analytes
 
 ------------------------------------------------------------------------
 
-### Method [`summary()`](https://rdrr.io/r/base/summary.html)
+### `Plate$summary()`
 
 Function outputs basic information about the plate, such as examination
 date, batch name, and sample types.
@@ -298,7 +298,7 @@ date, batch name, and sample types.
 
 ------------------------------------------------------------------------
 
-### Method `get_data()`
+### `Plate$get_data()`
 
 Function returns data for a specific analyte and sample.
 
@@ -341,7 +341,7 @@ Get the string representation of dilutions
 
 ------------------------------------------------------------------------
 
-### Method `get_dilution()`
+### `Plate$get_dilution()`
 
 Function returns the dilution represented as strings for a specific
 sample type.
@@ -366,7 +366,7 @@ dilutions as values. Get the numeric representation of dilutions
 
 ------------------------------------------------------------------------
 
-### Method `get_dilution_values()`
+### `Plate$get_dilution_values()`
 
 Function returns the dilution values for a specific sample type.
 
@@ -392,7 +392,7 @@ Adjust the MFI values by subtracting the background
 
 ------------------------------------------------------------------------
 
-### Method `blank_adjustment()`
+### `Plate$blank_adjustment()`
 
 Function adjusts the values of samples (all samples excluding the
 blanks) by clamping the values to the aggregated value of the `BLANK`
@@ -440,7 +440,7 @@ large-scale surveys: the example of malaria in Haiti. Sci Rep 10, 1135
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Plate$clone()`
 
 The objects of this class are cloneable with this method.
 
