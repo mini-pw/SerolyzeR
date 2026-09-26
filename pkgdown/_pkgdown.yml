@@ -11,6 +11,7 @@ reference:
   - title: Core functions
     desc: Reading, processing and summarising the data. These functions allow for end-to-end analysis without going into more complex details.
     contents:
+    - run_gui
     - read_luminex_data
     - process_plate
     - process_file
@@ -39,6 +40,7 @@ reference:
   - title: Helper functions
     desc: Additional, lower level functions that are used in the analysis
     contents:
+    - detect_mba_format
     - read_xponent_format
     - read_intelliflex_format
     - read_bioplex_format
