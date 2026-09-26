@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Process a File to Generate Normalised Data and Reports — process_file"><meta name="description" content="This function reads a Luminex plate file by calling read_luminex_data() and then processes it by calling process_plate(). It optionally generates also a quality control report using generate_plate_report().
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Process a File to Generate Normalised Data and Reports — process_file"><meta name="description" content="This function reads a Luminex plate file by calling read_luminex_data() and then processes it by calling process_plate(). It optionally generates also a quality control report using generate_plate_report().
 It reads the specified plate file, processes the plate object using all specified normalisation types (including raw MFI values), and saves the results.
 If generate_report = TRUE, a quality control report is also generated."><meta property="og:description" content="This function reads a Luminex plate file by calling read_luminex_data() and then processes it by calling process_plate(). It optionally generates also a quality control report using generate_plate_report().
 It reads the specified plate file, processes the plate object using all specified normalisation types (including raw MFI values), and saves the results.
@@ -17,7 +17,7 @@ If generate_report = TRUE, a quality control report is also generated."></head><
 
     <a class="navbar-brand me-2" href="../index.html">SerolyzeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -168,11 +168,11 @@ If <code>generate_report = TRUE</code>, a quality control report is also generat
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Processing plate 'CovidOISExPONTENT_CO_reduced'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_MFI.csv'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_MFI.csv'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_RAU.csv'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_RAU.csv'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_nMFI.csv'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_nMFI.csv'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Plate with 49 samples and 2 analytes</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Process the plate for only RAU normalisation</span></span></span>
@@ -188,9 +188,9 @@ If <code>generate_report = TRUE</code>, a quality control report is also generat
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">New plate object has been created with name: CovidOISExPONTENT_CO_reduced!</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Processing plate 'CovidOISExPONTENT_CO_reduced'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_RAU.csv'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_RAU.csv'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Plate with 49 samples and 2 analytes</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: Process the plate and generate a quality control report</span></span></span>
@@ -206,18 +206,18 @@ If <code>generate_report = TRUE</code>, a quality control report is also generat
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">New plate object has been created with name: CovidOISExPONTENT_CO_reduced!</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Processing plate 'CovidOISExPONTENT_CO_reduced'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_MFI.csv already exists. Overwriting it.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_MFI.csv already exists. Overwriting it.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_MFI.csv'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_MFI.csv'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_RAU.csv already exists. Overwriting it.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_RAU.csv'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_nMFI.csv already exists. Overwriting it.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_RAU.csv'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_nMFI.csv already exists. Overwriting it.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_nMFI.csv'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_nMFI.csv'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating report...This will take approximately 30 seconds.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpqWeo7P/CovidOISExPONTENT_CO_reduced_report.html already exists. Overwriting it.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Report successfully generated, saving to: /tmp/RtmpqWeo7P</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The specified file /tmp/RtmpZ3QTyL/CovidOISExPONTENT_CO_reduced_report.html already exists. Overwriting it.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Report successfully generated, saving to: /tmp/RtmpZ3QTyL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Plate with 49 samples and 2 analytes</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -231,7 +231,7 @@ If <code>generate_report = TRUE</code>, a quality control report is also generat
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -26,6 +26,7 @@ OISE study, which is pre-loaded into the package. Firstly, let us load
 the dataset as the `plate` object.
 
 ``` r
+
 library(SerolyzeR)
 
 plate_filepath <- system.file("extdata", "CovidOISExPONTENT.csv", package = "SerolyzeR", mustWork = TRUE)
@@ -41,6 +42,7 @@ plate <- read_luminex_data(plate_filepath, layout_filepath)
     #> 
 
 ``` r
+
 plate
 ```
 
@@ -53,6 +55,7 @@ function. There is one parameter that needs to be set, which is the
 be patient. It can take up to a minute for a large plate.
 
 ``` r
+
 generate_plate_report(plate)
 ```
 
@@ -98,6 +101,7 @@ function has the following optional parameters:
   to the report
 
 ``` r
+
 notes <- "
 This is an example of additional notes that can be added to the report.
 The notes support markdown syntax, for example:
@@ -159,6 +163,7 @@ Such notes looks like this in the report:
   used. Default is ‘reports’.
 
 ``` r
+
 generate_plate_report(plate,
   additional_notes = notes,
   counts_lower_threshold = 10,
@@ -177,6 +182,7 @@ OISE study, which is pre-loaded into the package. Firstly, let us load
 the dataset as the `list_of_plates` object.
 
 ``` r
+
 dir <- system.file("extdata", "multiplate_reallife_reduced",
   package = "SerolyzeR", mustWork = TRUE
 )
@@ -204,6 +210,7 @@ Generation of the report takes a several minutes, so please be patient.
 It can take up around 5 minutes for reports with more than 30 plates.
 
 ``` r
+
 generate_levey_jennings_report(list_of_plates, report_title = "Example study")
 ```
 

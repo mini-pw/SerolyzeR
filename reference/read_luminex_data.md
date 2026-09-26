@@ -21,6 +21,7 @@ read_luminex_data(
   sample_types = NULL,
   dilutions = NULL,
   verbose = TRUE,
+  validate = TRUE,
   ...
 )
 ```
@@ -98,6 +99,14 @@ read_luminex_data(
   (`logical(1)`, default = `TRUE`)
 
   - Whether to print additional information and warnings.
+
+- validate:
+
+  (`logical(1)`, default = `TRUE`)
+
+  - Whether to validate the resulting
+    [Plate](https://mini-pw.github.io/SerolyzeR/reference/Plate.md)
+    object after building.
 
 - ...:
 

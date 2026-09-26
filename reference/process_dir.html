@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Process a Directory of Luminex Data Files — process_dir"><meta name="description" content="This function processes all Luminex plate files within a specified directory.
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Process a Directory of Luminex Data Files — process_dir"><meta name="description" content="This function processes all Luminex plate files within a specified directory.
 Each plate file is processed using process_file(), and the resulting normalised data is saved.
 Optionally, quality control reports can be generated, and results from multiple plates can be merged into a single file.
 Workflow
@@ -127,7 +127,7 @@ If generate_multiplate_reports = TRUE, a multiplate quality control report is sa
 
     <a class="navbar-brand me-2" href="../index.html">SerolyzeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -315,7 +315,9 @@ Options: <code>'xPONENT'</code>, <code>'INTELLIFLEX'</code>, <code>'BIOPLEX'</co
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>If <code>return_plates = TRUE</code>, returns a sorted list of <a href="Plate.html">Plate</a> objects. Otherwise, returns <code>NULL</code>.</p>
+    <p>If <code>dry_run = TRUE</code>, returns a list with three vectors (of Path|NULL),
+which represent the input triplets for <code><a href="process_file.html">process_file()</a></code>, otherwise if <code>return_plates = TRUE</code>,
+returns a sorted list of <a href="Plate.html">Plate</a> objects. If both flags are FALSE returns NULL.</p>
     </div>
 
     <div class="section level2">
@@ -348,13 +350,13 @@ Options: <code>'xPONENT'</code>, <code>'INTELLIFLEX'</code>, <code>'BIOPLEX'</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> Processing plate 'CovidOISExPONTENT2'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpqWeo7P/merged_MFI_20260219_151559.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpZ3QTyL/merged_MFI_20260926_161456.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpqWeo7P/merged_RAU_20260219_151559.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpZ3QTyL/merged_RAU_20260926_161456.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpqWeo7P/merged_nMFI_20260219_151559.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpZ3QTyL/merged_nMFI_20260926_161456.csv</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -367,7 +369,7 @@ Options: <code>'xPONENT'</code>, <code>'INTELLIFLEX'</code>, <code>'BIOPLEX'</co
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

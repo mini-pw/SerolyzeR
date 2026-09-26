@@ -86,6 +86,7 @@ A report.
 ## Examples
 
 ``` r
+
 plate_file <- system.file("extdata", "CovidOISExPONTENT_CO_reduced.csv", package = "SerolyzeR")
 # a plate file with reduced number of analytes to speed up the computation
 layout_file <- system.file("extdata", "CovidOISExPONTENT_CO_layout.xlsx", package = "SerolyzeR")
@@ -102,5 +103,5 @@ generate_plate_report(plate,
   additional_notes = note
 )
 #> Generating report...This will take approximately 30 seconds.
-#> Report successfully generated, saving to: /tmp/RtmpqWeo7P
+#> Report successfully generated, saving to: /tmp/RtmpZ3QTyL
 ```

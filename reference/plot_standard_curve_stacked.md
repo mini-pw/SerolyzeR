@@ -131,6 +131,7 @@ readability.
 ## Examples
 
 ``` r
+
 # creating temporary directory for the example
 output_dir <- tempdir(check = TRUE)
 
@@ -174,15 +175,15 @@ list_of_plates <- process_dir(dir_with_luminex_files,
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
-#> Merged output saved to: /tmp/RtmpqWeo7P/merged_MFI_20260219_151555.csv
+#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_MFI_20260926_161453.csv
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
-#> Merged output saved to: /tmp/RtmpqWeo7P/merged_RAU_20260219_151555.csv
+#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_RAU_20260926_161453.csv
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
-#> Merged output saved to: /tmp/RtmpqWeo7P/merged_nMFI_20260219_151555.csv
+#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_nMFI_20260926_161453.csv
 plot_standard_curve_stacked(list_of_plates, "ME", data_type = "Median", monochromatic = FALSE)
 
 ```

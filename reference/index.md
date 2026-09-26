@@ -5,6 +5,8 @@
 Reading, processing and summarising the data. These functions allow for
 end-to-end analysis without going into more complex details.
 
+- [`run_gui()`](https://mini-pw.github.io/SerolyzeR/reference/run_gui.md)
+  : Launch the interactive GUI Shiny app
 - [`read_luminex_data()`](https://mini-pw.github.io/SerolyzeR/reference/read_luminex_data.md)
   : Read Luminex Data
 - [`process_plate()`](https://mini-pw.github.io/SerolyzeR/reference/process_plate.md)
@@ -61,6 +63,8 @@ analysis.
 
 Additional, lower level functions that are used in the analysis
 
+- [`detect_mba_format()`](https://mini-pw.github.io/SerolyzeR/reference/detect_mba_format.md)
+  : Try to detect the format of a file
 - [`read_xponent_format()`](https://mini-pw.github.io/SerolyzeR/reference/read_xponent_format.md)
   : Read the xPONENT format data
 - [`read_intelliflex_format()`](https://mini-pw.github.io/SerolyzeR/reference/read_intelliflex_format.md)

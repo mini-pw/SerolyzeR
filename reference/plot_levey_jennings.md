@@ -14,7 +14,7 @@ Except for the required parameters (`list_of_plates` and
 The additional parameters can be used for improving the plots
 interpretability, by customizing the layout, y-scale, etc.
 
-For better readibilty, the plot is zoomed out in the `y`-axis, by a
+For better readability, the plot is zoomed out in the `y`-axis, by a
 factor of `1.5`.
 
 ## Usage
@@ -70,7 +70,7 @@ plot_levey_jennings(
 
 - plate_labels:
 
-  (`character(1)`) controls x-axis labels. Can improve readibility of
+  (`character(1)`) controls x-axis labels. Can improve readability of
   the plot. Takes the following values:
 
   - `"numbers"`: shows the number of the plate,
@@ -82,7 +82,7 @@ plot_levey_jennings(
 - label_angle:
 
   (`numeric(1)`) angle in degrees to rotate x-axis labels. Can improve
-  readibility of the plot. Default: 0
+  readability of the plot. Default: 0
 
 - legend_position:
 
@@ -144,15 +144,15 @@ list_of_plates <- process_dir(dir_with_luminex_files,
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
-#> Merged output saved to: /tmp/RtmpqWeo7P/merged_MFI_20260219_151550.csv
+#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_MFI_20260926_161447.csv
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
-#> Merged output saved to: /tmp/RtmpqWeo7P/merged_RAU_20260219_151550.csv
+#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_RAU_20260926_161447.csv
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
-#> Merged output saved to: /tmp/RtmpqWeo7P/merged_nMFI_20260219_151550.csv
+#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_nMFI_20260926_161447.csv
 list_of_plates <- rep(list_of_plates, 10) # since we have only 3 plates i will repeat them 10 times
 
 plot_levey_jennings(list_of_plates, "ME", dilution = "1/400", sd_lines = c(0.5, 1, 1.96, 2.58))

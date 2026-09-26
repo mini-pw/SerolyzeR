@@ -9,6 +9,7 @@ from the Covid OISE study, which is pre-loaded into the package.
 Firstly, let us load the dataset as the `plate` object.
 
 ``` r
+
 library(SerolyzeR)
 
 plate_filepath <- system.file("extdata", "CovidOISExPONTENT.csv", package = "SerolyzeR", mustWork = TRUE) # get the filepath of the csv dataset
@@ -27,6 +28,7 @@ plate <- read_luminex_data(plate_filepath, layout_filepath) # read the data
     #> 
 
 ``` r
+
 plate
 ```
 
@@ -43,6 +45,7 @@ the plate is correctly read from Luminex or the layout file. The
 function takes the `plate` object as the argument.
 
 ``` r
+
 plot_layout(plate)
 ```
 
@@ -69,6 +72,7 @@ arguments. The function will return an error message if there is a typo
 in the analyte name.
 
 ``` r
+
 plot_counts(plate, "Spike_B16172")
 ```
 
@@ -84,6 +88,7 @@ setting the `show_counts` parameter to `FALSE`. This provides a cleaner
 plot without the counts.
 
 ``` r
+
 plot_counts(plate, "FluA", plot_counts = FALSE)
 ```
 
@@ -100,6 +105,7 @@ the analyte name as the arguments. The function will return an error
 message if there is a typo in the analyte name.
 
 ``` r
+
 plot_mfi_for_analyte(plate, "Spike_B16172")
 ```
 
@@ -112,6 +118,7 @@ violin, but there is an option to change it to the boxplot by setting
 the `plot_type` parameter to `boxplot`.
 
 ``` r
+
 plot_mfi_for_analyte(plate, "FluA", plot_type = "boxplot")
 ```
 
@@ -123,6 +130,7 @@ type of plot, we may include the outliers by the `plot_outliers`
 parameter.
 
 ``` r
+
 plot_mfi_for_analyte(plate, "FluA", plot_type = "boxplot", scale_y = "identity", plot_outliers = TRUE)
 ```
 
@@ -144,6 +152,7 @@ goes wrong during the plate preparation, it should be visible easily in
 this plot.
 
 ``` r
+
 plot_standard_curve_analyte(plate, "Spike_B16172")
 ```
 
@@ -170,6 +179,7 @@ the model. Thus, it carries more information at the cost of being more
 complex and crowded.
 
 ``` r
+
 model <- create_standard_curve_model_analyte(plate, analyte_name = "Spike_B16172")
 plot_standard_curve_analyte_with_model(plate, model)
 ```
@@ -198,6 +208,7 @@ the `list_of_plates` which is a list of plate objects and the analyte
 name as the arguments.
 
 ``` r
+
 dir_with_luminex_files <- system.file("extdata", "multiplate_tutorial",
   package = "SerolyzeR", mustWork = TRUE
 )
@@ -209,6 +220,7 @@ R.utils::mkdirs(output_dir)
     #> [1] TRUE
 
 ``` r
+
 list_of_plates <- process_dir(dir_with_luminex_files,
   return_plates = TRUE, format = "xPONENT", output_dir = output_dir
 )
@@ -318,7 +330,7 @@ list_of_plates <- process_dir(dir_with_luminex_files,
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
-    #> Merged output saved to: /tmp/Rtmpp4whzy/multiplate-tutorial/merged_MFI_20260219_151655.csv
+    #> Merged output saved to: /tmp/Rtmpsykn4R/multiplate-tutorial/merged_MFI_20260926_161553.csv
     #> Fitting the models and predicting RAU for each analyte
 
     #> Fitting the models and predicting RAU for each analyte
@@ -338,7 +350,7 @@ list_of_plates <- process_dir(dir_with_luminex_files,
     #> Fitting the models and predicting RAU for each analyte
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Merged output saved to: /tmp/Rtmpp4whzy/multiplate-tutorial/merged_RAU_20260219_151655.csv
+    #> Merged output saved to: /tmp/Rtmpsykn4R/multiplate-tutorial/merged_RAU_20260926_161553.csv
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
@@ -352,9 +364,10 @@ list_of_plates <- process_dir(dir_with_luminex_files,
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
-    #> Merged output saved to: /tmp/Rtmpp4whzy/multiplate-tutorial/merged_nMFI_20260219_151655.csv
+    #> Merged output saved to: /tmp/Rtmpsykn4R/multiplate-tutorial/merged_nMFI_20260926_161553.csv
 
 ``` r
+
 plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3")
 ```
 
@@ -374,6 +387,7 @@ many plates. Each plate is more distinct from the others, which can be
 helpful when looking for outliers.
 
 ``` r
+
 plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE)
 ```
 
@@ -400,6 +414,7 @@ placed in one row of the legend. By default it is set to `3`. The second
 parameter sets the font size in the legend.
 
 ``` r
+
 plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position = "top", max_legend_items_per_row = 3, legend_text_size = 4)
 ```
 
@@ -412,6 +427,7 @@ a horizontal line, which could highlight some threshold and also modify
 the title a bit.
 
 ``` r
+
 library(ggplot2)
 
 p <- plot_standard_curve_stacked(list_of_plates, "Adenovirus.T3", monochromatic = FALSE, legend_position = "bottom", max_legend_items_per_row = 3, legend_text_size = 7)
@@ -435,6 +451,7 @@ mandatory arguments. The `list_of_plates` can be obtained by the
 recommended way or creating list of plates.
 
 ``` r
+
 plot_levey_jennings(list_of_plates, "Adenovirus.T3", dilution = "1/100", sd_lines = c(1, 2, 3))
 ```
 
@@ -463,6 +480,7 @@ To make the plot analysis easier, it is zoomed out by a factor 1.5 in
 y-axis.
 
 ``` r
+
 plot_levey_jennings(list_of_plates, "Adenovirus.T3", dilution = "1/100", sd_lines = c(1, 2, 3), plate_labels = "name", label_angle = 30)
 ```
 

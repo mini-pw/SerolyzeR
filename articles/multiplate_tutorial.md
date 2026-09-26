@@ -16,6 +16,7 @@ Firstly, we need to locate our dataset. The `SerolyzeR` package has a
 preloaded dataset, which can be found with a command given below:
 
 ``` r
+
 base_dir <- system.file("extdata", "multiplate_tutorial", package = "SerolyzeR", mustWork = TRUE) # get the filepath of the directory containing all the files
 
 list.files(base_dir) # list all the files
@@ -105,6 +106,7 @@ to `TRUE`, for the multiplate report. By default both of these values
 are set to `FALSE`.
 
 ``` r
+
 library(SerolyzeR)
 
 output_dir <- file.path(tempdir(), "multiplate-tutorial") # create a temporary directory to store the output data
@@ -114,6 +116,7 @@ R.utils::mkdirs(output_dir)
     #> [1] TRUE
 
 ``` r
+
 plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU", "nMFI", "MFI"), output_dir = output_dir, merge_outputs = TRUE, return_plates = TRUE, generate_reports = FALSE, generate_multiplate_reports = FALSE)
 ```
 
@@ -227,7 +230,7 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
     #> Fitting the models and predicting RAU for each analyte
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Merged output saved to: /tmp/Rtmpt9k7dl/multiplate-tutorial/merged_RAU_20260219_151622.csv
+    #> Merged output saved to: /tmp/RtmptNEGFm/multiplate-tutorial/merged_RAU_20260926_161520.csv
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
@@ -241,7 +244,7 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
     #> Computing nMFI values for each analyte
-    #> Merged output saved to: /tmp/Rtmpt9k7dl/multiplate-tutorial/merged_nMFI_20260219_151622.csv
+    #> Merged output saved to: /tmp/RtmptNEGFm/multiplate-tutorial/merged_nMFI_20260926_161520.csv
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
@@ -255,7 +258,7 @@ plates <- process_dir(base_dir, format = "xPONENT", normalisation_types = c("RAU
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
     #> Extracting the raw MFI to the output dataframe
-    #> Merged output saved to: /tmp/Rtmpt9k7dl/multiplate-tutorial/merged_MFI_20260219_151622.csv
+    #> Merged output saved to: /tmp/RtmptNEGFm/multiplate-tutorial/merged_MFI_20260926_161520.csv
 
 Remember, if you want to read all your files properly, you need to
 follow the naming convention of the files. The layout file should have
@@ -280,11 +283,12 @@ multiple plates, we refer you to the vignette .
 Let us investigate the output directory and the files that were created.
 
 ``` r
+
 list.files(output_dir)
 ```
 
-    #> [1] "merged_MFI_20260219_151622.csv"  "merged_nMFI_20260219_151622.csv"
-    #> [3] "merged_RAU_20260219_151622.csv"
+    #> [1] "merged_MFI_20260926_161520.csv"  "merged_nMFI_20260926_161520.csv"
+    #> [3] "merged_RAU_20260926_161520.csv"
 
 Since, we have selected the `merge_outputs` parameter to be `TRUE`, we
 should see 3 files in the output directory:
@@ -293,6 +297,7 @@ should see 3 files in the output directory:
 `merged_RAU_{current_timestamp}.csv`.
 
 ``` r
+
 merged_RAU_filepath <- list.files(output_dir, pattern = "RAU", full.names = TRUE) # get the exact path to the RAU file
 
 
@@ -305,6 +310,7 @@ name from the sample originates, the second one is the sample name. The
 remaining columns contain the analytes.
 
 ``` r
+
 RAU_data[1:5, 1:5]
 ```
 

@@ -212,9 +212,12 @@ process_dir(
 
 ## Value
 
-If `return_plates = TRUE`, returns a sorted list of
+If `dry_run = TRUE`, returns a list with three vectors (of Path\|NULL),
+which represent the input triplets for
+[`process_file()`](https://mini-pw.github.io/SerolyzeR/reference/process_file.md),
+otherwise if `return_plates = TRUE`, returns a sorted list of
 [Plate](https://mini-pw.github.io/SerolyzeR/reference/Plate.md) objects.
-Otherwise, returns `NULL`.
+If both flags are FALSE returns NULL.
 
 ## Examples
 
@@ -247,11 +250,11 @@ plates <- process_dir(input_dir, return_plates = TRUE, output_dir = output_dir)
 #> Processing plate 'CovidOISExPONTENT2'
 #> Extracting the raw MFI to the output dataframe
 #> Extracting the raw MFI to the output dataframe
-#> Merged output saved to: /tmp/RtmpqWeo7P/merged_MFI_20260219_151559.csv
+#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_MFI_20260926_161456.csv
 #> Fitting the models and predicting RAU for each analyte
 #> Fitting the models and predicting RAU for each analyte
-#> Merged output saved to: /tmp/RtmpqWeo7P/merged_RAU_20260219_151559.csv
+#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_RAU_20260926_161456.csv
 #> Computing nMFI values for each analyte
 #> Computing nMFI values for each analyte
-#> Merged output saved to: /tmp/RtmpqWeo7P/merged_nMFI_20260219_151559.csv
+#> Merged output saved to: /tmp/RtmpZ3QTyL/merged_nMFI_20260926_161456.csv
 ```

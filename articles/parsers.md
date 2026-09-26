@@ -23,6 +23,7 @@ The simplest way of loading a file is to use the `read_luminex_data`
 function with default values.
 
 ``` r
+
 library(SerolyzeR)
 
 plate_filepath <- system.file("extdata", "CovidOISExPONTENT.csv", package = "SerolyzeR", mustWork = TRUE)
@@ -38,6 +39,7 @@ plate <- read_luminex_data(plate_filepath, layout_filepath)
     #> 
 
 ``` r
+
 summary(plate)
 ```
 
@@ -52,6 +54,7 @@ summary(plate)
     #> Number of analytes: 30
 
 ``` r
+
 # display a sample of the dataframe
 data.frame(plate)[c(1, 2), c(1, 2)]
 ```
@@ -69,6 +72,7 @@ default value can be changed, e.g. for the Mean value, as illustrated
 below. In this way, we provide more flexibility to the user.
 
 ``` r
+
 plate <- read_luminex_data(plate_filepath, layout_filepath, default_data_type = "Mean")
 ```
 
@@ -80,6 +84,7 @@ plate <- read_luminex_data(plate_filepath, layout_filepath, default_data_type = 
     #> 
 
 ``` r
+
 summary(plate)
 ```
 
@@ -94,6 +99,7 @@ summary(plate)
     #> Number of analytes: 30
 
 ``` r
+
 # display a sample of the dataframe
 data.frame(plate)[c(1, 2), c(1, 2)]
 ```
@@ -118,6 +124,7 @@ For example, let us read the xPONENT file above using the
 `read_xponent_format`.
 
 ``` r
+
 output <- read_xponent_format(plate_filepath)
 typeof(output)
 ```
@@ -125,6 +132,7 @@ typeof(output)
     #> [1] "list"
 
 ``` r
+
 names(output)
 ```
 
@@ -132,6 +140,7 @@ names(output)
     #> [5] "Per Bead"        "Results"         "CRC32"
 
 ``` r
+
 output[["ProgramMetadata"]]
 ```
 
@@ -154,6 +163,7 @@ output[["ProgramMetadata"]]
     #> [1] "IgG_CovidOiseS4_30plex_plate5_20220511"
 
 ``` r
+
 names(output[["Results"]])
 ```
 
@@ -169,6 +179,7 @@ names(output[["Results"]])
     #> [19] "Audit Logs"                   "Warnings/Errors"
 
 ``` r
+
 # sample of the data
 output[["Results"]][["Median"]][c(1, 2), c(1, 2, 3)]
 ```

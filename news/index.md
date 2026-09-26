@@ -1,6 +1,12 @@
 # Changelog
 
+## Version 1.5.0
+
+- implemented a Shiny application interface (`run_gui`)
+
 ## Version 1.4.1
+
+CRAN release: 2026-02-20
 
 - improved multiplate report generation speed
 

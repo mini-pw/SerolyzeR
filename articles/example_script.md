@@ -11,6 +11,7 @@ local disk, to test the package on your data.
 Firstly, let us load the dataset as the object.
 
 ``` r
+
 library(SerolyzeR)
 
 plate_filepath <- system.file("extdata", "CovidOISExPONTENT.csv", package = "SerolyzeR", mustWork = TRUE) # get the filepath of the csv dataset
@@ -29,6 +30,7 @@ plate <- read_luminex_data(plate_filepath, layout_filepath) # read the data
     #> 
 
 ``` r
+
 plate
 ```
 
@@ -97,15 +99,17 @@ Below, we execute the function on the plate object and save the output
 to a temporary directory.
 
 ``` r
+
 example_dir <- tempdir(check = TRUE) # create a temporary directory to store the output
 df <- process_plate(plate, output_dir = example_dir)
 ```
 
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_RAU.csv'
+    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmppBOTds/CovidOISExPONTENT_RAU.csv'
 
 ``` r
+
 colnames(df)
 ```
 
@@ -122,6 +126,7 @@ We can take a look at a slice of the produced dataframe (as not to
 overcrowd the article).
 
 ``` r
+
 df[1:5, 1:5]
 ```
 
@@ -141,6 +146,7 @@ files to the specified directory. An example execution of the function
 is shown below.
 
 ``` r
+
 process_file(plate_filepath, layout_filepath, output_dir = example_dir, generate_report = FALSE)
 ```
 
@@ -152,13 +158,13 @@ process_file(plate_filepath, layout_filepath, output_dir = example_dir, generate
     #> 
     #> Processing plate 'CovidOISExPONTENT'
     #> Extracting the raw MFI to the output dataframe
-    #> Saving the computed MFI values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_MFI.csv'
+    #> Saving the computed MFI values to a CSV file located in: '/tmp/RtmppBOTds/CovidOISExPONTENT_MFI.csv'
 
     #> Fitting the models and predicting RAU for each analyte
 
-    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_RAU.csv'
+    #> Saving the computed RAU values to a CSV file located in: '/tmp/RtmppBOTds/CovidOISExPONTENT_RAU.csv'
     #> Computing nMFI values for each analyte
-    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_nMFI.csv'
+    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmppBOTds/CovidOISExPONTENT_nMFI.csv'
 
     #> Plate with 96 samples and 30 analytes
 
@@ -188,6 +194,7 @@ After the plate is successfully loaded, we can look at some basic
 information about it.
 
 ``` r
+
 plate$summary()
 ```
 
@@ -202,6 +209,7 @@ plate$summary()
     #> Number of analytes: 30
 
 ``` r
+
 plate$summary(include_names = TRUE) # more detailed summary
 ```
 
@@ -217,12 +225,14 @@ plate$summary(include_names = TRUE) # more detailed summary
     #> Number of analytes: 30
 
 ``` r
+
 plate$sample_names[1:5] # print some of the sample names
 ```
 
     #> [1] "B"     "1/50"  "1/100" "1/200" "1/400"
 
 ``` r
+
 plate$analyte_names[1:4] # print some of the analyte names
 ```
 
@@ -232,6 +242,7 @@ The summary can also be accessed using the built-in generic method
 `summary.Plate()`.
 
 ``` r
+
 summary(plate)
 ```
 
@@ -251,6 +262,7 @@ The package can plot the RAU along the MFI values, allowing manual
 inspection of the standard curve.
 
 ``` r
+
 plot_standard_curve_analyte(plate, analyte_name = "OC43_S")
 ```
 
@@ -265,12 +277,14 @@ the samples; this option can be selected from the `data_type` parameter
 of the function.
 
 ``` r
+
 plot_standard_curve_analyte(plate, analyte_name = "RBD_wuhan", data_type = "Mean")
 ```
 
 ![](example_script_files/figure-html/unnamed-chunk-8-1.png)
 
 ``` r
+
 plot_standard_curve_analyte(plate, analyte_name = "RBD_wuhan", data_type = "Avg Net MFI")
 ```
 
@@ -283,12 +297,14 @@ the `Median` value of the sample with RAU of `39.06` is abnormally
 large, which may indicate a problem with the data.
 
 ``` r
+
 plot_standard_curve_analyte(plate, analyte_name = "ME")
 ```
 
 ![](example_script_files/figure-html/unnamed-chunk-9-1.png)
 
 ``` r
+
 plot_standard_curve_analyte(plate, analyte_name = "ME", log_scale = "all")
 ```
 
@@ -310,12 +326,14 @@ It helps identify the outlier samples and check if the test samples are
 within the range of the standard curve samples.
 
 ``` r
+
 plot_mfi_for_analyte(plate, analyte_name = "OC43_S")
 ```
 
 ![](example_script_files/figure-html/unnamed-chunk-10-1.png)
 
 ``` r
+
 plot_mfi_for_analyte(plate, analyte_name = "Spike_6P")
 ```
 
@@ -331,12 +349,14 @@ using the background samples. To do so, we can use the
 `plate$blank_adjustment` method, as below:
 
 ``` r
+
 plate$blank_adjusted # verify if the data is already adjusted
 ```
 
     #> [1] FALSE
 
 ``` r
+
 plate$blank_adjustment()
 ```
 
@@ -417,6 +437,7 @@ function. To create a model for a specific analyte, we use the
 the model for the analyte.
 
 ``` r
+
 model <- create_standard_curve_model_analyte(plate, analyte_name = "OC43_S")
 
 model
@@ -441,12 +462,14 @@ The predicted values may be used to plot the standard curve, which can
 be compared to the sample values.
 
 ``` r
+
 plot_standard_curve_analyte_with_model(plate, model, log_scale = c("all"))
 ```
 
 ![](example_script_files/figure-html/unnamed-chunk-14-1.png)
 
 ``` r
+
 plot_standard_curve_analyte_with_model(plate, model, log_scale = c("all"), plot_asymptote = FALSE)
 ```
 
@@ -458,6 +481,7 @@ RAU value corresponding to a first sample with dilution below 1/200
 (1/400 in this case, RAU = 2500).
 
 ``` r
+
 model_hdh <- create_standard_curve_model_analyte(plate, analyte_name = "RBD_omicron")
 plot_standard_curve_analyte_with_model(plate, model_hdh, log_scale = c("all"))
 ```
@@ -468,6 +492,7 @@ Apart from the plotting, the package can predict the values of all the
 samples on the plate.
 
 ``` r
+
 mfi_values <- plate$data$Median$OC43_S
 head(mfi_values)
 ```
@@ -475,6 +500,7 @@ head(mfi_values)
     #> [1]   43.0 4193.0 1982.0 1308.0  681.0  365.5
 
 ``` r
+
 predicted_rau <- predict(model, mfi_values)
 
 head(predicted_rau)
@@ -500,6 +526,7 @@ we can visually see the effect of the `over_max_extrapolation`
 parameter.
 
 ``` r
+
 model <- create_standard_curve_model_analyte(plate, analyte_name = "Spike_6P")
 plot_standard_curve_analyte_with_model(plate, model, log_scale = c("all"))
 ```
@@ -507,6 +534,7 @@ plot_standard_curve_analyte_with_model(plate, model, log_scale = c("all"))
 ![](example_script_files/figure-html/unnamed-chunk-17-1.png)
 
 ``` r
+
 plot_standard_curve_analyte_with_model(plate, model, log_scale = c("all"), over_max_extrapolation = 100000)
 ```
 
@@ -533,6 +561,7 @@ function. By default the output will be saved as a file with the same
 name as the plate name but with the `_nMFI` suffix.
 
 ``` r
+
 nmfi_values <- get_nmfi(plate)
 
 # process plate with nMFI normalisation
@@ -541,9 +570,10 @@ df <- process_plate(plate, output_dir = example_dir, normalisation_type = "nMFI"
 ```
 
     #> Computing nMFI values for each analyte
-    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmpGaRYNC/CovidOISExPONTENT_nMFI.csv'
+    #> Saving the computed nMFI values to a CSV file located in: '/tmp/RtmppBOTds/CovidOISExPONTENT_nMFI.csv'
 
 ``` r
+
 df[1:5, 1:5]
 ```
 

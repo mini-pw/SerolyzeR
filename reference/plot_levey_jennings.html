@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Plot Levey-Jennings chart — plot_levey_jennings"><meta name="description" content="The function plots a Levey-Jennings chart for the given analyte
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Plot Levey-Jennings chart — plot_levey_jennings"><meta name="description" content="The function plots a Levey-Jennings chart for the given analyte
 in the list of plates. The Levey-Jennings chart is a graphical
 representation of the data that enables the detection of outliers
 and trends. It is a quality control tool that is widely used
@@ -14,7 +14,7 @@ The method takes several parameters that can customise its output.
 Except for the required parameters (list_of_plates and analyte_name),
 the most significant optional ones are dilution and sd_lines.
 The additional parameters can be used for improving the plots interpretability, by customizing the layout, y-scale, etc.
-For better readibilty, the plot is zoomed out in the y-axis, by a factor of 1.5."><meta property="og:description" content="The function plots a Levey-Jennings chart for the given analyte
+For better readability, the plot is zoomed out in the y-axis, by a factor of 1.5."><meta property="og:description" content="The function plots a Levey-Jennings chart for the given analyte
 in the list of plates. The Levey-Jennings chart is a graphical
 representation of the data that enables the detection of outliers
 and trends. It is a quality control tool that is widely used
@@ -23,7 +23,7 @@ The method takes several parameters that can customise its output.
 Except for the required parameters (list_of_plates and analyte_name),
 the most significant optional ones are dilution and sd_lines.
 The additional parameters can be used for improving the plots interpretability, by customizing the layout, y-scale, etc.
-For better readibilty, the plot is zoomed out in the y-axis, by a factor of 1.5."></head><body>
+For better readability, the plot is zoomed out in the y-axis, by a factor of 1.5."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +31,7 @@ For better readibilty, the plot is zoomed out in the y-axis, by a factor of 1.5.
 
     <a class="navbar-brand me-2" href="../index.html">SerolyzeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@ in the laboratories across the world.</p>
 Except for the required parameters (<code>list_of_plates</code> and <code>analyte_name</code>),
 the most significant optional ones are <code>dilution</code> and <code>sd_lines</code>.</p>
 <p>The additional parameters can be used for improving the plots interpretability, by customizing the layout, y-scale, etc.</p>
-<p>For better readibilty, the plot is zoomed out in the <code>y</code>-axis, by a factor of <code>1.5</code>.</p>
+<p>For better readability, the plot is zoomed out in the <code>y</code>-axis, by a factor of <code>1.5</code>.</p>
     </div>
 
     <div class="section level2">
@@ -138,14 +138,14 @@ If <code>FALSE</code> plots using the plate order as in input. <code>TRUE</code>
 
 
 <dt id="arg-plate-labels">plate_labels<a class="anchor" aria-label="anchor" href="#arg-plate-labels"></a></dt>
-<dd><p>(<code>character(1)</code>) controls x-axis labels. Can improve readibility of the plot. Takes the following values:</p><ul><li><p><code>"numbers"</code>: shows the number of the plate,</p></li>
+<dd><p>(<code>character(1)</code>) controls x-axis labels. Can improve readability of the plot. Takes the following values:</p><ul><li><p><code>"numbers"</code>: shows the number of the plate,</p></li>
 <li><p><code>"names"</code>: shows the plate names</p></li>
 <li><p><code>"dates"</code>: shows the date of examination</p></li>
 </ul></dd>
 
 
 <dt id="arg-label-angle">label_angle<a class="anchor" aria-label="anchor" href="#arg-label-angle"></a></dt>
-<dd><p>(<code>numeric(1)</code>) angle in degrees to rotate x-axis labels. Can improve readibility of the plot. Default: 0</p></dd>
+<dd><p>(<code>numeric(1)</code>) angle in degrees to rotate x-axis labels. Can improve readability of the plot. Default: 0</p></dd>
 
 
 <dt id="arg-legend-position">legend_position<a class="anchor" aria-label="anchor" href="#arg-legend-position"></a></dt>
@@ -206,15 +206,15 @@ If <code>FALSE</code> plots using the plate order as in input. <code>TRUE</code>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extracting the raw MFI to the output dataframe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpqWeo7P/merged_MFI_20260219_151550.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpZ3QTyL/merged_MFI_20260926_161447.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitting the models and predicting RAU for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpqWeo7P/merged_RAU_20260219_151550.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpZ3QTyL/merged_RAU_20260926_161447.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Computing nMFI values for each analyte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpqWeo7P/merged_nMFI_20260219_151550.csv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merged output saved to: /tmp/RtmpZ3QTyL/merged_nMFI_20260926_161447.csv</span>
 <span class="r-in"><span><span class="va">list_of_plates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">list_of_plates</span>, <span class="fl">10</span><span class="op">)</span> <span class="co"># since we have only 3 plates i will repeat them 10 times</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">plot_levey_jennings</span><span class="op">(</span><span class="va">list_of_plates</span>, <span class="st">"ME"</span>, dilution <span class="op">=</span> <span class="st">"1/400"</span>, sd_lines <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">1.96</span>, <span class="fl">2.58</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -231,7 +231,7 @@ If <code>FALSE</code> plots using the plate order as in input. <code>TRUE</code>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

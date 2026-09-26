@@ -31,6 +31,7 @@ to `SerolyzeR` to better reflect its purpose and scope.
 The easiest way to install the package is using the CRAN repository:
 
 ``` r
+
 install.packages("SerolyzeR")
 require(SerolyzeR) # load the installed package
 ```
@@ -49,6 +50,7 @@ It can be done using a simple command `install_github` available in the
 `devtools` library:
 
 ``` r
+
 require(devtools)
 install_github("mini-pw/SerolyzeR")
 require(SerolyzeR) # load the installed package

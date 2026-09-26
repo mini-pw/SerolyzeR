@@ -91,6 +91,7 @@ http://dx.doi.org/10.1089/ten.tec.2012.0150
 ## Examples
 
 ``` r
+
 # read the plate
 plate_file <- system.file("extdata", "CovidOISExPONTENT.csv", package = "SerolyzeR")
 layout_file <- system.file("extdata", "CovidOISExPONTENT_layout.csv", package = "SerolyzeR")

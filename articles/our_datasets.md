@@ -22,6 +22,7 @@ function returns the path to the file, which can be used to read the
 data. The function has the following syntax:
 
 ``` r
+
 dataset_name <- "CovidOISExPONTENT.csv"
 
 dataset_filepath <- system.file("extdata", dataset_name, package = "SerolyzeR", mustWork = TRUE)
@@ -33,6 +34,7 @@ dataset, we can execute the `read_luminex_data` function to read the
 data. The function has the following syntax:
 
 ``` r
+
 library(SerolyzeR)
 
 plate <- read_luminex_data(dataset_filepath)
@@ -51,6 +53,7 @@ plate <- read_luminex_data(dataset_filepath)
     #> 
 
 ``` r
+
 plate
 ```
 
